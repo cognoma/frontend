@@ -1,0 +1,47 @@
+{"widget": {
+    "id": "model1234",
+    "genes": {
+        "title": "Sample Konfabulator Widget",
+        "name": "main_window",
+        "width": 500,
+        "height": 500
+    },
+    "samples": {
+        "title": "Sample Konfabulator Widget",
+        "name": "main_window",
+        "width": 500,
+        "height": 500
+    },
+    "algorithm": {
+        "title": "Sample Konfabulator Widget",
+        "name": "main_window",
+        "width": 500,
+        "height": 500
+    },
+    "submission": {
+        "src": "Images/Sun.png",
+        "name": "sun1",
+        "hOffset": 250,
+        "vOffset": 250,
+        "alignment": "center"
+    },
+    "results": {
+        "Status": "Completed - No Errors",
+        "Algorithm": "Two Class Decision Forest",
+        "Accuracy": "75%",
+        "f-Value": "0.73",
+        "table": {
+            "Status": "Completed - No Errors",
+            "Algorithm": "Two Class Decision Forest",
+            "Accuracy": "75%",
+            "f-Value": "0.73"
+          },
+        "table": {
+            "Status": "Completed - No Errors",
+            "Algorithm": "Two Class Decision Forest",
+            "Accuracy": "75%",
+            "f-Value": "0.73"
+          }
+
+    }
+}}
