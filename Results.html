@@ -4,9 +4,17 @@
   <title>Results</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!--Local Bootstrap-->
+  <!--<link rel="stylesheet" href="../BS/bootstrap-3.3.7-dist/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <script src="../BS/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../BS/bootstrap-3.3.7-dist/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>-->
+
+  <!--Web Bootstrap --> 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body >
 
@@ -75,7 +83,7 @@
       </ul>
     </div>
   </div>
-</nav>
+</nav> <!--nav class="navbar navbar-inverse"-->
 
 <!--put the meat here-->
 
@@ -222,62 +230,126 @@
 
     <div id="Results" class="tab-pane fade in active">
 
-    <div class="panel panel-default">
-        <div class="panel-heading">Summary</div>
-        <div class="panel-body">
-            <table class = "table table-bordered">
-            <!--<caption>Parameters</caption>-->
-                                  
-            <tbody>
-                <tr>
-                    <td>Status</td>
-                    <td>Completed - No Errors</td>
+        <div class="panel panel-default">
+            <div class="panel-heading">Summary</div>
+            <div class="panel-body">
+                <table class = "table table-bordered">
+                <!--<caption>Parameters</caption>-->
+                                    
+                <tbody>
+                    <tr>
+                        <td>Status</td>
+                        <td>Completed - No Errors</td>
+                        
+                    </tr>
+
+                    <tr>
+                        <td>Algorithm</td>
+                        <td>Two Class Decision Forest</td>
+                        
+                    </tr>
                     
-                </tr>
-
-                <tr>
-                    <td>Algorithm</td>
-                    <td>Two Class Decision Forest</td>
+                    <tr>
+                        <td>Accuracy</td>
+                        <td>75%</td>
+                    </tr>
                     
-                </tr>
-                
-                <tr>
-                    <td>Accuracy</td>
-                    <td>75%</td>
-                </tr>
-                
-                <tr>
-                    <td>f-Value</td>
-                    <td>0.73</td>
-                </tr>
+                    <tr>
+                        <td>f-Value</td>
+                        <td>0.73</td>
+                    </tr>
 
-            </tbody>
-                
-            </table>       
-        </div>
-        <!--<div class="panel-footer"> &nbsp; </div>-->
+                </tbody>
+                    
+                </table>       
+            </div>
+            <!--<div class="panel-footer"> &nbsp; </div>-->
+
+        </div> <!--class="panel-->
+        <div class="panel panel-default">
+            <div class="panel-heading">Details</div>
+            <div class="panel-body">
+
+                <div class="row"> 
+                    <div class="col-sm-6 col-md-3"> 
+                        <a href="#" class="thumbnail" data-toggle="modal" data-target="#resultModal">
+                        <img src="fig6b.png" alt="map" style="width:150px;height:150px"> 
+                        <div class="caption"> 
+                            <center>Results Table</center>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-3"> 
+                        <a href="#" class="thumbnail" data-toggle="modal" data-target="#resultModal">
+                        <img src="map.png" alt="map" style="width:150px;height:150px">  
+                        <div class="caption"> 
+                            <center>Heat Map</center>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-3"> 
+                        <a href="#" class="thumbnail" data-toggle="modal" data-target="#resultModal">
+                        <img src="tree.png" alt="map" style="width:150px;height:150px">
+                        <div class="caption"> 
+                            <center>Decision Tree</center>
+                        </div></a>  
+                    </div>
+                    <div class="col-sm-6 col-md-3"> 
+                        <a href="#" class="thumbnail" data-toggle="modal" data-target="#resultModal">
+                            
+                        <img src="fig6b.png" alt="map" style="width:150px;height:150px">
+                        <div class="caption"> 
+                            <center>Additional Results</center>
+                        </div>
+                        </a>  
+                    </div>
+                </div> <!--class="row"-->
+
+<!--***-->
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading">Details</div>
-        <div class="panel-body">
+                <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
 
-          
-        <a href="#" class="thumbnail">
-          <img src="map.png" alt="map" style="width:150px;height:150px"></a>         
-        <a href="#"" class="thumbnail">
-          <img src="fig6b.png" alt="table" style="width:150px;height:150px"></a>  
-        <a href="#" class="thumbnail">
-          <img src="tree.png" alt="table" style="width:150px;height:150px"></a>     
-        <!--<div class="panel-footer"> &nbsp; </div>-->
-      </div>
-    </div>
-      
-                       
-            
-    </div>
-  </div>
-</div>
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="resultsDetail" id="resultsDetail">Results Detail</h4>
+                            </div>
+                            <div class="modal-body">
+                                <h3>Here would be detailed results of the classifier. It could be a table, chart, or graph depending on the alogorithm selected.</h3>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                
+                            </div>
+                        
+                        </div> <!--class="modal-content"-->
+                    </div> <!--class="modal-dialog"-->
+                </div> <!--class="modal fade"-->
+
+
+<!--***-->
+
+
+
+
+            </div> <!--class="panel-body"-->
+    
+
+<!--***-->
+
+
+
+<!--***-->
+
+        </div> <!--class="panel panel-default"-->
+        
+    
+
+    </div> <!--id="Results"-->
+  </div> <!--class="tab-content"-->
+</div> <!--container-->
 
 
 <footer>
