@@ -29,18 +29,18 @@
         "Status": "Completed - No Errors",
         "Algorithm": "Two Class Decision Forest",
         "Accuracy": "75%",
-        "f-Value": "0.73",
+        "fValue": "0.73",
         "table": {
             "Status": "Completed - No Errors",
             "Algorithm": "Two Class Decision Forest",
             "Accuracy": "75%",
-            "f-Value": "0.73"
+            "fValue": "0.73"
           },
         "table": {
             "Status": "Completed - No Errors",
             "Algorithm": "Two Class Decision Forest",
             "Accuracy": "75%",
-            "f-Value": "0.73"
+            "fValue": "0.73"
           }
 
     }
