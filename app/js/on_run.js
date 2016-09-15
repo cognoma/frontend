@@ -10,7 +10,7 @@ function OnRun($rootScope, AppSettings) {
       $rootScope.pageTitle += ' \u2014 ';
     }
 
-    $rootScope.pageTitle += AppSettings.appTitle;
+    $rootScope.pageTitle += AppSettings.app.title;
   });
 
 }
