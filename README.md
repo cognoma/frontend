@@ -8,12 +8,13 @@ The main principle behind the branching model is the ONLY production ready commi
 
 - [Git Workflow Overview](https://www.atlassian.com/git/tutorials/comparing-workflows)
 - [Gitflow Process Explained](http://nvie.com/posts/a-successful-git-branching-model/)
-- [IDE Extensions](https://github.com/nvie/gitflow)
+- [IDE and text editor Extensions](https://github.com/nvie/gitflow)
 
 ---
 
 #Frontend Scaffolding
 **Based on [angularjs-gulp-browserify-boilerplate](angularjs-gulp-browserify-boilerplate)**
+
 
 A boilerplate using AngularJS, SASS, Gulp, and Browserify that also utilizes [these best AngularJS practices](https://github.com/toddmotto/angularjs-styleguide)  and Gulp best practices from [this resource](https://github.com/greypants/gulp-starter).
 
@@ -24,10 +25,11 @@ A boilerplate using AngularJS, SASS, Gulp, and Browserify that also utilizes [th
 1. Install [Node.js](https://nodejs.org/en/download/) ,*native JS engine*
 2. Install [Node Package Manager - npm](https://docs.npmjs.com/getting-started/installing-node), *node.js package manager*
 3. Clone this repo `$ git clone git@github.com:cognoma/frontend.git`
-4. Run `npm install` from project root directory
-5. Run `npm run dev`
-6. Your browser will automatically be opened and directed to the browser-sync proxy address
-7. To prepare assets for production, run the `npm run build` script (Note: the production task does not fire up the express server, and won't provide you with browser-sync's live reloading. Simply use `npm run dev` during development. More information below)
+4. Checkout the develop branch `$ cd frontend && git checkout develop`
+5. Run `npm install` from project root directory
+6. Run `npm run dev`
+7. Your browser will automatically be opened and directed to the browser-sync proxy address
+8. To prepare assets for production, run the `npm run build` script (Note: the production task does not fire up the express server, and won't provide you with browser-sync's live reloading. Simply use `npm run dev` during development. More information below)
 
 Now that `npm run dev` is running, the server is up as well and serving files from the `/build` directory. Any changes in the `/app` directory will be automatically processed by Gulp and the changes will be injected to any open browsers pointed at the proxy address.
 
@@ -51,9 +53,11 @@ AngularJS is a MVW (Model-View-Whatever) Javascript Framework for creating singl
 The AngularJS files are all located within `/app/js`, structured in the following manner:
 
 ```
-/controllers
-  index.js   (the main module on which all controllers will be mounted, loaded in main.js)
-  example.js
+/components
+  index.js   (the main module on which all components will be mounted, loaded in main.js)
+  ._example/ (each component is encapsulated in it's own directory, loaded in index.js)
+      example.component.js (component code )
+      examplet.tpl.html (component HTML template)
 /directives
   index.js   (the main module on which all directives will be mounted, loaded in main.js)
   example.js
@@ -146,7 +150,7 @@ Any images placed within `/app/images` will be automatically copied to the `buil
 
 When any changes are made to the `index.html` file, the new file is simply copied to the `/build/` directory without any changes occurring.
 
-Files inside `/app/views/`, on the other hand, go through a slightly more complex process. The `gulp-angular-templatecache` module is used in order to process all views/partials, creating the `template.js` file briefly mentioned earlier. This file will contain all the views, now in Javascript format inside Angular's `$templateCache` service. This will allow us to include them in our Javascript minification process, as well as avoid extra HTTP requests for our views.
+Files inside  `/app/js/components/**/*.tpl.html`, on the other hand, go through a slightly more complex process. The `gulp-angular-templatecache` module is used in order to process all views/partials, creating the `template.js` file briefly mentioned earlier. This file will contain all the views, now in Javascript format inside Angular's `$templateCache` service. This will allow us to include them in our Javascript minification process, as well as avoid extra HTTP requests for our views.
 
 ##### Watching files
 

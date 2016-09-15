@@ -4,21 +4,28 @@ import angular from 'angular';
 import constants from './constants';
 import onConfig  from './on_config';
 import onRun     from './on_run';
+import 'angular-animate';
 import 'angular-ui-router';
+import 'angular-ui-bootstrap';
 import './templates';
 import './filters';
-import './controllers';
-import './services';
+import './components';
 import './directives';
+import './services';
+
+
 
 // create and bootstrap application
 const requires = [
   'ui.router',
+  'ui.bootstrap',
+  'ngAnimate',
+  require('angular-touch'),
   'templates',
   'app.filters',
-  'app.controllers',
+  'app.components',
+  'app.directives',
   'app.services',
-  'app.directives'
 ];
 
 // mount on window for testing

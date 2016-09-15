@@ -8,13 +8,20 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
   $locationProvider.html5Mode(true);
 
   $stateProvider
-  .state('Home', {
-    url: '/',
-    controller: 'ExampleCtrl as home',
-    templateUrl: 'home.html',
-    title: 'Home'
-  });
-
+    .state({
+      name: 'app',
+      url: '/',
+      template: '<app></app>'
+      // component: 'app'
+    })
+    .state({
+      name: 'app.home',
+      url: 'home',
+      template:'<home></home>'
+      // component: 'home'
+    });
+  
+  
   $urlRouterProvider.otherwise('/');
 
 }

@@ -10,6 +10,7 @@ gulp.task('views', function() {
   const indexFile = gulp.src(config.views.index)
     .pipe(gulp.dest(config.buildDir));
 
+  
   // Process any other view files from app/views
   const views = gulp.src(config.views.src)
     .pipe(templateCache({
