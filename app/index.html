@@ -1,107 +1,21 @@
 <!doctype html>
-<html ng-app="cognomaApp">
+<html class="no-js">
   <head>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
-    <script src="results/results.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.1.0.js"></script>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+      <base href="/">
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title ng-bind="pageTitle"></title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width">
+      
+      <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="css/main.css">
+
   </head>
   <body>
+       
+     <ui-view></ui-view>
 
-<div ng-controller="DropdownCtrl">
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Cognoma</a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <!--<li class="active"><a href="#">Home</a></li>-->
-          <li class="dropdown" uib-dropdown>
-            <a class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown" href="#">Classifiers<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">New</a></li>
-              <li><a href="#">Open</a></li>
-              <li><a href="#">Open Recent</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Save</a></li>
-              <li><a href="#">Save As</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Close</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Exit</a></li>
-            </ul>
-          </li>
-          <li class="dropdown" uib-dropdown>
-            <a class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown" href="#">Results<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="/#/results?classification=model1234">Results for Current Classifier</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Status of Recent Classifiers</a></li>
-              <li><a href="#">Status of All Classifiers</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Completed Classifiers</a></li>
-            </ul>
-          </li>
-          <li class="dropdown" uib-dropdown>
-            <a class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown" href="#">Help<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Contents</a></li>
-              <li><a href="#">Search</a></li>
-              <li><a href="#">Tutorials</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Gene Documentation</a></li>
-              <li><a href="#">Sample Documentation</a></li>
-              <li><a href="#">Algorithm Documentation</a></li>
-              <li class="divider"></li>
-              <li><a href="#">License</a></li>
-              <li class="divider"></li>
-              <li><a href="#">About Us</a></li>
-            </ul>
-          </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</div>
-
-<div ng-view></div>
-
-<script>
-  angular.module('cognomaApp', ['ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngRoute', 'cognomaApp.results']);
-  angular.module('cognomaApp').controller('DropdownCtrl', function ($scope, $log) {
-
-    $scope.status = {
-      isopen: false
-    };
-
-    $scope.toggled = function(open) {
-      $log.log('Dropdown is now: ', open);
-    };
-
-    $scope.toggleDropdown = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-      $scope.status.isopen = !$scope.status.isopen;
-    };
-
-    $scope.appendToEl = angular.element(document.querySelector('#dropdown-long-content'));
-  });
-
-
-</script>
-
+      <script src="js/main.js"></script>
   </body>
 </html>

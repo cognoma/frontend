@@ -1,0 +1,136 @@
+<div ng-controller="tabsResultsCtrl" class="container">
+  <h2>Classification ID: <font color="green">{{resultDetails.name}}</font></h2>
+
+
+
+
+
+
+  <uib-tabset active="active">
+
+  <uib-tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}">
+     {{tab.content}}
+   </uib-tab>
+
+    <uib-tab index="4">
+      <uib-tab-heading>
+       Submission
+      </uib-tab-heading>
+    </uib-tab>
+
+    <uib-tab index="5">
+      <uib-tab-heading>
+      Results
+      </uib-tab-heading>
+
+      <div id="Results" class="tab-pane fade in active">
+
+          <div class="panel panel-default">
+              <div class="panel-heading">Summary</div>
+              <div class="panel-body">
+                  <table class = "table table-bordered">
+                  <!--<caption>Parameters</caption>-->
+
+                  <tbody>
+                      <tr>
+                          <td>Status</td>
+                          <td>{{resultDetails.status}}</td>
+
+                      </tr>
+
+                      <tr>
+                          <td>Algorithm</td>
+                          <td>{{resultDetails.algorithm}}</td>
+
+                      </tr>
+
+                      <tr>
+                          <td>Accuracy</td>
+                          <td>{{resultDetails.accuracy}}</td>
+                      </tr>
+
+                      <tr>
+                          <td>f-Value</td>
+                          <td>{{resultDetails.fValue}}</td>
+                      </tr>
+
+                  </tbody>
+
+                  </table>
+              </div>
+              <!--<div class="panel-footer"> &nbsp; </div>-->
+
+          </div> <!--class="panel-->
+
+          <div class="panel panel-default">
+              <div class="panel-heading">Details</div>
+              <div class="panel-body">
+
+                <div ng-controller="ModalDemoCtrl as $ctrl">
+                    <script type="text/ng-template" id="myModalContent.html">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="modal-title">I'm a modal!</h3>
+                        </div>
+                        <div class="modal-body" id="modal-body">
+                            <ul>
+                                <li ng-repeat="item in $ctrl.items">
+                                    <a href="#" ng-click="$event.preventDefault(); $ctrl.selected.item = item">{{ item }}</a>
+                                </li>
+                            </ul>
+                            Selected: <b>{{ $ctrl.selected.item }}</b>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+                            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+                        </div>
+                    </script>
+
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3">
+                            <a href="" class="thumbnail" data-toggle="modal" data-target="#resultModal" ng-click="$ctrl.open()">
+                            <img src="images/fig6b.png" alt="map" style="width:150px;height:150px">
+                            <div class="caption">
+                                <center>Results Table</center>
+                            </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <a href="" class="thumbnail" data-toggle="modal" data-target="#resultModal" ng-click="$ctrl.open()">
+                            <img src="images/map.png" alt="map" style="width:150px;height:150px">
+                            <div class="caption">
+                                <center>Heat Map</center>
+                            </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <a href="" class="thumbnail" data-toggle="modal" data-target="#resultModal" ng-click="$ctrl.open()">
+                            <img src="images/tree.png" alt="map" style="width:150px;height:150px">
+                            <div class="caption">
+                                <center>Decision Tree</center>
+                            </div></a>
+                        </div>
+
+                        <div class="col-sm-6 col-md-3">
+                            <a href="" class="thumbnail" data-toggle="modal" data-target="#resultModal"   ng-click="$ctrl.open()">
+                            <img src="images/fig6b.png" alt="map" style="width:150px;height:150px">
+                            <div class="caption">
+                                <center>Additional Results</center>
+                            </div></a>
+                        </div>
+
+                    </div> <!--class="row"-->
+
+                </div>
+
+
+
+  <!--***-->
+
+
+
+
+    </uib-tab>
+
+  </uib-tabset>
+
+</div>
