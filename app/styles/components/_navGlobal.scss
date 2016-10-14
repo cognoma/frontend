@@ -1,0 +1,27 @@
+/* =======================================================================
+  Component: navGlobal
+  ========================================================================== */
+#nav-global{
+	padding:0px;
+	background: $gray-lighter;
+
+	.nav-pills-item{
+		margin:0;
+		width: 100%;
+		&.active{
+			border-left:3px solid green;
+			a{
+				background: $black;
+				color:$white;
+			}
+
+		}
+		a{
+			width: 100%;
+			height: 56px;
+			color: $black;
+		}
+	}
+
+
+}

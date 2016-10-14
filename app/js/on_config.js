@@ -9,16 +9,33 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
 
   $stateProvider
     .state({
-      name: 'app',
-      url: '/',
-      template: '<app></app>'
-      // component: 'app'
+      name:         'app',
+      url:          '/',
+      template:     '<app id="app" class="clearfix"></app>'
     })
     .state({
-      name: 'app.home',
-      url: 'home',
-      template:'<home></home>'
-      // component: 'home'
+      name:       'app.queryBuilder',
+      url:        'query-builder',
+      component:  'queryBuilder',
+      redirectTo: 'app.queryBuilder.mutations'
+    })
+    .state({
+      name:  'app.queryBuilder.mutations',
+      url:   '/mutations',
+      views: {
+        'queryOverview':      {component: 'queryOverview'},
+        'querySet':           {component: 'querySetMutations'},
+        'queryParamSelector': {component: 'queryParamSelector'}
+      }
+    })
+    .state({
+      name:         'app.queryBuilder.diseaseType',
+      url:           '/disease-type',
+      views:{
+        'queryOverview':      {component: 'queryOverview'},
+        'querySet':           {component: 'querySetDiseaseType'},
+        'queryParamSelector': {component: 'queryParamSelector'}
+      }
     });
   
   
