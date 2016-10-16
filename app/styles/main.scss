@@ -1,9 +1,41 @@
 @import 'vars';
 @import 'typography';
+@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
+
+// components
+@import "components/_navGlobal";
+
+
 
 body {
   font-family: Helvetica, sans-serif;
   color: $font-color--dark;
-  background-color: $background--light;
-  padding: $half-space;
 }
+
+.container-fluid{ padding:0; }
+
+/* =======================================================================
+  Application Base 
+ ========================================================================== */
+#app{
+	width: 100vw;
+	height: 100vh;
+	display: block;	
+}
+
+	.dashboard-column{
+		display:block;
+		height: 100%;
+	}
+
+	
+/* =======================================================================
+  Query Builder 
+  ========================================================================== */
+#query-builder{
+	height: 100vh;
+	background:$black;
+}
+@import "components/_queryOverview";
+@import "components/_querySet";
+@import "components/_queryParamSelector";
