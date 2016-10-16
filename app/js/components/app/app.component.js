@@ -1,9 +1,9 @@
 const AppComponent = {
     templateUrl: 'app/app.tpl.html',
     bindings: {},
+	transclude: true,    
     controller: function () {
-    	
-    	
+    	'ngInject';
     }
 }
 

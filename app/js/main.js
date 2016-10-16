@@ -5,11 +5,12 @@ import constants from './constants';
 import onConfig  from './on_config';
 import onRun     from './on_run';
 import 'angular-animate';
+import './components';
 import 'angular-ui-router';
+import 'ui-router-route-to-components';
 import 'angular-ui-bootstrap';
 import './templates';
 import './filters';
-import './components';
 import './directives';
 import './services';
 
@@ -17,6 +18,7 @@ import './services';
 
 // create and bootstrap application
 const requires = [
+  'ui.router.components',
   'ui.router',
   'ui.bootstrap',
   'ngAnimate',
