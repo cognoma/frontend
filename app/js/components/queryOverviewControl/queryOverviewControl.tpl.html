@@ -1,0 +1,43 @@
+<div 
+	class="query-overview--control 
+			query-overview--{{$ctrl.title.toLowerCase()}}
+			"
+>
+
+  <h4 class="query-overview--control-title" >
+  	<span class="badge badge--counter">{{$ctrl.paramList.length}}</span>{{$ctrl.title}}
+  </h4>
+
+  <h5 ng-if="$ctrl.setTitle" class="query-overview--control-setTitle">{{$ctrl.setTitle}}</h5>
+
+  <info-box
+  	ng-if="$ctrl.desc"
+  	message="{{$ctrl.desc}}"
+  ></info-box>
+
+  <div class="row query-overview--control-params">
+		
+  		<mutation-listing
+  			ng-if=" $ctrl.listType == 'genes' "
+  			ng-repeat="setParam in $ctrl.paramList"
+  			entrezid="{{setParam.entrezid}}"
+  		></mutation-listing>
+
+  		<disease-listing
+  			ng-if="$ctrl.listType == 'disease'"
+  			ng-repeat="setParam in $ctrl.paramList"
+  			name="{{setParam.diseaseName}}"
+  			samples="setParam.samples"
+  		></disease-listing>
+
+  		<button 
+  			ng-class="{ 'col-xs-5': $ctrl.listType == 'genes',
+  						'col-xs-10': $ctrl.listType == 'disease' }"
+  			class="query-overview--control-param  query-overview--control-param-add">
+  			ADD <span ng-if="$ctrl.listType == 'genes'"> GENE</span>
+  			<span ng-if="$ctrl.listType == 'disease'"> DISEASE TYPE</span>
+  				
+  		</buttom>	
+  </div>
+
+</div>
