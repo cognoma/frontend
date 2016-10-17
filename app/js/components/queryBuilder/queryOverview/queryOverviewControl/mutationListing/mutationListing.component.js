@@ -1,5 +1,5 @@
 const mutationListingComponent = {
-    templateUrl: 'mutationListing/mutationListing.tpl.html',
+    templateUrl: 'queryBuilder/queryOverview/queryOverviewControl/mutationListing/mutationListing.tpl.html',
     bindings: {
         entrezid: '@'
     },

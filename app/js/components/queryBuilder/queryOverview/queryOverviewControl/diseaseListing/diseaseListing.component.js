@@ -1,5 +1,5 @@
 const diseaseListingComponent = {
-    templateUrl: 'diseaseListing/diseaseListing.tpl.html',
+    templateUrl: 'queryBuilder/queryOverview/queryOverviewControl/diseaseListing/diseaseListing.tpl.html',
     bindings: {
         name: '@',
         samples: '='

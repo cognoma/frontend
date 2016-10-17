@@ -1,5 +1,5 @@
 const QueryOverviewControlComponent = {
-    templateUrl: 'queryOverviewControl/queryOverviewControl.tpl.html',
+    templateUrl: 'queryBuilder/queryOverview/queryOverviewControl/queryOverviewControl.tpl.html',
     bindings: {
     	title:    '@',
         setTitle: '@',

@@ -1,5 +1,5 @@
 const QuerySetDiseaseTypeComponent = {
-    templateUrl: 'querySetDiseaseType/querySetDiseaseType.tpl.html',
+    templateUrl: 'queryBuilder/querySets/querySetDiseaseType/querySetDiseaseType.tpl.html',
     bindings: {},
 	transclude: true,    
     controller: function () {

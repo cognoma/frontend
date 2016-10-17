@@ -1,5 +1,5 @@
 const QueryOverviewComponent = {
-    templateUrl: 'queryOverview/queryOverview.tpl.html',
+    templateUrl: 'queryBuilder/queryOverview/queryOverview.tpl.html',
     bindings: {},
 	transclude: true,    
 	require:{

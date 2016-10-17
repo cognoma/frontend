@@ -1,5 +1,5 @@
 const QuerySetMutationsComponent = {
-    templateUrl: 'querySetMutations/querySetMutations.tpl.html',
+    templateUrl: 'queryBuilder/querySets/querySetMutations/querySetMutations.tpl.html',
     bindings: {},
 	transclude: true,    
     controller: function () {

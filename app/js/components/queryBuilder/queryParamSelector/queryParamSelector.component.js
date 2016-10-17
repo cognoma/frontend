@@ -1,5 +1,5 @@
 const QueryParamSelectorComponent = {
-    templateUrl: 'queryParamSelector/queryParamSelector.tpl.html',
+    templateUrl: 'queryBuilder/queryParamSelector/queryParamSelector.tpl.html',
     bindings: {},
 	transclude: true,    
     controller: function () {
