@@ -6,7 +6,8 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
   }
 
   $locationProvider.html5Mode(true);
-
+  $urlRouterProvider.when('/query-builder','/query-builder/mutations');
+  
   $stateProvider
     .state({
       name:         'app',
@@ -17,7 +18,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       name:       'app.queryBuilder',
       url:        'query-builder',
       component:  'queryBuilder',
-      redirectTo: 'app.queryBuilder.mutations'
+      redirectTo: '/query-builder/mutations'
     })
     .state({
       name:  'app.queryBuilder.mutations',

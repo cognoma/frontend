@@ -1,7 +1,16 @@
 /* =======================================================================
   Component: querySet 
  ========================================================================== */
-#query-set{
-	background: $gray-dark;	
+.query-set{
+	background: #9B9B9B;	
 	color:$white;
+
+
+	.dashboard-column-header{
+		background: rgba($black, 0.5);
+	}
+	
+
+
+
 }

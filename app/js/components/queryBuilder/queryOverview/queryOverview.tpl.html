@@ -1,0 +1,32 @@
+<div class="row dashboard-column-header">
+  <h2>QUERY</h2>
+</div>
+
+
+<query-overview-control 
+  class="row ng-isolate-scope" 
+  title="Mutations" 
+  set-title="Gene Set" 
+  desc="classify samples by their mutation status in selected genes" 
+  list-type="genes" 
+  param-list="[{entrezid: 'XXx1x'}, {entrezid: 'ABscd'}, {entrezid: 'Foobar'}]">
+</query-overview-control>
+
+
+<query-overview-control 
+  class="row ng-isolate-scope" 
+  title="Disease Type" 
+  set-title="" 
+  desc="Select Samples to Include in Query by Disease Type" 
+  list-type="disease" 
+  param-list="[
+         {diseaseName: 'Adrenocortical Carcinoma', samples:[{foo:'bar'},{foo:'bar'},{foo:'bar'}]}, 
+         {diseaseName: 'Adrenocortical Carcinoma', samples:[{foo:'bar'},{foo:'bar'},{foo:'bar'}]}, 
+         {diseaseName: 'Adrenocortical Carcinoma', samples:[{foo:'bar'},{foo:'bar'},{foo:'bar'}]}, 
+         {diseaseName: 'Adrenocortical Carcinoma', samples:[{foo:'bar'},{foo:'bar'},{foo:'bar'}]}
+         ]">
+</query-overview-control >
+
+
+
+
