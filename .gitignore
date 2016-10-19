@@ -2,6 +2,8 @@ logs/*
 !.gitkeep
 node_modules/
 archive/
+build/
+test/reports/
 e2e-tests/
 bower_components/
 tmp
