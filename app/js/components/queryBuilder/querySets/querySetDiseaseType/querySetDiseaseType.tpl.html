@@ -1,3 +1,44 @@
-<div class="dashboard-column-header">
-  <h2>DISEASE TYPE SET</h2>
+  <div class="dashboard-column-header">
+    <h2>DISEASE Type SET</h2>
+    <span class="badge">{{$ctrl.diseaseList.length}}</span>
+  </div>
+  <div class="list-controls">
+    <div class="col-xs-10">
+      <span>SELECTED DISEASE TYPES</span>
+      <span class="glyphicon glyphicon-sort"></span>
+    </div>
+    <div class="col-xs-2">
+      <span class="label clear-button disease-clear-button">CLEAR</span>
+    </div>
+  </div>
+  <div class="col-xs-12 sample-set-bar">
+    <span>SAMPLES 100</span>
+    <span>POSTIVES
+      <span class="glyphicon glyphicon-plus-sign text-success"></span>
+      60</span>
+    <span>NEGATIVES
+      <span class="glyphicon glyphicon-minus-sign text-danger"></span>
+      40</span>
+  </div>
+<!-- Disease Cards -->
+<div class="card-container">
+<div class="disease-card-display col-xs-12">
+  <disease-card
+    ng-if="$ctrl.diseaseList.length"
+    ng-repeat="setParam in $ctrl.diseaseList"
+    id="{{setParam.id}}"
+    positives="{{setParam.positives}}"
+    negatives="{{setParam.negatives}}"
+  ></disease-card>
+  <div class="empty-card-space col-xs-12">
+    <h4 class="empty-card-text"
+      ng-if="!$ctrl.diseaseList.length"
+    >
+      DRAG AND DROP OR CLICK GENES TO ADD
+    </h4>
+  </div>
 </div>
+
+</div>
+<!-- Ng repeat the selected Gene types -->
+<!-- Empty Card Space -->
