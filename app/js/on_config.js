@@ -5,7 +5,11 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     $compileProvider.debugInfoEnabled(false);
   }
 
-  $locationProvider.html5Mode(true);
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false
+  });
+  
   $urlRouterProvider.when('/query-builder','/query-builder/mutations');
   
   $stateProvider

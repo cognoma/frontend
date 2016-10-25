@@ -6,9 +6,16 @@ import gutil from 'gulp-util';
 import browserSync from 'browser-sync';
 
 
+
+let _TEST_SERVER, _TEST_REPORT;
+
+
+// fire up an instance of browserSync to show the Karma HTML Reports
+// and live reload them as we code
 let showReport = ()=>{
-    console.log('showReport');
-    browserSync.init({
+ _TEST_REPORT = browserSync.create('test_report');
+
+ _TEST_REPORT.init({
     server: {
       baseDir: config.test.reports+'unit_tests/report-summary',
     port: config.testPort,
@@ -19,24 +26,34 @@ let showReport = ()=>{
       links: false
     }
   }});
+    
 };
 
 
-gulp.task('unit', function (done) {
-  new Server({
-    configFile: path.resolve(__dirname, '../..', config.test.karma),
-    singleRun: true
+// start up our test servers and live reload our test on each save
+gulp.task('unit', (done) =>{
+
+  // setup Karma runner server
+  _TEST_SERVER = new Server({
+    configFile: path.resolve(__dirname, '../..', config.test.karma)
   }, function(err){
 
-        if(err === 0){
-            showReport();
-            // done();
+        if(err === 0){            
+            done();
         } else {
             done(new gutil.PluginError('karma', {
                 message: 'Karma Tests failed'
             }));
         }
-    }).start();
+        
+    });
 
+  _TEST_SERVER.start();
+  showReport();
+  _TEST_SERVER.on('run_complete',() =>{
+    _TEST_REPORT.reload();
+  });
+
+  // showReport();
 });
 
