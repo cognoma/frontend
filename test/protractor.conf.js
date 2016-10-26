@@ -12,8 +12,8 @@ exports.config = {
 
   capabilities: {
     browserName: 'chrome',
-    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-    build: process.env.TRAVIS_BUILD_NUMBER,
+    // 'tunnel-identifier': process.env.CIRCLE_JOB_NUMBER,
+    build: process.env.CIRCLE_BUILD_NUM,
     name: 'Protractor Tests'
   },
 

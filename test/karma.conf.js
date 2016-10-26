@@ -7,11 +7,8 @@ const karmaBaseConfig = {
 
   singleRun: false,
   autoWatch: true,
-  // restartOnFileChange: true,
-  client: {
-    captureConsole: false
-  },
   frameworks: ['jasmine', 'browserify'],
+  
 
   preprocessors: {
     'app/js/**/*.js': ['browserify', 'coverage'],
@@ -82,11 +79,13 @@ const customLaunchers = {
 };
 
 const ciAdditions = {
+  singleRun: true,
+  autoWatch: false,
   sauceLabs: {
     testName: 'Karma Unit Tests',
     startConnect: false,
-    build: process.env.TRAVIS_BUILD_NUMBER,
-    tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER
+    build: process.env.CIRCLE_BUILD_NUM,
+    // tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER
   },
   browsers: Object.keys(customLaunchers),
   customLaunchers: customLaunchers,
@@ -95,6 +94,8 @@ const ciAdditions = {
 };
 
 module.exports = function(config) {
-  const isCI = process.env.CI && Boolean(process.env.TRAVIS_PULL_REQUEST);
+  const isCI = process.env.CI && Boolean(process.env.CI_PULL_REQUEST);
+  karmaBaseConfig.logLevel = isCI ? config.LOG_DEBUG : config.LOG_ERROR;
+
   config.set(isCI ? Object.assign(karmaBaseConfig, ciAdditions) : karmaBaseConfig);
 };
