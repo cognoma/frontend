@@ -10,7 +10,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     requireBase: false
   });
   
-  $urlRouterProvider.when('/query-builder','/query-builder/mutations');
+  
   
   $stateProvider
     .state({
@@ -44,7 +44,9 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     });
   
   
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider
+    .when('/query-builder','/query-builder/mutations')
+    .otherwise('/');
 
 }
 
