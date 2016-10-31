@@ -20,12 +20,12 @@ body {
 .container-fluid{ padding:0; }
 
 /* =======================================================================
-  Application Base 
+  Application Base
  ========================================================================== */
 #app{
 	width: 100vw;
 	height: 100vh;
-	display: block;	
+	display: block;
 }
 
 	.dashboard-column{
@@ -37,10 +37,10 @@ body {
 	.dashboard-column-header{
 		width: 100%;
 		height: 40px;
-		
+
 		margin:0;
 		padding: 5px 0 0 0;
-		
+
 
 		h2{
 			padding:0;
@@ -53,9 +53,9 @@ body {
 		}
 	}
 
-	
+
 /* =======================================================================
-  Query Builder 
+  Query Builder
   ========================================================================== */
 #query-builder{
 	height: 100vh;
@@ -65,10 +65,11 @@ body {
 @import "components/_queryOverviewControl";
 @import "components/_querySet";
 @import "components/_queryParamSelector";
-
+@import "components/_querySetMutations";
+@import "components/_querySetDiseaseType";
 
 /* =======================================================================
-  Info Box (tooltip) 
+  Info Box (tooltip)
  ========================================================================== */
  .info-box{
  	width: 100%;
@@ -86,26 +87,26 @@ body {
 		position: absolute;
 		top:-10px;
 		left: 20px;
-		width: 0; 
-  		height: 0; 
+		width: 0;
+  		height: 0;
   		border-left: 10px solid transparent;
   		border-right: 10px solid transparent;
-  		
+
   		border-bottom: 10px solid rgba($black, 0.25);
 	}
 
-	.glyphicon{ 
+	.glyphicon{
 		padding:7px 0 0 0;
 		margin:0;
 	}
 	.glyphicon-info-sign{
-		font-size:16px; 
+		font-size:16px;
 		float:left;
 		padding-right:10px;
 	}
 	.glyphicon-remove-circle{
 		float:right;
-		font-size:12px; 
+		font-size:12px;
 	}
 
  }
@@ -115,3 +116,11 @@ body {
  		display:inline-block;
 		float:left;
  	}
+  /* =======================================================================
+    geneCard
+   ========================================================================== */
+@import "components/_geneCard";
+/* =======================================================================
+  diseaseCard
+ ========================================================================== */
+ @import "components/_diseaseCard";
