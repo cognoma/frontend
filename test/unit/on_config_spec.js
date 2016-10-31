@@ -103,22 +103,22 @@ describe('UNIT: on_config', function () {
                 expect($_state.includes(_parentState)).toBeTruthy();
             });
 
-            it('should activate it"s own state', function() {
-                goTo(_state);
-                expect($_state.current.name).toBe(_state);
-            });
+            
+            // it('should have correct component template defined', function() {
+            //     goTo(_state);
+            //     expect($_state.$current.component).toBeDefined();
+            //     expect($_state.$current.component).toEqual('queryBuilder');
+            // });
 
+            // it('should have redirectTo defined', function() {
+            //     goTo(_state);
+            //     expect($_state.$current.redirectTo).toBeDefined();
+            //     expect($_state.$current.redirectTo).toEqual('/query-builder/mutations');
+            // });
 
-            it('should have correct component template defined', function() {
+            it('should activate redirectTo app.queryBuilder.mutations', function() {
                 goTo(_state);
-                expect($_state.$current.component).toBeDefined();
-                expect($_state.$current.component).toEqual('queryBuilder');
-            });
-
-            it('should have redirectTo defined', function() {
-                goTo(_state);
-                expect($_state.$current.redirectTo).toBeDefined();
-                expect($_state.$current.redirectTo).toEqual('/query-builder/mutations');
+                expect($_state.current.name).toBe('app.queryBuilder.mutations');
             });
 
         });

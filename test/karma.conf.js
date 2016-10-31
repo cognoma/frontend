@@ -62,11 +62,13 @@ const karmaBaseConfig = {
     // app-specific code
     'app/js/main.js',
 
+    'app/js/templates.js',
+
     // 3rd-party resources
     'node_modules/angular-mocks/angular-mocks.js',
 
     // test files
-    'test/unit/**/*.js'
+    'test/unit/**/**/**/**/*.js'
   ]
 
 };

@@ -1,10 +1,9 @@
 const AppComponent = {
     templateUrl: 'app/app.tpl.html',
     bindings: {},
-	transclude: true,    
-    controller: ['$state',function ($state) {
+    controller: [()=>{
         	'ngInject';
-        }]
+   }]
 }
 
 export default {

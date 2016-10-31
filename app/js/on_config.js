@@ -11,6 +11,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
   });
   
   
+  $urlRouterProvider.when('/query-builder','/query-builder/mutations');
   
   $stateProvider
     .state({
@@ -20,12 +21,14 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     })
     .state({
       name:       'app.queryBuilder',
+      title:       'Query Builder:',
       url:        'query-builder',
       component:  'queryBuilder',
       redirectTo: '/query-builder/mutations'
     })
     .state({
       name:  'app.queryBuilder.mutations',
+      title: 'Query Builder: Mutations',
       url:   '/mutations',
       views: {
         'queryOverview':      {component: 'queryOverview'},
@@ -35,6 +38,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     })
     .state({
       name:         'app.queryBuilder.diseaseType',
+      title:       'Query Builder: Disease Type',
       url:           '/disease-type',
       views:{
         'queryOverview':      {component: 'queryOverview'},
@@ -44,9 +48,9 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     });
   
   
-  $urlRouterProvider
-    .when('/query-builder','/query-builder/mutations')
-    .otherwise('/');
+  
+    
+    $urlRouterProvider.otherwise('/');
 
 }
 

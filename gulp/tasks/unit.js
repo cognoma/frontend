@@ -13,6 +13,7 @@ let _TEST_SERVER, _TEST_REPORT;
 // fire up an instance of browserSync to show the Karma HTML Reports
 // and live reload them as we code
 let showReport = ()=>{
+
  _TEST_REPORT = browserSync.create('test_report');
 
  _TEST_REPORT.init({
