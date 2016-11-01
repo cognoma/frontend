@@ -1,12 +1,12 @@
 const QueryBuilderComponent = {
     templateUrl: 'queryBuilder/queryBuilder.tpl.html',
     bindings: {},
-    transclude: true,
-    controller: ['$state',function($state) {
+    controller: function() {
         	'ngInject';
-        	console.log($state.get('app.queryBuilder.mutations'));
-    
-        }]
+        	this.diseaseList = [{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20}];
+        	this.mutationList = [{id: 'xxx1x', name: 'gene name', desc: 'a desc', link: 'cardlink'},{id: 'xxx2x', name: 'gene name', desc: 'a desc', link: 'cardlink'},{id: 'xxx3x', name: 'gene name', desc: 'a desc', link: 'cardlink'}];
+   
+        }
 }
 
 export default {
