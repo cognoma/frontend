@@ -2,12 +2,12 @@ const diseaseListingComponent = {
     templateUrl: 'queryBuilder/queryOverview/queryOverviewControl/diseaseListing/diseaseListing.tpl.html',
     bindings: {
         name: '@',
-        samples: '='
+        positives: '=',
+        negatives: '='
     },
-	transclude: 'true',    
     controller: function () {
     	'ngInject';
-        // let vm = this;
+        console.log(this);
     }
 }
 
