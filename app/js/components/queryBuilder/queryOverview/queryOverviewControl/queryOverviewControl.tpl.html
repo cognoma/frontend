@@ -21,13 +21,15 @@
   		<mutation-listing
   			ng-if=" $ctrl.listType == 'genes' "
   			ng-repeat="setParam in $ctrl.paramList"
-  			entrezid="{{setParam.entrezid}}"
-  		><
+  			entrezid="{{setParam.id}}"
+  		></mutation-listing>
+
   		<disease-listing
   			ng-if="$ctrl.listType == 'disease'"
   			ng-repeat="setParam in $ctrl.paramList"
-  			name="{{setParam.diseaseName}}"
-  			samples="setParam.samples"
+  			name="{{setParam.id}}"
+        positives="setParam.positives"
+        negatives="setParam.negatives"
   		></disease-listing>
 
   		<button 

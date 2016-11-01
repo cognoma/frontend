@@ -7,10 +7,12 @@ const QueryOverviewControlComponent = {
         listType: '@',
         paramList:'='
     },
-	transclude: true,    
+    require:{
+        'parent': '^queryBuilder'
+    },
     controller: [function () {
         'ngInject';
-    
+        console.log(this);
     }]
 }
 
