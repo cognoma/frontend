@@ -12,12 +12,29 @@ describe('Unit: Constants', function() {
     });
   });
 
+  constants = {
+        app:{
+          title: 'Cognoma',
+          version: '0.0.1'
+        },
+      
+        api:{
+          baseUrl: '/api/v1',
+        }
+      
+      };
+
   it('should exist', function() {
     expect(constants).toBeDefined();
   });
 
-  xit('should have an application name', function() {
-    expect(constants.appTitle).toEqual('Example Application');
+  it('should have an application title', function() {
+    expect(constants.app.title).toEqual('Cognoma');
   });
+
+  it('should have an application version', function() {
+    expect(constants.app.version).toEqual('0.0.1');
+  });
+
 
 });

@@ -71,6 +71,7 @@
     "gulp-notify": "^2.0.0",
     "gulp-protractor": "^3.0.0",
     "gulp-rename": "^1.2.0",
+    "gulp-run-sequence": "^0.3.2",
     "gulp-sass": "^2.0.4",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-streamify": "^1.0.2",
@@ -92,6 +93,7 @@
     "run-sequence": "^1.1.5",
     "tiny-lr": "^0.2.1",
     "uglifyify": "^3.0.1",
+    "ui-router-route-to-components": "^0.1.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"

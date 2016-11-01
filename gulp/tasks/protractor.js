@@ -1,7 +1,6 @@
 import config     from '../config';
 import testServer from '../util/testServer';
 import gulp       from 'gulp';
-import path       from 'path';
 import {
   protractor,
   webdriver_update, // eslint-disable-line camelcase

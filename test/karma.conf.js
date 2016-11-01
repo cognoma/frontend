@@ -5,8 +5,12 @@ const karmaBaseConfig = {
 
   basePath: '../',
 
-  singleRun: true,
-
+  singleRun: false,
+  autoWatch: true,
+  // restartOnFileChange: true,
+  client: {
+    captureConsole: false
+  },
   frameworks: ['jasmine', 'browserify'],
 
   preprocessors: {
@@ -16,7 +20,7 @@ const karmaBaseConfig = {
 
   browsers: ['Chrome'],
 
-  reporters: ['progress', 'coverage', 'html'],
+  reporters: ['coverage', 'html','dots'],
 
   htmlReporter: {
       outputDir: 'test/reports/unit_tests', // where to put the reports  
@@ -36,7 +40,6 @@ const karmaBaseConfig = {
       dir : 'test/reports/coverage/'
   },
 
-  autoWatch: true,
 
   browserify: {
     debug: true,
