@@ -14,7 +14,7 @@ import './filters';
 import './directives';
 import './services';
 
-import * as _ from "underscore";
+import * as _ from 'underscore';
 
 // small underscore.js factory
 let underscore = angular.module('lib.underscore', []);

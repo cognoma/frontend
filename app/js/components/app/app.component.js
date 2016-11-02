@@ -2,7 +2,7 @@ const AppComponent = {
     templateUrl: 'app/app.tpl.html',
     bindings: {},
     controller: [()=>{
-        	'ngInject';
+        'ngInject';
    }]
 }
 
