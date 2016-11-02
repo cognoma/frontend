@@ -7,7 +7,6 @@ const diseaseListingComponent = {
     },
     controller: function () {
     	'ngInject';
-        console.log(this);
     }
 }
 

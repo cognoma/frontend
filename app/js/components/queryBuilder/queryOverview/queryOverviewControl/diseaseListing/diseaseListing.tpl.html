@@ -1,9 +1,9 @@
 <div class="col-xs-10 query-overview--control-param disease-listing">
-  	<span class="query-overview--control-param-title">{{$ctrl.name}}</span>
+  	<span class="query-overview--control-param-title js-test-name">{{$ctrl.name}}</span>
   	<summary class="control-param-summary">
-  		<p class="sample-count">SAMPLES  <strong>{{$ctrl.positives + $ctrl.negatives}}</strong> </p>
-  		<p class="sample-positives"> <span class="glyphicon glyphicon-plus-sign"></span> <strong>{{$ctrl.positives}}</strong> </p>
-  		<p class="sample-negatives"> <span class="glyphicon glyphicon-minus-sign"></span> <strong>{{$ctrl.negatives}}</strong> </p>
+  		<p class="sample-count">SAMPLES  <strong class="js-test-sampleCount">{{$ctrl.positives + $ctrl.negatives}}</strong> </p>
+  		<p class="sample-positives"> <span class="glyphicon glyphicon-plus-sign"></span> <strong class="js-test-positives">{{$ctrl.positives}}</strong> </p>
+  		<p class="sample-negatives"> <span class="glyphicon glyphicon-minus-sign"></span> <strong class="js-test-negatives">{{$ctrl.negatives}}</strong> </p>
   	</summary>
   	<button class="glyphicon glyphicon-remove-circle text-danger col-lg-1" aria-hidden="true"></button>
  </div>	  		
