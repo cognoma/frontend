@@ -1,4 +1,4 @@
-describe('UNIT::component: diseaseListing', () => {
+xdescribe('UNIT::component: diseaseListing', () => {
 
   let parentScope;
   let element;  
