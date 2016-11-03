@@ -14,6 +14,11 @@ import './filters';
 import './directives';
 import './services';
 
+import * as _ from 'underscore';
+
+// small underscore.js factory
+let underscore = angular.module('lib.underscore', []);
+underscore.factory('_', ()=>{ return _;});
 
 
 // create and bootstrap application
@@ -28,6 +33,7 @@ const requires = [
   'app.components',
   'app.directives',
   'app.services',
+  'lib.underscore'
 ];
 
 // mount on window for testing

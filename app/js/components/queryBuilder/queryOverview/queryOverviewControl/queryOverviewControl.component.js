@@ -7,10 +7,8 @@ const QueryOverviewControlComponent = {
         listType: '@',
         paramList:'='
     },
-	transclude: true,    
     controller: [function () {
         'ngInject';
-    
     }]
 }
 

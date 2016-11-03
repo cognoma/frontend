@@ -9,7 +9,7 @@
   set-title="Gene Set" 
   desc="classify samples by their mutation status in selected genes" 
   list-type="genes" 
-  param-list="[{entrezid: 'XXx1x'}, {entrezid: 'ABscd'}, {entrezid: 'Foobar'}]">
+  param-list="$ctrl.parent.mutationList">
 </query-overview-control>
 
 
@@ -19,12 +19,7 @@
   set-title="" 
   desc="Select Samples to Include in Query by Disease Type" 
   list-type="disease" 
-  param-list="[
-         {diseaseName: 'Adrenocortical Carcinoma', samples:[{foo:'bar'},{foo:'bar'},{foo:'bar'}]}, 
-         {diseaseName: 'Adrenocortical Carcinoma', samples:[{foo:'bar'},{foo:'bar'},{foo:'bar'}]}, 
-         {diseaseName: 'Adrenocortical Carcinoma', samples:[{foo:'bar'},{foo:'bar'},{foo:'bar'}]}, 
-         {diseaseName: 'Adrenocortical Carcinoma', samples:[{foo:'bar'},{foo:'bar'},{foo:'bar'}]}
-         ]">
+  param-list="$ctrl.parent.diseaseList">
 </query-overview-control >
 
 

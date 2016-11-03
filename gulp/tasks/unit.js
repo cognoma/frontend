@@ -13,6 +13,7 @@ let _TEST_SERVER, _TEST_REPORT;
 // fire up an instance of browserSync to show the Karma HTML Reports
 // and live reload them as we code
 let showReport = ()=>{
+
  _TEST_REPORT = browserSync.create('test_report');
 
  _TEST_REPORT.init({
@@ -41,9 +42,11 @@ gulp.task('unit', (done) =>{
         if(err === 0){            
             done();
         } else {
+
             done(new gutil.PluginError('karma', {
                 message: 'Karma Tests failed'
             }));
+            return process.exit(errorCode);
         }
         
     });

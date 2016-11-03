@@ -4,11 +4,12 @@
 			"
 >
 
-  <h4 class="query-overview--control-title" >
-  	<span class="badge badge--counter">{{$ctrl.paramList.length}}</span>{{$ctrl.title}}
+  <h4 class="query-overview--control-title " >
+  	<span class="badge badge--counter"  >{{$ctrl.paramList.length}}</span>
+    <span class="js-test-title">{{$ctrl.title}}</span>
   </h4>
 
-  <h5 ng-if="$ctrl.setTitle" class="query-overview--control-setTitle">{{$ctrl.setTitle}}</h5>
+  <h5 ng-if="$ctrl.setTitle" class="query-overview--control-setTitle js-test-setTitle">{{$ctrl.setTitle}}</h5>
 
   <info-box
   	ng-if="$ctrl.desc"
@@ -20,24 +21,26 @@
   		<mutation-listing
   			ng-if=" $ctrl.listType == 'genes' "
   			ng-repeat="setParam in $ctrl.paramList"
-  			entrezid="{{setParam.entrezid}}"
+  			entrezid="{{setParam.id}}"
   		></mutation-listing>
 
   		<disease-listing
   			ng-if="$ctrl.listType == 'disease'"
   			ng-repeat="setParam in $ctrl.paramList"
-  			name="{{setParam.diseaseName}}"
-  			samples="setParam.samples"
+  			name="{{setParam.id}}"
+        positives="setParam.positives"
+        negatives="setParam.negatives"
   		></disease-listing>
 
   		<button 
   			ng-class="{ 'col-xs-5': $ctrl.listType == 'genes',
   						'col-xs-10': $ctrl.listType == 'disease' }"
   			class="query-overview--control-param  query-overview--control-param-add">
-  			ADD <span ng-if="$ctrl.listType == 'genes'"> GENE</span>
-  			<span ng-if="$ctrl.listType == 'disease'"> DISEASE TYPE</span>
+  			ADD {{ $ctrl.listType }}
   				
   		</buttom>	
+
+        
   </div>
 
 </div>
