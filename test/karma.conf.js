@@ -84,14 +84,14 @@ const customLaunchers = {
 const ciAdditions = {
   singleRun: true,
   autoWatch: false,
-  sauceLabs: {
-    testName: 'Karma Unit Tests',
-    startConnect: false,
-    build: process.env.CIRCLE_BUILD_NUM,
-    // tunnelIdentifier: process.env.CIRCLE_SHA1
-  },
-  browsers: Object.keys(customLaunchers),
-  customLaunchers: customLaunchers,
+  // sauceLabs: {
+  //   testName: 'Karma Unit Tests',
+  //   startConnect: false,
+  //   build: process.env.CIRCLE_BUILD_NUM,
+  //   // tunnelIdentifier: process.env.CIRCLE_SHA1
+  // },
+  // browsers: Object.keys(customLaunchers),
+  // customLaunchers: customLaunchers,
   reporters: ['progress', 'coverage', 'saucelabs'],
   
 };
