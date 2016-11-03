@@ -86,6 +86,8 @@ const ciAdditions = {
   sauceLabs: {
     testName: 'Karma Unit Tests',
     startConnect: false,
+    username = process.env.SAUCE_USERNAME,
+    accessKey = process.env.SAUCE_ACCESS_KEY,
     build: process.env.CIRCLE_BUILD_NUM,
     // tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER
   },
