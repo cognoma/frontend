@@ -1,6 +1,16 @@
+# Using SauceConnect so we can't automatically infer repo tests
+
 dependencies:
-  pre:
-    - npm install
+  post:
+    - wget https://saucelabs.com/downloads/sc-4.4.1-linux.tar.gz
+    - tar -xzf sc-4.4.1-linux.tar.gz
+
 test:
   override:
+    - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY -vv --readyfile ~/sauce_is_ready:
+        background: true
+    # Wait for tunnel to be ready
+    - while [ ! -e ~/sauce_is_ready ]; do sleep 1; done
     - npm run unit
+  post:
+    - killall --wait sc  # wait for Sauce Connect to close the tunnel
