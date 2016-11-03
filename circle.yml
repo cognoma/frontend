@@ -1,7 +1,7 @@
 # Using SauceConnect so we can't automatically infer repo tests
 
 dependencies:
-  post:
+  post:  # TODO: saucelabs sc-latest-linux.tar.gz is out of date and doesn't connect, when fixed - change this back
     - wget https://saucelabs.com/downloads/sc-4.4.1-linux.tar.gz
     - tar -xzf sc-4.4.1-linux.tar.gz
 
