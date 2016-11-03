@@ -1,4 +1,4 @@
-xdescribe('UNIT::component: diseaseListing', () => {
+describe('UNIT::component: diseaseListing', () => {
 
   let parentScope;
   let element;  
@@ -36,12 +36,13 @@ xdescribe('UNIT::component: diseaseListing', () => {
         
         $compile(element)(parentScope).isolateScope();
         
-        parentScope.$digest();
+        
 
     }));
     
     // Attribute: title
     it('name attr: displays initial state value', () => {
+      parentScope.$digest();
       let title_attrVal = findIn(element, '.js-test-name').text();
       let titleEl = findIn(element, '.js-test-name');
       
@@ -50,6 +51,7 @@ xdescribe('UNIT::component: diseaseListing', () => {
     });
 
     it('shows the number of negatives', () => {
+      parentScope.$digest();
       let negativesCountEl = findIn(element, '.js-test-negatives');
       let negativesCount_Val = findIn(element, '.js-test-negatives').text();
       
@@ -58,6 +60,7 @@ xdescribe('UNIT::component: diseaseListing', () => {
     });
 
     it('shows the number of positives', () => {
+      parentScope.$digest();
       let positivesCountEl = findIn(element, '.js-test-positives');
       let positivesCount_Val = findIn(element, '.js-test-positives').text();
       
@@ -68,6 +71,7 @@ xdescribe('UNIT::component: diseaseListing', () => {
 
 
     it('show total number of samples as a sum of positives and negatives', () => {
+      parentScope.$digest();
       let sampleCountEl = findIn(element, '.js-test-sampleCount');
       let sampleCount_Val = findIn(element, '.js-test-sampleCount').text();
       
