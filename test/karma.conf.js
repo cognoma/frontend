@@ -76,7 +76,8 @@ const karmaBaseConfig = {
 const customLaunchers = {
   chrome: {
     base: 'SauceLabs',
-    browserName: 'chrome'
+    browserName: 'chrome',
+    version: '54.0.2840'
   }
 };
 
