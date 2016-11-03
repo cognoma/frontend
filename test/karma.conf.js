@@ -87,7 +87,7 @@ const ciAdditions = {
     testName: 'Karma Unit Tests',
     startConnect: false,
     build: process.env.CIRCLE_BUILD_NUM,
-    tunnelIdentifier: process.env.CIRCLE_SHA1
+    // tunnelIdentifier: process.env.CIRCLE_SHA1
   },
   browsers: Object.keys(customLaunchers),
   customLaunchers: customLaunchers,
