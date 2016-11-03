@@ -42,9 +42,11 @@ gulp.task('unit', (done) =>{
         if(err === 0){            
             done();
         } else {
+
             done(new gutil.PluginError('karma', {
                 message: 'Karma Tests failed'
             }));
+            return process.exit(errorCode);
         }
         
     });
