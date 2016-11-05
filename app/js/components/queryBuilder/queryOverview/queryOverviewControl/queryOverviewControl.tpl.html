@@ -35,7 +35,8 @@
   		<button 
   			ng-class="{ 'col-xs-5': $ctrl.listType == 'genes',
   						'col-xs-10': $ctrl.listType == 'disease' }"
-  			class="query-overview--control-param  query-overview--control-param-add">
+  			class="query-overview--control-param  query-overview--control-param-add"
+        ng-click="$ctrl.addGene()">
   			ADD {{ $ctrl.listType }}
   				
   		</buttom>	

@@ -4,11 +4,12 @@ const mutationListingComponent = {
         entrezid: '@'
     },
 	transclude: 'true',    
-    controller: function () {
-    	'ngInject';
-        // let vm = this;
+    controller: ['$rootScope',function($rootScope){
+            'ngInject';
 
-    }
+            this.removeMutation = $id=>$rootScope.$emit('mutationSet:remove:mutation', {id: $id});
+    
+        }]
 }
 
 export default { 

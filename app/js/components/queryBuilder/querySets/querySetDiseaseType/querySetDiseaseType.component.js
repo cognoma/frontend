@@ -1,15 +1,12 @@
 const QuerySetDiseaseTypeComponent = {
     templateUrl: 'queryBuilder/querySets/querySetDiseaseType/querySetDiseaseType.tpl.html',
-    bindings: {},
-  require:{
-    'parent': '^queryBuilder'
-  },
+    bindings: {
+      'mutationSet': '=',
+      'diseaseSet':  '='
+    },
     controller: function () {
     	'ngInject';
-      
-      this.$onInit = ()=>{
-        this.diseaseList = this.parent.diseaseList;
-      }
+      console.log(this);
     }
 }
 

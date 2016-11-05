@@ -31,8 +31,8 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       title: 'Query Builder: Mutations',
       url:   '/mutations',
       views: {
-        'queryOverview':      {component: 'queryOverview'},
-        'querySet':           {template: '<query-set-mutations mutation-set="$ctrl.mutationList"  disease-set="$ctrl.diseaseList"/>'},
+        'queryOverview':      {template: '<query-overview mutation-set="$ctrl.mutationList" disease-set="$ctrl.diseaseList"/>'},
+        'querySet':           {template: '<query-set-mutations mutation-set="$ctrl.mutationList" />'},
         'queryParamSelector': {component: 'queryParamSelector'}
       }
     })
@@ -41,8 +41,8 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       title:       'Query Builder: Disease Type',
       url:           '/disease-type',
       views:{
-        'queryOverview':      {component: 'queryOverview'},
-        'querySet':           {component: 'querySetDiseaseType'},
+        'queryOverview':      {template: '<query-overview mutation-set="$ctrl.mutationList" disease-set="$ctrl.diseaseList"/>'},
+        'querySet':           {template: '<query-set-disease-type disease-set="$ctrl.diseaseList" />'},
         'queryParamSelector': {component: 'queryParamSelector'}
       }
     });

@@ -1,9 +1,11 @@
 const QueryOverviewComponent = {
     templateUrl: 'queryBuilder/queryOverview/queryOverview.tpl.html',
-    bindings: {},
+    bindings: {
+    	'mutationSet': '=',
+    	'diseaseSet': '='
+    },
     controller: function () {
     	'ngInject';
-    	
     }
 }
 
