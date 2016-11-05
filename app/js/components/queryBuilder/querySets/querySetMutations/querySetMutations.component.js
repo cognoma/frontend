@@ -1,14 +1,14 @@
 const QuerySetMutationsComponent = {
     templateUrl: 'queryBuilder/querySets/querySetMutations/querySetMutations.tpl.html',
-    bindings: {},
-    require:{
-      'parent': '^queryBuilder'
+    bindings: {
+      mutations: "="
     },
     controller: function(){
           'ngInject';
-          this.$onInit = ()=>{
-            this.mutationList = this.parent.mutationList;
-          };
+          console.log(this);
+          // this.$onInit = ()=>{
+          //   this.mutationList = this.parent.mutationList;
+          // };
         }
 }
 

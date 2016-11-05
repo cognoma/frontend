@@ -16,14 +16,14 @@
 <div class="card-container">
 <ul class="col-xs-3">
   <li class="label gene-label"
-    ng-repeat="mutation in $ctrl.mutationList"
+    ng-repeat="mutation in $ctrl.mutationsSet"
   >{{mutation.id}}</li>
 </ul>
 
 <div class="gene-card-display col-xs-9">
   <gene-card
-    ng-if="$ctrl.mutationList.length"
-    ng-repeat="setParam in $ctrl.mutationList"
+    ng-if="$ctrl.mutationsSet.length"
+    ng-repeat="setParam in $ctrl.mutationsSet"
     id="{{setParam.id}}"
     name="{{setParam.name}}"
     desc="{{setParam.desc}}"
@@ -31,7 +31,7 @@
   ></gene-card>
   <div class="empty-card-space">
     <h4 class="empty-card-text"
-      ng-if="!$ctrl.mutationList.length"
+      ng-if="!$ctrl.mutationsSet.length"
     >
       DRAG AND DROP OR CLICK GENES TO ADD
     </h4>

@@ -32,7 +32,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       url:   '/mutations',
       views: {
         'queryOverview':      {component: 'queryOverview'},
-        'querySet':           {component: 'querySetMutations'},
+        'querySet':           {template: '<query-set-mutations mutation-set="$ctrl.mutationList"  disease-set="$ctrl.diseaseList"/>'},
         'queryParamSelector': {component: 'queryParamSelector'}
       }
     })
