@@ -1,6 +1,21 @@
 /* =======================================================================
   Component: queryParamSelector 
  ========================================================================== */
-#query-param-selector{
-	background: $gray-lighter;	
+.query-param-selector{
+	background: $gray-lighter;
+	padding:0;
+	text-align: center;
+
+	.dashboard-column-header{ 
+		background: $gray-light;
+		color: $black;
+		border-bottom: 5px solid $blue;
+	}
+}
+
+.query-param-selector-ctrls{
+	padding: 1rem 0 0 0;
+	.badge, .btn{
+		margin-top:12px;
+	}
 }

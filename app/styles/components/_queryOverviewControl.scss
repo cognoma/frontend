@@ -25,7 +25,6 @@
 	}
 
 		.query-overview--control-title{
-			display:inline-block;
 			padding: 17px 0 17px 28px;
 			margin: 0;
 			position: relative;
@@ -46,9 +45,9 @@
 
 
 
-		.query-overview--control-params{
-			padding-left:28px;
-		}
+		// .query-overview--control-params{
+		// 	padding:0 28px;
+		// }
 
 			.query-overview--control-param{
 				position: relative;
@@ -58,7 +57,7 @@
 				color:$black;
 				// border:1px solid rgba($blue, 0.5);
 
-				&:nth-child(odd){margin-right: 10px;}
+				// &:nth-child(odd){margin-right: 10px;}
 				.glyphicon-remove-circle{
 					position: absolute;
 					top: 3px;
@@ -89,7 +88,7 @@
 					background: none;
 					outline:none;
 					border:1px dashed $white;
-					margin:5px 0 5px 0;
+					margin:5px 0 5px 15px;
 					padding:0;
 					color:$white;
 					font-size:10px;
@@ -118,11 +117,18 @@
 				
 				.glyphicon-remove-circle{ background: $white; }
 			}
-				.sample-count{margin-right: 20px;}
+
+				.sample-count{
+					// margin-right: 20px;
+					padding:0;
+				}
+				.sample-count--item{padding:0;}
 				.sample-positives{
-					margin-right:10px;
+					// margin-right:10px;
 					.glyphicon{color:darken($green, 20%);}
 				}
 				.sample-negatives{
 					.glyphicon{color:darken($red, 20%);}
 				}
+
+

@@ -17,13 +17,13 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     .state({
       name:         'app',
       url:          '/',
-      template:     '<app id="app" class="clearfix"></app>'
+      template:     '<app id="app" class="row"></app>'
     })
     .state({
       name:       'app.queryBuilder',
-      title:       'Query Builder:',
+      title:      'Query Builder:',
       url:        'query-builder',
-      component:  'queryBuilder',
+      template:   '<query-builder id="query-builder" class="row"/>',
       redirectTo: '/query-builder/mutations'
     })
     .state({

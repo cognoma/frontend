@@ -18,6 +18,7 @@ body {
 }
 
 .container-fluid{ padding:0; }
+.row{margin-left:0; margin-right:0;}
 
 /* =======================================================================
   Application Base
@@ -26,12 +27,16 @@ body {
 	width: 100vw;
 	height: 100vh;
 	display: block;
+	padding: 0;
+	margin:0;
+	overflow: hidden;
 }
 
 	.dashboard-column{
 		display:block;
 		height: 100%;
 		padding:0;
+		margin:0;
 	}
 
 	.dashboard-column-header{
@@ -59,14 +64,18 @@ body {
   ========================================================================== */
 #query-builder{
 	height: 100vh;
-	background:$black;
+	margin:0;
+	padding:0;
 }
+
 @import "components/_queryOverview";
-@import "components/_queryOverviewControl";
+	@import "components/_queryOverviewControl";
+
 @import "components/_querySet";
+	@import "components/_querySetMutations";
+	@import "components/_querySetDiseaseType";
+
 @import "components/_queryParamSelector";
-@import "components/_querySetMutations";
-@import "components/_querySetDiseaseType";
 
 /* =======================================================================
   Info Box (tooltip)
@@ -101,20 +110,20 @@ body {
 	}
 	.glyphicon-info-sign{
 		font-size:16px;
-		float:left;
+		// float:left;
 		padding-right:10px;
 	}
 	.glyphicon-remove-circle{
-		float:right;
+		// float:right;
 		font-size:12px;
 	}
 
  }
 
  	.info-box-message{
- 		width: 78%;
+ 		// width: 78%;
  		display:inline-block;
-		float:left;
+		// float:left;
  	}
   /* =======================================================================
     geneCard

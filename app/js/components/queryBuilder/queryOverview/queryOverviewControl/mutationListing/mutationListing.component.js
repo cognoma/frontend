@@ -3,7 +3,6 @@ const mutationListingComponent = {
     bindings: {
         entrezid: '@'
     },
-	transclude: 'true',    
     controller: ['$rootScope',function($rootScope){
             'ngInject';
 
