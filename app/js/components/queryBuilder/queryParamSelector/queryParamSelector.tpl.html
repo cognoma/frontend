@@ -4,14 +4,15 @@
 
 <div class="row query-param-selector-ctrls">
 	<div class="col-lg-1">
-		<span class="badge badge--counter">0</span>
+		<span class="badge badge--counter">{{$ctrl.results.length}}</span>
 	</div>
 	
 	<div class="col-lg-9">
-		<div class="input-group input-group-lg">
-  			<span class="input-group-addon" id="sizing-addon1">@</span>
-  			<input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
-		</div>
+  			<input type="text" 
+  				   class="form-control" 
+  				   placeholder="Username" 
+  				   ng-change="$ctrl.onInputChange()"
+  				   ng-model="$ctrl.geneQuery">		
 	</div>
 	
 
@@ -27,3 +28,19 @@
 	</div>
 	
 </div>
+
+<section class="row">
+	<div class="col-lg-12">
+		<div class="row">
+			<gene-card 
+				class="col-lg-3"
+				ng-repeat="gene in $ctrl.results"
+				id="{{gene.symbol}}"
+				name="{{gene.name}}"
+				desc="{{gene._score}}"
+				link=""
+				ng-click="$ctrl.addGene(gene)"
+			/>
+		</div>	
+	</div>
+</section>

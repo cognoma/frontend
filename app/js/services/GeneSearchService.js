@@ -3,10 +3,11 @@ function GeneSearchService($http) {
 
   const service = {};
 
-  service.get = function() {
+  service.get = function(geneQuery) {
 
     return new Promise((resolve, reject) => {
-      $http.get('https://mygene.info/v3/query?q=super&species=human&entrezonly=true')
+      console.log(`https://mygene.info/v3/query?q=${geneQuery}`);
+      $http.get(`https://mygene.info/v3/query?q=${geneQuery}`)
            .success((data) => {
              resolve(data);
            })
