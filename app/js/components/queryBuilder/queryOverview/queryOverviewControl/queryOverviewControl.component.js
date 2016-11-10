@@ -10,6 +10,8 @@ const QueryOverviewControlComponent = {
     controller: ['$rootScope',function ($rootScope) {
         'ngInject';
 
+
+
         this.addGene = ()=>{
             $rootScope.$emit('mutationSet:add',
                                            {id: 'xxx9x', 
@@ -21,6 +23,7 @@ const QueryOverviewControlComponent = {
         
 
         this.clearSet = ()=>$rootScope.$emit('mutationSet:clear');
+        this.resetSearch = ()=>$rootScope.$emit('paramSearch:reset');
 
 
     }]
