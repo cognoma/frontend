@@ -37,9 +37,9 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       }
     })
     .state({
-      name:         'app.queryBuilder.diseaseType',
-      title:       'Query Builder: Disease Type',
-      url:           '/disease-type',
+      name:   'app.queryBuilder.diseaseType',
+      title:  'Query Builder: Disease Type',
+      url:    '/disease-type',
       views:{
         'queryOverview':      {template: '<query-overview mutation-set="$ctrl.mutationList" disease-set="$ctrl.diseaseList"/>'},
         'querySet':           {template: '<query-set-disease-type disease-set="$ctrl.diseaseList" />'},

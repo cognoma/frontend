@@ -6,8 +6,8 @@ function GeneSearchService($http) {
   service.get = function(geneQuery) {
 
     return new Promise((resolve, reject) => {
-      console.log(`https://mygene.info/v3/query?q=${geneQuery}`);
-      $http.get(`https://mygene.info/v3/query?q=${geneQuery}`)
+      console.log(`https://mygene.info/v3/query?q=${geneQuery}&suggest_from=symbol^2,alias&species=human&entrezonly=true`);
+      $http.get(`https://mygene.info/v3/query?q=${geneQuery}&suggest_from=symbol^2,alias&species=human&entrezonly=true`)
            .success((data) => {
              resolve(data);
            })

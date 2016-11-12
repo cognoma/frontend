@@ -1,10 +1,13 @@
 <div class="panel panel-default gene-card">
+
   <div class="panel-heading gene-card-heading">
-    <h4>{{$ctrl.id}}</h4>
+    {{$ctrl.id}} <br>
+    <small>{{$ctrl.desc}}</small>
   </div>
-  <div class="panel-body" style="color: black">
-    <h3>{{$ctrl.name}}</h4>
-    <p>{{$ctrl.desc}}</p>
+
+  <div class="panel-body text-left" style="color: black">
+    <small>{{$ctrl.name}}</small>
+    <!-- <p>{{$ctrl.desc}}</p> -->
     <a href="#" class="card-link"><h4>{{$ctrl.link}}</h4></a>
   </div>
 </div>

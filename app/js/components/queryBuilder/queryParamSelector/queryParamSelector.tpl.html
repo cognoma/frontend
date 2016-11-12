@@ -7,6 +7,7 @@
 		class="col-lg-1"
 		ng-if="$ctrl.results.length"
 	>
+		<small>results</small>
 		<span class="badge badge--counter">{{$ctrl.results.length}}</span>
 	</div>
 	
@@ -23,7 +24,7 @@
   				   ng-change="$ctrl.onInputChange()"
   				   ng-model="$ctrl.geneQuery"
   				   autofocus="$ctrl.inputFocus"
-  				   focus="$ctrl.inputFocus" >		
+  			>		
 	</div>
 	
 
@@ -31,13 +32,17 @@
 		class="col-lg-1"
 		ng-if="$ctrl.results.length"
 	>
-		<button type="button" class="btn 
-									 btn-xs 
-									 btn--mutation-sort
-									 glyphicon 
-									 glyphicon-sort-by-attributes 
-									 text-uppercase">
-									 	Mutations
+		<button 
+			type="button" 
+			class="btn 
+				   btn-xs 
+				   btn--mutation-sort
+				   glyphicon 
+				   glyphicon-sort-by-attributes-alt
+				   text-uppercase"
+			ng-click="$ctrl.sortResultsBy($ctrl.results, '_score')"
+		>
+									 	<p>Score</p>
 		</button>
 	</div>
 	
