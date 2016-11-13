@@ -19,7 +19,9 @@
 
 <ul class="col-xs-3">
   <li class="label gene-label"
-    ng-repeat="mutation in $ctrl.mutationSet"
+    ng-repeat="mutation in $ctrl.mutationSet track by $index"
+    ng-mouseover="$ctrl.highlightGene($index)"
+    ng-mouseleave="$ctrl.highlightGene($index)"
   >{{mutation.id}}</li>
 </ul>
 
@@ -28,6 +30,8 @@
   <gene-card
     ng-if="$ctrl.mutationSet.length"
     ng-repeat="setParam in $ctrl.mutationSet"
+    ng-class="{'active':setParam.active, 'faded':  $ctrl.geneHovered}"
+    class="gene-card-display-item clearfix" 
     id="{{setParam.id}}"
     name="{{setParam.name}}"
     desc="{{setParam.desc}}"

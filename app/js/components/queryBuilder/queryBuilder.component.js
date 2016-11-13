@@ -1,10 +1,11 @@
 const QueryBuilderComponent = {
     templateUrl: 'queryBuilder/queryBuilder.tpl.html',
     bindings: {},
-    controller: ['$rootScope','_',function($rootScope, _) {
+    controller: ['$rootScope','_',function($rootScope, _, AppSettings) {
             	'ngInject';
             	this.diseaseList = [{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20}];
-            	this.mutationList = [];   
+            	this.mutationList = [];
+
 
                 $rootScope.$on('mutationSet:add', (e,mutation)=>{
                     this.mutationList.push(mutation);
