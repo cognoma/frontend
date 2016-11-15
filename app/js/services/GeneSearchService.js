@@ -1,20 +1,35 @@
-function GeneSearchService($http) {
+function GeneSearchService($http, $httpParamSerializer, AppSettings, GenesResource) {
   'ngInject';
 
   const service = {};
-
+  
+  
   service.get = function(geneQuery) {
+    
+    //mygene.info query endpoint
+    // let endpoint = `${AppSettings.api.geneSearch.base}${geneQuery}&${$httpParamSerializer(AppSettings.api.geneSearch.params)}`;
 
+  
     return new Promise((resolve, reject) => {
-      console.log(`https://mygene.info/v3/query?q=${geneQuery}&suggest_from=symbol^2,alias&species=human&entrezonly=true`);
-      $http.get(`https://mygene.info/v3/query?q=${geneQuery}&suggest_from=symbol^2,alias&species=human&entrezonly=true`)
-           .success((data) => {
-             resolve(data);
-           })
-           .error((err, status) => {
-             reject(err, status);
-           });
-    });
+
+      GenesResource
+          .get({id: geneQuery}).$promise
+          .then(
+            results => { resolve(results); },
+            (err, status) =>{ reject(err, status); }
+          );
+
+          
+      // USE WITH endpoint 
+      // $http.get(endpoint)
+      //      .success((data) => {
+      //        resolve(data);
+      //      }).error((err, status) => {
+      //        reject(err, status);
+      //      });
+           
+      });
+
 
   };
 
@@ -24,5 +39,5 @@ function GeneSearchService($http) {
 
 export default {
   name: 'GeneSearchService',
-  fn: GeneSearchService
+  fn:   GeneSearchService
 };

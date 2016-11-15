@@ -1,6 +1,6 @@
 const QueryParamSelectorComponent = {
     templateUrl: 'queryBuilder/queryParamSelector/queryParamSelector.tpl.html',
-    bindings: {},
+    bindings:    {},
 	transclude: true,    
     controller: ['$rootScope','$scope','GeneSearchService','_',function($rootScope, $scope,GeneSearchService, _) {
         	'ngInject';
@@ -8,34 +8,36 @@ const QueryParamSelectorComponent = {
         	vm.geneQuery='';
         	vm.results =[];
             
-
-
             $rootScope.$on('paramSearch:reset', ()=>{
                 vm.results =[];
                 vm.geneQuery='';
-                document.querySelector('input').focus()
+                document.querySelector('input').focus();
             });
 
 
 
         	this.addGene = gene=>{
         		let mutationIndex = _.indexOf(_.pluck(vm.results, '_id'), gene._id);
-                
                 vm.results.splice(mutationIndex,1);
-
         		$rootScope.$emit('mutationSet:add', {
-        			id:gene.symbol,
+        			id:  gene.symbol,
 					name:gene.name,
 					desc:gene._score
         		});
         	};
 
+
         	this.onInputChange = ()=>{
-        		GeneSearchService.get(vm.geneQuery).then(data=>{
-        			$scope.$apply(()=>{vm.results = data.hits;})
-        		});
-        		
-        		if(vm.geneQuery.length == 0) this.results = [];
+                console.log(`vm.geneQuery: ${vm.geneQuery} (${vm.geneQuery.length})`);
+
+                if(vm.geneQuery.length <= 0){
+                    vm.results = [];
+                }else{
+                    GeneSearchService.get(vm.geneQuery)
+                                 .then(data=>{
+                                     $scope.$apply(()=>{vm.results = data.hits;})
+                    });
+                } 
         	};
 
             let isSorted = (list, sortedList, sortedOn)=>{
