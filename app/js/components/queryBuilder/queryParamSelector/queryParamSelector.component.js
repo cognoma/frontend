@@ -2,16 +2,31 @@ const QueryParamSelectorComponent = {
     templateUrl: 'queryBuilder/queryParamSelector/queryParamSelector.tpl.html',
     bindings:    {},
 	transclude: true,    
-    controller: ['$rootScope','$scope','GeneSearchService','_',function($rootScope, $scope,GeneSearchService, _) {
+    controller: [
+                    '$rootScope',
+                    '$scope',
+                    'GeneSearchService',
+                    '_',
+                    '$state',
+        function($rootScope, $scope,GeneSearchService, _, $state) {
         	'ngInject';
         	const vm = this;
 
-        	vm.geneQuery='';
+            vm.currentState = ()=>$state.current.name.split('.')[2];
+            vm.instructionsTemplate = `queryBuilder/queryParamSelector/${vm.currentState()}_instructions.tpl.html`;
+
+            const searchServices = {
+                'mutations': GeneSearchService,
+                'diseaseType': ''
+            };
+
+        	vm.searchQuery='';
         	vm.results =[];
             
+
             $rootScope.$on('paramSearch:reset', ()=>{
                 vm.results =[];
-                vm.geneQuery='';
+                vm.searchQuery='';
                 document.querySelector('input').focus();
             });
 
@@ -29,18 +44,20 @@ const QueryParamSelectorComponent = {
 
 
         	this.onInputChange = ()=>{
-                console.info(`query: ${vm.geneQuery}`);
+                console.info(`query: ${vm.searchQuery}`);
                 // TODO: 
                 //  - debounce this call so we're not blowing up the servers on every keystroke
                 //  - show loading graphic 
                 //  - reset search on user actions
-                if(vm.geneQuery.length <= 0){
+                if(vm.searchQuery.length <= 0){
                     vm.results = [];
                 }else{
-                    GeneSearchService
-                        .get(vm.geneQuery)
+                    console.log(searchServices[vm.currentState()]);
+                    // GeneSearchService
+                    searchServices[vm.currentState()]
+                        .get(vm.searchQuery)
                         .then(data=>{
-                            if(vm.geneQuery.length >= 0) $scope.$apply(()=>{vm.results = data});
+                            if(vm.searchQuery.length >= 0) $scope.$apply(()=>{vm.results = data});
                         });
                 } 
         	};
