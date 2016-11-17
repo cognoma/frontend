@@ -1,6 +1,14 @@
-import * as geneData from './mockData/genes.js';
+import angular from 'angular';
+import '../../../node_modules/angular-mocks/ngMockE2E.js';
 
-function MockBackend($httpBackend, _) {
+import * as geneData from './mockData/mock-genes.js';
+
+let requires = ['ngMockE2E'];
+let MockBackend = angular.module('MockBackend', requires);
+
+
+
+function MockBackend_onRun($httpBackend, _) {
   'ngInject';
   
   // Query; returns all results.
@@ -23,8 +31,10 @@ function MockBackend($httpBackend, _) {
     
     return [200, results, {}];
   });
-  
 
 }
+
+angular.module('MockBackend').run(MockBackend_onRun);
+
 
 export default MockBackend;

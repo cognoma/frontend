@@ -1,34 +1,28 @@
-function GeneSearchService($http, $httpParamSerializer, AppSettings, GenesResource) {
+function GeneSearchService($q, GenesResource) {
   'ngInject';
 
   const service = {};
   
   
   service.get = function(geneQuery) {
-    
-    //mygene.info query endpoint
-    // let endpoint = `${AppSettings.api.geneSearch.base}${geneQuery}&${$httpParamSerializer(AppSettings.api.geneSearch.params)}`;
-
+  
   
     return new Promise((resolve, reject) => {
 
-      GenesResource
-          .get({id: geneQuery}).$promise
-          .then(
-            results => { resolve(results); },
-            (err, status) =>{ reject(err, status); }
+      return GenesResource
+              .get(geneQuery)
+              .then(
+                  // sucess
+                  results => { 
+                    // return and resolve once all 
+                    // genes are poupulate from thier promises
+                    return $q.all(results.data.hits)
+                             .then( data=>resolve(data) )
+                  },
+                  // error
+                  (err, status)=>reject(err, status)
           );
-
-          
-      // USE WITH endpoint 
-      // $http.get(endpoint)
-      //      .success((data) => {
-      //        resolve(data);
-      //      }).error((err, status) => {
-      //        reject(err, status);
-      //      });
-           
-      });
+    });
 
 
   };

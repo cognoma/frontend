@@ -5,8 +5,7 @@ import constants from './constants';
 import onConfig  from './on_config';
 import onRun     from './on_run';
 
-import MockBackend from './MockBackend';
-import '../../node_modules/angular-mocks/ngMockE2E.js';
+import './MockBackend';
 import '../../node_modules/angular-resource/angular-resource.js';
 
 import 'angular-animate';
@@ -19,7 +18,8 @@ import './templates';
 import './filters';
 import './directives';
 import './services';
-// import './factories';
+import './factories';
+import './dataModels';
 
 import * as _ from 'underscore';
 
@@ -40,7 +40,9 @@ const requires = [
   'app.components',
   'app.directives',
   'app.services',
-  'ngMockE2E',
+  'app.factories',
+  'app.models',
+  'MockBackend',
   'ngResource',
   'lib.underscore'
 ];
@@ -52,11 +54,7 @@ angular.module('app').constant('AppSettings', constants);
 
 angular.module('app').config(onConfig);
 
-angular.module('app').run(MockBackend);
-
-app.factory('GenesResource', ['$resource', function($resource) {
-  return $resource( '/genes/:id', {id: '@id'} );
-}]);
+angular.module('app').run(onRun);
 
 
 angular.bootstrap(document, ['app'], {

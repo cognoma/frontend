@@ -5,6 +5,7 @@ const QueryParamSelectorComponent = {
     controller: ['$rootScope','$scope','GeneSearchService','_',function($rootScope, $scope,GeneSearchService, _) {
         	'ngInject';
         	const vm = this;
+
         	vm.geneQuery='';
         	vm.results =[];
             
@@ -28,15 +29,19 @@ const QueryParamSelectorComponent = {
 
 
         	this.onInputChange = ()=>{
-                console.log(`vm.geneQuery: ${vm.geneQuery} (${vm.geneQuery.length})`);
-
+                console.info(`query: ${vm.geneQuery}`);
+                // TODO: 
+                //  - debounce this call so we're not blowing up the servers on every keystroke
+                //  - show loading graphic 
+                //  - reset search on user actions
                 if(vm.geneQuery.length <= 0){
                     vm.results = [];
                 }else{
-                    GeneSearchService.get(vm.geneQuery)
-                                 .then(data=>{
-                                     $scope.$apply(()=>{vm.results = data.hits;})
-                    });
+                    GeneSearchService
+                        .get(vm.geneQuery)
+                        .then(data=>{
+                            if(vm.geneQuery.length >= 0) $scope.$apply(()=>{vm.results = data});
+                        });
                 } 
         	};
 
