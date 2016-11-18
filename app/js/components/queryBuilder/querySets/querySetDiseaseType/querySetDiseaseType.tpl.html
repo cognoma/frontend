@@ -26,13 +26,21 @@
 <!-- Disease Cards -->
 <div class="card-container">
 <div class="disease-card-display col-xs-12">
-  <disease-card
-    ng-if="$ctrl.diseaseSet.length"
+
+  <div 
+    class="row"
     ng-repeat="setParam in $ctrl.diseaseSet"
-    id="{{setParam.id}}"
-    positives="{{setParam.positives}}"
-    negatives="{{setParam.negatives}}"
-  ></disease-card>
+    ng-if="$ctrl.diseaseSet.length"
+  >
+    <disease-card
+      id="{{setParam.id}}"
+      positives="{{setParam.positives}}"
+      negatives="{{setParam.negatives}}"
+    ></disease-card>
+  </div>
+  
+
+
   <div class="empty-card-space col-xs-12">
     <h4 class="empty-card-text"
       ng-if="!$ctrl.diseaseSet.length"

@@ -1,15 +1,19 @@
-<div class="row disease-card">
-  <div class="col-xs-12">
-    <div class="panel panel-default"style="color: black">
+<div class="
+        panel 
+        panel-default
+        disease-card"
+
+        style="color: black"
+>
       <div class="panel-body disease-card-body">
       <div class="row">
         <h5 class="col-xs-10">{{$ctrl.id}}</h5>
-        <span class="glyphicon glyphicon-info-sign col-xs-2"></span>
+        <!-- <span class="glyphicon glyphicon-info-sign col-xs-2"></span> -->
       </div>
       <div class="row">
         <div class="col-xs-3 samples">
           <h6>SAMPLES</h6>
-          <p class="sample-number">{{$ctrl.add($ctrl.positives, $ctrl.negatives)}}</p>
+          <p class="sample-number">{{$ctrl.samples.length}}</p>
         </div>
         <div class="col-xs-3 samples positives">
           <h6>POSITIVES</h6>
@@ -21,6 +25,4 @@
         </div>
       </div>
       </div>
-    </div>
   </div>
-</div>

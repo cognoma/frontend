@@ -8,7 +8,10 @@
 		ng-if="$ctrl.results.length"
 	>
 		<small>results</small>
-		<span class="badge badge--counter">{{$ctrl.results.length}}</span>
+		<span  class="badge badge--counter">
+			{{ filteredResults != undefined ? filteredResults.length : $ctrl.results }}
+		</span>
+		
 	</div>
 	
 	<div 
@@ -57,20 +60,31 @@
 
 <section class="row query-param-selector-results">
 	<div class="col-lg-12">
-		<div class="row">
+		<div class="row results-row">
+			
 			<gene-card 
+				ng-if="$ctrl.currentState() == 'mutations'"
 				class="col-lg-3 result"
 				ng-repeat="gene in $ctrl.results"
-				id="{{gene.symbol}}"
+				symbol="{{gene.symbol}}"
+				entrez-id="gene.entrezgene"
 				name="{{gene.name}}"
-				desc="{{gene._score}}"
+				score="{{gene._score}}"
 				link=""
 				ng-click="$ctrl.addGene(gene)"
-			/>
+			></gene-card>
+		
+			<disease-card
+				ng-if="$ctrl.currentState() == 'disease'"
+				class="col-lg-12 result"
+    			ng-repeat="disease in $ctrl.results | filter:$ctrl.searchQuery as filteredResults"
+    			id="{{disease.name}}"
+    			samples="disease.samples"
+    			positives="{{disease.samples.length}}"
+    			negatives="{{disease.negatives}}"
+  			></disease-card>
+
 		</div>	
 	</div>
 </section>
 
-<script type="text/ng-template" id="infowindow.html">
-	<h1>infowindow</h1>
-</script>

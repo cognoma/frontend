@@ -16,7 +16,10 @@
 			border-top: none;
 			border-right:none;
 			border-bottom:none;
-			background:rgba($black, 0.5);
+			background:rgba($black, 0.25);
+			.query-overview--control-title{
+				color: lighten(green, 10%);
+			}
 		}
 	}
 
@@ -29,7 +32,7 @@
 			margin: 0;
 			position: relative;
 			text-transform: uppercase;
-
+			&:hover{cursor:pointer;}
 			.badge--counter{
 				position: absolute;
 				left: 4px;

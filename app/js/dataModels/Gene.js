@@ -2,7 +2,7 @@ export default class Gene{
 	'ngInject';
 
 	constructor(GeneData, idx, dependencies){
-		console.log(`Gene::${GeneData.symbol}`);
+		// console.log(`Gene::${GeneData.symbol}`);
 		this._dependencies = dependencies;
 
 		this.idx = idx;
@@ -22,7 +22,7 @@ export default class Gene{
 		// }, 250*this.idx);
 
 		this.congnoma_supported = typeof this.entrezgene == 'number' ? true :false;
-		console.log(`Gene::${this.symbol}:geSupport:${this.congnoma_supported}`);
+		// console.log(`Gene::${this.symbol}:geSupport:${this.congnoma_supported}`);
 		dfd.resolve(this);
 
 

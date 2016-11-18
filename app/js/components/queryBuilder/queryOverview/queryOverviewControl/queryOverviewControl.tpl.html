@@ -3,11 +3,12 @@
 			   query-overview--{{$ctrl.title.toLowerCase()}}
          row
 			"
+  ng-class="{'active': $ctrl.active}"
 >
 
   <h4 class="query-overview--control-title row" >
   	<span class="badge badge--counter"  >{{$ctrl.paramList.length}}</span>
-    <span class="js-test-title">{{$ctrl.title}}</span>
+    <span class="js-test-title" ui-sref="app.queryBuilder.{{$ctrl.listType}}">{{$ctrl.title}}</span>
   </h4>
 
   <h5 ng-if="$ctrl.setTitle" 
@@ -24,9 +25,10 @@
 		
   		<mutation-listing
         class="col-lg-6"
-  			ng-if=" $ctrl.listType == 'genes' "
-  			ng-repeat="setParam in $ctrl.paramList"
-  			entrezid="{{setParam.id}}"
+  			ng-if=" $ctrl.listType == 'mutations' "
+  			ng-repeat="gene in $ctrl.paramList"
+  			symbol="{{gene.symbol}}"
+        entrez-id="gene.entrezgene"
   		></mutation-listing>
 
   		<disease-listing

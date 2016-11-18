@@ -6,19 +6,20 @@ const QueryParamSelectorComponent = {
                     '$rootScope',
                     '$scope',
                     'GeneSearchService',
+                    'DiseaseSearchService',
                     '_',
                     '$state',
-        function($rootScope, $scope,GeneSearchService, _, $state) {
+        function($rootScope, $scope,GeneSearchService, DiseaseSearchService, _, $state) {
         	'ngInject';
         	const vm = this;
+            const searchServices = {
+                'mutations': GeneSearchService,
+                'disease': DiseaseSearchService
+            };
 
             vm.currentState = ()=>$state.current.name.split('.')[2];
             vm.instructionsTemplate = `queryBuilder/queryParamSelector/${vm.currentState()}_instructions.tpl.html`;
 
-            const searchServices = {
-                'mutations': GeneSearchService,
-                'diseaseType': ''
-            };
 
         	vm.searchQuery='';
         	vm.results =[];
@@ -35,11 +36,7 @@ const QueryParamSelectorComponent = {
         	this.addGene = gene=>{
         		let mutationIndex = _.indexOf(_.pluck(vm.results, '_id'), gene._id);
                 vm.results.splice(mutationIndex,1);
-        		$rootScope.$emit('mutationSet:add', {
-        			id:  gene.symbol,
-					name:gene.name,
-					desc:gene._score
-        		});
+        		$rootScope.$emit('mutationSet:add', gene);
         	};
 
 
@@ -52,12 +49,12 @@ const QueryParamSelectorComponent = {
                 if(vm.searchQuery.length <= 0){
                     vm.results = [];
                 }else{
-                    console.log(searchServices[vm.currentState()]);
-                    // GeneSearchService
                     searchServices[vm.currentState()]
                         .get(vm.searchQuery)
                         .then(data=>{
-                            if(vm.searchQuery.length >= 0) $scope.$apply(()=>{vm.results = data});
+                            let queryResults = data.results || data.data.hits;
+                            
+                            $scope.$apply(()=>{vm.results = queryResults});
                         });
                 } 
         	};

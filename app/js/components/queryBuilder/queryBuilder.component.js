@@ -16,7 +16,7 @@ const QueryBuilderComponent = {
                 });
 
                 $rootScope.$on('mutationSet:remove:mutation', (e, mutation)=>{
-                    let mutationIndex = _.indexOf(_.pluck(this.mutationList, '_score'), mutation._score);
+                    let mutationIndex = _.indexOf(_.pluck(this.mutationList, 'entrezgene'), mutation.entrezId);
                     this.mutationList.splice(mutationIndex, 1);
                 });
 

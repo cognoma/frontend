@@ -17,7 +17,10 @@ function GeneSearchService($q, GenesResource) {
                     // return and resolve once all 
                     // genes are poupulate from thier promises
                     return $q.all(results.data.hits)
-                             .then( data=>resolve(data) )
+                             .then( data=>{
+                                results.data.hits = data;
+                                resolve(results);
+                            } )
                   },
                   // error
                   (err, status)=>reject(err, status)

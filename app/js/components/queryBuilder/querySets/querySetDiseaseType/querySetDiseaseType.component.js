@@ -5,8 +5,7 @@ const QuerySetDiseaseTypeComponent = {
       'diseaseSet':  '='
     },
     controller: function () {
-    	'ngInject';
-      console.log(this);
+    	'ngInject'
     }
 }
 

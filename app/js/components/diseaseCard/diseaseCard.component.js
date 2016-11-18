@@ -2,6 +2,7 @@ const DiseaseCardComponent = {
     templateUrl: 'diseaseCard/diseaseCard.tpl.html',
     bindings: {
       id: '@',
+      samples: '=',
       positives: '@',
       negatives: '@'
     },

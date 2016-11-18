@@ -22,20 +22,22 @@
     ng-repeat="mutation in $ctrl.mutationSet track by $index"
     ng-mouseover="$ctrl.highlightGene($index)"
     ng-mouseleave="$ctrl.highlightGene($index)"
-  >{{mutation.id}}</li>
+  >{{mutation.symbol}}</li>
 </ul>
 
 <div class="gene-card-display col-xs-9">
 
   <gene-card
-    ng-if="$ctrl.mutationSet.length"
-    ng-repeat="setParam in $ctrl.mutationSet"
-    ng-class="{'active':setParam.active, 'faded':  $ctrl.geneHovered}"
+    ng-class="{'active':gene.active, 'faded':  $ctrl.geneHovered}"
     class="gene-card-display-item clearfix" 
-    id="{{setParam.id}}"
-    name="{{setParam.name}}"
-    desc="{{setParam.desc}}"
-    link="{{setParam.link}}"
+
+    ng-if="$ctrl.mutationSet.length"
+    ng-repeat="gene in $ctrl.mutationSet"
+    
+    symbol="{{gene.symbol}}"
+    entrez-id="gene.entrezgene"
+    name="{{gene.name}}"
+    score="{{gene._score}}"
   ></gene-card>
 
   <div class="empty-card-space">

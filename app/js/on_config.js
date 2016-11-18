@@ -37,7 +37,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       }
     })
     .state({
-      name:   'app.queryBuilder.diseaseType',
+      name:   'app.queryBuilder.disease',
       title:  'Query Builder: Disease Type',
       url:    '/disease-type',
       views:{
