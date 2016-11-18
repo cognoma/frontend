@@ -4,8 +4,8 @@ const QueryBuilderComponent = {
     controller: ['$rootScope','_',function($rootScope, _) {
             	'ngInject';
 
-            	this.diseaseList = [{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20}];
-            	this.mutationList = [];
+            	$rootScope.diseaseList = this.diseaseList = [{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20}];
+            	$rootScope.mutationList = this.mutationList = [];
                 
                 $rootScope.$on('mutationSet:add', (e,mutation)=>{
                     this.mutationList.push(mutation);

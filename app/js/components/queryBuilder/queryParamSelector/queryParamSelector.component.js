@@ -51,9 +51,9 @@ const QueryParamSelectorComponent = {
                 }else{
                     searchServices[vm.currentState()]
                         .get(vm.searchQuery)
-                        .then(data=>{
-                            let queryResults = data.results || data.data.hits;
-                            
+                        .then(response=>{
+                            console.log(response);
+                            let queryResults = response.results || response.data.hits;
                             $scope.$apply(()=>{vm.results = queryResults});
                         });
                 } 

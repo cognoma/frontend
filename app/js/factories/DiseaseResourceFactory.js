@@ -7,7 +7,7 @@ function DiseaseResource($http, DiseaseModel, $httpParamSerializer, AppSettings)
   	return $http
               .get(query)
   		 		    .then(response=>{
-  		 		 	       response.data = DiseaseModel.responseTransformer(response.data);
+  		 		 	       response.data.results = DiseaseModel.responseTransformer(response.data.results);
   		 		 	       return response;
   		 		     });
   }
@@ -16,7 +16,7 @@ function DiseaseResource($http, DiseaseModel, $httpParamSerializer, AppSettings)
 
   return{
   	query: ()=>processResponseFor(endpoint),
-    get: () =>$http.get(endpoint).then(response=>response)
+    // query: () =>$http.get(endpoint).then(response=>response)
   	// get: (searchQuery)=>processResponseFor(`${endpoint}?disease=${searchQuery}`),
     
   };

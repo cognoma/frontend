@@ -10,15 +10,21 @@ function DiseaseSearchService($q, DiseaseResource) {
     return new Promise((resolve, reject) => {
 
       return DiseaseResource
-              .get(searchQuery)
+              .query()
               .then(
                   // sucess
                   results => { 
+
                     // return and resolve once all 
                     // genes are poupulate from thier promises
-                    console.log(results);
-                    return $q.all(results.data)
-                             .then( data=>resolve(data) )
+                    return $q.all(results.data.results)
+                             .then( data=>{
+                                let response = {
+                                  count: data.length,
+                                  results: data
+                                };
+                                resolve(response)
+                            } )
                   },
                   // error
                   (err, status)=>reject(err, status)

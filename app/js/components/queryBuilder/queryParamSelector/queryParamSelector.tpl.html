@@ -80,8 +80,8 @@
     			ng-repeat="disease in $ctrl.results | filter:$ctrl.searchQuery as filteredResults"
     			id="{{disease.name}}"
     			samples="disease.samples"
-    			positives="{{disease.samples.length}}"
-    			negatives="{{disease.negatives}}"
+    			positives="{{disease.positives}}" 
+    			negatives="{{disease.samples.length - disease.positives}}"
   			></disease-card>
 
 		</div>	

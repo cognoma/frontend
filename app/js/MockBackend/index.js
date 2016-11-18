@@ -49,6 +49,9 @@ function MockBackend_onRun($httpBackend, _) {
     - can be mocked using CBio: http://www.cbioportal.org/webservice.do?cmd=getMutationData&genetic_profile_id=<disease_acronym>_tcga_mutations&gene_list=<gene_symbol>+<gene_symbol> ..
       ========================================================================== */
 
+
+    $httpBackend.whenGET('http://www.cbioportal.org/webservice.do?cmd=getMutationData&genetic_profile_id=acc_tcga_mutations&gene_list=ZFPM1').passThrough();  
+    
     // Query; returns all samples.
     $httpBackend.whenGET('/samples').respond(diseaseData);  
 
@@ -59,12 +62,12 @@ function MockBackend_onRun($httpBackend, _) {
       let samplesList = _.filter(samplesData.results, sample=>{ 
         return sample.disease == params.id;
       });
-    
-      if (samplesList.length <= 0 ) {
-        return [404, samplesList, {}, `No Samples Found for Disease: ${params.id}`];
-      }
+      
+      // if (samplesList.length <= 0 ) {
+      //   return [404, samplesList, {}, `No Samples Found for Disease: ${params.id}`];
+      // }
       return [200, samplesList, {}];
-  });
+    });
 
 
   // GET list of all diseases

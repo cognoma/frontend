@@ -19,6 +19,7 @@ function GenesResource($http, GeneModel, $httpParamSerializer, AppSettings) {
   return{
   	query: ()=>processResponseFor(endpoint),
   	get: (genesQuery)=>processResponseFor(`${endpoint}/${genesQuery}`),
+    // get: (genesQuery)=>processResponseFor(mgGeneInfo_query(genesQuery)),
   };
   			
   
