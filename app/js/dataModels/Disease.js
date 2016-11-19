@@ -4,7 +4,7 @@ export default class Disease{
 	constructor(DiseaseData, idx, dependencies){
 		this._dependencies = dependencies;
 		this.idx = idx;
-
+		this.updateCounts = this.populateSampleMutations;
 		angular.extend(this, DiseaseData);
 		// console.log(`Disease::${this.acronym}`);
 	}
