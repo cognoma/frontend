@@ -8,6 +8,7 @@ function DiseaseResource($http, DiseaseModel, $httpParamSerializer, AppSettings)
               .get(query)
   		 		    .then(response=>{
   		 		 	       response.data.results = DiseaseModel.responseTransformer(response.data.results);
+                   
   		 		 	       return response;
   		 		     });
   }

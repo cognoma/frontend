@@ -25,18 +25,6 @@ function DiseaseModel($q, $timeout, $http, $rootScope, _, MutationDataService) {
                   .then(dws=>{
                     return model.loadPositives(dws, $rootScope.mutationList);
                   });
-                  
-     //  let _diseaseWsamples ={};
-    	// return disease.populateSamples()
-     //                .then(response=>{
-     //                    _diseaseWsamples = response;
-     //                    return MutationDataService.getPositivesFor(response, $rootScope.mutationList)
-     //                  })
-     //                  .then(data=>{
-     //                    _diseaseWsamples.positives = data;
-     //                    console.log(_diseaseWsamples);
-     //                    return _diseaseWsamples;
-     //                  });///end .then
     });      
   }
 

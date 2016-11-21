@@ -68,8 +68,8 @@ const QueryBuilderComponent = {
 
 
                 let updateDL_mutationData = ()=>{
-                  // TODO: better promise and resolve configuration 
                   
+                    
                     this.diseaseList.map(diseaseResult=>{
 
                     diseaseResult.mutationsLoading = true;
@@ -78,11 +78,6 @@ const QueryBuilderComponent = {
                                           data.mutationsLoading = false;
                                           let dIndex = _.indexOf(_.pluck(this.diseaseList, 'acronym'), data.acronym);
                                           $scope.$apply(()=>{this.diseaseList[dIndex] = data;});
-                                          
-                                          
-                                          console.log(`updateDL_mutationData::${diseaseResult.acronym}(${dIndex}):${data.positives}`)
-
-                                          // return data;
                                         });
                   })
 

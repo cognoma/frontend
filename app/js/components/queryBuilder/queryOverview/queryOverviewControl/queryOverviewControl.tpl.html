@@ -8,12 +8,12 @@
 
   <h4 class="query-overview--control-title row" >
   	<span class="badge badge--counter"  >{{$ctrl.paramList.length}}</span>
-    <span class="js-test-title" ui-sref="app.queryBuilder.{{$ctrl.listType}}">{{$ctrl.title}}</span>
+    <span class="js-test-title" ui-sref="app.queryBuilder.{{$ctrl.listType}}">{{::$ctrl.title}}</span>
   </h4>
 
   <h5 ng-if="$ctrl.setTitle" 
       class="query-overview--control-setTitle js-test-setTitle">
-      {{$ctrl.setTitle}}
+      {{::$ctrl.setTitle}}
   </h5>
 
   <info-box

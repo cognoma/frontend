@@ -163,9 +163,9 @@ describe('UNIT: on_config', function () {
 
 
 
-        describe('app.queryBuilder.diseaseType',()=>{
+        describe('app.queryBuilder.disease',()=>{
             beforeEach(()=>{
-                _state = "app.queryBuilder.diseaseType";
+                _state = "app.queryBuilder.disease";
             });
 
             it('should respond to URL "/query-builder/disease-type"', function() {
