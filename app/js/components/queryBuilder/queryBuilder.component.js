@@ -27,7 +27,6 @@ const QueryBuilderComponent = {
                   };
 
                   vm._clearSet = (set)=>{
-                    console.log(this[`${set}List`]);
                     this[`${set}List`] = [];
                   };
 
@@ -64,7 +63,7 @@ const QueryBuilderComponent = {
                 });
 
                 $rootScope.$on('diseaseSet:remove:disease', (e, disease)=>{
-                    console.log(`diseaseSet:remove:disease -> ${disease.name}`);
+                    // console.log(`diseaseSet:remove:disease -> ${disease.name}`);
                     let dIndex = _.indexOf(_.pluck(this.diseaseList, 'acronym'), disease.name);
                     this.diseaseList.splice(dIndex, 1);
                 });
@@ -95,7 +94,7 @@ const QueryBuilderComponent = {
                 };
 
                 this.onInputChange = (searchQuery)=>{
-                    console.info(`query: ${searchQuery}`);
+                    // console.info(`query: ${searchQuery}`);
                     if(searchQuery.length <= 0){
                         vm.searchResults = [];
                     }else{

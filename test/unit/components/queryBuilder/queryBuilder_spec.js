@@ -1,37 +1,11 @@
 describe('UNIT::component: queryBuilder:', () => {
-
-
+ 
   let parentScope;
   let element;  
   let mutationListings;
   let diseaseListings;
   var $componentController;
   
-  let mock_diseaess =[
-          {
-            'acronym': 'ACC',
-            'name': 'adrenocortical cancer',
-            'positives': 20,
-            'samples':[],
-            'mutationsLoading': false
-          },
-          {
-            'acronym': 'BLCA',
-            'name': 'bladder urothelial carcinoma',
-            'positives': 11,
-            'samples':[],
-            'mutationsLoading': false
-          },
-           {
-              'acronym': 'CHOL',
-              'name': 'cholangiocarcinoma',
-              'positives': 33,
-              'samples':[],
-              'mutationsLoading': false
-            }
-      
-        ];
-
 
   function findIn(element, selector) {
   	return angular.element(element[0].querySelector(selector));
@@ -45,8 +19,6 @@ describe('UNIT::component: queryBuilder:', () => {
   beforeEach(inject(function(_$componentController_) {
     $componentController = _$componentController_;
   }));
- 
-  
   beforeEach(inject(($compile, $rootScope) => {
       
         parentScope = $rootScope.$new();
@@ -60,7 +32,16 @@ describe('UNIT::component: queryBuilder:', () => {
     }));
     
 
+    it('should call the `onChange` binding, on  queryParamSelector search onInputChange', function() {
+      var onInputChangeSpy = jasmine.createSpy('onInputChange');
+      var bindings = { onChange: onInputChangeSpy};
+      var ctrl = $componentController('queryBuilder', null, bindings);
+      
+      ctrl.onChange('foo');
+      expect(onInputChangeSpy).toHaveBeenCalledWith('foo');
+    });
 
+  
 
     describe('MutationSet Event Handlers:',()=>{
       let ctrl, mock_mutations;
@@ -145,10 +126,36 @@ describe('UNIT::component: queryBuilder:', () => {
 
 
     describe('DiseaseSet Event Handlers:',()=>{
-      let ctrl;
+      let ctrl, mock_diseaess;
 
       beforeEach(()=>{
         ctrl = $componentController('queryBuilder', null);
+
+      mock_diseaess =[
+          {
+            'acronym': 'ACC',
+            'name': 'adrenocortical cancer',
+            'positives': 20,
+            'samples':[],
+            'mutationsLoading': false
+          },
+          {
+            'acronym': 'BLCA',
+            'name': 'bladder urothelial carcinoma',
+            'positives': 11,
+            'samples':[],
+            'mutationsLoading': false
+          },
+           {
+              'acronym': 'CHOL',
+              'name': 'cholangiocarcinoma',
+              'positives': 33,
+              'samples':[],
+              'mutationsLoading': false
+            }
+      
+        ];
+
       });
 
   

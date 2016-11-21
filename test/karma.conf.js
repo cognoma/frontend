@@ -1,7 +1,3 @@
-/* =======================================================================
-  testing resource: https://velesin.io/2016/08/23/unit-testing-angular-1-5-components/ 
-========================================================================== */
-
 const istanbul = require('browserify-istanbul');
 const isparta  = require('isparta');
 
