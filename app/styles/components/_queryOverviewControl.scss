@@ -110,12 +110,19 @@
 
 
 			.disease-listing{
+				transition: 1s all ease;
+				&.data-loading{
+					.glyphicon{ 
+						font-size: 14px; 
+						color: blue;
+					}
+				}
 				.query-overview--control-param-title{ font-size:10px;}
 				.control-param-summary{
 					font-size: 10px;
 					p{display:inline-block; margin-bottom:0;}
 					strong{font-size: 12px;}
-					.glyphicon{ font-size: 12px;}
+					.glyphicon{ transition: all 0.25s ease; font-size: 12px;}
 				}
 				
 				.glyphicon-remove-circle{ background: $white; }

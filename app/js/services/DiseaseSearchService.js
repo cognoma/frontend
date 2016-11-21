@@ -6,7 +6,7 @@ function DiseaseSearchService($q, DiseaseResource) {
   
   service.get = function(searchQuery) {
   
-  
+    
     return new Promise((resolve, reject) => {
 
       return DiseaseResource
@@ -14,7 +14,6 @@ function DiseaseSearchService($q, DiseaseResource) {
               .then(
                   // sucess
                   results => { 
-
                     // return and resolve once all 
                     // genes are poupulate from thier promises
                     return $q.all(results.data.results)

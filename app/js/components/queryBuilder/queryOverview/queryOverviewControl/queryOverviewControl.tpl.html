@@ -33,14 +33,16 @@
 
   		<disease-listing
   			ng-if="$ctrl.listType == 'disease'"
-  			ng-repeat="setParam in $ctrl.paramList"
-  			name="{{setParam.id}}"
-        positives="setParam.positives"
-        negatives="setParam.negatives"
+  			ng-repeat="disease in $ctrl.paramList"
+  			name="{{disease.acronym}}"
+        samples="disease.samples"
+        positives="disease.positives"
+        is-loading="disease.mutationsLoading"
   		></disease-listing>
 
   		<button 
-  			ng-class="{ 'col-xs-6 col-lg-4': $ctrl.listType == 'genes',
+        ui-sref="app.queryBuilder.{{$ctrl.listType}}"
+  			ng-class="{ 'col-xs-6 col-lg-4': $ctrl.listType == 'mutations',
   						      'col-xs-10': $ctrl.listType == 'disease' }"
   			class="query-overview--control-param  query-overview--control-param-add text-uppercase"
         ng-click="$ctrl.resetSearch()">

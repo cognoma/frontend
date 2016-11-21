@@ -10,7 +10,6 @@ const GeneCardComponent = {
     controller: function() {
       'ngInject';
       this.link = 'balls';
-      console.log(this);
       
     }
 }

@@ -33,7 +33,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       views: {
         'queryOverview':      {template: '<query-overview mutation-set="$ctrl.mutationList" disease-set="$ctrl.diseaseList"/>'},
         'querySet':           {template: '<query-set-mutations mutation-set="$ctrl.mutationList" />'},
-        'queryParamSelector': {component: 'queryParamSelector'}
+        'queryParamSelector': {template: '<query-param-selector on-change="$ctrl.onInputChange(search)" search-results="$ctrl.searchResults" />'}
       }
     })
     .state({
@@ -43,7 +43,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       views:{
         'queryOverview':      {template: '<query-overview mutation-set="$ctrl.mutationList" disease-set="$ctrl.diseaseList"/>'},
         'querySet':           {template: '<query-set-disease-type disease-set="$ctrl.diseaseList" />'},
-        'queryParamSelector': {component: 'queryParamSelector'}
+        'queryParamSelector': {template: '<query-param-selector on-change="$ctrl.onInputChange(search)" search-results="$ctrl.searchResults" />'}
       }
     });
   

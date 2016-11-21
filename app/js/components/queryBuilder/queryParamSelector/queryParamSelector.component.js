@@ -1,6 +1,9 @@
 const QueryParamSelectorComponent = {
     templateUrl: 'queryBuilder/queryParamSelector/queryParamSelector.tpl.html',
-    bindings:    {},
+    bindings:    {
+        'onChange':'&',
+        'searchResults': '='
+    },
 	transclude: true,    
     controller: [
                     '$rootScope',
@@ -9,8 +12,14 @@ const QueryParamSelectorComponent = {
                     'DiseaseSearchService',
                     '_',
                     '$state',
-        function($rootScope, $scope,GeneSearchService, DiseaseSearchService, _, $state) {
+        function($rootScope, $scope, GeneSearchService, DiseaseSearchService, _, $state) {
         	'ngInject';
+
+            this.$onInit = ()=>{
+                vm.searchResults =[];
+                vm.searchQuery='';
+            }
+
         	const vm = this;
             const searchServices = {
                 'mutations': GeneSearchService,
@@ -20,43 +29,23 @@ const QueryParamSelectorComponent = {
             vm.currentState = ()=>$state.current.name.split('.')[2];
             vm.instructionsTemplate = `queryBuilder/queryParamSelector/${vm.currentState()}_instructions.tpl.html`;
 
-
-        	vm.searchQuery='';
-        	vm.results =[];
-            
+                        
 
             $rootScope.$on('paramSearch:reset', ()=>{
-                vm.results =[];
+                vm.searchResults =[];
                 vm.searchQuery='';
                 document.querySelector('input').focus();
             });
 
 
 
-        	this.addGene = gene=>{
-        		let mutationIndex = _.indexOf(_.pluck(vm.results, '_id'), gene._id);
-                vm.results.splice(mutationIndex,1);
-        		$rootScope.$emit('mutationSet:add', gene);
-        	};
+        	this.addGene = gene=>$rootScope.$emit('mutationSet:add', gene);
+        	
+
+            this.addDisease = disease=>$rootScope.$emit('diseaseSet:add', disease);
+            
 
 
-        	this.onInputChange = ()=>{
-                console.info(`query: ${vm.searchQuery}`);
-                // TODO: 
-                //  - debounce this call so we're not blowing up the servers on every keystroke
-                //  - show loading graphic 
-                //  - reset search on user actions
-                if(vm.searchQuery.length <= 0){
-                    vm.results = [];
-                }else{
-                    searchServices[vm.currentState()]
-                        .get(vm.searchQuery)
-                        .then(response=>{
-                            let queryResults = response.results || response.data.hits;
-                            $scope.$apply(()=>{vm.results = queryResults});
-                        });
-                } 
-        	};
 
             let isSorted = (list, sortedList, sortedOn)=>{
                 return _.isEqual(
@@ -71,7 +60,7 @@ const QueryParamSelectorComponent = {
             };
             
             this.sortResultsBy = (list, sortOn)=>{
-                vm.results = sortResultsOn(list, sortOn);
+                vm.searchResults = sortResultsOn(list, sortOn);
             }
             
         	

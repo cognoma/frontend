@@ -14,6 +14,14 @@ const AppSettings = {
         entrezonly:   'true',
         size:          100
       } 
+    },
+    cBioPortal:{
+      base: 'http://www.cbioportal.org/webservice.do',
+      params:{
+        cmd:                'getMutationData',
+        genetic_profile_id: '_tcga_mutations',
+        gene_list:          []
+      }
     }
 }
 
