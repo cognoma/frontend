@@ -20,10 +20,15 @@ const QueryBuilderComponent = {
                    vm.currentState = ()=>$state.current.name.split('.')[2];
                    vm.searchResults = [];
 
-                  let pushResultToSetBy = (params)=>{
+                   vm._pushResultToSetBy = (params)=>{
                     let resultIdx = _.indexOf(_.pluck(vm.searchResults, params.param), params.result[params.param]);
-                    console.log(`pushResultToSetBy: ${params.result[params.param]}:${resultIdx}`);
+                    // console.log(`pushResultToSetBy: ${params.result[params.param]}:${resultIdx}`);
                     vm.searchResults.splice(resultIdx,1);
+                  };
+
+                  vm._clearSet = (set)=>{
+                    console.log(this[`${set}List`]);
+                    this[`${set}List`] = [];
                   };
 
                 /* =======================================================================
@@ -31,19 +36,17 @@ const QueryBuilderComponent = {
                 ========================================================================== */
                 $rootScope.$on('mutationSet:add', (e,mutation)=>{
                     this.mutationList.push(mutation);      
-                    pushResultToSetBy({result: mutation, set:this.mutationList, param: '_id'});
+                    vm._pushResultToSetBy({result: mutation, set:this.mutationList, param: '_id'});
 
-                    if(this.diseaseList.length) updateDL_mutationData();
+                    if(this.diseaseList.length) vm._updateDL_mutationData();
                 });
 
-                $rootScope.$on('mutationSet:clear', e=>{
-                    this.mutationList = [];
-                });
+                $rootScope.$on('mutationSet:clear', ()=>vm._clearSet('mutation') );
 
                 $rootScope.$on('mutationSet:remove:mutation', (e, mutation)=>{
                     let mutationIndex = _.indexOf(_.pluck(this.mutationList, 'entrezgene'), mutation.entrezId);
                     this.mutationList.splice(mutationIndex, 1);
-                    if(this.diseaseList.length) updateDL_mutationData();
+                    if(this.diseaseList.length) vm._updateDL_mutationData();
                 });
 
                 $rootScope.$on('mutationSet:sortBy:Id', (e, data)=>{
@@ -57,19 +60,18 @@ const QueryBuilderComponent = {
                 ========================================================================== */
                 $rootScope.$on('diseaseSet:add', (e,disease)=>{
                     this.diseaseList.push(disease);
-                    pushResultToSetBy({result: disease, set:$rootScope.diseaseList, param: 'acronym'});
+                    vm._pushResultToSetBy({result: disease, set:$rootScope.diseaseList, param: 'acronym'});
                 });
 
                 $rootScope.$on('diseaseSet:remove:disease', (e, disease)=>{
-                  console.log(disease);
-                    let dIndex = _.indexOf(_.pluck($rootScope.diseaseList, 'acronym'), disease.name);
-                    $rootScope.diseaseList.splice(dIndex, 1);
+                    console.log(`diseaseSet:remove:disease -> ${disease.name}`);
+                    let dIndex = _.indexOf(_.pluck(this.diseaseList, 'acronym'), disease.name);
+                    this.diseaseList.splice(dIndex, 1);
                 });
 
 
-                let updateDL_mutationData = ()=>{
+                vm._updateDL_mutationData = ()=>{
                   
-                    
                     this.diseaseList.map(diseaseResult=>{
 
                     diseaseResult.mutationsLoading = true;
