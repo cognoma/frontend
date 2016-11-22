@@ -43,7 +43,8 @@ const QueryBuilderComponent = {
                 $rootScope.$on('mutationSet:clear', ()=>vm._clearSet('mutation') );
 
                 $rootScope.$on('mutationSet:remove:mutation', (e, mutation)=>{
-                    let mutationIndex = _.indexOf(_.pluck(this.mutationList, 'entrezgene'), mutation.entrezId);
+                    let mutationIndex = _.indexOf(_.pluck(this.mutationList, 'entrezgene'), mutation.entrezgene);
+
                     this.mutationList.splice(mutationIndex, 1);
                     if(this.diseaseList.length) vm._updateDL_mutationData();
                 });

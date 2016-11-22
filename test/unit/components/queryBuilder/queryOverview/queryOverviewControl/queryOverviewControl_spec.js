@@ -22,24 +22,7 @@ var $_locationProvider,
   beforeEach(angular.mock.module('app'));
   beforeEach(angular.mock.module('templates'));
   beforeEach(angular.mock.module('app.components'));
-  // beforeEach(function () {
-
-  //       angular.module('locationProviderConfig', ['ui.router'])
-  //           .config(function($locationProvider, $urlRouterProvider, $stateProvider) {
-               
-  //               $_locationProvider = $locationProvider;
-  //               $_urlRouterProvider = $urlRouterProvider;
-  //               $_stateProvider = $stateProvider;
-  //               spyOn($_locationProvider, 'html5Mode').and.callThrough();
-  //               spyOn($_urlRouterProvider, 'when').and.callThrough();
-  //               spyOn($_urlRouterProvider, 'otherwise').and.callThrough();
-  //           });
-
-  //       angular.mock.module('locationProviderConfig');
-  //       angular.mock.module('app');
-  //       angular.mock.inject();
-  //   });
-
+  
   beforeEach(inject(function(_$componentController_, _$state_) {
     $componentController = _$componentController_;
     $state = _$state_;

@@ -28,7 +28,7 @@
   			ng-if=" $ctrl.listType == 'mutations' "
   			ng-repeat="gene in $ctrl.paramList"
   			symbol="{{gene.symbol}}"
-        entrez-id="gene.entrezgene"
+        entrezgene="gene.entrezgene"
   		></mutation-listing>
 
   		<disease-listing

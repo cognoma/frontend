@@ -2,12 +2,12 @@ const mutationListingComponent = {
     templateUrl: 'queryBuilder/queryOverview/queryOverviewControl/mutationListing/mutationListing.tpl.html',
     bindings: {
         'symbol': '@',
-        'entrezId':'<'
+        'entrezgene':'<'
     },
     controller: ['$rootScope',function($rootScope){
             'ngInject';
 
-            this.removeMutation = $id=>$rootScope.$emit('mutationSet:remove:mutation', {entrezId: $id});
+            this.removeMutation = $id=>$rootScope.$emit('mutationSet:remove:mutation', {entrezgene: $id});
     
         }]
 }
