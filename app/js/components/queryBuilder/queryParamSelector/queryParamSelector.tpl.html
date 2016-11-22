@@ -1,1 +1,97 @@
-<h1>selector</h1>
+<header class="row dashboard-column-header">
+	<h2>Paramater Selector</h2>
+</header>	
+
+<div class="row query-param-selector-ctrls">
+	<div 
+		class="col-lg-1"
+		ng-if="$ctrl.results.length"
+	>
+		<small>results</small>
+		<span class="badge badge--counter">{{$ctrl.results.length}}</span>
+	</div>
+	
+	<div 
+		class=""
+		ng-class="{
+			'col-lg-10 col-lg-offset-1' : $ctrl.results.length == 0,
+			'col-lg-9' : $ctrl.results.length > 0
+		}"
+	>
+  			<input type="text" 
+  				   class="form-control" 
+  				   placeholder="Search Genes by Name or Alternative Gene ID " 
+  				   ng-change="$ctrl.onInputChange()"
+  				   ng-model="$ctrl.geneQuery"
+  				   autofocus="$ctrl.inputFocus"
+  			>		
+	</div>
+	
+
+	<div 
+		class="col-lg-1"
+		ng-if="$ctrl.results.length"
+	>
+		<button 
+			type="button" 
+			class="btn 
+				   btn-xs 
+				   btn--mutation-sort
+				   glyphicon 
+				   glyphicon-sort-by-attributes-alt
+				   text-uppercase"
+			ng-click="$ctrl.sortResultsBy($ctrl.results, '_score')"
+		>
+									 	<p>Score</p>
+		</button>
+	</div>
+	
+</div>
+
+<div ng-if="$ctrl.results.length == 0" class="row">
+	<section class="col-lg-12 query-param-selector--instrs">
+		<div class="row">
+			<h1 class="col-lg-12" >BUILD A CLASSIFICATION ALOGRITHM BY:</h1>	
+		</div>
+		<div class="row">
+			<ol class="col-lg-10 col-lg-offset-1 text-left">
+				<li>
+					<h3>Searching for Genes by name of alternative Gene ID</h3>
+				</li>
+				<li>
+					<h3>Selecting Genes to add to your Gene Set by Clicking or Dragging to the Gene Set sidebar </h3>
+					<blockquote >
+						<small>
+							The genes in your <strong>Gene Set</strong> will compose the Y vector that is used to determine gene or pathway inactivation. The hypothesis assumption is that a mutation in any gene in your Gene Set will cause a measurable change in downstream gene expression that can be detected by the algorithm you build.
+						</small>
+					</blockquote>	
+				</li>
+				<li>
+					<h3>Searching for Samples by Disease Type</h3>
+				</li>
+				<li>
+					<h3>
+						Selecting Disease Types to add to your Disease Types Set by Clicking or Dragging to the Disease Types Set sidebar 
+					</h3>
+				</li>
+			</ol>
+		</div>
+		
+	</section>
+</div>
+
+<section class="row query-param-selector-results">
+	<div class="col-lg-12">
+		<div class="row">
+			<gene-card 
+				class="col-lg-3 result"
+				ng-repeat="gene in $ctrl.results"
+				id="{{gene.symbol}}"
+				name="{{gene.name}}"
+				desc="{{gene._score}}"
+				link=""
+				ng-click="$ctrl.addGene(gene)"
+			/>
+		</div>	
+	</div>
+</section>

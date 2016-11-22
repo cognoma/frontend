@@ -1,13 +1,11 @@
 const QueryOverviewComponent = {
     templateUrl: 'queryBuilder/queryOverview/queryOverview.tpl.html',
-    bindings: {},
-	transclude: true,    
-	require:{
-		'parent':'^queryBuilder'
-	},
+    bindings: {
+    	'mutationSet': '=',
+    	'diseaseSet': '='
+    },
     controller: function () {
     	'ngInject';
-    	
     }
 }
 

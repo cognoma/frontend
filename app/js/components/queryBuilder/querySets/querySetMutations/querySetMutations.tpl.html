@@ -1,37 +1,46 @@
+<div class="row dashboard-column-header">
+  <h2>MUTATIONS SET</h2>
+  <span class="badge">{{$ctrl.mutationSet.length}}</span>
+</div>
 
-  <div class="dashboard-column-header">
-    <h2>MUTATIONS SET</h2>
-    <span class="badge">{{$ctrl.mutationList.length}}</span>
-  </div>
-  <div class="list-controls">
+  <div class="row list-controls">
     <div class="col-xs-9">
       <span>SELECTED GENES</span>
-      <span class="glyphicon glyphicon-sort"></span>
+      <span class="glyphicon glyphicon-sort" ng-click="$ctrl.sortMutationsById()"></span>
     </div>
     <div class="col-xs-2">
-      <span class="label clear-button">CLEAR</span>
+      <span class="label clear-button" ng-click="$ctrl.clearMutationSet()">CLEAR</span>
     </div>
   </div>
+
+
 <!-- Gene Cards -->
-<div class="card-container">
+<div class="row card-container">
+
 <ul class="col-xs-3">
   <li class="label gene-label"
-    ng-repeat="mutation in $ctrl.mutationList"
+    ng-repeat="mutation in $ctrl.mutationSet track by $index"
+    ng-mouseover="$ctrl.highlightGene($index)"
+    ng-mouseleave="$ctrl.highlightGene($index)"
   >{{mutation.id}}</li>
 </ul>
 
 <div class="gene-card-display col-xs-9">
+
   <gene-card
-    ng-if="$ctrl.mutationList.length"
-    ng-repeat="setParam in $ctrl.mutationList"
+    ng-if="$ctrl.mutationSet.length"
+    ng-repeat="setParam in $ctrl.mutationSet"
+    ng-class="{'active':setParam.active, 'faded':  $ctrl.geneHovered}"
+    class="gene-card-display-item clearfix" 
     id="{{setParam.id}}"
     name="{{setParam.name}}"
     desc="{{setParam.desc}}"
     link="{{setParam.link}}"
   ></gene-card>
+
   <div class="empty-card-space">
     <h4 class="empty-card-text"
-      ng-if="!$ctrl.mutationList.length"
+      ng-if="!$ctrl.mutationSet.length"
     >
       DRAG AND DROP OR CLICK GENES TO ADD
     </h4>
@@ -39,5 +48,3 @@
 </div>
 
 </div>
-<!-- Ng repeat the selected Gene types -->
-<!-- Empty Card Space -->

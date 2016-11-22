@@ -1,15 +1,19 @@
 <div 
 	class="query-overview--control 
-			query-overview--{{$ctrl.title.toLowerCase()}}
+			   query-overview--{{$ctrl.title.toLowerCase()}}
+         row
 			"
 >
 
-  <h4 class="query-overview--control-title " >
+  <h4 class="query-overview--control-title row" >
   	<span class="badge badge--counter"  >{{$ctrl.paramList.length}}</span>
     <span class="js-test-title">{{$ctrl.title}}</span>
   </h4>
 
-  <h5 ng-if="$ctrl.setTitle" class="query-overview--control-setTitle js-test-setTitle">{{$ctrl.setTitle}}</h5>
+  <h5 ng-if="$ctrl.setTitle" 
+      class="query-overview--control-setTitle js-test-setTitle">
+      {{$ctrl.setTitle}}
+  </h5>
 
   <info-box
   	ng-if="$ctrl.desc"
@@ -19,6 +23,7 @@
   <div class="row query-overview--control-params">
 		
   		<mutation-listing
+        class="col-lg-6"
   			ng-if=" $ctrl.listType == 'genes' "
   			ng-repeat="setParam in $ctrl.paramList"
   			entrezid="{{setParam.id}}"
@@ -33,9 +38,10 @@
   		></disease-listing>
 
   		<button 
-  			ng-class="{ 'col-xs-5': $ctrl.listType == 'genes',
-  						'col-xs-10': $ctrl.listType == 'disease' }"
-  			class="query-overview--control-param  query-overview--control-param-add">
+  			ng-class="{ 'col-xs-6 col-lg-4': $ctrl.listType == 'genes',
+  						      'col-xs-10': $ctrl.listType == 'disease' }"
+  			class="query-overview--control-param  query-overview--control-param-add text-uppercase"
+        ng-click="$ctrl.resetSearch()">
   			ADD {{ $ctrl.listType }}
   				
   		</buttom>	

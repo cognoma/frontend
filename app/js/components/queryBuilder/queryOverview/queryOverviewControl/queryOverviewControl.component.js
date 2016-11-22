@@ -7,8 +7,25 @@ const QueryOverviewControlComponent = {
         listType: '@',
         paramList:'='
     },
-    controller: [function () {
+    controller: ['$rootScope',function ($rootScope) {
         'ngInject';
+
+
+
+        this.addGene = ()=>{
+            $rootScope.$emit('mutationSet:add',
+                                           {id: 'xxx9x', 
+                                            name: 'gene name 10', 
+                                            desc: 'a new desc', 
+                                            link: 'cardlink'}
+                                        );
+        };
+        
+
+        this.clearSet = ()=>$rootScope.$emit('mutationSet:clear');
+        this.resetSearch = ()=>$rootScope.$emit('paramSearch:reset');
+
+
     }]
 }
 

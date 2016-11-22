@@ -1,6 +1,6 @@
   <div class="dashboard-column-header">
     <h2>DISEASE Type SET</h2>
-    <span class="badge">{{$ctrl.diseaseList.length}}</span>
+    <span class="badge">{{$ctrl.diseaseSet.length}}</span>
   </div>
   <div class="list-controls">
     <div class="col-xs-10">
@@ -27,15 +27,15 @@
 <div class="card-container">
 <div class="disease-card-display col-xs-12">
   <disease-card
-    ng-if="$ctrl.diseaseList.length"
-    ng-repeat="setParam in $ctrl.diseaseList"
+    ng-if="$ctrl.diseaseSet.length"
+    ng-repeat="setParam in $ctrl.diseaseSet"
     id="{{setParam.id}}"
     positives="{{setParam.positives}}"
     negatives="{{setParam.negatives}}"
   ></disease-card>
   <div class="empty-card-space col-xs-12">
     <h4 class="empty-card-text"
-      ng-if="!$ctrl.diseaseList.length"
+      ng-if="!$ctrl.diseaseSet.length"
     >
       DRAG AND DROP OR CLICK GENES TO ADD
     </h4>

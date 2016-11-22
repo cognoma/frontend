@@ -66,7 +66,7 @@ let diseaseListings;
     
     // Attribute: list-type
     it('list-type attr: displays initial state value', () => {
-      let setTitle_attrVal = findIn(element, '.js-test-setTitle').text();
+      let setTitle_attrVal = findIn(element, '.js-test-setTitle').text().trim();
       expect(setTitle_attrVal).toEqual(parentScope.setTitle);
     });
     

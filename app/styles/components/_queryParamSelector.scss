@@ -1,6 +1,48 @@
 /* =======================================================================
   Component: queryParamSelector 
  ========================================================================== */
-#query-param-selector{
-	background: $gray-lighter;	
+.query-param-selector{
+	background: $gray-lighter;
+	padding:0;
+	text-align: center;
+
+	.dashboard-column-header{ 
+		background: $gray-light;
+		color: $black;
+		border-bottom: 5px solid $blue;
+	}
+}
+
+.query-param-selector-ctrls{
+	padding: 1rem 0 0 0;
+	.badge, .btn{}
+	.btn--mutation-sort{
+		height: 25px;
+		background: $white;
+		padding:2px 5px;
+		margin-top:3px;
+		p{
+			display: inline-block;
+			font-size:10px;
+			margin:0;
+			padding:0;
+			font-family: Helvetica, sans-serif;
+		}
+	}
+}
+
+.query-param-selector-results{
+	margin-top:50px;
+	
+	.row{
+		overflow:scroll;
+		display: block;
+		height:750px;
+	}	
+
+	.gene-card:hover{
+		box-shadow: 0 2px 5px rgba($black, 0.5);
+		cursor:pointer;
+	}
+
 }

@@ -78,11 +78,11 @@ describe('UNIT: on_config', function () {
                 expect($_state.current.name).toBe(_state);
             });
 
-            it('should have correct template defined', function() {
-                goTo(_state);
-                expect($_state.$current.template).toBeDefined();
-                expect($_state.$current.template).toEqual('<app id="app" class="clearfix"></app>');
-            });
+            // it('should have correct template defined', function() {
+            //     goTo(_state);
+            //     expect($_state.$current.template).toBeDefined();
+            //     expect($_state.$current.template).toEqual('<app id="app" class="clearfix"></app>');
+            // });
         });
 
 

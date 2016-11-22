@@ -1,3 +1,5 @@
+import {results} from './geneResultsMock.js';
+
 const AppSettings = {
   app:{
     title: 'Cognoma',
@@ -6,6 +8,10 @@ const AppSettings = {
 
   api:{
     baseUrl: '/api/v1',
+  },
+
+  mockData:{
+  	geneResults: results
   }
 
 };

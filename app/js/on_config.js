@@ -17,13 +17,13 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     .state({
       name:         'app',
       url:          '/',
-      template:     '<app id="app" class="clearfix"></app>'
+      template:     '<app id="app" class="row"></app>'
     })
     .state({
       name:       'app.queryBuilder',
-      title:       'Query Builder:',
+      title:      'Query Builder:',
       url:        'query-builder',
-      component:  'queryBuilder',
+      template:   '<query-builder id="query-builder" class="row"/>',
       redirectTo: '/query-builder/mutations'
     })
     .state({
@@ -31,18 +31,18 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       title: 'Query Builder: Mutations',
       url:   '/mutations',
       views: {
-        'queryOverview':      {component: 'queryOverview'},
-        'querySet':           {component: 'querySetMutations'},
+        'queryOverview':      {template: '<query-overview mutation-set="$ctrl.mutationList" disease-set="$ctrl.diseaseList"/>'},
+        'querySet':           {template: '<query-set-mutations mutation-set="$ctrl.mutationList" />'},
         'queryParamSelector': {component: 'queryParamSelector'}
       }
     })
     .state({
-      name:         'app.queryBuilder.diseaseType',
-      title:       'Query Builder: Disease Type',
-      url:           '/disease-type',
+      name:   'app.queryBuilder.diseaseType',
+      title:  'Query Builder: Disease Type',
+      url:    '/disease-type',
       views:{
-        'queryOverview':      {component: 'queryOverview'},
-        'querySet':           {component: 'querySetDiseaseType'},
+        'queryOverview':      {template: '<query-overview mutation-set="$ctrl.mutationList" disease-set="$ctrl.diseaseList"/>'},
+        'querySet':           {template: '<query-set-disease-type disease-set="$ctrl.diseaseList" />'},
         'queryParamSelector': {component: 'queryParamSelector'}
       }
     });

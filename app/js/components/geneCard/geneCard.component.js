@@ -4,7 +4,7 @@ const GeneCardComponent = {
       id: '@',
       name: '@',
       desc: '@',
-      link: '@',
+      link: '@'
     },
     transclude: true,
     controller: function() {
