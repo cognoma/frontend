@@ -30,6 +30,21 @@ const QueryBuilderComponent = {
                     this[`${set}List`] = [];
                   };
 
+
+                   vm.setIsSorted = (list, sortedList, sortedOn)=>{
+                      return _.isEqual(
+                                  _.pluck(list, sortedOn),
+                                  _.pluck(sortedList, sortedOn),
+                              );
+                  };
+
+                  vm.sortSetOn = (list, sortOn)=>{
+                    let sortedList = _.sortBy(list, sortOn);
+                    return (vm.setIsSorted(list, sortedList, sortOn) ? list.reverse() : sortedList);
+                  };
+            
+                  
+
                 /* =======================================================================
                   Mutation Set Event Handlers 
                 ========================================================================== */
@@ -40,7 +55,8 @@ const QueryBuilderComponent = {
                     if(this.diseaseList.length) vm._updateDL_mutationData();
                 });
 
-                $rootScope.$on('mutationSet:clear', ()=>vm._clearSet('mutation') );
+                $rootScope.$on('mutationSet:clear', ()=>{vm._clearSet('mutation') });
+
 
                 $rootScope.$on('mutationSet:remove:mutation', (e, mutation)=>{
                     let mutationIndex = _.indexOf(_.pluck(this.mutationList, 'entrezgene'), mutation.entrezgene);
@@ -49,9 +65,8 @@ const QueryBuilderComponent = {
                     if(this.diseaseList.length) vm._updateDL_mutationData();
                 });
 
-                $rootScope.$on('mutationSet:sortBy:Id', (e, data)=>{
-                    let sortedList = _.sortBy(this.mutationList, 'id');
-                    this.mutationList = !data.sorted ? sortedList : this.mutationList.reverse();
+                $rootScope.$on('mutationSet:sort', (e, data)=>{
+                    this.mutationList = vm.sortSetOn(this.mutationList, data.sortOn );
                 });
 
 

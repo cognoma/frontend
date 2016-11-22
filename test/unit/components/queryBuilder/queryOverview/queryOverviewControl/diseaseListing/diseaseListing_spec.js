@@ -3,6 +3,7 @@ describe('UNIT::component: diseaseListing:', () => {
   let parentScope;
   let element;  
   let state;
+  let $_rootScope;
 
 
   function findIn(element, selector) {
@@ -16,7 +17,7 @@ describe('UNIT::component: diseaseListing:', () => {
  
   
     beforeEach(inject(($compile, $rootScope) => {
-      
+      $_rootScope = $rootScope;
       parentScope = $rootScope.$new();
       parentScope.listType = 'disease';
       parentScope.diseaseList = [
@@ -25,15 +26,7 @@ describe('UNIT::component: diseaseListing:', () => {
         'name':    'adrenocortical cancer',
         'positives': 16,
         'mutationsLoading':false,
-        'samples':[
-              {
-                sample_id:     'TCGA-AX-A05W-01',
-                disease:       'UCEC',
-                mutations:     [],
-                gender:        'Female',
-                age_diagnosed: 60
-              }
-          ]
+        'samples':[{}]
         }
       ];
       
@@ -99,21 +92,7 @@ describe('UNIT::component: diseaseListing:', () => {
 
    
     it('repeats proper number of elements in paramList', () => {
-      parentScope.diseaseList = [{id: 'CCCC', positives: 100, negatives: 20},{id: 'DDDDDD', positives: 250, negatives: 20}];
-      parentScope.$digest();
- 
-      let diseaseListings = angular.element(element[0].querySelectorAll('disease-listing'));
-      // make sure all of the listings get rendered
-      expect(diseaseListings.length).toEqual(parentScope.diseaseList.length);
-
-    });
-
-    
-
-    describe('event emitters:',()=>{
-
-      it('removeMutation() fires diseaseSet:remove:disease event ', ()=>{
-       parentScope.diesaseList =[
+      parentScope.diesaseList =[
           {
             'acronym': 'ACC',
             'name':    'adrenocortical cancer',
@@ -135,16 +114,27 @@ describe('UNIT::component: diseaseListing:', () => {
             'mutationsLoading':false,
             'samples':[{}, {}, {}, {}, {}, {}]
           }];
+      parentScope.$digest();
+ 
+      let diseaseListings = angular.element(element[0].querySelectorAll('disease-listing'));
+      // make sure all of the listings get rendered
+      expect(diseaseListings.length).toEqual(parentScope.diseaseList.length);
 
+    });
 
-        parentScope.$digest();
+    
+
+    describe('event emitters:',()=>{
+
+      it('removeMutation() fires diseaseSet:remove:disease event ', ()=>{
         const diseaseSetRemove_spy = jasmine.createSpy('diseaseSetRemove_spy');
         $_rootScope.$on('diseaseSet:remove:disease', diseaseSetRemove_spy);
         
         const emitEventButton = findIn(element, '.glyphicon-remove-circle');
         emitEventButton.triggerHandler('click');
 
-        expect(diseaseSetRemove_spy).toHaveBeenCalledWith(jasmine.anything(),  parentScope.diseaseList[0]);
+        expect(diseaseSetRemove_spy).toHaveBeenCalled();
+
       });
   })
 
