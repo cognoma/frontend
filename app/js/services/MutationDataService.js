@@ -1,11 +1,10 @@
-function MutationDataService($http, AppSettings, $rootScope, _) {
+function MutationDataService($http, AppSettings,  _) {
   'ngInject';
 
   const service = {};
 
   service.getPositivesFor =function(disease, selectedMutations = []){
     console.log(`MutationDataService::getPositivesFor:${disease.acronym} with ${_.pluck(selectedMutations, "symbol").join('+')}`);
-
 
     return new Promise((resolve, reject) => {
 
@@ -20,7 +19,7 @@ function MutationDataService($http, AppSettings, $rootScope, _) {
         let resultRow = jsonObj[Object.keys(jsonObj)[0]]
   
           selectedMutations.forEach(gene=>{
-            if( resultRow.match(gene) ) posCount++;
+            if( resultRow.match(gene.symbol) ) posCount++;
           });
       });
 

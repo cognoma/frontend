@@ -8,28 +8,23 @@ const QueryParamSelectorComponent = {
     controller: [
                     '$rootScope',
                     '$scope',
-                    'GeneSearchService',
-                    'DiseaseSearchService',
                     '_',
                     '$state',
-        function($rootScope, $scope, GeneSearchService, DiseaseSearchService, _, $state) {
+        function($rootScope, $scope, _, $state) {
         	'ngInject';
 
+            const vm = this;
+            
             this.$onInit = ()=>{
                 vm.searchResults =[];
                 vm.searchQuery='';
             }
 
-        	const vm = this;
-            const searchServices = {
-                'mutations': GeneSearchService,
-                'disease': DiseaseSearchService
-            };
-
+        	
             vm.currentState = ()=>$state.current.name.split('.')[2];
+
             vm.instructionsTemplate = `queryBuilder/queryParamSelector/${vm.currentState()}_instructions.tpl.html`;
 
-                        
 
             $rootScope.$on('paramSearch:reset', ()=>{
                 vm.searchResults =[];

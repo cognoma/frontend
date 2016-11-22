@@ -4,13 +4,12 @@ function DiseaseSearchService($q, DiseaseResource) {
   const service = {};
   
   
-  service.get = function(searchQuery) {
+  service.get = function(searchQuery, mutationList = null) {
   
-    
     return new Promise((resolve, reject) => {
 
       return DiseaseResource
-              .query()
+              .query(mutationList)
               .then(
                   // sucess
                   results => { 

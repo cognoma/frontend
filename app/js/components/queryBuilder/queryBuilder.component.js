@@ -121,7 +121,7 @@ const QueryBuilderComponent = {
                     }else{
                         
                         searchServices[vm.currentState()]
-                            .get(searchQuery)
+                            .get(searchQuery, this.mutationList)
                             .then(response=>{
                                 let queryResults = response.results || response.data.hits;
                                 vm.searchResults = queryResults;
