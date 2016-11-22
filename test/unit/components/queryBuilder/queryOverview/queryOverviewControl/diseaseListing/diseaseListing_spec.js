@@ -1,4 +1,4 @@
-describe('UNIT::component: diseaseListing', () => {
+describe('UNIT::component: diseaseListing:', () => {
 
   let parentScope;
   let element;  
@@ -18,12 +18,13 @@ describe('UNIT::component: diseaseListing', () => {
     beforeEach(inject(($compile, $rootScope) => {
       
       parentScope = $rootScope.$new();
-      parentScope.listType = 'genes';
+      parentScope.listType = 'disease';
       parentScope.diseaseList = [
         {
         'acronym': 'ACC',
         'name':    'adrenocortical cancer',
         'positives': 16,
+        'mutationsLoading':false,
         'samples':[
               {
                 sample_id:     'TCGA-AX-A05W-01',
@@ -46,7 +47,6 @@ describe('UNIT::component: diseaseListing', () => {
                 positives="disease.positives"
                 is-loading="disease.mutationsLoading"
               ></disease-listing>
-
             </div>
         `);
         
@@ -68,7 +68,6 @@ describe('UNIT::component: diseaseListing', () => {
 
 
     it('shows total number of samples', () => {
-      
       let sampleCountEl = findIn(element, '.js-test-sampleCount');
       let sampleCount_Val = findIn(element, '.js-test-sampleCount').text();
       
@@ -80,7 +79,6 @@ describe('UNIT::component: diseaseListing', () => {
 
 
     it('shows the number of negatives', () => {
-      
       let negativesCountEl = findIn(element, '.js-test-negatives');
       let negativesCount_Val = findIn(element, '.js-test-negatives').text();
       
@@ -93,20 +91,14 @@ describe('UNIT::component: diseaseListing', () => {
 
 
     it('shows the number of positives', () => {
-      
       let positivesCountEl = findIn(element, '.js-test-positives');
       let positivesCount_Val = findIn(element, '.js-test-positives').text();
-      
       expect(positivesCountEl).toBeDefined();
       expect(+positivesCount_Val).toEqual(parentScope.diseaseList[0].positives);
     });
 
-
-
-    
-
    
-  it('repeats proper number of elements in paramList', () => {
+    it('repeats proper number of elements in paramList', () => {
       parentScope.diseaseList = [{id: 'CCCC', positives: 100, negatives: 20},{id: 'DDDDDD', positives: 250, negatives: 20}];
       parentScope.$digest();
  
@@ -116,6 +108,45 @@ describe('UNIT::component: diseaseListing', () => {
 
     });
 
+    
+
+    describe('event emitters:',()=>{
+
+      it('removeMutation() fires diseaseSet:remove:disease event ', ()=>{
+       parentScope.diesaseList =[
+          {
+            'acronym': 'ACC',
+            'name':    'adrenocortical cancer',
+            'positives': 16,
+            'mutationsLoading':false,
+            'samples':[{}, {}, {}]
+          },
+          {
+            'acronym': 'BLCA',
+            'name': 'bladder urothelial carcinoma',
+            'positives': 2,
+            'mutationsLoading':false,
+            'samples':[{}]
+          },
+          {
+            'acronym': 'BRCA',
+            'name': 'breast invasive carcinoma',
+            'positives': 3,
+            'mutationsLoading':false,
+            'samples':[{}, {}, {}, {}, {}, {}]
+          }];
+
+
+        parentScope.$digest();
+        const diseaseSetRemove_spy = jasmine.createSpy('diseaseSetRemove_spy');
+        $_rootScope.$on('diseaseSet:remove:disease', diseaseSetRemove_spy);
+        
+        const emitEventButton = findIn(element, '.glyphicon-remove-circle');
+        emitEventButton.triggerHandler('click');
+
+        expect(diseaseSetRemove_spy).toHaveBeenCalledWith(jasmine.anything(),  parentScope.diseaseList[0]);
+      });
+  })
 
 
 
