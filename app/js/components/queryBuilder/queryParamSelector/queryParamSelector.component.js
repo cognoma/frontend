@@ -4,14 +4,16 @@ const QueryParamSelectorComponent = {
         'onChange':'&',
         'searchResults': '='
     },
-	transclude: true,    
     controller: [
                     '$rootScope',
                     '$scope',
                     '_',
                     '$state',
-        function($rootScope, $scope, _, $state) {
+                    '$log',
+        function($rootScope, $scope, _, $state, $log) {
         	'ngInject';
+            $log = $log.getInstance('QueryParamSelectorComponent', true);
+            $log.log('');
 
             const vm = this;
             

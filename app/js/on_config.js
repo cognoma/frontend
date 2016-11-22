@@ -1,9 +1,12 @@
-function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compileProvider) {
+function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compileProvider, $provide) {
   'ngInject';
 
   if (process.env.NODE_ENV === 'production') {
     $compileProvider.debugInfoEnabled(false);
   }
+
+  //activate LogDecorator
+  require('./utils/logging/LogDecorator.js')($provide);
 
   $locationProvider.html5Mode({
     enabled: true,

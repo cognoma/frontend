@@ -4,8 +4,11 @@ const QuerySetDiseaseTypeComponent = {
       'mutationSet': '=',
       'diseaseSet':  '='
     },
-    controller:['$rootScope','_', function ($rootScope,_) {
-          'ngInject'
+    controller:['$rootScope','_','$log', function ($rootScope,_, $log) {
+          'ngInject';
+          $log = $log.getInstance('QuerySetDiseaseTypeComponent', true);
+          $log.log('');
+          
           let vm = this;
           vm.clearDiseaseSet = ()=>{ $rootScope.$emit('diseaseSet:clear') }
           vm.sortSetBy = sortParam=>{$rootScope.$emit('diseaseSet:sort',{sortOn:sortParam})}

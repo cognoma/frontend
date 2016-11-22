@@ -10,14 +10,21 @@ const QueryBuilderComponent = {
                  '$timeout',
                  'GeneSearchService',
                  'DiseaseSearchService',
-                 function($scope, $rootScope, _, DiseaseModel, $state,$q, $timeout, GeneSearchService, DiseaseSearchService) {
+                 '$log',
+                 function($scope, $rootScope, _, DiseaseModel, $state,$q, $timeout, GeneSearchService, DiseaseSearchService, $log) {
             	     'ngInject';
                    let vm = this;
+                   
+                   $log = $log.getInstance('QueryBuilderComponent', true);
+                   $log.log('');
+                   
 
             	     this.diseaseList = [];
             	     this.mutationList = [];
 
                    vm.currentState = ()=>$state.current.name.split('.')[2];
+
+
                    vm.searchResults = [];
 
                    vm._pushResultToSetBy = (params)=>{

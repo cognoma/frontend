@@ -1,12 +1,14 @@
 const QueryOverviewComponent = {
     templateUrl: 'queryBuilder/queryOverview/queryOverview.tpl.html',
     bindings: {
-    	'mutationSet': '=',
-    	'diseaseSet': '='
+    	'mutationSet': ' = ',
+    	'diseaseSet': '  = '
     },
-    controller: function () {
-    	'ngInject';
-    }
+    controller: ['$log',function ($log) {
+            'ngInject';
+            $log = $log.getInstance('QueryOverviewComponent', true);
+            $log.log('');
+    }]
 }
 
 export default {

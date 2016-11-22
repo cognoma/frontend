@@ -1,17 +1,10 @@
 const AppComponent = {
     templateUrl: 'app/app.tpl.html',
     bindings: {},
-    controller: ['$rootScope',function($rootScope){
+    controller: ['$rootScope','$log', function($rootScope, $log){
         'ngInject';
-
-        $rootScope.queryBuilder = {
-        	query:{
-        		mutations: [],
-        		diseases: [{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20}]
-        	}
-        };
-
-
+        $log = $log.getInstance('AppComponent', true);
+        $log.log('');
    }]
 }
 

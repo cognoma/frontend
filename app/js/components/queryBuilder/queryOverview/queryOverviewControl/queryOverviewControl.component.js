@@ -7,10 +7,14 @@ const QueryOverviewControlComponent = {
         listType: '@',
         paramList:'='
     },
-    controller: ['$rootScope','$state',function ($rootScope, $state) {
+    controller: ['$rootScope','$state','$log',function ($rootScope, $state, $log) {
         'ngInject';
+
+        $log = $log.getInstance('QueryOverviewControlComponent', true);
+        $log.log('');
+
         let vm = this;
-        
+
         vm.active = $state.current.name.includes(vm.listType);        
         
         this.clearSet = ()=>$rootScope.$emit('mutationSet:clear');

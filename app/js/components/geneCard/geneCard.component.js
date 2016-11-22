@@ -7,11 +7,14 @@ const GeneCardComponent = {
       score:    '@',
       link:     '@'
     },
-    controller: function() {
-      'ngInject';
-      this.link = 'balls';
-      
-    }
+    controller: ['$log',function($log) {
+          'ngInject';
+          $log = $log.getInstance('GeneCardComponent', true);
+          $log.log(`${this.symbol}`);
+          
+          this.link = 'link';
+          
+        }]
 }
 
 export default {

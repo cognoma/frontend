@@ -1,10 +1,12 @@
-function MutationDataService($http, AppSettings,  _) {
+function MutationDataService($http, AppSettings,  _, $log) {
   'ngInject';
+  $log = $log.getInstance('MutationDataService', false);
+  $log.log('');
 
   const service = {};
 
   service.getPositivesFor =function(disease, selectedMutations = []){
-    console.log(`MutationDataService::getPositivesFor:${disease.acronym} with ${_.pluck(selectedMutations, "symbol").join('+')}`);
+    $log.info(`getPositivesFor:${disease.acronym} with ${_.pluck(selectedMutations, "symbol").join('+')}`);
 
     return new Promise((resolve, reject) => {
 
