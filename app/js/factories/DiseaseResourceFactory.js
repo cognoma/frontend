@@ -4,7 +4,7 @@ function DiseaseResource($http, DiseaseModel, $httpParamSerializer, AppSettings)
   const endpoint = '/diseases/';
 
   const processResponseFor = (query, mutationList)=>{
-    console.log(mutationList)
+    
   	return $http
               .get(query)
   		 		    .then(response=>{

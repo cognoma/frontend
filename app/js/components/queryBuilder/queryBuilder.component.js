@@ -14,8 +14,8 @@ const QueryBuilderComponent = {
             	     'ngInject';
                    let vm = this;
 
-            	     $rootScope.diseaseList = this.diseaseList = [];
-            	     $rootScope.mutationList = this.mutationList = [];
+            	     this.diseaseList = [];
+            	     this.mutationList = [];
 
                    vm.currentState = ()=>$state.current.name.split('.')[2];
                    vm.searchResults = [];
@@ -77,7 +77,7 @@ const QueryBuilderComponent = {
 
                 $rootScope.$on('diseaseSet:add', (e,disease)=>{
                     this.diseaseList.push(disease);
-                    vm._pushResultToSetBy({result: disease, set:$rootScope.diseaseList, param: 'acronym'});
+                    vm._pushResultToSetBy({result: disease, set:this.diseaseList, param: 'acronym'});
                 });
 
                 $rootScope.$on('diseaseSet:sort', (e, data)=>{
