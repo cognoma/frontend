@@ -4,9 +4,20 @@ const QuerySetDiseaseTypeComponent = {
       'mutationSet': '=',
       'diseaseSet':  '='
     },
-    controller: function () {
-    	'ngInject'
-    }
+    controller:['$rootScope','_', function ($rootScope,_) {
+          'ngInject'
+          let vm = this;
+          vm.clearDiseaseSet = ()=>{ $rootScope.$emit('diseaseSet:clear') }
+          vm.sortSetBy = sortParam=>{$rootScope.$emit('diseaseSet:sort',{sortOn:sortParam})}
+
+          vm.samplesTotal = ()=>{
+            let samplesFlattened = _.pluck(this.diseaseSet, 'samples').map(samples=>samples.length);
+            return _.reduce(samplesFlattened, (a,b)=>a+b);
+          }
+
+          vm.setTotalFor = setParam=>_.reduce(_.pluck(this.diseaseSet, setParam), (a,b)=>a+b);
+          
+        }]
 }
 
 export default {

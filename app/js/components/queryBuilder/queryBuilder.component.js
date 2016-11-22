@@ -55,7 +55,7 @@ const QueryBuilderComponent = {
                     if(this.diseaseList.length) vm._updateDL_mutationData();
                 });
 
-                $rootScope.$on('mutationSet:clear', ()=>{vm._clearSet('mutation') });
+                $rootScope.$on('mutationSet:clear', ()=>{ vm._clearSet('mutation'); });
 
 
                 $rootScope.$on('mutationSet:remove:mutation', (e, mutation)=>{
@@ -73,13 +73,18 @@ const QueryBuilderComponent = {
                 /* =======================================================================
                   Disease List Event Handlers 
                 ========================================================================== */
+                $rootScope.$on('diseaseSet:clear', (e,disease)=>{ vm._clearSet('disease'); });
+
                 $rootScope.$on('diseaseSet:add', (e,disease)=>{
                     this.diseaseList.push(disease);
                     vm._pushResultToSetBy({result: disease, set:$rootScope.diseaseList, param: 'acronym'});
                 });
 
+                $rootScope.$on('diseaseSet:sort', (e, data)=>{
+                    this.diseaseList = vm.sortSetOn(this.diseaseList, data.sortOn );
+                });
+
                 $rootScope.$on('diseaseSet:remove:disease', (e, disease)=>{
-                    // console.log(`diseaseSet:remove:disease -> ${disease.name}`);
                     let dIndex = _.indexOf(_.pluck(this.diseaseList, 'acronym'), disease.name);
                     this.diseaseList.splice(dIndex, 1);
                 });
@@ -90,7 +95,7 @@ const QueryBuilderComponent = {
                     this.diseaseList.map(diseaseResult=>{
 
                     diseaseResult.mutationsLoading = true;
-                    return DiseaseModel.loadPositives(diseaseResult, this.mutationList)
+                    return DiseaseModel.calculateMutationData(diseaseResult, this.mutationList)
                                        .then(data=>{
                                           data.mutationsLoading = false;
                                           let dIndex = _.indexOf(_.pluck(this.diseaseList, 'acronym'), data.acronym);

@@ -25,6 +25,7 @@ describe('UNIT::component: diseaseListing:', () => {
         'acronym': 'ACC',
         'name':    'adrenocortical cancer',
         'positives': 16,
+        'negatives': -15,
         'mutationsLoading':false,
         'samples':[{}]
         }
@@ -38,6 +39,7 @@ describe('UNIT::component: diseaseListing:', () => {
                 name="{{disease.acronym}}"
                 samples="disease.samples"
                 positives="disease.positives"
+                negatives="disease.negatives"
                 is-loading="disease.mutationsLoading"
               ></disease-listing>
             </div>
@@ -97,13 +99,15 @@ describe('UNIT::component: diseaseListing:', () => {
             'acronym': 'ACC',
             'name':    'adrenocortical cancer',
             'positives': 16,
+            'negatives': -13,
             'mutationsLoading':false,
             'samples':[{}, {}, {}]
           },
           {
             'acronym': 'BLCA',
             'name': 'bladder urothelial carcinoma',
-            'positives': 2,
+            'positives': 1,
+            'negatives': 1,
             'mutationsLoading':false,
             'samples':[{}]
           },
@@ -111,6 +115,7 @@ describe('UNIT::component: diseaseListing:', () => {
             'acronym': 'BRCA',
             'name': 'breast invasive carcinoma',
             'positives': 3,
+            'negatives': 3,
             'mutationsLoading':false,
             'samples':[{}, {}, {}, {}, {}, {}]
           }];

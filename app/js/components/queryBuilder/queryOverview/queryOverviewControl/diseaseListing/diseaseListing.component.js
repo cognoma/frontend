@@ -3,6 +3,7 @@ const diseaseListingComponent = {
     bindings: {
         name:        '@',
         positives:   '=',
+        negatives:   '=',
         samples:     '=',
         'isLoading': '<'
     },

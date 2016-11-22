@@ -5,21 +5,26 @@
   <div class="list-controls">
     <div class="col-xs-10">
       <span>SELECTED DISEASE TYPES</span>
-      <span class="glyphicon glyphicon-sort"></span>
+      <span 
+        class="glyphicon glyphicon-sort"
+        ng-click="$ctrl.sortSetBy('positives')"
+      >  
+        </span>
     </div>
     <div class="col-xs-2">
-      <span class="label clear-button disease-clear-button">CLEAR</span>
+      <span class="label clear-button disease-clear-button"
+            ng-click="$ctrl.clearDiseaseSet()">CLEAR</span>
     </div>
   </div>
 
   <div class="col-xs-12 sample-set-bar">
-    <span>SAMPLES 100</span>
+    <span>SAMPLES {{ $ctrl.samplesTotal() }}</span>
     <span>POSTIVES
-      <span class="glyphicon glyphicon-plus-sign text-success"></span>
-      60</span>
+      <span class="glyphicon glyphicon-plus-sign text-success"></span>{{$ctrl.setTotalFor('positives')}}
+    </span>
     <span>NEGATIVES
       <span class="glyphicon glyphicon-minus-sign text-danger"></span>
-      40</span>
+      {{$ctrl.setTotalFor('negatives')}}</span>
   </div>
 
   
@@ -29,13 +34,13 @@
 
   <div 
     class="row"
-    ng-repeat="disease in $ctrl.diseaseSet"
+    ng-repeat="disease in $ctrl.diseaseSet track by $index"
     ng-if="$ctrl.diseaseSet.length"
   >
     <disease-card
       id="{{disease.name}}"
       positives="{{disease.positives}}"
-      negatives="{{disease.samples.length - disease.positives}}"
+      negatives="{{disease.negatives}}"
       samples="disease.samples"
     ></disease-card>
   </div>
@@ -46,7 +51,7 @@
     <h4 class="empty-card-text"
       ng-if="!$ctrl.diseaseSet.length"
     >
-      DRAG AND DROP OR CLICK GENES TO ADD
+      DRAG AND DROP OR CLICK DISEASE TYPES TO ADD
     </h4>
   </div>
 </div>

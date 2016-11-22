@@ -20,7 +20,7 @@
   					ng-class="{'glyphicon-minus-sign': !$ctrl.isLoading,
   			 				'glyphicon-refresh': $ctrl.isLoading}"
   				></span> 
-  			<strong ng-if="!$ctrl.isLoading" class="js-test-negatives">{{$ctrl.samples.length - $ctrl.positives}}</strong> 
+  			<strong ng-if="!$ctrl.isLoading" class="js-test-negatives">{{$ctrl.negatives}}</strong> 
   		</p>
   	</summary>
 
