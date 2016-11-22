@@ -9,10 +9,12 @@ const QueryOverviewControlComponent = {
     },
     controller: ['$rootScope','$state',function ($rootScope, $state) {
         'ngInject';
+        let vm = this;
         
-        this.active = $state.current.name.includes(this.listType);
+        vm.active = $state.current.name.includes(vm.listType);        
         
         this.clearSet = ()=>$rootScope.$emit('mutationSet:clear');
+
         this.resetSearch = ()=>$rootScope.$emit('paramSearch:reset');
 
 

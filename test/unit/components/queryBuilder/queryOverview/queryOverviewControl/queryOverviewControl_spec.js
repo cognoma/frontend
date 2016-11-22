@@ -1,12 +1,17 @@
-describe('UNIT::component: queryOverviewControl', () => {
+describe('UNIT::component: queryOverviewControl:', () => {
 
   let parentScope;
   let element;  
-  let state;
+  let $state;
   let mutationListings;
   let diseaseListings;
   var $componentController;
 
+
+var $_locationProvider,
+    $_urlRouterProvider,
+    $_stateProvider,
+    $_rootScope;
 
   function findIn(element, selector) {
   	return angular.element(element[0].querySelector(selector));
@@ -17,14 +22,32 @@ describe('UNIT::component: queryOverviewControl', () => {
   beforeEach(angular.mock.module('app'));
   beforeEach(angular.mock.module('templates'));
   beforeEach(angular.mock.module('app.components'));
+  // beforeEach(function () {
 
-  beforeEach(inject(function(_$componentController_) {
+  //       angular.module('locationProviderConfig', ['ui.router'])
+  //           .config(function($locationProvider, $urlRouterProvider, $stateProvider) {
+               
+  //               $_locationProvider = $locationProvider;
+  //               $_urlRouterProvider = $urlRouterProvider;
+  //               $_stateProvider = $stateProvider;
+  //               spyOn($_locationProvider, 'html5Mode').and.callThrough();
+  //               spyOn($_urlRouterProvider, 'when').and.callThrough();
+  //               spyOn($_urlRouterProvider, 'otherwise').and.callThrough();
+  //           });
+
+  //       angular.mock.module('locationProviderConfig');
+  //       angular.mock.module('app');
+  //       angular.mock.inject();
+  //   });
+
+  beforeEach(inject(function(_$componentController_, _$state_) {
     $componentController = _$componentController_;
+    $state = _$state_;
   }));
  
   
     beforeEach(inject(($compile, $rootScope) => {
-      
+      $_rootScope = $rootScope;
       parentScope = $rootScope.$new();
     	parentScope.title = 'Mutations';
       parentScope.setTitle = 'Gene Set';
@@ -55,10 +78,11 @@ describe('UNIT::component: queryOverviewControl', () => {
         `);
 
         var chlidScope = element.find('#test-overviewCtrl').scope();
+
         
         $compile(element)(parentScope);
 
-      
+        
         parentScope.$digest();
 
         mutationListings = angular.element(element[0].querySelectorAll('mutation-listing'));
@@ -146,6 +170,39 @@ describe('UNIT::component: queryOverviewControl', () => {
 
     });
 
+
+    it('active property set based on correct ui.state', ()=>{
+      $state.go('app.queryBuilder.mutations');
+      parentScope.$digest();
+       //Extract the Controller reference from compiled element
+      var elementController = element.isolateScope().$ctrl;
+      elementController.active = $state.current.name.includes(elementController.listType);
+      // Assert
+      expect(elementController.active).toBeTruthy();
+      
+    });
+
+    describe('event emmters:',()=>{
+      it('clearSet() fires mutationSet:clear event ', ()=>{
+        const mutationSetClear_spy = jasmine.createSpy('mutationSetClear_spy');
+        $_rootScope.$on('mutationSet:clear', mutationSetClear_spy);
+        
+        element.isolateScope().$ctrl.clearSet();
+        expect(mutationSetClear_spy).toHaveBeenCalled();
+      });
+
+  
+      it('resetSearch() fires paramSearch:reset event ', ()=>{
+        const resetSearch_spy = jasmine.createSpy('resetSearch_spy');
+        $_rootScope.$on('paramSearch:reset', resetSearch_spy);
+        
+        element.isolateScope().$ctrl.resetSearch();
+        expect(resetSearch_spy).toHaveBeenCalled();
+      });
+
+
+    });
+    
 
 
 
