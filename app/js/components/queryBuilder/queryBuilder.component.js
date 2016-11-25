@@ -106,7 +106,8 @@ const QueryBuilderComponent = {
                                        .then(data=>{
                                           data.mutationsLoading = false;
                                           let dIndex = _.indexOf(_.pluck(this.diseaseList, 'acronym'), data.acronym);
-                                          $scope.$apply(()=>{this.diseaseList[dIndex] = data;});
+                                          this.diseaseList[dIndex] = data;
+                                          // $scope.$apply(()=>{this.diseaseList[dIndex] = data;});
                                         });
                   })
 
