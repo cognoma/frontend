@@ -9,7 +9,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
   require('./utils/logging/LogDecorator.js')($provide);
 
   $locationProvider.html5Mode({
-    enabled: location.pathname.includes('github.io') ? false : true,
+    enabled: location.hostname.includes('github.io') ? false : true,
     requireBase: false
   });
   
