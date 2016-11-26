@@ -19,7 +19,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
   $stateProvider
     .state({
       name:         'app',
-      url:          if(location.pathname.includes('congnoma-frontend')) ? '/congnoma-frontend' : '/',
+      url:          location.pathname.includes('cognoma-frontend') ? '/cognoma-frontend' : '/',
       template:     '<app id="app" class="row"></app>'
     })
     .state({
