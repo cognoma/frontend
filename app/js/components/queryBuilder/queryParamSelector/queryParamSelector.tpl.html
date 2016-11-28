@@ -59,7 +59,10 @@
  	 class="row">
 </div>
 
-<section class="row query-param-selector-results">
+<section 
+	ng-if="$ctrl.searchResults.length"
+	class="row query-param-selector-results"
+>
 	<div class="col-lg-12">
 		<div class="row results-row">
 			
