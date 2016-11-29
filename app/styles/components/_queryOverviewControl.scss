@@ -23,9 +23,7 @@
 		}
 	}
 
-	.query-overview--mutations{
-		margin-top: 50px;
-	}
+	.query-overview--mutations{}
 
 		.query-overview--control-title{
 			padding: 17px 0 17px 28px;
@@ -76,8 +74,10 @@
 					cursor:pointer;
 					box-shadow: 0 0 5px 0 rgba($black, 0.5);
 					background: rgba($white, 1);
-					// border:1px solid rgba($blue, 1);
-					.glyphicon-remove-circle{opacity: 1;}
+
+					.glyphicon-remove-circle{
+						opacity: 1;
+					}
 				}
 			}
 				.query-overview--control-param-title{
@@ -117,7 +117,7 @@
 						color: blue;
 					}
 				}
-				.query-overview--control-param-title{ font-size:10px;}
+				.query-overview--control-param-title{ font-size:12px;}
 				.control-param-summary{
 					font-size: 10px;
 					p{display:inline-block; margin-bottom:0;}
@@ -125,7 +125,7 @@
 					.glyphicon{ transition: all 0.25s ease; font-size: 12px;}
 				}
 				
-				.glyphicon-remove-circle{ background: $white; }
+				// .glyphicon-remove-circle{ background: $white; }
 			}
 
 				.sample-count{
