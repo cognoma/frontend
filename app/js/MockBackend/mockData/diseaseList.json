@@ -1,7 +1,7 @@
 Disease Search 
 1. find disease http://localhost:8080/samples\?limit\=100\&disease\=ACC
-2. find disease sample count http://localhost:8080/samples\?limit\=1\&disease\=ACC
-3. calculate positives http://localhost:8080/samples\?limit\=1\&disease\=ACC&mutations__gene=<entrezid>&mutations__gene=<entrezid>
+2. find disease sample count http://localhost:8080/samples?limit=1&disease=ACC
+3. calculate positives http://localhost:8080/samples?limit=1&disease=ACC&mutations__gene=<entrezid>&mutations__gene=<entrezid>
  
 
 {
