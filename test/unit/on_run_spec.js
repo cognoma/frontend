@@ -1,4 +1,4 @@
-describe('UNIT: on_run', ()=>{
+xdescribe('UNIT: on_run', ()=>{
 	let $_rootScope,
 		$_state, 
 		_AppSettings;

@@ -1,5 +1,3 @@
-import {results} from './geneResultsMock.js';
-
 const AppSettings = {
   app:{
     title: 'Cognoma',
@@ -8,11 +6,24 @@ const AppSettings = {
 
   api:{
     baseUrl: '/api/v1',
-  },
-
-  mockData:{
-  	geneResults: results
-  }
+    geneSearch:{
+      base: 'https://mygene.info/v3/query?q=',
+      params:{
+        suggest_from: 'symbol^2,alias',
+        species:      'human',
+        entrezonly:   'true',
+        size:          100
+      } 
+    },
+    cBioPortal:{
+      base: 'http://www.cbioportal.org/webservice.do',
+      params:{
+        cmd:                'getMutationData',
+        genetic_profile_id: '_tcga_mutations',
+        gene_list:          []
+      }
+    }
+}
 
 };
 

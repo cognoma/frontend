@@ -4,7 +4,12 @@ import angular from 'angular';
 import constants from './constants';
 import onConfig  from './on_config';
 import onRun     from './on_run';
+
+import './MockBackend';
+import '../../node_modules/angular-resource/angular-resource.js';
+
 import 'angular-animate';
+import 'angular-resource';
 import './components';
 import 'angular-ui-router';
 import 'ui-router-route-to-components';
@@ -13,6 +18,8 @@ import './templates';
 import './filters';
 import './directives';
 import './services';
+import './factories';
+import './dataModels';
 
 import * as _ from 'underscore';
 
@@ -33,6 +40,10 @@ const requires = [
   'app.components',
   'app.directives',
   'app.services',
+  'app.factories',
+  'app.models',
+  'MockBackend',
+  'ngResource',
   'lib.underscore'
 ];
 
@@ -44,6 +55,7 @@ angular.module('app').constant('AppSettings', constants);
 angular.module('app').config(onConfig);
 
 angular.module('app').run(onRun);
+
 
 angular.bootstrap(document, ['app'], {
   strictDi: true

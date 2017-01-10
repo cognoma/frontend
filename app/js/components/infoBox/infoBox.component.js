@@ -6,6 +6,8 @@ const infoBoxComponent = {
 	transclude: true,    
     controller: function () {
     	'ngInject';
+        
+
     }
 }
 

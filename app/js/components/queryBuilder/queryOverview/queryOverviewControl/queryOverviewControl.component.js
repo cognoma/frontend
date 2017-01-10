@@ -7,22 +7,18 @@ const QueryOverviewControlComponent = {
         listType: '@',
         paramList:'='
     },
-    controller: ['$rootScope',function ($rootScope) {
+    controller: ['$rootScope','$state','$log',function ($rootScope, $state, $log) {
         'ngInject';
 
+        $log = $log.getInstance('QueryOverviewControlComponent', true);
+        $log.log('');
 
+        let vm = this;
 
-        this.addGene = ()=>{
-            $rootScope.$emit('mutationSet:add',
-                                           {id: 'xxx9x', 
-                                            name: 'gene name 10', 
-                                            desc: 'a new desc', 
-                                            link: 'cardlink'}
-                                        );
-        };
+        vm.active = $state.current.name.includes(vm.listType);        
         
-
         this.clearSet = ()=>$rootScope.$emit('mutationSet:clear');
+
         this.resetSearch = ()=>$rootScope.$emit('paramSearch:reset');
 
 

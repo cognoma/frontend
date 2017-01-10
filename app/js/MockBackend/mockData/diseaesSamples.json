@@ -1,0 +1,77 @@
+{
+  "count": 4986,
+  "next": "http://core:8000/samples?limit=10&offset=10",
+  "previous": null,
+  "results": [
+    {
+      "sample_id": "TCGA-02-0047-01",
+      "disease": "GBM",
+      "mutations": [],
+      "gender": "Male",
+      "age_diagnosed": 78
+    },
+    {
+      "sample_id": "TCGA-02-0055-01",
+      "disease": "GBM",
+      "mutations": [],
+      "gender": "Female",
+      "age_diagnosed": 62
+    },
+    {
+      "sample_id": "TCGA-02-2483-01",
+      "disease": "GBM",
+      "mutations": [],
+      "gender": "Male",
+      "age_diagnosed": 43
+    },
+    {
+      "sample_id": "TCGA-02-2485-01",
+      "disease": "GBM",
+      "mutations": [],
+      "gender": "Male",
+      "age_diagnosed": 53
+    },
+    {
+      "sample_id": "TCGA-02-2486-01",
+      "disease": "GBM",
+      "mutations": [],
+      "gender": "Male",
+      "age_diagnosed": 64
+    },
+    {
+      "sample_id": "TCGA-04-1348-01",
+      "disease": "OV",
+      "mutations": [],
+      "gender": "Female",
+      "age_diagnosed": 44
+    },
+    {
+      "sample_id": "TCGA-04-1357-01",
+      "disease": "OV",
+      "mutations": [],
+      "gender": "Female",
+      "age_diagnosed": 52
+    },
+    {
+      "sample_id": "TCGA-04-1362-01",
+      "disease": "OV",
+      "mutations": [],
+      "gender": "Female",
+      "age_diagnosed": 59
+    },
+    {
+      "sample_id": "TCGA-05-4244-01",
+      "disease": "LUAD",
+      "mutations": [],
+      "gender": "Male",
+      "age_diagnosed": 70
+    },
+    {
+      "sample_id": "TCGA-05-4249-01",
+      "disease": "LUAD",
+      "mutations": [],
+      "gender": "Male",
+      "age_diagnosed": 67
+    }
+  ]
+}

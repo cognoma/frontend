@@ -16,7 +16,10 @@
 			border-top: none;
 			border-right:none;
 			border-bottom:none;
-			background:rgba($black, 0.5);
+			background:rgba($black, 0.25);
+			.query-overview--control-title{
+				color: lighten(green, 10%);
+			}
 		}
 	}
 
@@ -29,7 +32,7 @@
 			margin: 0;
 			position: relative;
 			text-transform: uppercase;
-
+			&:hover{cursor:pointer;}
 			.badge--counter{
 				position: absolute;
 				left: 4px;
@@ -107,12 +110,19 @@
 
 
 			.disease-listing{
+				transition: 1s all ease;
+				&.data-loading{
+					.glyphicon{ 
+						font-size: 14px; 
+						color: blue;
+					}
+				}
 				.query-overview--control-param-title{ font-size:10px;}
 				.control-param-summary{
 					font-size: 10px;
 					p{display:inline-block; margin-bottom:0;}
 					strong{font-size: 12px;}
-					.glyphicon{ font-size: 12px;}
+					.glyphicon{ transition: all 0.25s ease; font-size: 12px;}
 				}
 				
 				.glyphicon-remove-circle{ background: $white; }

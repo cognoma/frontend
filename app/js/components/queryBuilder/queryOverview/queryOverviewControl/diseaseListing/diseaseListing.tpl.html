@@ -1,13 +1,33 @@
-<div class="row query-overview--control-param disease-listing">
+<div 
+	class="row query-overview--control-param disease-listing"
+	ng-class="{'data-loading': $ctrl.isLoading}"
+>
 
   	<span class="row query-overview--control-param-title js-test-name">{{$ctrl.name}}</span>
 
   	<summary class="row control-param-summary">
-  		<p class="col-lg-4 sample-count">SAMPLES  <strong class="js-test-sampleCount">{{$ctrl.positives + $ctrl.negatives}}</strong> </p>
-  		<p class="col-lg-2 sample-positives sample-count--item"> <span class="glyphicon glyphicon-plus-sign"></span> <strong class="js-test-positives">{{$ctrl.positives}}</strong> </p>
-  		<p class="col-lg-2 sample-negatives sample-count--item"> <span class="glyphicon glyphicon-minus-sign"></span> <strong class="js-test-negatives">{{$ctrl.negatives}}</strong> </p>
+  		<p class="col-lg-4 sample-count"> <strong class="js-test-sampleCount">{{$ctrl.samples.length}}</strong> </p>
+
+  		<p class="col-lg-2 sample-positives sample-count--item">
+  			 <span class="glyphicon"
+  			 	   ng-class="{'glyphicon-plus-sign': !$ctrl.isLoading,
+  			 					'glyphicon-refresh': $ctrl.isLoading}"></span> 
+  			 <strong ng-if="!$ctrl.isLoading" class="js-test-positives">{{$ctrl.positives}}</strong> 
+  		</p>
+
+  		<p class="col-lg-2 sample-negatives sample-count--item"> 
+  			<span class="glyphicon"
+  					ng-class="{'glyphicon-minus-sign': !$ctrl.isLoading,
+  			 				'glyphicon-refresh': $ctrl.isLoading}"
+  				></span> 
+  			<strong ng-if="!$ctrl.isLoading" class="js-test-negatives">{{$ctrl.negatives}}</strong> 
+  		</p>
   	</summary>
 
-  	<button class="glyphicon glyphicon-remove-circle text-danger col-lg-1" aria-hidden="true"></button>
+  	<button 
+        class="glyphicon glyphicon-remove-circle text-danger col-lg-1" 
+        aria-hidden="true"
+        ng-click="$ctrl.removeDisease($ctrl)">
+  </button>
 
  </div>	  		

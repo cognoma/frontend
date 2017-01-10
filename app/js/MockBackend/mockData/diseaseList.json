@@ -1,0 +1,145 @@
+Disease Search 
+1. find disease http://localhost:8080/samples\?limit\=100\&disease\=ACC
+2. find disease sample count http://localhost:8080/samples\?limit\=1\&disease\=ACC
+3. calculate positives http://localhost:8080/samples\?limit\=1\&disease\=ACC&mutations__gene=<entrezid>&mutations__gene=<entrezid>
+ 
+
+{
+  "count": 33,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "acronym": "ACC",
+      "name": "adrenocortical cancer"
+    },
+    {
+      "acronym": "BLCA",
+      "name": "bladder urothelial carcinoma"
+    },
+    {
+      "acronym": "BRCA",
+      "name": "breast invasive carcinoma"
+    },
+    {
+      "acronym": "CESC",
+      "name": "cervical & endocervical cancer"
+    },
+    {
+      "acronym": "CHOL",
+      "name": "cholangiocarcinoma"
+    },
+    {
+      "acronym": "COAD",
+      "name": "colon adenocarcinoma"
+    },
+    {
+      "acronym": "DLBC",
+      "name": "diffuse large B-cell lymphoma"
+    },
+    {
+      "acronym": "ESCA",
+      "name": "esophageal carcinoma"
+    },
+    {
+      "acronym": "GBM",
+      "name": "glioblastoma multiforme"
+    },
+    {
+      "acronym": "HNSC",
+      "name": "head & neck squamous cell carcinoma"
+    },
+    {
+      "acronym": "KICH",
+      "name": "kidney chromophobe"
+    },
+    {
+      "acronym": "KIRC",
+      "name": "kidney clear cell carcinoma"
+    },
+    {
+      "acronym": "KIRP",
+      "name": "kidney papillary cell carcinoma"
+    },
+    {
+      "acronym": "LAML",
+      "name": "acute myeloid leukemia"
+    },
+    {
+      "acronym": "LGG",
+      "name": "brain lower grade glioma"
+    },
+    {
+      "acronym": "LIHC",
+      "name": "liver hepatocellular carcinoma"
+    },
+    {
+      "acronym": "LUAD",
+      "name": "lung adenocarcinoma"
+    },
+    {
+      "acronym": "LUSC",
+      "name": "lung squamous cell carcinoma"
+    },
+    {
+      "acronym": "MESO",
+      "name": "mesothelioma"
+    },
+    {
+      "acronym": "OV",
+      "name": "ovarian serous cystadenocarcinoma"
+    },
+    {
+      "acronym": "PAAD",
+      "name": "pancreatic adenocarcinoma"
+    },
+    {
+      "acronym": "PCPG",
+      "name": "pheochromocytoma & paraganglioma"
+    },
+    {
+      "acronym": "PRAD",
+      "name": "prostate adenocarcinoma"
+    },
+    {
+      "acronym": "READ",
+      "name": "rectum adenocarcinoma"
+    },
+    {
+      "acronym": "SARC",
+      "name": "sarcoma"
+    },
+    {
+      "acronym": "SKCM",
+      "name": "skin cutaneous melanoma"
+    },
+    {
+      "acronym": "STAD",
+      "name": "stomach adenocarcinoma"
+    },
+    {
+      "acronym": "TGCT",
+      "name": "testicular germ cell tumor"
+    },
+    {
+      "acronym": "THCA",
+      "name": "thyroid carcinoma"
+    },
+    {
+      "acronym": "THYM",
+      "name": "thymoma"
+    },
+    {
+      "acronym": "UCEC",
+      "name": "uterine corpus endometrioid carcinoma"
+    },
+    {
+      "acronym": "UCS",
+      "name": "uterine carcinosarcoma"
+    },
+    {
+      "acronym": "UVM",
+      "name": "uveal melanoma"
+    }
+  ]
+}

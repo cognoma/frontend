@@ -1,20 +1,32 @@
-function GeneSearchService($http) {
+function GeneSearchService($q, GenesResource) {
   'ngInject';
 
   const service = {};
-
+  
+  
   service.get = function(geneQuery) {
-
+  
+  
     return new Promise((resolve, reject) => {
-      console.log(`https://mygene.info/v3/query?q=${geneQuery}&suggest_from=symbol^2,alias&species=human&entrezonly=true`);
-      $http.get(`https://mygene.info/v3/query?q=${geneQuery}&suggest_from=symbol^2,alias&species=human&entrezonly=true`)
-           .success((data) => {
-             resolve(data);
-           })
-           .error((err, status) => {
-             reject(err, status);
-           });
+
+      return GenesResource
+              .get(geneQuery)
+              .then(
+                  // sucess
+                  results => { 
+                    // return and resolve once all 
+                    // genes are poupulate from thier promises
+                    return $q.all(results.data.hits)
+                             .then( data=>{
+                                results.data.hits = data;
+                                resolve(results);
+                            } )
+                  },
+                  // error
+                  (err, status)=>reject(err, status)
+          );
     });
+
 
   };
 
@@ -24,5 +36,5 @@ function GeneSearchService($http) {
 
 export default {
   name: 'GeneSearchService',
-  fn: GeneSearchService
+  fn:   GeneSearchService
 };

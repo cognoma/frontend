@@ -1,8 +1,10 @@
 const AppComponent = {
     templateUrl: 'app/app.tpl.html',
     bindings: {},
-    controller: [()=>{
+    controller: ['$rootScope','$log', function($rootScope, $log){
         'ngInject';
+        $log = $log.getInstance('AppComponent', true);
+        $log.log('');
    }]
 }
 

@@ -3,16 +3,17 @@
 			   query-overview--{{$ctrl.title.toLowerCase()}}
          row
 			"
+  ng-class="{'active': $ctrl.active}"
 >
 
   <h4 class="query-overview--control-title row" >
   	<span class="badge badge--counter"  >{{$ctrl.paramList.length}}</span>
-    <span class="js-test-title">{{$ctrl.title}}</span>
+    <span class="js-test-title" ui-sref="app.queryBuilder.{{$ctrl.listType}}">{{::$ctrl.title}}</span>
   </h4>
 
   <h5 ng-if="$ctrl.setTitle" 
       class="query-overview--control-setTitle js-test-setTitle">
-      {{$ctrl.setTitle}}
+      {{::$ctrl.setTitle}}
   </h5>
 
   <info-box
@@ -24,21 +25,25 @@
 		
   		<mutation-listing
         class="col-lg-6"
-  			ng-if=" $ctrl.listType == 'genes' "
-  			ng-repeat="setParam in $ctrl.paramList"
-  			entrezid="{{setParam.id}}"
+  			ng-if=" $ctrl.listType == 'mutations' "
+  			ng-repeat="gene in $ctrl.paramList"
+  			symbol="{{gene.symbol}}"
+        entrezgene="gene.entrezgene"
   		></mutation-listing>
 
   		<disease-listing
   			ng-if="$ctrl.listType == 'disease'"
-  			ng-repeat="setParam in $ctrl.paramList"
-  			name="{{setParam.id}}"
-        positives="setParam.positives"
-        negatives="setParam.negatives"
+  			ng-repeat="disease in $ctrl.paramList"
+  			name="{{disease.acronym}}"
+        samples="disease.samples"
+        positives="disease.positives"
+        negatives="disease.negatives"
+        is-loading="disease.mutationsLoading"
   		></disease-listing>
 
   		<button 
-  			ng-class="{ 'col-xs-6 col-lg-4': $ctrl.listType == 'genes',
+        ui-sref="app.queryBuilder.{{$ctrl.listType}}"
+  			ng-class="{ 'col-xs-6 col-lg-4': $ctrl.listType == 'mutations',
   						      'col-xs-10': $ctrl.listType == 'disease' }"
   			class="query-overview--control-param  query-overview--control-param-add text-uppercase"
         ng-click="$ctrl.resetSearch()">

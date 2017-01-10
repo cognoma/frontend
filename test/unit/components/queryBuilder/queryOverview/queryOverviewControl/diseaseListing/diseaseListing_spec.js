@@ -1,8 +1,9 @@
-describe('UNIT::component: diseaseListing', () => {
+describe('UNIT::component: diseaseListing:', () => {
 
   let parentScope;
   let element;  
   let state;
+  let $_rootScope;
 
 
   function findIn(element, selector) {
@@ -11,24 +12,37 @@ describe('UNIT::component: diseaseListing', () => {
 
 
    //load templates from $templateCache
+  beforeEach(angular.mock.module('app'));
+  // beforeEach(angular.mock.module('app.components'));
   beforeEach(angular.mock.module('templates'));
-  beforeEach(angular.mock.module('app.components'));
+  
  
   
     beforeEach(inject(($compile, $rootScope) => {
-      
+      $_rootScope = $rootScope;
       parentScope = $rootScope.$new();
-      parentScope.listType = 'genes';
-      parentScope.diseaseList = [{id: 'ADRENOCORTICAL CARCINOMA', positives: 10, negatives: 20},{id: 'BBBB', positives: 15, negatives: 20},{id: 'CCCC', positives: 100, negatives: 20},{id: 'DDDDDD', positives: 250, negatives: 20}];
+      parentScope.listType = 'disease';
+      parentScope.diseaseList = [
+        {
+        'acronym': 'ACC',
+        'name':    'adrenocortical cancer',
+        'positives': 16,
+        'negatives': -15,
+        'mutationsLoading':false,
+        'samples':[{}]
+        }
+      ];
       
 
         element = angular.element(`
           <div>
-        	   <disease-listing
-                ng-repeat="setParam in diseaseList"
-                name="{{setParam.id}}"
-                positives="setParam.positives"
-                negatives="setParam.negatives"
+              <disease-listing
+                ng-repeat="disease in diseaseList"
+                name="{{disease.acronym}}"
+                samples="disease.samples"
+                positives="disease.positives"
+                negatives="disease.negatives"
+                is-loading="disease.mutationsLoading"
               ></disease-listing>
             </div>
         `);
@@ -41,47 +55,72 @@ describe('UNIT::component: diseaseListing', () => {
     }));
     
     // Attribute: title
-    it('name attr: displays initial state value', () => {
+    it('shows the acronym of the diesase', () => {
       let title_attrVal = findIn(element, '.js-test-name').text();
       let titleEl = findIn(element, '.js-test-name');
       
       expect(titleEl).toBeDefined();
-      expect(title_attrVal).toEqual(parentScope.diseaseList[0].id);
-    });
-
-    it('shows the number of negatives', () => {
-      
-      let negativesCountEl = findIn(element, '.js-test-negatives');
-      let negativesCount_Val = findIn(element, '.js-test-negatives').text();
-      
-      expect(negativesCountEl).toBeDefined();
-      expect(+negativesCount_Val).toEqual(parentScope.diseaseList[0].negatives);
-    });
-
-    it('shows the number of positives', () => {
-      
-      let positivesCountEl = findIn(element, '.js-test-positives');
-      let positivesCount_Val = findIn(element, '.js-test-positives').text();
-      
-      expect(positivesCountEl).toBeDefined();
-      expect(+positivesCount_Val).toEqual(parentScope.diseaseList[0].positives);
+      expect(title_attrVal).toEqual(parentScope.diseaseList[0].acronym);
     });
 
 
-
-    it('show total number of samples as a sum of positives and negatives', () => {
-      
+    it('shows total number of samples', () => {
       let sampleCountEl = findIn(element, '.js-test-sampleCount');
       let sampleCount_Val = findIn(element, '.js-test-sampleCount').text();
       
       expect(sampleCountEl).toBeDefined();
-      var sampleCount = parentScope.diseaseList[0].negatives + parentScope.diseaseList[0].positives;
+      var sampleCount = parentScope.diseaseList[0].samples.length;
       expect(+sampleCount_Val).toEqual(sampleCount);
     });
 
+
+
+    it('shows the number of negatives', () => {
+      let negativesCountEl = findIn(element, '.js-test-negatives');
+      let negativesCount_Val = findIn(element, '.js-test-negatives').text();
+      
+      let negs = parentScope.diseaseList[0].samples.length - parentScope.diseaseList[0].positives;
+
+      expect(negativesCountEl).toBeDefined();
+      expect(+negativesCount_Val).toEqual(negs);
+    });
+
+
+
+    it('shows the number of positives', () => {
+      let positivesCountEl = findIn(element, '.js-test-positives');
+      let positivesCount_Val = findIn(element, '.js-test-positives').text();
+      expect(positivesCountEl).toBeDefined();
+      expect(+positivesCount_Val).toEqual(parentScope.diseaseList[0].positives);
+    });
+
    
-  it('repeats proper number of elements in paramList', () => {
-      parentScope.diseaseList = [{id: 'CCCC', positives: 100, negatives: 20},{id: 'DDDDDD', positives: 250, negatives: 20}];
+    it('repeats proper number of elements in paramList', () => {
+      parentScope.diesaseList =[
+          {
+            'acronym': 'ACC',
+            'name':    'adrenocortical cancer',
+            'positives': 16,
+            'negatives': -13,
+            'mutationsLoading':false,
+            'samples':[{}, {}, {}]
+          },
+          {
+            'acronym': 'BLCA',
+            'name': 'bladder urothelial carcinoma',
+            'positives': 1,
+            'negatives': 1,
+            'mutationsLoading':false,
+            'samples':[{}]
+          },
+          {
+            'acronym': 'BRCA',
+            'name': 'breast invasive carcinoma',
+            'positives': 3,
+            'negatives': 3,
+            'mutationsLoading':false,
+            'samples':[{}, {}, {}, {}, {}, {}]
+          }];
       parentScope.$digest();
  
       let diseaseListings = angular.element(element[0].querySelectorAll('disease-listing'));
@@ -90,6 +129,21 @@ describe('UNIT::component: diseaseListing', () => {
 
     });
 
+    
+
+    describe('event emitters:',()=>{
+
+      it('removeMutation() fires diseaseSet:remove:disease event ', ()=>{
+        const diseaseSetRemove_spy = jasmine.createSpy('diseaseSetRemove_spy');
+        $_rootScope.$on('diseaseSet:remove:disease', diseaseSetRemove_spy);
+        
+        const emitEventButton = findIn(element, '.glyphicon-remove-circle');
+        emitEventButton.triggerHandler('click');
+
+        expect(diseaseSetRemove_spy).toHaveBeenCalled();
+
+      });
+  })
 
 
 

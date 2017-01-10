@@ -36,5 +36,4 @@ describe('UNIT::component: infoBox', () => {
  
     
 
-
 });

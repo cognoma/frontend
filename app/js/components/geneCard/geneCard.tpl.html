@@ -1,13 +1,11 @@
 <div class="panel panel-default gene-card">
 
   <div class="panel-heading gene-card-heading">
-    {{$ctrl.id}} <br>
-    <small>{{$ctrl.desc}}</small>
+    {{$ctrl.symbol}}  <span class="label label-default"><small>{{$ctrl.entrezId}}</small></span>
   </div>
 
   <div class="panel-body text-left" style="color: black">
     <small>{{$ctrl.name}}</small>
-    <!-- <p>{{$ctrl.desc}}</p> -->
     <a href="#" class="card-link"><h4>{{$ctrl.link}}</h4></a>
   </div>
 </div>

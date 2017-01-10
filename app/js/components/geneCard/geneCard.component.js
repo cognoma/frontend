@@ -1,19 +1,23 @@
 const GeneCardComponent = {
     templateUrl: 'geneCard/geneCard.tpl.html',
     bindings: {
-      id: '@',
-      name: '@',
-      desc: '@',
-      link: '@'
+      symbol:   '@',
+     'entrezId' : '<',
+      name:     '@',
+      score:    '@',
+      link:     '@'
     },
-    transclude: true,
-    controller: function() {
-      this.link = 'balls';
-      'ngInject';
-    }
+    controller: ['$log',function($log) {
+          'ngInject';
+          $log = $log.getInstance('GeneCardComponent', true);
+          $log.log(`${this.symbol}`);
+          
+          this.link = 'link';
+          
+        }]
 }
 
 export default {
 	name: 'geneCard',
-	obj: GeneCardComponent
+	obj:  GeneCardComponent
 };
