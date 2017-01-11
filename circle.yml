@@ -7,7 +7,7 @@ dependencies:
 test:
   override:
     # - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY -vv --readyfile ~/sauce_is_ready:
-    - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY --readyfile ~/sauce_is_ready:
+    - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY --readyfile ~/sc_ready:
         background: true
         pwd: sc-*-linux
     # Wait for tunnel to be ready
