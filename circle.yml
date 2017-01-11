@@ -1,16 +1,18 @@
 # Using SauceConnect so we can't automatically infer repo tests
 
 dependencies:
-  post:  # TODO: saucelabs sc-latest-linux.tar.gz is out of date and doesn't connect, when fixed - change this back
-    - wget https://saucelabs.com/downloads/sc-4.4.1-linux.tar.gz
-    - tar -xzf sc-4.4.1-linux.tar.gz
-
+  post:
+    - wget https://saucelabs.com/downloads/sc-latest-linux.tar.gz
+    - tar -xzf sc-latest-linux.tar.gz
 test:
   override:
-    - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY -vv --readyfile ~/sauce_is_ready:
+    # - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY -vv --readyfile ~/sauce_is_ready:
+    - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY --readyfile ~/sauce_is_ready:
         background: true
+        pwd: sc-*-linux
     # Wait for tunnel to be ready
-    - while [ ! -e ~/sauce_is_ready ]; do sleep 1; done
+    #- while [ ! -e ~/sauce_is_ready ]; do sleep 1; done
+    - while [ ! -e ~/sc_ready ]; do sleep 1; done
     - gulp views #rebuild angular template cache 
     - npm run unit
   post:
