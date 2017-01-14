@@ -8,10 +8,11 @@ const QueryBuilderComponent = {
                  '$state',
                  '$q',
                  '$timeout',
-                 'GeneSearchService',
-                 'DiseaseSearchService',
+                 'MutationsService',
+                 'DiseaseService',
                  '$log',
-                 function($scope, $rootScope, _, DiseaseModel, $state,$q, $timeout, GeneSearchService, DiseaseSearchService, $log) {
+                 'filterFilter',
+                 function($scope, $rootScope, _, DiseaseModel, $state,$q, $timeout, MutationsService, DiseaseService, $log, filterFilter) {
             	     'ngInject';
                    let vm = this;
                    
@@ -118,24 +119,29 @@ const QueryBuilderComponent = {
                   Query Param Selector Events
                 ========================================================================== */
                 const searchServices = {
-                    'mutations': GeneSearchService,
-                    'disease':   DiseaseSearchService
+                    'mutations': MutationsService,
+                    'disease':   DiseaseService
                 };
 
                 this.onInputChange = (searchQuery)=>{
-                    // console.info(`query: ${searchQuery}`);
-                    if(searchQuery.length <= 0){
-                        vm.searchResults = [];
-                    }else{
-                        
+                    $log.info(`query: ${searchQuery}`);
+
+                      if(searchQuery.length == 0 ){
+                          vm.searchResults = [];
+                      }else{
                         searchServices[vm.currentState()]
-                            .get(searchQuery, this.mutationList)
-                            .then(response=>{
-                                let queryResults = response.results || response.data.hits;
-                                vm.searchResults = queryResults;
+                          .query(searchQuery)
+                          .then(response=>{
+
+                            $scope.$apply(function() {
+                              vm.searchResults = response; 
                             });
+
+                          });
+
+                      }
+                      
                         
-                    }
                 };
 
                 

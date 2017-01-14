@@ -29,12 +29,10 @@ function MockBackend_onRun($httpBackend, _) {
     
     // console.log(geneList);
     let response = angular.extend({}, geneData, {hits: geneList, total: geneList.length});
+
+    return [200, response, {} ];
+
     
-    if (response.hits.length <= 0 ) {
-      return [404, response, {}, `No Matches Found for symbol: ${params.id}`];
-    }
-    
-    return [200, response, {}];
   });
 
   /* =======================================================================
@@ -71,7 +69,7 @@ function MockBackend_onRun($httpBackend, _) {
 
 
   // GET list of all diseases
-  $httpBackend.whenGET(/\/diseases\//).respond(function(method, url, data, headers, params) {
+  $httpBackend.whenGET(/\/diseases\//).respond(function() {
 
       if (diseaseData.count <= 0 ) {
         return [404, undefined, {}, `No Diseases Found`];

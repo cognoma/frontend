@@ -13,7 +13,7 @@ function declare(serviceMap) {
     }
 
     if (item.fn && typeof item.fn === 'function') {
-      modelsModule.factory(item.name,  item.fn);
+      modelsModule.service(item.name,  item.fn);
     } else {
       declare(item);
     }

@@ -5,7 +5,7 @@ const AppSettings = {
   },
 
   api:{
-    baseUrl: '/api/v1',
+    baseUrl: 'http://localhost\:8000',
     geneSearch:{
       base: 'https://mygene.info/v3/query?q=',
       params:{

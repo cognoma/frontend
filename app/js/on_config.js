@@ -1,4 +1,4 @@
-function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compileProvider, $provide) {
+function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compileProvider, $provide, $resourceProvider) {
   'ngInject';
 
   if (process.env.NODE_ENV === 'production') {
@@ -13,6 +13,8 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     requireBase: false
   });
   
+  // Don't strip trailing slashes from calculated URLs
+  $resourceProvider.defaults.stripTrailingSlashes = false;
   
   $urlRouterProvider.when('/query-builder','/query-builder/mutations');
   
