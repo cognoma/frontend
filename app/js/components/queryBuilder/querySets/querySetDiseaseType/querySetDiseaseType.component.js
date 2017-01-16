@@ -1,5 +1,7 @@
+const template = require('./querySetDiseaseType.tpl.html');
+
 const QuerySetDiseaseTypeComponent = {
-    templateUrl: 'queryBuilder/querySets/querySetDiseaseType/querySetDiseaseType.tpl.html',
+    template,
     bindings: {
       'mutationSet': '=',
       'diseaseSet':  '='
@@ -8,7 +10,7 @@ const QuerySetDiseaseTypeComponent = {
           'ngInject';
           $log = $log.getInstance('QuerySetDiseaseTypeComponent', true);
           $log.log('');
-          
+
           let vm = this;
           vm.clearDiseaseSet = ()=>{ $rootScope.$emit('diseaseSet:clear') }
           vm.sortSetBy = sortParam=>{$rootScope.$emit('diseaseSet:sort',{sortOn:sortParam})}
@@ -19,7 +21,7 @@ const QuerySetDiseaseTypeComponent = {
           }
 
           vm.setTotalFor = setParam=>_.reduce(_.pluck(this.diseaseSet, setParam), (a,b)=>a+b);
-          
+
         }]
 }
 
