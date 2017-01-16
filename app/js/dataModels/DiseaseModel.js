@@ -52,10 +52,10 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
    */
   DiseaseModel.prototype._loadSamples = function() {
     let _model = this;
-    let samples_endpoint = `${AppSettings.api.samples}?disease=${this.acronym}`;
+    let samples_endpoint = `${AppSettings.api.baseUrl}${AppSettings.api.samples}?disease=${this.acronym}`;
     $log.log(`_loadSamples:${samples_endpoint}`);
 
-    return $http.get(`${AppSettings.api.samples}?disease=${this.acronym}`)
+    return $http.get(`${AppSettings.api.baseUrl}${AppSettings.api.samples}?disease=${this.acronym}`)
                 .then(samplesResponse=>{
                     _model.samples = samplesResponse.data.count;
                     return _model.samples;
@@ -75,7 +75,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
     $log.log(`_loadMutatedGenes:${mutationsGenes.length}`);
     let _model = this;
     let mutationsParmas = this._buildMutationsGenesParams(mutationsGenes);
-    let postivies_endpoint =  `${AppSettings.api.samples}?limit=1&disease=${this.acronym}${mutationsParmas}`;
+    let postivies_endpoint =  `${AppSettings.api.baseUrl}${AppSettings.api.samples}?limit=1&disease=${this.acronym}${mutationsParmas}`;
     
     if(mutationsGenes.length){
       return $http.get(postivies_endpoint)
