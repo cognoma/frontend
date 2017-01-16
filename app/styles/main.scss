@@ -3,9 +3,6 @@
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/glyphicons';
 
-// components
-@import "components/_navGlobal";
-
 
 
 body {
@@ -68,14 +65,7 @@ body {
 	padding:0;
 }
 
-@import "components/_queryOverview";
-	@import "components/_queryOverviewControl";
 
-@import "components/_querySet";
-	@import "components/_querySetMutations";
-	@import "components/_querySetDiseaseType";
-
-@import "components/_queryParamSelector";
 
 /* =======================================================================
   Info Box (tooltip)
@@ -120,16 +110,12 @@ body {
 
  }
 
- 	.info-box-message{
- 		// width: 78%;
- 		display:inline-block;
-		// float:left;
- 	}
-  /* =======================================================================
-    geneCard
-   ========================================================================== */
-@import "components/_geneCard";
-/* =======================================================================
-  diseaseCard
- ========================================================================== */
- @import "components/_diseaseCard";
+.info-box-message{
+	// width: 78%;
+	display:inline-block;
+	// float:left;
+}
+
+
+
+@import 'components';

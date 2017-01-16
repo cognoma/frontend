@@ -1,5 +1,3 @@
-import styles from './main.scss';
-
 const AppComponent = {
     templateUrl: 'app/app.tpl.html',
     bindings: {},
