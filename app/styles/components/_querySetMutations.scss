@@ -10,6 +10,7 @@
 .clear-button{
   background-color: $background--dark;
   color: $gray-lighter;
+  border: none;
 }
 .gene-label{
   list-style: none;
@@ -18,7 +19,7 @@
   padding: 4px 0;
   border:1px solid rgba($black, 0.5);
   transition: all 0.5s ease;
-  
+
   &.active,
   &:hover{
     border-color:$green;
@@ -43,19 +44,19 @@
       transition: all 0.5s ease;
     }
     &.faded{
-      .gene-card{  
+      .gene-card{
         opacity: 0.5;
         transform: scale(0.75);
       }
     }
     &.active{
-        .gene-card{ 
-          border-color:$green; 
+        .gene-card{
+          border-color:$green;
           opacity: 1;
           transform: scale(1.125);
         }
-    } 
-   
+    }
+
   }
 
 }
