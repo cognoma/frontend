@@ -9,7 +9,7 @@
       <span class="glyphicon glyphicon-sort" ng-click="$ctrl.sortMutations('symbol')"></span>
     </div>
     <div class="col-xs-2">
-      <span class="label clear-button" ng-click="$ctrl.clearMutationSet()">CLEAR</span>
+      <button class="label clear-button" ng-click="$ctrl.clearMutationSet()">CLEAR</button>
     </div>
   </div>
 
@@ -29,11 +29,11 @@
 
   <gene-card
     ng-class="{'active':gene.active, 'faded':  $ctrl.geneHovered}"
-    class="gene-card-display-item clearfix" 
+    class="gene-card-display-item clearfix"
 
     ng-if="$ctrl.mutationSet.length"
     ng-repeat="gene in $ctrl.mutationSet"
-    
+
     symbol="{{gene.symbol}}"
     entrez-id="gene.entrezgene"
     name="{{gene.name}}"
