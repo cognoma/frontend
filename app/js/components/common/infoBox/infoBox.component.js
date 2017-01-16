@@ -1,5 +1,5 @@
 const infoBoxComponent = {
-    templateUrl: 'infoBox/infoBox.tpl.html',
+    templateUrl: 'common/infoBox/infoBox.tpl.html',
     bindings: {
     	message: '@',
     },

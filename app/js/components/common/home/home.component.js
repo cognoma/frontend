@@ -1,5 +1,5 @@
 const HomeComponent = {
-    templateUrl: 'home/home.tpl.html',
+    templateUrl: 'common/home/home.tpl.html',
     bindings: {},
     controller: function () {
       'ngInject';

@@ -1,5 +1,5 @@
 const NavGlobalComponent = {
-    templateUrl: 'navGlobal/navGlobal.tpl.html',
+    templateUrl: 'common/navGlobal/navGlobal.tpl.html',
     controller: ['$log',function ($log) {
         	'ngInject';
         	$log = $log.getInstance('NavGlobalComponent', true);
