@@ -42,7 +42,7 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
     } else {
       diseasePromise = new Promise((resolve, reject)=>{
         DISEASES_RESOURCE.query((diseaseReponse) => {
-          $localStorage.diseaseData = diseaseReponse
+          $localStorage.diseaseData = _.assign({}, diseaseReponse);
           resolve(diseaseReponse);
         });
       });
