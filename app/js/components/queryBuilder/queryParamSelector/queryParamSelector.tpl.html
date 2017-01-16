@@ -1,9 +1,9 @@
 <header class="row dashboard-column-header">
 	<h2>Paramater Selector</h2>
-</header>	
+</header>
 
 <div class="row query-param-selector-ctrls">
-	<div 
+	<div
 		class="col-lg-1"
 		ng-if="$ctrl.searchResults.length"
 	>
@@ -11,37 +11,38 @@
 		<span  class="badge badge--counter">
 			{{ $ctrl.searchResults.length }}
 		</span>
-		
+
 	</div>
 
-	<div 
+	<div
 		class=""
 		ng-class="{
 			'col-lg-10 col-lg-offset-1' : $ctrl.searchResults.length == 0,
 			'col-lg-9' : $ctrl.searchResults.length > 0
 		}"
 	>
-  			<input type="text" 
-  				   class="form-control" 
+  			<input type="text"
+  				   class="form-control"
   				   placeholder="Search {{$ctrl.currentState()}} by Name"
-  				   
+
   				   ng-model="$ctrl.searchQuery"
   				   ng-change="$ctrl.onChange({search: $ctrl.searchQuery})"
+				   ng-model-options="{debounce: 300}"
   				   autofocus="1"
-  			>		
+  			>
 	</div>
-	
 
-	<div 
+
+	<div
 		class="col-lg-1"
 		ng-if="$ctrl.searchResults.length"
 	>
-		<button 
-			type="button" 
-			class="btn 
-				   btn-xs 
+		<button
+			type="button"
+			class="btn
+				   btn-xs
 				   btn--mutation-sort
-				   glyphicon 
+				   glyphicon
 				   glyphicon-sort-by-attributes-alt
 				   text-uppercase"
 			ng-click="$ctrl.sortResultsBy($ctrl.results, '_score')"
@@ -49,17 +50,17 @@
 									 	<p>Score</p>
 		</button>
 	</div>
-	
+
 </div>
 
 
 
 <div ng-if="$ctrl.searchResults.length == 0"
-	 ng-include="$ctrl.instructionsTemplate" 
+	 ng-include="$ctrl.instructionsTemplate"
  	 class="row">
 </div>
 
-<section 
+<section
 	class="row query-param-selector-results"
 	ng-if="$ctrl.searchResults.length"
 >
@@ -71,14 +72,14 @@
 				<div class="row results-headers">
 					<p class="col-lg-4"><small>Samples</small></p>
 					<p class="col-lg-4"><small>Positives</small></p>
-					<p class="col-lg-4"><small>Negatives</small></p>	
+					<p class="col-lg-4"><small>Negatives</small></p>
 				</div>
 			</div>
 		</div>
 
 		<div class="row results-row">
-			
-			<gene-card 
+
+			<gene-card
 				ng-if="$ctrl.currentState() == 'mutations'"
 				class="col-lg-3 result"
 				ng-repeat="gene in $ctrl.searchResults"
@@ -89,19 +90,19 @@
 				link=""
 				ng-click="$ctrl.addGene(gene)"
 			></gene-card>
-		
+
 			<disease-card
 				ng-if="$ctrl.currentState() == 'disease'"
 				class="col-lg-12 result"
     			ng-repeat="disease in $ctrl.searchResults track by $index "
     			id="{{disease.name}}"
     			samples="disease.samples"
-    			positives="{{disease.positives}}" 
+    			positives="{{disease.positives}}"
     			negatives="{{disease.negatives}}"
     			ng-click="$ctrl.addDisease(disease)"
   			></disease-card>
 
-		</div>	
+		</div>
 	</div>
 </section>
 
