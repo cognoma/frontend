@@ -1,69 +1,153 @@
-import Disease from './Disease.js';
-
-function DiseaseModel( $http, MutationDataService, $log, _) {
+function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
   'ngInject';
+
   $log = $log.getInstance('DiseaseModel', false);
   $log.log('');
 
-  const model = this;
-
-  this.loadSamples = disease => disease
-                                  .populateSamples()
-                                  .then(disease_w_samples=>disease_w_samples);
-  
-  this.loadPositives = (disease, mutations) => MutationDataService
-                                                  .getPositivesFor(disease, mutations)
-                                                  .then(disease_w_positives=>disease_w_positives);
-
-  
-  this.calculateNegatives = disease => disease.samples.length - disease.positives;
-
-  
-  this.calculatePositives = (diseaseWSamples, mutationList) =>{
-    // GET NUMBER OF SAMPLES WITH MUTATIONS 
-    
-    // get the user selected mutations ids in array 
-    let selectedMutations_ids = _.pluck(mutationList, 'entrezgene');
-    let diseaseSamples_mutations = _.pluck(diseaseWSamples.samples,'mutations');
-    let count = 0;
-
-    // check the intersection and add to the count 
-    diseaseSamples_mutations.forEach(sampleMutations=>{
-      if(_.intersection(sampleMutations, selectedMutations_ids).length ) count++;
-    })
+   /**
+   * Model constructor and initialization
+   * @api public
+   * @param { Object } diseaseResponse  -  disease result object from server 
+   * @param { Array } mutationsGenes  -   array of gene entrezid, queryBuilder user selected genes
+   */
+  function DiseaseModel(diseaseResponse, mutationsGenes){
+    this.samples   = 0;
+    this.negatives = 0;
+    this.positives = 0;
+    return this.build(diseaseResponse, mutationsGenes);
+  }
 
 
-    return  count;
+
+   /**
+   * Populate model with aggregate data from api
+   * @api public
+   * @param { Object } diseaseResponse  -  disease result object from server 
+   * @param { Array } mutationsGenes  -   array of gene entrezid, queryBuilder user selected genes
+   * 
+   * @return Promise - resolved when all aggregate data has been received and processed
+   */
+  DiseaseModel.prototype.build = function(diseaseResponse, mutationsGenes){
+      $log.log(`build:${diseaseResponse.acronym}`);
+
+      let dfd = $q.defer();
+      angular.extend(this, diseaseResponse, {});
+
+        this.getAggregates(mutationsGenes)
+            .then(model_w_aggs=>{
+              dfd.resolve(this);      
+            });
+        
+      
+      return dfd.promise;
   };
 
 
-  this.calculateMutationData = (disease, mutationList) =>{
 
-    return model.loadSamples(disease, mutationList)
-                .then(dws=>{
-                  dws.positives = model.calculatePositives(dws, mutationList);
-                  dws.negatives = model.calculateNegatives(dws);
-                  return dws;
-                });
-  }
-  
+   /**
+   * GET samples total number of samples from api and set to model property 
+   * @api private 
+   * 
+   * @return Promise - resolved when response returns from api
+   */
+  DiseaseModel.prototype._loadSamples = function() {
+    let _model = this;
+    let samples_endpoint = `${AppSettings.api.samples}?disease=${this.acronym}`;
+    $log.log(`_loadSamples:${samples_endpoint}`);
 
-
-  this.responseTransformer = (response, mutationList )=>{
-    return response.map(function(diseaseResponse, idx){
-    	let disease = new Disease(diseaseResponse, idx, {$http,_});
-
-      return model.calculateMutationData(disease, mutationList)
-                  .then(dws=>model.calculateMutationData(dws, mutationList));
-    });      
+    return $http.get(`${AppSettings.api.samples}?disease=${this.acronym}`)
+                .then(samplesResponse=>{
+                    _model.samples = samplesResponse.data.count;
+                    return _model.samples;
+          });
   }
 
   
-  return this;  
-}
+  /**
+   * GET (positives) - total number of samples in diesease that have a mutated gene a user selected gene
+   * sets the total count to a model property 
+   * @api private 
+   * @param { Array } mutationsGenes  -   array of gene entrezIds, queryBuilder user selected genes
+   *
+   * @return Promise | Null 
+   */
+  DiseaseModel.prototype._loadMutatedGenes = function(mutationsGenes = []){
+    $log.log(`_loadMutatedGenes:${mutationsGenes.length}`);
+    let _model = this;
+    let mutationsParmas = this._buildMutationsGenesParams(mutationsGenes);
+    let postivies_endpoint =  `${AppSettings.api.samples}?limit=1&disease=${this.acronym}${mutationsParmas}`;
+    
+    if(mutationsGenes.length){
+      return $http.get(postivies_endpoint)
+                .then(mutatedGenesResponse=>{
+                  _model.positives = mutatedGenesResponse.data.count;
+                  return _model;
+                });  
+    }else{
+      return null;
+    }
+
+  }
+
+
+
+  // simple math for the number of samples without a mutated gene 
+  // matching the user selected genes
+  DiseaseModel.prototype._setNegatives = function(){
+    $log.log(`_setNegatives:`);
+     this.negatives = this.positives ?  (this.samples - this.positives) : null;
+  }
+
+
+
+  // convenience method to build "&mutations__gene=<entrezID>&mutations__gene=<entrezID>"
+  DiseaseModel.prototype._buildMutationsGenesParams = function(mutationsGenes) {
+    $log.log(`_buildMutationsGenesParams:${mutationsGenes.length}`);
+    let mutations__genes = '';
+    mutationsGenes.map((gene)=>{ mutations__genes += `&mutations__gene=${gene.entrezgene}`});
+    return mutations__genes;
+  }  
+
+
+
+  /**
+   * Aggregate data from api to set the model's (samples, positives, negatives) properties.
+   * Promsie chanining in this method allows us to return a model result only after it has 
+   * been fully populated with aggregate data from disparate sources. 
+   * @api public
+   * 
+   * @param { Array } mutationsGenes  -   array of gene entrezid, queryBuilder user selected genes
+   * 
+   * @return Promise - resolved with model that is fully populated with aggregate data
+   */
+  DiseaseModel.prototype.getAggregates = function(mutationsGenes) {
+    $log.log('getAggregates:');
+    let _model = this;
+    let dfd = $q.defer();
+
+    // each method returns a promise 
+    // so chain them together then resolve method promise 
+    // once all data is received
+    this._loadSamples()
+        .then(()=>this._loadMutatedGenes(mutationsGenes))
+        .then(()=>{
+          this._setNegatives();
+          dfd.resolve(this);
+        });
+
+    return dfd.promise;
+  }
+
+
+
+
+
+  return DiseaseModel;
+}///END factoryWrapper
+
 
 
 export default {
-  name: 'DiseaseModel',
-  fn:   DiseaseModel
+  name:         'DiseaseModel',
+  fn:           factoryWrapper
 };

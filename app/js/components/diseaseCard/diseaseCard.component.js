@@ -8,7 +8,7 @@ const DiseaseCardComponent = {
     },
     controller: ['$log',function($log) {
             'ngInject';
-             $log = $log.getInstance('DiseaseCardComponent', true);
+             $log = $log.getInstance('DiseaseCardComponent', false);
              $log.log(`${this.id}`);
               
         }]

@@ -10,20 +10,24 @@ const QueryParamSelectorComponent = {
                     '_',
                     '$state',
                     '$log',
-        function($rootScope, $scope, _, $state, $log) {
+                    'DiseaseService',
+        function($rootScope, $scope, _, $state, $log, DiseaseService) {
         	'ngInject';
             $log = $log.getInstance('QueryParamSelectorComponent', true);
             $log.log('');
 
             const vm = this;
             
+            vm.currentState = ()=>$state.current.name.split('.')[2];
+
+
             this.$onInit = ()=>{
                 vm.searchResults =[];
                 vm.searchQuery='';
             }
 
         	
-            vm.currentState = ()=>$state.current.name.split('.')[2];
+            
 
             vm.instructionsTemplate = `queryBuilder/queryParamSelector/${vm.currentState()}_instructions.tpl.html`;
 

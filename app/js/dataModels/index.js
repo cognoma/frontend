@@ -22,4 +22,5 @@ function declare(serviceMap) {
 
 declare(models);
 
+
 export default modelsModule;

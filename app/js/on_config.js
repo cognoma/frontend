@@ -1,20 +1,25 @@
-function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compileProvider, $provide) {
+function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compileProvider,$httpProvider, $resourceProvider, $provide) {
   'ngInject';
 
   if (process.env.NODE_ENV === 'production') {
     $compileProvider.debugInfoEnabled(false);
   }
 
-  //activate LogDecorator
+  //activate LogDecorator for $log
   require('./utils/logging/LogDecorator.js')($provide);
 
+  // used for github pages deployments 
   $locationProvider.html5Mode({
     enabled: location.hostname.includes('github.io') ? false : true,
     requireBase: false
   });
   
-  
+  // Don't strip trailing slashes from calculated URLs
+  $resourceProvider.defaults.stripTrailingSlashes = false;
+
+  // TODO: possibly separate queryBuilder functionality into it's own app
   $urlRouterProvider.when('/query-builder','/query-builder/mutations');
+  
   
   $stateProvider
     .state({

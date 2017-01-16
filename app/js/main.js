@@ -21,6 +21,7 @@ import './services';
 import './factories';
 import './dataModels';
 
+
 import * as _ from 'underscore';
 
 // small underscore.js factory
@@ -55,6 +56,9 @@ angular.module('app').constant('AppSettings', constants);
 angular.module('app').config(onConfig);
 
 angular.module('app').run(onRun);
+
+
+
 
 
 angular.bootstrap(document, ['app'], {

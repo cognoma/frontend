@@ -5,8 +5,11 @@ const AppSettings = {
   },
 
   api:{
-    baseUrl: '/api/v1',
-    geneSearch:{
+    baseUrl:    '',//http://localhost\:8000
+    genes:  '/genes',
+    diseases:   '/diseases',
+    samples:    '/samples',
+    geneSearch: {
       base: 'https://mygene.info/v3/query?q=',
       params:{
         suggest_from: 'symbol^2,alias',
@@ -14,14 +17,6 @@ const AppSettings = {
         entrezonly:   'true',
         size:          100
       } 
-    },
-    cBioPortal:{
-      base: 'http://www.cbioportal.org/webservice.do',
-      params:{
-        cmd:                'getMutationData',
-        genetic_profile_id: '_tcga_mutations',
-        gene_list:          []
-      }
     }
 }
 
