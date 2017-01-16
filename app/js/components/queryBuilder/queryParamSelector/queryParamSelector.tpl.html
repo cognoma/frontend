@@ -93,11 +93,11 @@
 			<disease-card
 				ng-if="$ctrl.currentState() == 'disease'"
 				class="col-lg-12 result"
-    			ng-repeat="disease in $ctrl.searchResults | orderBy: '-positives' "
+    			ng-repeat="disease in $ctrl.searchResults track by $index "
     			id="{{disease.name}}"
     			samples="disease.samples"
     			positives="{{disease.positives}}" 
-    			negatives="{{disease.samples.length - disease.positives}}"
+    			negatives="{{disease.negatives}}"
     			ng-click="$ctrl.addDisease(disease)"
   			></disease-card>
 

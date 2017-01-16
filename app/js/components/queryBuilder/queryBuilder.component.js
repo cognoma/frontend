@@ -11,8 +11,7 @@ const QueryBuilderComponent = {
                  'MutationsService',
                  'DiseaseService',
                  '$log',
-                 'filterFilter',
-                 function($scope, $rootScope, _, DiseaseModel, $state,$q, $timeout, MutationsService, DiseaseService, $log, filterFilter) {
+                 function($scope, $rootScope, _, DiseaseModel, $state,$q, $timeout, MutationsService, DiseaseService, $log) {
             	     'ngInject';
                    let vm = this;
                    
@@ -99,29 +98,32 @@ const QueryBuilderComponent = {
 
 
                 vm._updateDL_mutationData = ()=>{
-                  
-                    this.diseaseList.map(diseaseResult=>{
 
-                    diseaseResult.mutationsLoading = true;
-                    return DiseaseModel.calculateMutationData(diseaseResult, this.mutationList)
-                                       .then(data=>{
-                                          data.mutationsLoading = false;
-                                          let dIndex = _.indexOf(_.pluck(this.diseaseList, 'acronym'), data.acronym);
-                                          this.diseaseList[dIndex] = data;
-                                          // $scope.$apply(()=>{this.diseaseList[dIndex] = data;});
-                                        });
-                  })
+                    this.diseaseList.map(diseaseModel=>{
+                        diseaseModel.mutationsLoading = true;
 
-                }
+                        // mock server delay 
+                        $timeout(()=>{
+                          diseaseModel.getAggregates(this.mutationList)
+                                    .then(function(updatedModel) {
+                                      diseaseModel.mutationsLoading = false;
+                                    });
+                        }, 250);//END $timeout
+
+                    });//END this.diseaseList.map
+
+                }//END vm._updateDL_mutationData 
 
 
                 /* =======================================================================
                   Query Param Selector Events
                 ========================================================================== */
+                // TODO: make angular search service to abstract search functionality
                 const searchServices = {
                     'mutations': MutationsService,
                     'disease':   DiseaseService
                 };
+
 
                 this.onInputChange = (searchQuery)=>{
                     $log.info(`query: ${searchQuery}`);
@@ -129,20 +131,23 @@ const QueryBuilderComponent = {
                       if(searchQuery.length == 0 ){
                           vm.searchResults = [];
                       }else{
+
+                        // pass along the user input query and selected mutations list 
                         searchServices[vm.currentState()]
-                          .query(searchQuery)
+                          .query(searchQuery, {source: 'DB'}, this.mutationList)
                           .then(response=>{
 
-                            $scope.$apply(function() {
+                            // make sure we update the views 
+                            $scope.$apply(()=>{
                               vm.searchResults = response; 
                             });
 
-                          });
+                          });//END searchServices[vm.currentState()]
 
                       }
                       
                         
-                };
+                };///END this.onInputChange
 
                 
 

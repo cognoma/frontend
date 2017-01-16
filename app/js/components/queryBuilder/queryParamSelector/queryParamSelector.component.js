@@ -22,7 +22,6 @@ const QueryParamSelectorComponent = {
 
 
             this.$onInit = ()=>{
-                if(vm.currentState() == 'disease') DiseaseService.query();
                 vm.searchResults =[];
                 vm.searchQuery='';
             }

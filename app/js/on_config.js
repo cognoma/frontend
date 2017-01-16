@@ -1,4 +1,4 @@
-function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compileProvider, $provide, $resourceProvider) {
+function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compileProvider,$httpProvider, $resourceProvider, $provide) {
   'ngInject';
 
   if (process.env.NODE_ENV === 'production') {
@@ -8,6 +8,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
   //activate LogDecorator
   require('./utils/logging/LogDecorator.js')($provide);
 
+
   $locationProvider.html5Mode({
     enabled: location.hostname.includes('github.io') ? false : true,
     requireBase: false
@@ -15,7 +16,8 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
   
   // Don't strip trailing slashes from calculated URLs
   $resourceProvider.defaults.stripTrailingSlashes = false;
-  
+
+
   $urlRouterProvider.when('/query-builder','/query-builder/mutations');
   
   $stateProvider

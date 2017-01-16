@@ -9,8 +9,8 @@ const GeneCardComponent = {
     },
     controller: ['$log',function($log) {
           'ngInject';
-          $log = $log.getInstance('GeneCardComponent', true);
-          $log.log(`${this.symbol}`);
+          $log = $log.getInstance('GeneCardComponent', false);
+          $log.log(`${this.name}`);
           
           this.link = 'link';
           

@@ -19,7 +19,6 @@ function MockBackend_onRun($httpBackend, _) {
   $httpBackend.whenGET('/genes').respond(geneData);
 
   // Get; return a list of genes by id 
-  // this is to mock the myGene.info query 
   $httpBackend.whenGET(/\/genes\/(\w+)/, undefined, ['id']).respond(function(method, url, data, headers, params) {
 
     // filter gene data by passed in parameter
@@ -54,6 +53,18 @@ function MockBackend_onRun($httpBackend, _) {
     $httpBackend.whenGET('/samples').respond(diseaseData);  
 
 
+    $httpBackend.whenGET(/samples\?limit=1\&disease=(\w+)\&mutations__gene=(\d+)/, undefined, ['id']).respond(function(method, url, data, headers, params) {
+
+      let samplesList = _.filter(samplesData.results, sample=>{ 
+        return sample.disease == params.id;
+      });
+
+      return [200, {count: Math.floor(Math.random() * samplesList.length) }, {}];
+    });
+
+
+
+
     //GET samples per disease
     $httpBackend.whenGET(/samples\?disease=(\w+)/, undefined, ['id']).respond(function(method, url, data, headers, params) {
       
@@ -64,8 +75,10 @@ function MockBackend_onRun($httpBackend, _) {
       // if (samplesList.length <= 0 ) {
       //   return [404, samplesList, {}, `No Samples Found for Disease: ${params.id}`];
       // }
-      return [200, samplesList, {}];
+      return [200, {count: samplesList.length, next: null, previous: null, results:samplesList}, {}];
     });
+
+    
 
 
   // GET list of all diseases

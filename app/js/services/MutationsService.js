@@ -1,13 +1,19 @@
-import Gene from '../dataModels/Gene.js';
-
-function MutationsService($q, $http, $timeout, $log) {
+function MutationsService($q, $http, $timeout, $log, AppSettings, $httpParamSerializer) {
   'ngInject';
 
     $log = $log.getInstance('MutationsService', true);
     $log.log('');
 
+
   const service = {};
-  const endpoint = '/genes';  
+  
+
+  //production - mygene.info query endpoint
+  // let endpoint = (geneQuery ='')=>`${AppSettings.api.geneSearch.base}${geneQuery.toUpperCase()}&${$httpParamSerializer(AppSettings.api.geneSearch.params)}`;
+
+  // local dev mockBackend - /genes/<query> endpoint
+  let endpoint = (geneQuery ='')=>`${AppSettings.api.genes}/${geneQuery.toUpperCase()}`;
+    
 
 
   /**
@@ -20,40 +26,20 @@ function MutationsService($q, $http, $timeout, $log) {
 
     // promise wrapper 
     return new Promise((resolve, reject) => {
+
       // get all genes and transfrom then into Gene Models
-      return $http.get(`${endpoint}/${geneQuery.toUpperCase()}`)
+      return $http.get(endpoint(geneQuery))
                   .then(results=>{
-                    $log.log(`query::${geneQuery.toUpperCase()}:results.data.total = ${results.data.total}`);
-
-                        results.data.hits = service.build_genes(results.data.hits);
-
-                        return $q.all(results.data.hits)
-                               .then( data=>{
-                                  results.data.hits = data;
-                                  resolve(results.data.hits);
-                                } );
+                      $log.log(`query::${geneQuery.toUpperCase()}:results.data.total = ${results.data.total}`);
+                        resolve(results.data.hits);
                     });
-    });
+    });//END promise wrapper
 
 
 
-  };//END service.get
+  };//END service.query
 
 
-
-  /**
-   * Transform raw resopose data into Gene Models
-   *   
-   * @param { Array } raw  -  array of gene objects
-   * 
-   * @return { Array } array of Gene Model objects
-   */
-  service.build_genes = raw=>{
-    return raw.map(function(geneResponse, idx){
-                        let _gene = new Gene(geneResponse, idx, {$q, $timeout});
-                        return _gene.getSupport();
-                      });      
-  };
   
 
   return service;
