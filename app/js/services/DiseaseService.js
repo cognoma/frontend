@@ -51,13 +51,9 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
     return diseasePromise
       .then(diseaseResponse => {
         $log.log(':fromDB to localDiseases');
-
+        let filteredResults = filterFilter(diseaseResponse.results, searchQuery)
         // wait for all models to be populated before resolving
-        return $q.all( _responseTransformer(diseaseResponse.results, mutationsGenes) )
-          .then((resolvedModels)=>{
-            diseaseResponse.results = resolvedModels;
-            return filterFilter(diseaseResponse.results, searchQuery);
-          });
+        return $q.all( _responseTransformer(filteredResults, mutationsGenes) );
     });
 
 
