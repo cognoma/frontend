@@ -2,6 +2,7 @@
   Component: queryParamSelector 
  ========================================================================== */
 .query-param-selector{
+	// width:calc(100% - 650px);
 	background: $gray-lighter;
 	padding:0;
 	text-align: center;
@@ -40,9 +41,48 @@
 		height:88vh;
 	}	
 
+	.results-headers{
+		padding:0;
+		p{
+			padding:0 0 0 10px; 
+			margin:0; 
+			text-align:left;
+		}
+	}
+
 	.gene-card:hover{
 		box-shadow: 0 2px 5px rgba($black, 0.5);
 		cursor:pointer;
+	}
+
+	.disease-card{
+		.row{
+			width:50%;
+			float:left;
+		}
+		.disease-card-body{padding:0;}
+		.disease-card-title{
+			text-transform: capitalize;
+			text-align:left;
+			font-size: 16px;
+			padding:11px 0 10px 20px;
+			margin:0;
+		}
+		.disease-card-counts{
+			width: 30%;
+			float:right;
+			h6{display:none;}
+			p{margin:0;}
+			.samples{ 
+				padding:10px 0; 
+				&:first-child{border-left: 1px solid $gray-light;}
+			}
+				.sample-count{ 
+					font-weight: bold;
+				}
+				.sample-pos{color:#3c763d;;}
+				.sample-neg{color:#a94442;}
+		}
 	}
 
 }

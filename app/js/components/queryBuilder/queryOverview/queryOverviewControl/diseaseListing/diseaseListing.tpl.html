@@ -6,13 +6,13 @@
   	<span class="row query-overview--control-param-title js-test-name">{{$ctrl.name}}</span>
 
   	<summary class="row control-param-summary">
-  		<p class="col-lg-4 sample-count"> <strong class="js-test-sampleCount">{{$ctrl.samples.length}}</strong> </p>
+  		<p class="col-lg-4 sample-count">SAMPLES <strong class="js-test-sampleCount"> {{$ctrl.samples.length}}</strong> </p>
 
-  		<p class="col-lg-2 sample-positives sample-count--item">
+  		<p class="col-lg-2 col-lg-offset-1 sample-positives sample-count--item">
   			 <span class="glyphicon"
   			 	   ng-class="{'glyphicon-plus-sign': !$ctrl.isLoading,
   			 					'glyphicon-refresh': $ctrl.isLoading}"></span> 
-  			 <strong ng-if="!$ctrl.isLoading" class="js-test-positives">{{$ctrl.positives}}</strong> 
+  			 <span ng-if="!$ctrl.isLoading" class="js-test-positives">{{$ctrl.positives}}</span> 
   		</p>
 
   		<p class="col-lg-2 sample-negatives sample-count--item"> 
@@ -20,7 +20,7 @@
   					ng-class="{'glyphicon-minus-sign': !$ctrl.isLoading,
   			 				'glyphicon-refresh': $ctrl.isLoading}"
   				></span> 
-  			<strong ng-if="!$ctrl.isLoading" class="js-test-negatives">{{$ctrl.negatives}}</strong> 
+  			<span ng-if="!$ctrl.isLoading" class="js-test-negatives">{{$ctrl.negatives}}</span> 
   		</p>
   	</summary>
 

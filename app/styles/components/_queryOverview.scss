@@ -2,10 +2,10 @@
   Component: queryOverview 
  ========================================================================== */
 #query-overview{
+	// width: 256px;
 	background: $gray-light;
 	padding:0;
 	text-align: center;
-
 	.dashboard-column-header{ background: $black;}
 }
 

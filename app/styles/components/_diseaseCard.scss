@@ -7,6 +7,12 @@
 
  .disease-card-body{
    padding: 0 0.5rem 0.5rem 1rem;
+
+   .disease-card-title{
+      text-transform: capitalize;
+      text-align:left;
+  }
+
    h5{
      font-size: $font-size--sm;
      font-weight: 700;
