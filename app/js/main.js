@@ -7,6 +7,7 @@ import onRun     from './on_run';
 
 import './MockBackend';
 import '../../node_modules/angular-resource/angular-resource.js';
+import '../../node_modules/ng-storage/ngStorage.js';
 
 import 'angular-animate';
 import 'angular-resource';
@@ -45,7 +46,8 @@ const requires = [
   'app.models',
   'MockBackend',
   'ngResource',
-  'lib.underscore'
+  'lib.underscore',
+  'ngStorage',
 ];
 
 // mount on window for testing
