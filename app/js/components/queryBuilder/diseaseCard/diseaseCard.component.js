@@ -1,5 +1,7 @@
+const template = require('./diseaseCard.tpl.html');
+
 const DiseaseCardComponent = {
-    templateUrl: 'queryBuilder/diseaseCard/diseaseCard.tpl.html',
+    template,
     bindings: {
       id: '@',
       samples: '=',
