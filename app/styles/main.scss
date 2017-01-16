@@ -1,119 +1,13 @@
-@import 'vars';
-@import 'typography';
+// Vendor Imports
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/glyphicons';
 
-body {
-  font-family: Helvetica, sans-serif;
-  color: $font-color--dark;
-}
+// Variables
+@import 'vars';
+@import 'typography';
 
-.badge--counter{
-	background:$blue;
-}
+// Base Layout
+@import 'base';
 
-.container-fluid{ padding:0; }
-.row{margin-left:0; margin-right:0;}
-
-/* =======================================================================
-  Application Base
- ========================================================================== */
-#app{
-	width: 100vw;
-	height: 100vh;
-	display: block;
-	padding: 0;
-	margin:0;
-	overflow: hidden;
-}
-
-	.dashboard-column{
-		display:block;
-		height: 100%;
-		padding:0;
-		margin:0;
-	}
-
-	.dashboard-column-header{
-		width: 100%;
-		height: 40px;
-
-		margin:0;
-		padding: 5px 0 0 0;
-
-
-		h2{
-			padding:0;
-			margin:0;
-
-			color:$white;
-			font-size: 24px;
-			text-transform: uppercase;
-			text-align: center;
-		}
-	}
-
-
-/* =======================================================================
-  Query Builder
-  ========================================================================== */
-#query-builder{
-	height: 100vh;
-	margin:0;
-	padding:0;
-}
-
-
-
-/* =======================================================================
-  Info Box (tooltip)
- ========================================================================== */
- .info-box{
- 	width: 100%;
- 	display:block;
- 	position: relative;
- 	padding: 5px 10px;
- 	margin: 0 0 10px 0;
- 	font-size:10px;
- 	color:$white;
-
-	background: rgba($black, 0.25);
-	//arrow
-	&:before{
-		content:'';
-		position: absolute;
-		top:-10px;
-		left: 20px;
-		width: 0;
-  		height: 0;
-  		border-left: 10px solid transparent;
-  		border-right: 10px solid transparent;
-
-  		border-bottom: 10px solid rgba($black, 0.25);
-	}
-
-	.glyphicon{
-		padding:7px 0 0 0;
-		margin:0;
-	}
-	.glyphicon-info-sign{
-		font-size:16px;
-		// float:left;
-		padding-right:10px;
-	}
-	.glyphicon-remove-circle{
-		// float:right;
-		font-size:12px;
-	}
-
- }
-
-.info-box-message{
-	// width: 78%;
-	display:inline-block;
-	// float:left;
-}
-
-
-
+// Components
 @import 'components';
