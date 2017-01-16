@@ -5,7 +5,7 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
   $log.log('');
 
 
-  const DISEASES_RESOURCE = $resource(`${AppSettings.api.diseases}/`,{},{
+  const DISEASES_RESOURCE = $resource(`${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`,{},{
     query:  {isArray:false}
   });
 
@@ -31,7 +31,7 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
   service.query = (searchQuery, dataSource = "local", mutationsGenes)=>{
     let diseasePromise;
 
-    $log.log(`query:${AppSettings.api.diseases}/`);
+    $log.log(`query:${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`);
 
     // filter results in the service to simply logic in the templates
     let _filtered_local_results = (searchQuery)=>filterFilter(angular.fromJson(localDiseases).results, searchQuery);
