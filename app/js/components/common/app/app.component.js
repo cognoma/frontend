@@ -1,5 +1,5 @@
 const AppComponent = {
-    templateUrl: 'app/app.tpl.html',
+    templateUrl: 'common/app/app.tpl.html',
     bindings: {},
     controller: ['$rootScope','$log', function($rootScope, $log){
         'ngInject';
