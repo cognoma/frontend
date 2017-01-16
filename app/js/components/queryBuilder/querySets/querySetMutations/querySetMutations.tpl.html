@@ -1,5 +1,5 @@
 <div class="row dashboard-column-header">
-  <h2>MUTATIONS SET</h2>
+  <h2>GENES SET</h2>
   <span class="badge">{{$ctrl.mutationSet.length}}</span>
 </div>
 
@@ -29,11 +29,11 @@
 
   <gene-card
     ng-class="{'active':gene.active, 'faded':  $ctrl.geneHovered}"
-    class="gene-card-display-item clearfix" 
+    class="gene-card-display-item clearfix"
 
     ng-if="$ctrl.mutationSet.length"
     ng-repeat="gene in $ctrl.mutationSet"
-    
+
     symbol="{{gene.symbol}}"
     entrez-id="gene.entrezgene"
     name="{{gene.name}}"

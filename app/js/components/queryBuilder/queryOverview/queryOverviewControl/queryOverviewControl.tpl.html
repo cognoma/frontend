@@ -1,28 +1,25 @@
-<div 
-	class="query-overview--control 
+<div
+	class="query-overview--control
 			   query-overview--{{$ctrl.title.toLowerCase()}}
          row
 			"
   ng-class="{'active': $ctrl.active}"
 >
 
-  <h4 class="query-overview--control-title row" >
-  	<span class="badge badge--counter"  >{{$ctrl.paramList.length}}</span>
-    <span class="js-test-title" ui-sref="app.queryBuilder.{{$ctrl.listType}}">{{::$ctrl.title}}</span>
+  <h4 class="query-overview--control-title">
+		<span class="glyphicon glyphicon-info-sign"
+		uib-tooltip="{{$ctrl.desc}}"
+		tooltip-placement="bottom"></span>
+		<span class="js-test-title" ui-sref="app.queryBuilder.{{$ctrl.listType}}">{{::$ctrl.title}} ({{$ctrl.paramList.length}})</span>
   </h4>
 
-  <h5 ng-if="$ctrl.setTitle" 
+  <h5 ng-if="$ctrl.setTitle"
       class="query-overview--control-setTitle js-test-setTitle">
       {{::$ctrl.setTitle}}
   </h5>
 
-  <info-box
-  	ng-if="$ctrl.desc"
-  	message="{{$ctrl.desc}}"
-  ></info-box>
-
   <div class="row query-overview--control-params">
-		
+
   		<mutation-listing
         class="col-lg-6"
   			ng-if=" $ctrl.listType == 'mutations' "
@@ -41,17 +38,17 @@
         is-loading="disease.mutationsLoading"
   		></disease-listing>
 
-  		<button 
+  		<button
         ui-sref="app.queryBuilder.{{$ctrl.listType}}"
   			ng-class="{ 'col-xs-6 col-lg-4': $ctrl.listType == 'mutations',
   						      'col-xs-10': $ctrl.listType == 'disease' }"
   			class="query-overview--control-param  query-overview--control-param-add text-uppercase"
         ng-click="$ctrl.resetSearch()">
   			ADD {{ $ctrl.listType }}
-  				
-  		</buttom>	
 
-        
+  		</buttom>
+
+
   </div>
 
 </div>

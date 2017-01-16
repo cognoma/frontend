@@ -1,5 +1,5 @@
 /* =======================================================================
-  Component: queryOverviewControl 
+  Component: queryOverviewControl
  ========================================================================== */
 
 	.query-overview--control{
@@ -26,16 +26,11 @@
 	.query-overview--mutations{}
 
 		.query-overview--control-title{
-			padding: 17px 0 17px 28px;
+			padding: 17px 0 17px 17px;
 			margin: 0;
 			position: relative;
 			text-transform: uppercase;
 			&:hover{cursor:pointer;}
-			.badge--counter{
-				position: absolute;
-				left: 4px;
-				top:18px;
-			}			
 		}
 		.query-overview--control-setTitle{
 			padding:  0 0 0 28px;
@@ -97,7 +92,7 @@
 					font-size:10px;
 					font-weight:normal;
 					text-align:center;
-				
+
 
 				&:hover{
 					background: none;
@@ -105,15 +100,15 @@
 					color:$green;
 				}
 
-			} 
+			}
 
 
 
 			.disease-listing{
 				transition: 1s all ease;
 				&.data-loading{
-					.glyphicon{ 
-						font-size: 14px; 
+					.glyphicon{
+						font-size: 14px;
 						color: blue;
 					}
 				}
@@ -124,7 +119,7 @@
 					strong{font-size: 12px;}
 					.glyphicon{ transition: all 0.25s ease; font-size: 12px;}
 				}
-				
+
 				// .glyphicon-remove-circle{ background: $white; }
 			}
 
