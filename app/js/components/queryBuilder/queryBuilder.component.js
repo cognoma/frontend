@@ -11,7 +11,9 @@ const QueryBuilderComponent = {
                  'MutationsService',
                  'DiseaseService',
                  '$log',
-                 function($scope, $rootScope, _, DiseaseModel, $state,$q, $timeout, MutationsService, DiseaseService, $log) {
+                 '$resource',
+                 'AppSettings',
+                 function($scope, $rootScope, _, DiseaseModel, $state,$q, $timeout, MutationsService, DiseaseService, $log, $resource, AppSettings) {
             	     'ngInject';
                    let vm = this;
                    
@@ -120,6 +122,40 @@ const QueryBuilderComponent = {
 
                 }//END vm._updateDL_mutationData 
 
+
+
+                $rootScope.$on('query:submit', ()=>{
+                  let diseases = [];
+                  let genes = [];
+
+                  // Check to make sure we have at least 1 gene and 1 disease
+                  if(this.diseaseList.length > 0 && this.mutationList.length > 0) {
+                    diseases = this.diseaseList.map(function(obj) {
+                      return obj['acronym'];
+                    });
+
+                    genes = this.mutationList.map(function(obj) {
+                      return obj['entrezgene'];
+                    });
+
+                    let query = $resource(`${AppSettings.api.baseUrl}${AppSettings.api.classifiers}/`, {}, {
+                      submit: {
+                        method: 'POST',
+                        headers: {
+                          Authorization: 'Bearer tked28ic74ebiyy6bd9b6mqxa',
+                        }
+                      }
+                    });
+
+                    query.submit({
+                        diseases: diseases,
+                        genes: genes
+                    });
+                  } else {
+                    alert('You must select at least 1 disease and 1 gene.');
+                  }
+
+                });
 
 
 

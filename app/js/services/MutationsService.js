@@ -9,10 +9,10 @@ function MutationsService($q, $http, $timeout, $log, AppSettings, $httpParamSeri
   
 
   //production - mygene.info query endpoint
-  // let endpoint = (geneQuery ='')=>`${AppSettings.api.geneSearch.base}${geneQuery.toUpperCase()}&${$httpParamSerializer(AppSettings.api.geneSearch.params)}`;
+  let endpoint = (geneQuery ='')=>`${AppSettings.api.geneSearch.base}${geneQuery.toUpperCase()}&${$httpParamSerializer(AppSettings.api.geneSearch.params)}`;
 
   // local dev mockBackend - /genes/<query> endpoint
-  let endpoint = (geneQuery ='')=>`${AppSettings.api.genes}/${geneQuery.toUpperCase()}`;
+  // let endpoint = (geneQuery ='')=>`${AppSettings.api.genes}/${geneQuery.toUpperCase()}`;
     
 
 

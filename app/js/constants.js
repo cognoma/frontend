@@ -1,3 +1,9 @@
+let api_base = {
+  mock: '',
+  dev: 'http://localhost\:8000',
+  production: 'https://api.cognoma.org'
+}
+
 const AppSettings = {
   app:{
     title: 'Cognoma',
@@ -5,9 +11,10 @@ const AppSettings = {
   },
 
   api:{
-    baseUrl:    '',//http://localhost\:8000
+    baseUrl:    api_base.production,//http://localhost\:8000
     genes:  '/genes',
     diseases:   '/diseases',
+    classifiers: '/classifiers',
     samples:    '/samples',
     geneSearch: {
       base: 'https://mygene.info/v3/query?q=',

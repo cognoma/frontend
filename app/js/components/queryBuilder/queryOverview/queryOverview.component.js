@@ -4,10 +4,13 @@ const QueryOverviewComponent = {
     	'mutationSet': ' = ',
     	'diseaseSet': '  = '
     },
-    controller: ['$log',function ($log) {
+    controller: ['$scope', '$rootScope', '$log',function ($scope, $rootScope, $log) {
             'ngInject';
             $log = $log.getInstance('QueryOverviewComponent', true);
             $log.log('');
+
+            $scope.submit = ()=>$rootScope.$emit('query:submit');
+
     }]
 }
 

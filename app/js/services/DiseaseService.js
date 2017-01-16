@@ -5,7 +5,7 @@ function DiseaseService($q,$resource, AppSettings, DiseaseModel, $log, filterFil
   $log.log('');
 
   
-  const DISEASES_RESOURCE = $resource(`${AppSettings.api.diseases}/`,{},{ 
+  const DISEASES_RESOURCE = $resource(`${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`,{},{ 
     query:  {isArray:false}
   });
 
