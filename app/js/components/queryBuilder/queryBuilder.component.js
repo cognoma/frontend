@@ -1,4 +1,4 @@
-const template = './queryBuilder.tpl.html';
+const template = require('./queryBuilder.tpl.html');
 
 const QueryBuilderComponent = {
     template,
