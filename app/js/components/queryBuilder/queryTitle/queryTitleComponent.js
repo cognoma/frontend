@@ -1,5 +1,7 @@
+const template = require('./queryTitle.tpl.html')
+
 const QueryTitleComponent = {
-    templateUrl: 'queryBuilder/queryTitle/queryTitle.tpl.html',
+    template,
     bindings: {},
     controller: ['$log',function($log) {
           'ngInject';
