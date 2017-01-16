@@ -20,6 +20,8 @@ function MutationsService($q, $http, $timeout, $log, AppSettings, $httpParamSeri
    * Get all genes/mutations for search query
    *  
    * @param { String } geneQuery  -  query string passed from user input in QueryBuilder::onInputChange
+   * 
+   * @return {Array } array of objects containing the gene results
    */
   service.query = function(geneQuery) {
     $log.log(`query::${geneQuery.toUpperCase()}`);

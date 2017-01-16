@@ -4,17 +4,12 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
   $log = $log.getInstance('DiseaseModel', false);
   $log.log('');
 
-  // TODO:
-  // x Migrate: DiseaseResourceFactory logic to pull in all from  /diseases/
-  // x Transform: each result into a Disease Model 
-  // x GET: disease samples total:  /samples?limit=1&disease=<disease acronym>
-  // x - response: count 
-  // x Build: mutationList_params: query string parameter "mutations__gene=<entrezid>" from mutationList
-  // x GET Positives: for each disease result /samples?limit=1&disease=<disease acronym>&mutationList_params
-  // x - response: count 
-  // x Calculate" disease_negativces: samples_total - disease_positives
-
-
+   /**
+   * Model constructor and initialization
+   * @api public
+   * @param { Object } diseaseResponse  -  disease result object from server 
+   * @param { Array } mutationsGenes  -   array of gene entrezid, queryBuilder user selected genes
+   */
   function DiseaseModel(diseaseResponse, mutationsGenes){
     this.samples   = 0;
     this.negatives = 0;
@@ -24,7 +19,14 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
 
 
 
-  // populate model with data 
+   /**
+   * Populate model with aggregate data from api
+   * @api public
+   * @param { Object } diseaseResponse  -  disease result object from server 
+   * @param { Array } mutationsGenes  -   array of gene entrezid, queryBuilder user selected genes
+   * 
+   * @return Promise - resolved when all aggregate data has been received and processed
+   */
   DiseaseModel.prototype.build = function(diseaseResponse, mutationsGenes){
       $log.log(`build:${diseaseResponse.acronym}`);
 
@@ -42,8 +44,12 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
 
 
 
-
-  // get samples count from DB 
+   /**
+   * GET samples total number of samples from api and set to model property 
+   * @api private 
+   * 
+   * @return Promise - resolved when response returns from api
+   */
   DiseaseModel.prototype._loadSamples = function() {
     let _model = this;
     let samples_endpoint = `${AppSettings.api.samples}?disease=${this.acronym}`;
@@ -57,9 +63,14 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
   }
 
   
-
-  // get positives count from DB 
-  // TODO: build functionality in MockBackend to mimic correct api response 
+  /**
+   * GET (positives) - total number of samples in diesease that have a mutated gene a user selected gene
+   * sets the total count to a model property 
+   * @api private 
+   * @param { Array } mutationsGenes  -   array of gene entrezIds, queryBuilder user selected genes
+   *
+   * @return Promise | Null 
+   */
   DiseaseModel.prototype._loadMutatedGenes = function(mutationsGenes = []){
     $log.log(`_loadMutatedGenes:${mutationsGenes.length}`);
     let _model = this;
@@ -80,7 +91,8 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
 
 
 
-
+  // simple math for the number of samples without a mutated gene 
+  // matching the user selected genes
   DiseaseModel.prototype._setNegatives = function(){
     $log.log(`_setNegatives:`);
      this.negatives = this.positives ?  (this.samples - this.positives) : null;
@@ -88,7 +100,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
 
 
 
-  // build the mutations gene query params 
+  // convenience method to build "&mutations__gene=<entrezID>&mutations__gene=<entrezID>"
   DiseaseModel.prototype._buildMutationsGenesParams = function(mutationsGenes) {
     $log.log(`_buildMutationsGenesParams:${mutationsGenes.length}`);
     let mutations__genes = '';
@@ -98,15 +110,24 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
 
 
 
-
-
-  // caluculate model: samples, positives, negatives
-  // from aggregate sources
+  /**
+   * Aggregate data from api to set the model's (samples, positives, negatives) properties.
+   * Promsie chanining in this method allows us to return a model result only after it has 
+   * been fully populated with aggregate data from disparate sources. 
+   * @api public
+   * 
+   * @param { Array } mutationsGenes  -   array of gene entrezid, queryBuilder user selected genes
+   * 
+   * @return Promise - resolved with model that is fully populated with aggregate data
+   */
   DiseaseModel.prototype.getAggregates = function(mutationsGenes) {
     $log.log('getAggregates:');
     let _model = this;
     let dfd = $q.defer();
 
+    // each method returns a promise 
+    // so chain them together then resolve method promise 
+    // once all data is received
     this._loadSamples()
         .then(()=>this._loadMutatedGenes(mutationsGenes))
         .then(()=>{
@@ -116,6 +137,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
 
     return dfd.promise;
   }
+
 
 
 

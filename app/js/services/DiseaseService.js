@@ -4,6 +4,7 @@ function DiseaseService($q,$resource, AppSettings, DiseaseModel, $log, filterFil
   $log = $log.getInstance('DiseaseService', true);
   $log.log('');
 
+  
   const DISEASES_RESOURCE = $resource(`${AppSettings.api.diseases}/`,{},{ 
     query:  {isArray:false}
   });
@@ -17,10 +18,20 @@ function DiseaseService($q,$resource, AppSettings, DiseaseModel, $log, filterFil
   let _responseTransformer = (serverResponse, mutationsGenes)=>serverResponse.map((diseaseResponse, idx)=>new DiseaseModel(diseaseResponse, mutationsGenes));
 
 
+  /**
+   * Gets all disease resources either from the server or a local storage method 
+   * converts them to DiseaseModels which come back as promises in order to allow them to fetch aggregate data
+   *  
+   * @param { String } searchQuery  -  query string passed from user input in QueryBuilder::onInputChange
+   * @param { Object } dataSource  -   where to retrieve results from 
+   * @param { Array } mutationsGenes  -   array of gene entrezid, usually from queryBuilder user selected genes
+   * 
+   * @return {Array} filtered array of DieseasModels 
+   */
   service.query = (searchQuery, dataSource = "local", mutationsGenes)=>{
     $log.log(`query:${AppSettings.api.diseases}/`);
     
-    // filter local results 
+    // filter results in the service to simply logic in the templates
     let _filtered_local_results = (searchQuery)=>filterFilter(angular.fromJson(localDiseases).results, searchQuery);
       
 
