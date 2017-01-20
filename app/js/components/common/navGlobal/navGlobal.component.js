@@ -1,5 +1,7 @@
+const template = require('./navGlobal.tpl.html');
+
 const NavGlobalComponent = {
-    templateUrl: 'common/navGlobal/navGlobal.tpl.html',
+    template,
     controller: ['$log',function ($log) {
         	'ngInject';
         	$log = $log.getInstance('NavGlobalComponent', true);

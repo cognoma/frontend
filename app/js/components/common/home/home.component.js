@@ -1,5 +1,7 @@
+const template = require('./home.tpl.html');
+
 const HomeComponent = {
-    templateUrl: 'common/home/home.tpl.html',
+    template,
     bindings: {},
     controller: function () {
       'ngInject';

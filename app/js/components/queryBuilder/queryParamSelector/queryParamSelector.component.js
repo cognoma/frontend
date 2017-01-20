@@ -1,5 +1,7 @@
+const template = require('./queryParamSelector.tpl.html');
+
 const QueryParamSelectorComponent = {
-    templateUrl: 'queryBuilder/queryParamSelector/queryParamSelector.tpl.html',
+    template,
     bindings:    {
         'onChange':'&',
         'searchResults': '='

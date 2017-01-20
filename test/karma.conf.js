@@ -44,6 +44,7 @@ const karmaBaseConfig = {
     transform: [
       'babelify',
       'browserify-ngannotate',
+      'stringify',
       'bulkify',
       istanbul({
         instrumenter: isparta,
