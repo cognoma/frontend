@@ -1,0 +1,144 @@
+/* =======================================================================
+  Component: queryOverviewControl 
+ ========================================================================== */
+
+	.query-overview--control{
+		width: 100%;
+		min-height: 200px;
+		display:block;
+		// margin-bottom: 50px;
+		padding-bottom:20px;
+		text-align: left;
+		color: $white;
+
+		&.active{
+			border-left:5px solid green;
+			border-top: none;
+			border-right:none;
+			border-bottom:none;
+			background:rgba($black, 0.25);
+			.query-overview--control-title{
+				color: lighten(green, 10%);
+			}
+		}
+	}
+
+	.query-overview--mutations{}
+
+		.query-overview--control-title{
+			padding: 17px 0 17px 28px;
+			margin: 0;
+			position: relative;
+			text-transform: uppercase;
+			&:hover{cursor:pointer;}
+			.badge--counter{
+				position: absolute;
+				left: 4px;
+				top:18px;
+			}			
+		}
+		.query-overview--control-setTitle{
+			padding:  0 0 0 28px;
+			margin-top:0;
+			text-transform: uppercase;
+			font-weight:100;
+		}
+
+
+
+		// .query-overview--control-params{
+		// 	padding:0 28px;
+		// }
+
+			.query-overview--control-param{
+				position: relative;
+				margin: 5px 0;
+				padding:3px 5px 3px 10px;
+				background:rgba($white, 0.75);
+				color:$black;
+				// border:1px solid rgba($blue, 0.5);
+
+				// &:nth-child(odd){margin-right: 10px;}
+				.glyphicon-remove-circle{
+					position: absolute;
+					top: 3px;
+					right: 3px;
+					border:none;
+					background: none;
+					outline:none;
+					opacity: 0;
+					transition: all 0.25s ease;
+				}
+
+				&:hover{
+					cursor:pointer;
+					box-shadow: 0 0 5px 0 rgba($black, 0.5);
+					background: rgba($white, 1);
+
+					.glyphicon-remove-circle{
+						opacity: 1;
+					}
+				}
+			}
+				.query-overview--control-param-title{
+					text-transform: uppercase;
+					font-weight: bold;
+				}
+
+
+			.query-overview--control-param-add{
+					height:25px;
+					background: none;
+					outline:none;
+					border:1px dashed $white;
+					margin:5px 0 5px 15px;
+					padding:0;
+					color:$white;
+					font-size:10px;
+					font-weight:normal;
+					text-align:center;
+				
+
+				&:hover{
+					background: none;
+					border: 1px solid $white;
+					color:$green;
+				}
+
+			} 
+
+
+
+			.disease-listing{
+				transition: 1s all ease;
+				&.data-loading{
+					.glyphicon{ 
+						font-size: 14px; 
+						color: blue;
+					}
+				}
+				.query-overview--control-param-title{ font-size:12px;}
+				.control-param-summary{
+					font-size: 10px;
+					p{display:inline-block; margin-bottom:0;}
+					strong{font-size: 12px;}
+					.glyphicon{ transition: all 0.25s ease; font-size: 12px;}
+				}
+				
+				// .glyphicon-remove-circle{ background: $white; }
+			}
+
+				.sample-count{
+					// margin-right: 20px;
+					padding:0;
+				}
+				.sample-count--item{padding:0;}
+				.sample-positives{
+					// margin-right:10px;
+					.glyphicon{color:darken($green, 20%);}
+				}
+				.sample-negatives{
+					.glyphicon{color:darken($red, 20%);}
+				}
+
+
