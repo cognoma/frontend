@@ -1,5 +1,5 @@
 const GeneCardComponent = {
-    templateUrl: 'geneCard/geneCard.tpl.html',
+    templateUrl: 'queryBuilder/geneCard/geneCard.tpl.html',
     bindings: {
       symbol:   '@',
      'entrezId' : '<',
