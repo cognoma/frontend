@@ -1,0 +1,32 @@
+/* =======================================================================
+  Component: queryBuilder/querySets/querySetDiseaseType
+ ========================================================================== */
+ .badge{
+   background-color: $blue;
+ }
+.sample-set-bar{
+  font-size: $font-size--xs;
+  padding-bottom: 10px;
+  span{
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+}
+.disease-clear-button{
+  margin-left: -2.5rem;
+}
+.disease-card-display{
+  .disease-card-body{padding:0;}
+  .disease-card-title{font-size:14px;}
+  .samples p{margin:0 0 5px 0;}
+
+  .empty-card-space{
+    margin-right: 0;
+    margin-left: 0;
+    height: 80px;
+    .empty-card-text{
+      line-height: 1.3;
+      padding: 0;
+    }
+  }
+}
