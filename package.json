@@ -103,6 +103,7 @@
     "protractor": "^4.0.9",
     "request": "^2.79.0",
     "run-sequence": "^1.1.5",
+    "stringify": "^5.1.0",
     "tiny-lr": "^0.2.1",
     "uglifyify": "^3.0.1",
     "vinyl-buffer": "^1.0.0",

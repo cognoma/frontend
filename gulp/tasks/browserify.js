@@ -10,6 +10,7 @@ import babelify     from 'babelify';
 import uglify       from 'gulp-uglify';
 import browserSync  from 'browser-sync';
 import debowerify   from 'debowerify';
+import stringify    from 'stringify';
 import ngAnnotate   from 'browserify-ngannotate';
 import bulkify      from 'bulkify';
 import envify       from 'envify';
@@ -40,6 +41,11 @@ function buildScript(file) {
     { name: babelify, options: {} },
     { name: debowerify, options: {} },
     { name: ngAnnotate, options: {} },
+    { 
+      name: stringify, options: {
+        appliesTo: { includeExtensions: ['.html'] }
+      } 
+    },
     { name: 'brfs', options: {} },
     { name: bulkify, options: {} },
     { name: envify, options: {} }

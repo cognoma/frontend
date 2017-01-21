@@ -1,5 +1,7 @@
+const template = require('./geneCard.tpl.html');
+
 const GeneCardComponent = {
-    templateUrl: 'queryBuilder/geneCard/geneCard.tpl.html',
+    template,
     bindings: {
       symbol:   '@',
      'entrezId' : '<',
