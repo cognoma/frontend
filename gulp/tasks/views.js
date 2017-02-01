@@ -12,12 +12,12 @@ gulp.task('views', function() {
 
   
   // Process any other view files from app/views
-  const views = gulp.src(config.views.src)
-    .pipe(templateCache({
-      standalone: true
-    }))
-    .pipe(gulp.dest(config.views.dest));
+  // const views = gulp.src(config.views.src)
+  //   .pipe(templateCache({
+  //     standalone: true
+  //   }))
+  //   .pipe(gulp.dest(config.views.dest));
 
-  return merge(indexFile, views);
+  // return merge(indexFile, views);
 
 });
