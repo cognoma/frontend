@@ -15,7 +15,6 @@ import './components';
 import 'angular-ui-router';
 import 'ui-router-route-to-components';
 import 'angular-ui-bootstrap';
-import './templates';
 import './filters';
 import './directives';
 import './services';
@@ -37,7 +36,6 @@ const requires = [
   'ui.bootstrap',
   'ngAnimate',
   require('angular-touch'),
-  'templates',
   'app.filters',
   'app.components',
   'app.directives',

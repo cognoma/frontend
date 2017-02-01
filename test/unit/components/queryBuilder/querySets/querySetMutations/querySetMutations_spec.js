@@ -15,7 +15,6 @@ describe('UNIT::component: querySetMutations:',()=>{
 
    //load templates from $templateCache
   beforeEach(angular.mock.module('app'));
-  beforeEach(angular.mock.module('templates'));
   beforeEach(angular.mock.module('app.components'));
   beforeEach(inject(function(_$componentController_) {
     $componentController = _$componentController_;
