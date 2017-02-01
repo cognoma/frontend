@@ -7,7 +7,7 @@ import onRun     from './on_run';
 
 import './MockBackend';
 import '../../node_modules/angular-resource/angular-resource.js';
-import '../../node_modules/ng-storage/ngStorage.js';
+import './utils/ng-storage/ngStorage.js';
 
 import 'angular-animate';
 import 'angular-resource';
