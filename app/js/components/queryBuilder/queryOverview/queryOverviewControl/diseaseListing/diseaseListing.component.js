@@ -1,5 +1,7 @@
+const template = require('./diseaseListing.tpl.html');
+
 const diseaseListingComponent = {
-    templateUrl: 'queryBuilder/queryOverview/queryOverviewControl/diseaseListing/diseaseListing.tpl.html',
+    template,
     bindings: {
         name:        '@',
         positives:   '=',
@@ -16,7 +18,7 @@ const diseaseListingComponent = {
         }]
 }
 
-export default { 
+export default {
 	name: 'diseaseListing',
 	obj: diseaseListingComponent
 };

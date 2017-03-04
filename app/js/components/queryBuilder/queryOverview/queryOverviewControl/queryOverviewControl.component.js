@@ -1,5 +1,7 @@
+const template = require('./queryOverviewControl.tpl.html');
+
 const QueryOverviewControlComponent = {
-    templateUrl: 'queryBuilder/queryOverview/queryOverviewControl/queryOverviewControl.tpl.html',
+    template,
     bindings: {
     	title:    '@',
         setTitle: '@',
@@ -15,8 +17,8 @@ const QueryOverviewControlComponent = {
 
         let vm = this;
 
-        vm.active = $state.current.name.includes(vm.listType);        
-        
+        vm.active = $state.current.name.includes(vm.listType);
+
         this.clearSet = ()=>$rootScope.$emit('mutationSet:clear');
 
         this.resetSearch = ()=>$rootScope.$emit('paramSearch:reset');
@@ -25,7 +27,7 @@ const QueryOverviewControlComponent = {
     }]
 }
 
-export default { 
+export default {
 	name: 'queryOverviewControl',
 	obj: QueryOverviewControlComponent
 };

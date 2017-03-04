@@ -1,17 +1,19 @@
+const template = require('./infoBox.tpl.html');
+
 const infoBoxComponent = {
-    templateUrl: 'common/infoBox/infoBox.tpl.html',
+    template,
     bindings: {
     	message: '@',
     },
-	transclude: true,    
+	transclude: true,
     controller: function () {
     	'ngInject';
-        
+
 
     }
 }
 
-export default { 
+export default {
 	name: 'infoBox',
 	obj: infoBoxComponent
 };

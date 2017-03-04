@@ -1,5 +1,7 @@
+const template = require('./queryBuilder.tpl.html');
+
 const QueryBuilderComponent = {
-    templateUrl: 'queryBuilder/queryBuilder.tpl.html',
+    template,
     bindings: {},
     controller: ['$scope',
                  '$rootScope',

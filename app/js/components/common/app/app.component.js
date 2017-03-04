@@ -1,5 +1,7 @@
+const template = require('./app.tpl.html');
+
 const AppComponent = {
-    templateUrl: 'common/app/app.tpl.html',
+    template,
     bindings: {},
     controller: ['$rootScope','$log', function($rootScope, $log){
         'ngInject';

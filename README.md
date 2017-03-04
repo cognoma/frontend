@@ -13,7 +13,7 @@ The main principle behind the branching model is the ONLY production ready commi
 ---
 
 #Frontend Scaffolding
-**Based on [angularjs-gulp-browserify-boilerplate](angularjs-gulp-browserify-boilerplate)**
+**Based on [angularjs-gulp-browserify-boilerplate](https://github.com/jakemmarsh/angularjs-gulp-browserify-boilerplate)**
 
 
 A boilerplate using AngularJS, SASS, Gulp, and Browserify that also utilizes [these best AngularJS practices](https://github.com/toddmotto/angularjs-styleguide)  and Gulp best practices from [this resource](https://github.com/greypants/gulp-starter).
@@ -24,18 +24,18 @@ A boilerplate using AngularJS, SASS, Gulp, and Browserify that also utilizes [th
 ### Getting up and running
 1. Install [Node.js](https://nodejs.org/en/download/) ,*native JS engine*
 2. Install [Node Package Manager - npm](https://docs.npmjs.com/getting-started/installing-node), *node.js package manager*
-3. Clone this repo `$ git clone git@github.com:cognoma/frontend.git`
-4. Checkout the develop branch `$ cd frontend && git checkout develop`
+3. [Fork](https://help.github.com/articles/fork-a-repo/) this repoistory
+4. Checkout the develop branch `$ git checkout develop`
 5. Run `npm install` from project root directory
 6. Run `npm run dev`
-7. Your browser will automatically be opened and directed to the browser-sync proxy address
+7. Your browser will automatically be opened and directed to the browser-sync proxy address and a separate browser will start with the results of the Karma unit tests
 8. To prepare assets for production, run the `npm run build` script (Note: the production task does not fire up the express server, and won't provide you with browser-sync's live reloading. Simply use `npm run dev` during development. More information below)
 
-Now that `npm run dev` is running, the server is up as well and serving files from the `/build` directory. Any changes in the `/app` directory will be automatically processed by Gulp and the changes will be injected to any open browsers pointed at the proxy address.
+Now that `npm run dev` is running, the server is up as well and serving files from the `/build` directory. Any changes in the `/app` directory will be automatically processed by Gulp taks and the changes will be injected to any open browsers pointed at the proxy address as well as refershing and running unit tests.
 
 ---
 
-This boilerplate uses the latest versions of the following libraries:
+This boilerplate uses the following libraries:
 
 - [AngularJS](http://angularjs.org/)
 - [SASS](http://sass-lang.com/)
@@ -46,7 +46,7 @@ Along with many Gulp libraries (these can be seen in either `package.json`, or a
 
 ---
 
-### AngularJS
+### AngularJS v1.5.x
 
 AngularJS is a MVW (Model-View-Whatever) Javascript Framework for creating single-page web applications. In this boilerplate, it is used for all the application routing as well as all of the frontend views and logic.
 
@@ -54,24 +54,29 @@ The AngularJS files are all located within `/app/js`, structured in the followin
 
 ```
 /components
-  index.js   (the main module on which all components will be mounted, loaded in main.js)
-  ._example/ (each component is encapsulated in it's own directory, loaded in index.js)
-      example.component.js (component code )
-      examplet.tpl.html (component HTML template)
+  index.js   (the main module on which all components will be mounted)
+  /componentName 
+      <componentName>.component.js (AngularJS component code )
+      <componentName>.tpl.html (component HTML template)
+      _<componentName>.scss ( sass component styles )
 /directives
-  index.js   (the main module on which all directives will be mounted, loaded in main.js)
+  index.js   (the main module on which all directives will be mounted)
   example.js
 /filters
-  index.js (the main module on which all filters will be mounted, loaded in main.js)
+  index.js (the main module on which all filters will be mounted)
   example.js
 /services
-  index.js   (the main module on which all services will be mounted, loaded in main.js)
+  index.js   (the main module on which all services will be mounted)
   example.js
+/dataModels
+  index.js (the main module on which all models will be mounted as factories)
+/MockBackend
+  index.js   (Angular ngMockE2E implementation to intercept and mock $http requests and responses)
+  /mockData (contains mock json data to be served as responses from the mockBackend)
 constants.js  (any constant values that you want to make available to Angular)
 main.js       (the main file read by Browserify, also where the application is defined and bootstrapped)
 on_run.js     (any functions or logic that need to be executed on app.run)
-on_config.js  (all route definitions and any logic that need to be executed on app.config)
-templates.js  (this is created via Gulp by compiling your views, and will not be present beforehand)
+on_config.js  (all route definitions and any logic that need to be executed on app.config
 ```
 
 ##### Module organization
@@ -105,19 +110,19 @@ needs to be added at the very beginning of any Angular functions/modules. The Gu
 
 ### SASS
 
-SASS, standing for 'Syntactically Awesome Style Sheets', is a CSS extension language adding things like extending, variables, and mixins to the language. This boilerplate provides a barebones file structure for your styles, with explicit imports into `app/styles/main.scss`. A Gulp task (discussed later) is provided for compilation and minification of the stylesheets based on this file.
+[SASS](http://sass-lang.com/), standing for 'Syntactically Awesome Style Sheets', is a CSS extension language adding things like extending, variables, and mixins to the language. This boilerplate provides a barebones file structure for your styles, with explicit imports into `app/styles/main.scss`. A Gulp task (discussed later) is provided for compilation and minification of the stylesheets based on this file.
 
 ---
 
 ### Browserify
 
-Browserify is a Javascript file and module loader, allowing you to `require('modules')` in all of your files in the same manner as you would on the backend in a node.js environment. The bundling and compilation is then taken care of by Gulp, discussed below.
+[Browserify](http://browserify.org/) is a Javascript file and module loader, allowing you to `require('modules')` in all of your files in the same manner as you would on the backend in a node.js environment. The bundling and compilation is then taken care of by Gulp, discussed below.
 
 ---
 
 ### Gulp
 
-Gulp is a "streaming build system", providing a very fast and efficient method for running your build tasks.
+[Gulp](http://gulpjs.com/) is a "streaming build system", providing a very fast and efficient method for running your build tasks.
 
 ##### Web Server
 
@@ -130,7 +135,6 @@ A number of build processes are automatically run on all of our Javascript files
 - **JSHint:** Gulp is currently configured to run a JSHint task before processing any Javascript files. This will show any errors in your code in the console, but will not prevent compilation or minification from occurring.
 - **Browserify:** The main build process run on any Javascript files. This processes any of the `require('module')` statements, compiling the files as necessary.
 - **Babelify:** This uses [babelJS](https://babeljs.io/) to provide support for ES6+ features.
-- **Debowerify:** Parses `require()` statements in your code, mapping them to `bower_components` when necessary. This allows you to use and include bower components just as you would npm modules.
 - **ngAnnotate:** This will automatically add the correct dependency injection to any AngularJS files, as mentioned previously.
 - **Uglifyify:** This will minify the file created by Browserify and ngAnnotate.
 
@@ -150,7 +154,7 @@ Any images placed within `/app/images` will be automatically copied to the `buil
 
 When any changes are made to the `index.html` file, the new file is simply copied to the `/build/` directory without any changes occurring.
 
-Files inside  `/app/js/components/**/*.tpl.html`, on the other hand, go through a slightly more complex process. The `gulp-angular-templatecache` module is used in order to process all views/partials, creating the `template.js` file briefly mentioned earlier. This file will contain all the views, now in Javascript format inside Angular's `$templateCache` service. This will allow us to include them in our Javascript minification process, as well as avoid extra HTTP requests for our views.
+Components templates files inside  `/app/js/components/**/*.tpl.html`, on the other hand are included inline in the component's definition via a `require()`
 
 ##### Watching files
 

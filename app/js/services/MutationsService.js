@@ -8,11 +8,20 @@ function MutationsService($q, $http, $timeout, $log, AppSettings, $httpParamSeri
   const service = {};
   
 
-  //production - mygene.info query endpoint
-  // let endpoint = (geneQuery ='')=>`${AppSettings.api.geneSearch.base}${geneQuery.toUpperCase()}&${$httpParamSerializer(AppSettings.api.geneSearch.params)}`;
+  
+  let endpoint = (geneQuery ='')=>{
+    let _geneQuery = geneQuery.toUpperCase();
+    
+    if(AppSettings.api.baseUrl.includes('api.cognoma.org')){
+      //production - mygene.info query endpoint
+      return `${AppSettings.api.geneSearch.base}${_geneQuery}&${$httpParamSerializer(AppSettings.api.geneSearch.params)}`;  
+    }else{
+      return `${AppSettings.api.baseUrl}${AppSettings.api.genes}/${_geneQuery}`;
+    }
+    
+  }
 
-  // local dev mockBackend - /genes/<query> endpoint
-  let endpoint = (geneQuery ='')=>`${AppSettings.api.genes}/${geneQuery.toUpperCase()}`;
+  
     
 
 
