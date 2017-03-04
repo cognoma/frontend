@@ -5,15 +5,15 @@
   <div class="list-controls">
     <div class="col-xs-10">
       <span>SELECTED DISEASE TYPES</span>
-      <span 
+      <span
         class="glyphicon glyphicon-sort"
         ng-click="$ctrl.sortSetBy('positives')"
-      >  
+      >
         </span>
     </div>
     <div class="col-xs-2">
-      <span class="label clear-button disease-clear-button"
-            ng-click="$ctrl.clearDiseaseSet()">CLEAR</span>
+      <button class="label clear-button disease-clear-button"
+            ng-click="$ctrl.clearDiseaseSet()">CLEAR</button>
     </div>
   </div>
 
@@ -27,12 +27,12 @@
       {{$ctrl.setTotalFor('negatives')}}</span>
   </div>
 
-  
+
 <!-- Disease Cards -->
 <div class="card-container">
 <div class="disease-card-display col-xs-12">
 
-  <div 
+  <div
     class="row"
     ng-repeat="disease in $ctrl.diseaseSet track by $index"
     ng-if="$ctrl.diseaseSet.length"
@@ -44,7 +44,7 @@
       samples="disease.samples"
     ></disease-card>
   </div>
-  
+
 
 
   <div class="empty-card-space col-xs-12">

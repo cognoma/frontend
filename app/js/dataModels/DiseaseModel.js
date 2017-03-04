@@ -55,7 +55,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
     let samples_endpoint = `${AppSettings.api.baseUrl}${AppSettings.api.samples}?disease=${this.acronym}`;
     $log.log(`_loadSamples:${samples_endpoint}`);
 
-    return $http.get(`${AppSettings.api.samples}?disease=${this.acronym}`)
+    return $http.get(`${AppSettings.api.baseUrl}${AppSettings.api.samples}?disease=${this.acronym}`)
                 .then(samplesResponse=>{
                     _model.samples = samplesResponse.data.count;
                     return _model.samples;

@@ -11,10 +11,10 @@ describe('UNIT::component: diseaseListing:', () => {
    }
 
 
-   //load templates from $templateCache
+   
   beforeEach(angular.mock.module('app'));
   // beforeEach(angular.mock.module('app.components'));
-  beforeEach(angular.mock.module('templates'));
+
   
  
   

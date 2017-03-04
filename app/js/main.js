@@ -7,6 +7,7 @@ import onRun     from './on_run';
 
 import './MockBackend';
 import '../../node_modules/angular-resource/angular-resource.js';
+import './utils/ng-storage/ngStorage.js';
 
 import 'angular-animate';
 import 'angular-resource';
@@ -14,7 +15,6 @@ import './components';
 import 'angular-ui-router';
 import 'ui-router-route-to-components';
 import 'angular-ui-bootstrap';
-import './templates';
 import './filters';
 import './directives';
 import './services';
@@ -36,16 +36,16 @@ const requires = [
   'ui.bootstrap',
   'ngAnimate',
   require('angular-touch'),
-  'templates',
   'app.filters',
   'app.components',
   'app.directives',
   'app.services',
   'app.factories',
   'app.models',
-  'MockBackend',
+  // 'MockBackend',
   'ngResource',
-  'lib.underscore'
+  'lib.underscore',
+  'ngStorage',
 ];
 
 // mount on window for testing

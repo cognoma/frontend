@@ -1,5 +1,7 @@
+const template = require('./queryOverview.tpl.html');
+
 const QueryOverviewComponent = {
-    templateUrl: 'queryBuilder/queryOverview/queryOverview.tpl.html',
+    template,
     bindings: {
     	'mutationSet': ' = ',
     	'diseaseSet': '  = '

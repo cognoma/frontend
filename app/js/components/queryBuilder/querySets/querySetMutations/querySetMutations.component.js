@@ -1,5 +1,7 @@
+const template = require('./querySetMutations.tpl.html');
+
 const QuerySetMutationsComponent = {
-    templateUrl: 'queryBuilder/querySets/querySetMutations/querySetMutations.tpl.html',
+    template,
     bindings: {
       'mutationSet': '=',
       'diseaseSet':  '='
@@ -10,7 +12,7 @@ const QuerySetMutationsComponent = {
               $log.log('');
 
               let vm = this;
-              
+
               this.clearMutationSet = ()=>$rootScope.$emit('mutationSet:clear');
 
               this.sortMutations = sortParam=>{$rootScope.$emit('mutationSet:sort', {sortOn:  sortParam});}
@@ -23,7 +25,7 @@ const QuerySetMutationsComponent = {
                 if(this.mutationSet[idx].active){
                     let cardListContainer = document.querySelector('.gene-card-display');
                     let cards = document.querySelectorAll('.gene-card-display .gene-card');
-                    cardListContainer.scrollTop = cards[idx].offsetTop - 20;    
+                    cardListContainer.scrollTop = cards[idx].offsetTop - 20;
                 }
 
               };

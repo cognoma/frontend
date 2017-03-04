@@ -11,9 +11,8 @@ describe('UNIT::component: mutationListing:', () => {
    }
 
 
-   //load templates from $templateCache
    beforeEach(angular.mock.module('app'));
-  beforeEach(angular.mock.module('templates'));
+
   
  
   

@@ -1,5 +1,7 @@
+const template = require('./mutationListing.tpl.html');
+
 const mutationListingComponent = {
-    templateUrl: 'queryBuilder/queryOverview/queryOverviewControl/mutationListing/mutationListing.tpl.html',
+    template,
     bindings: {
         'symbol':     '@',
         'entrezgene': '<'
@@ -11,11 +13,11 @@ const mutationListingComponent = {
              $log.log(`${this.symbol}:`);
 
             this.removeMutation = $id=>$rootScope.$emit('mutationSet:remove:mutation', {entrezgene: $id});
-    
+
         }]
 }
 
-export default { 
+export default {
 	name: 'mutationListing',
 	obj: mutationListingComponent
 };
