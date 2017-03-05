@@ -20,9 +20,36 @@ const QueryBuilderComponent = {
                    $log = $log.getInstance('QueryBuilderComponent', true);
                    $log.log('');
                    
+                   this.foo = "bar";
 
             	     this.diseaseList = [];
             	     this.mutationList = [];
+                   this.progressIndicators = [
+                    {
+                      title:'Search Genes',  
+                      state:'app.queryBuilder.mutations' , 
+                      icon:'', 
+                      active:true 
+                    },
+                    {
+                      title:'Add Genes',     
+                      state:'app.queryBuilder.mutations' , 
+                      icon:'', 
+                      active:false
+                    },
+                    {
+                      title:'Search Samples',
+                      state:'app.queryBuilder.disease' ,   
+                      icon:'', 
+                      active:false 
+                    },
+                    {
+                      title:'Find Samples',  
+                      state:'app.queryBuilder.disease' ,   
+                      icon:'', 
+                      active:false 
+                    }
+                   ];
 
                    vm.currentState = ()=>$state.current.name.split('.')[2];
 

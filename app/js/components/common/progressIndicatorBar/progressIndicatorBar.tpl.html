@@ -1,0 +1,15 @@
+
+<span class="prgs-indct-bar-line" style="width:{{ $ctrl.lineWidth() }}%; left:{{ $ctrl.lineLeft()  }}%;"></span>
+
+<ol class="prgs-indct-bar-steps">
+
+	<li ng-repeat="step in $ctrl.steps"
+		class="prgs-indct-bar-step"  
+		ng-class="{'active': step.active}"
+		ng-click="$ctrl.goTo(step)"
+		>
+		<i class="icon">{{step.icon}}</i>
+		<p><small>{{ step.title}}</small></p>	
+	</li>
+
+</ol>
