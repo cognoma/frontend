@@ -20,7 +20,6 @@ const QueryBuilderComponent = {
                    $log = $log.getInstance('QueryBuilderComponent', true);
                    $log.log('');
                    
-                   this.foo = "bar";
 
             	     this.diseaseList = [];
             	     this.mutationList = [];
@@ -29,7 +28,8 @@ const QueryBuilderComponent = {
                       title:'Search Genes',  
                       state:'app.queryBuilder.mutations' , 
                       icon:'', 
-                      active:true 
+                      active:false,
+                      highlightEl: '#query-param-selector-input',
                     },
                     {
                       title:'Add Genes',     
@@ -44,7 +44,7 @@ const QueryBuilderComponent = {
                       active:false 
                     },
                     {
-                      title:'Find Samples',  
+                      title:'Add Samples',  
                       state:'app.queryBuilder.disease' ,   
                       icon:'', 
                       active:false 
