@@ -39,6 +39,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       title: 'Query Builder: Mutations',
       url:   '/mutations',
       views: {
+        'queryProgressBar':   {template: '<progress-indicator-bar  id="prgs-indct-bar"  steps="$ctrl.progressIndicators" />'},
         'queryOverview':      {template: '<query-overview mutation-set="$ctrl.mutationList" disease-set="$ctrl.diseaseList"/>'},
         'querySet':           {template: '<query-set-mutations mutation-set="$ctrl.mutationList" />'},
         'queryParamSelector': {template: '<query-param-selector on-change="$ctrl.onInputChange(search)" search-results="$ctrl.searchResults" />'}
@@ -49,6 +50,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       title:  'Query Builder: Disease Type',
       url:    '/disease-type',
       views:{
+        'queryProgressBar':   {template: '<progress-indicator-bar  id="prgs-indct-bar"  steps="$ctrl.progressIndicators" />'},
         'queryOverview':      {template: '<query-overview mutation-set="$ctrl.mutationList" disease-set="$ctrl.diseaseList"/>'},
         'querySet':           {template: '<query-set-disease-type disease-set="$ctrl.diseaseList" />'},
         'queryParamSelector': {template: '<query-param-selector on-change="$ctrl.onInputChange(search)" search-results="$ctrl.searchResults" />'}

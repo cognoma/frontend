@@ -10,7 +10,7 @@ const progressIndicatorBarComponent = {
                  '_',
                  '$state',
                  '$timeout',
-                 '$localStorage',
+                 '$sessionStorage',
                  function ($log, $rootScope, _, $state, $timeout, $sessionStorage) {
 
             'ngInject';
@@ -23,17 +23,19 @@ const progressIndicatorBarComponent = {
 
             const TOTAL_LINE_WIDTH = () =>(100 / vm.steps.length);
             // keep track of query navigation history
-            $sessionStorage.progressNavigationHistory = [];
+            let progressHistory = $sessionStorage.progressNavigationHistory;
 
             vm.$onInit=()=>{
                 let entryStep = _.findWhere(vm.steps, {state: $state.current.name});
-                vm.goTo(entryStep);
+                vm.goTo(_getLastHistoryStep(progressHistory, $state.current));
             }
+
 
             vm.lineWidth = ()=> {
                 let reverseIdxs = _.range(vm.steps.length).reverse();
                 return ( TOTAL_LINE_WIDTH() * (vm.steps.length - reverseIdxs[_currentActiveIdx() -1] ) );
             };
+            
 
             vm.lineLeft = ()=> ( TOTAL_LINE_WIDTH() - ( TOTAL_LINE_WIDTH() / 2 ) );
 
@@ -58,7 +60,7 @@ const progressIndicatorBarComponent = {
                 // find the step with an index of +1 the current active state 
                 let nextStep = vm.steps[_currentActiveIdx()+1];
                 nextStep.active = true;
-                $sessionStorage.progressNavigationHistory.push(nextStep);
+                progressHistory.push(nextStep);
                 $state.go(nextStep.state);
                 return nextStep;
                 // return the step object of step that was advanced to 
@@ -76,7 +78,7 @@ const progressIndicatorBarComponent = {
                 let previousStep =  vm.steps[_currentActiveIdx()-1];
                 // set current active step to inactive
                 currentStep.active = false;
-                $sessionStorage.progressNavigationHistory.push(previousStep.state);
+                progressHistory.push(previousStep.state);
                 $state.go(previousStep.state);
                 // return the newly active step 
                 return previousStep;
@@ -97,7 +99,7 @@ const progressIndicatorBarComponent = {
                 previousSteps.map(step=>{step.active = false;});
 
                 selectedStep.active = true;
-                $sessionStorage.progressNavigationHistory.push(selectedStep);
+                progressHistory.push(selectedStep);
                 // change state to selectedStep state 
                 $state.go(selectedStep.state );
 
@@ -107,18 +109,18 @@ const progressIndicatorBarComponent = {
             };
 
 
+            let _getLastHistoryStep = (progressHistory, toState)=>{
+                let historySteps = _.where(progressHistory, {state: toState.name});
+                let lastStepInHistory = historySteps[historySteps.length-1];
+                let firstStepinState = _.findWhere(vm.steps, {state: toState.name});''
+                return ( lastStepInHistory ? lastStepInHistory: firstStepinState )
+            }
             
 
             // update progress bar when state is change from other navigation
             $rootScope.$on('$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) => {
-                let historySteps = _.where($sessionStorage.progressNavigationHistory, {state: toState.name});
-                let lastStepInHistory = historySteps[historySteps.length-1];
-                
-                if(lastStepInHistory){
-                    vm.goTo(lastStepInHistory);
-                }else{
-                    vm.goTo(_.findWhere(vm.steps, {state: toState.name}));
-                }
+
+                vm.goTo(_getLastHistoryStep(progressHistory, toState));
 
             });
 

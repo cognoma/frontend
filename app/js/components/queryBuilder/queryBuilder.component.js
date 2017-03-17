@@ -28,8 +28,7 @@ const QueryBuilderComponent = {
                       title:'Search Genes',  
                       state:'app.queryBuilder.mutations' , 
                       icon:'', 
-                      active:false,
-                      highlightEl: '#query-param-selector-input',
+                      active:false
                     },
                     {
                       title:'Add Genes',     
