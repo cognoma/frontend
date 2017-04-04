@@ -28,7 +28,7 @@ const QueryBuilderComponent = {
                       title:'Search Genes',  
                       state:'app.queryBuilder.mutations' , 
                       icon:'', 
-                      active:false
+                      active:true
                     },
                     {
                       title:'Add Genes',     
@@ -54,6 +54,38 @@ const QueryBuilderComponent = {
 
                    vm.searchResults = [];
 
+                   $rootScope.$on('PIB:queryBuilderProgress:onInit',(event,data)=>{
+                    vm.progressBar = data.pib;
+                   });
+
+                   $rootScope.$on('PIB:queryBuilderProgress:goTo', (event,data)=>{
+
+                      let reviewIndicator = {
+                            title:'Review Query',  
+                            state:'app.queryBuilder.disease' ,   
+                            icon:'', 
+                            active:false 
+                          };
+
+                      let reviewIndicator_exist = _.findWhere(vm.progressIndicators, {title: reviewIndicator.title}) != undefined;
+
+                      if(
+                        !reviewIndicator_exist &&
+                        data.hookData.title == 'Add Samples' && 
+                        (vm.diseaseList.length && vm.mutationList.length)
+
+                        ){
+
+                        data.pib.steps.push(reviewIndicator);
+                      }else if(
+                        reviewIndicator_exist &&
+                        (vm.diseaseList.length == 0 || vm.mutationList.length == 0)
+                      ){
+                        data.pib.steps.pop();
+                      }
+
+
+                   });
                   
                    /* =======================================================================
                       querySets: list operations
