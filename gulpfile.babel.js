@@ -12,3 +12,8 @@
 global.isProd = false;
 
 require('./gulp');
+
+// Copy CNAME to build for GitHub Pages
+var gulp = require('gulp');
+gulp.src(['./CNAME'])
+  .pipe(gulp.dest('./build'));
