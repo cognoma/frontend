@@ -120,18 +120,8 @@ const progressIndicatorBarComponent = {
 
             // update progress bar when state is change from other navigation
             $rootScope.$on('$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) => {
-<<<<<<< Updated upstream
 
                 vm.goTo(_getLastHistoryStep(progressHistory, toState));
-=======
-                $log.log('$stateChangeSuccess');
-
-                let historySteps = _.where($sessionStorage.progressNavigationHistory, {state: toState.name});
-                let lastStepInHistory = historySteps[historySteps.length-1];
-                let firstStepInState = _.findWhere(vm.steps, {state: toState.name});
->>>>>>> Stashed changes
-
-                vm.goTo(lastStepInHistory ? lastStepInHistory : firstStepInState);
                 
             });
 
