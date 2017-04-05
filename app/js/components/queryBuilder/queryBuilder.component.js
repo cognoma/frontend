@@ -28,25 +28,29 @@ const QueryBuilderComponent = {
                       title:'Search Genes',  
                       state:'app.queryBuilder.mutations' , 
                       icon:'', 
-                      active:true
+                      active:true,
+                      type: 'icon'
                     },
                     {
                       title:'Add Genes',     
                       state:'app.queryBuilder.mutations' , 
                       icon:'', 
-                      active:false
+                      active:false,
+                      type:'icon'
                     },
                     {
                       title:'Search Samples',
                       state:'app.queryBuilder.disease' ,   
                       icon:'', 
-                      active:false 
+                      active:false,
+                      type:'icon'
                     },
                     {
                       title:'Add Samples',  
                       state:'app.queryBuilder.disease' ,   
                       icon:'', 
-                      active:false 
+                      active:false ,
+                      type:'icon'
                     }
                    ];
 
@@ -54,6 +58,10 @@ const QueryBuilderComponent = {
 
                    vm.searchResults = [];
 
+                   
+                  /* =======================================================================
+                      query progress bar: hooks
+                  ========================================================================== */
                    $rootScope.$on('PIB:queryBuilderProgress:onInit',(event,data)=>{
                     vm.progressBar = data.pib;
                    });
@@ -64,7 +72,8 @@ const QueryBuilderComponent = {
                             title:'Review Query',  
                             state:'app.queryBuilder.disease' ,   
                             icon:'', 
-                            active:false 
+                            active:false,
+                            type:'button'
                           };
 
                       let reviewIndicator_exist = _.findWhere(vm.progressIndicators, {title: reviewIndicator.title}) != undefined;
@@ -84,9 +93,9 @@ const QueryBuilderComponent = {
                         data.pib.steps.pop();
                       }
 
-
                    });
                   
+
                    /* =======================================================================
                       querySets: list operations
                     ========================================================================== */
@@ -149,6 +158,7 @@ const QueryBuilderComponent = {
 
                 $rootScope.$on('diseaseSet:add', (e,disease)=>{
                     this.diseaseList.push(disease);
+                    if(this.mutationList.length)
                     vm._pushResultToSetBy({result: disease, set:this.diseaseList, param: 'acronym'});
                 });
 
@@ -197,9 +207,11 @@ const QueryBuilderComponent = {
                 // instead of handled with rootscope events 
                 this.onInputChange = (searchQuery)=>{
                     $log.info(`query: ${searchQuery}`);
+                    let progressState = vm.currentState() == 'mutations' ? 'Genes' : 'Samples';
 
                       if(searchQuery.length == 0 ){
                           vm.searchResults = [];
+                          vm.progressBar.goTo(`Search ${progressState}`);
                       }else{
 
                         // pass along the user input query and selected mutations list 
@@ -207,6 +219,8 @@ const QueryBuilderComponent = {
                         searchServices[vm.currentState()]
                           .query(searchQuery, {source: 'DB'}, this.mutationList)
                           .then(response=>{
+
+                            vm.progressBar.goTo(`Add ${progressState}`);
 
                             // make sure we update the views 
                             $scope.$apply(()=>{

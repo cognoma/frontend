@@ -99,8 +99,13 @@ const progressIndicatorBarComponent = {
 
 
             vm.goTo = (selectedStep)=>{
+                console.log(selectedStep);
+                let goToStep = typeof selectedStep == 'object' ? selectedStep : _.findWhere(vm.steps, {title:selectedStep});
+                $log.log('goTo', goToStep.title);
+
                 // get the index of the selcted step
-                let selectedIdx =  _.indexOf(_.pluck(vm.steps, 'title'), selectedStep.title);
+                let selectedIdx =  _.indexOf(_.pluck(vm.steps, 'title'), goToStep.title);
+
                 // set all previous steps to active 
                 for (var i = 0; i < selectedIdx; i++ ) { 
                     if(vm.steps[i] != undefined) vm.steps[i].active = true; 
@@ -109,16 +114,16 @@ const progressIndicatorBarComponent = {
                 let previousSteps = vm.steps.slice(selectedIdx+1);
                 previousSteps.map(step=>{step.active = false;});
 
-                selectedStep.active = true;
+                goToStep.active = true;
 
-                progressHistory.push(selectedStep);
-                componentHook('goTo', selectedStep);
+                progressHistory.push(goToStep);
+                componentHook('goTo', goToStep);
                 // change state to selectedStep state 
-                $state.go(selectedStep.state );
+                $state.go(goToStep.state );
 
 
                 // return the selected step object 
-                return selectedStep;
+                return goToStep;
             };
 
 
