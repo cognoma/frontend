@@ -27,7 +27,7 @@ export default {
   },
 
   fonts: {
-    src: ['app/fonts/**/*'],
+    src: ['app/fonts/**/*', 'node_modules/bootstrap-sass/assets/fonts/**/*'],
     dest: 'build/fonts'
   },
 
