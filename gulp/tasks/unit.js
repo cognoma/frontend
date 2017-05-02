@@ -46,13 +46,15 @@ gulp.task('unit', (done) =>{
             done(new gutil.PluginError('karma', {
                 message: 'Karma Tests failed'
             }));
-            return process.exit(err);
+            // return process.exit(err);
+            return;
         }
-        
+
     });
 
   _TEST_SERVER.start();
   showReport();
+  
   _TEST_SERVER.on('run_complete',() =>{
     _TEST_REPORT.reload();
   });

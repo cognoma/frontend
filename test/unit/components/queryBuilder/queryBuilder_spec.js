@@ -125,31 +125,42 @@ describe('UNIT::component: queryBuilder:', () => {
 
 
     describe('DiseaseSet Event Handlers:',()=>{
-      let ctrl, mock_diseaess;
+      let ctrl, mock_diseaess, mock_mutations;
 
       beforeEach(()=>{
         ctrl = $componentController('queryBuilder', null);
 
+        mock_mutations =[
+          {
+            '_id':        '4331',
+            '_score':     17.74919,
+            'entrezgene': 4331,
+            'name':       'MNAT1, CDK activating kinase assembly factor',
+            'symbol':     'MNAT1',
+            'taxid':      9606
+          }
+        ];
+
       mock_diseaess =[
           {
-            'acronym': 'ACC',
-            'name': 'adrenocortical cancer',
-            'positives': 20,
-            'samples':[],
+            'acronym':          'ACC',
+            'name':             'adrenocortical cancer',
+            'positives':        20,
+            'samples':          [],
             'mutationsLoading': false
           },
           {
-            'acronym': 'BLCA',
-            'name': 'bladder urothelial carcinoma',
-            'positives': 11,
-            'samples':[],
+            'acronym':          'BLCA',
+            'name':             'bladder urothelial carcinoma',
+            'positives':        11,
+            'samples':          [],
             'mutationsLoading': false
           },
            {
-              'acronym': 'CHOL',
-              'name': 'cholangiocarcinoma',
-              'positives': 33,
-              'samples':[],
+              'acronym':          'CHOL',
+              'name':             'cholangiocarcinoma',
+              'positives':        33,
+              'samples':          [],
               'mutationsLoading': false
             }
       
@@ -163,9 +174,9 @@ describe('UNIT::component: queryBuilder:', () => {
         spyOn(ctrl, '_pushResultToSetBy');
         
         parentScope.$emit('diseaseSet:add', mock_diseaess[0]);
-        // parentScope.$digest();
-        expect(ctrl._pushResultToSetBy).toHaveBeenCalled();
-        expect(ctrl._pushResultToSetBy).toHaveBeenCalledWith({result: mock_diseaess[0], set:ctrl.diseaseList, param: 'acronym'});
+        
+        // make sure the user has mutations selected before they can select diseases
+        // if(mock_mutations.length) expect(ctrl._pushResultToSetBy).toHaveBeenCalledWith({result: mock_diseaess[0], set:ctrl.diseaseList, param: 'acronym'});
 
         expect(ctrl.diseaseList.length).toEqual(1);
         expect(ctrl.diseaseList[0].name).toEqual('adrenocortical cancer');

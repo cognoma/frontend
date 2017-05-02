@@ -35,7 +35,7 @@ const progressIndicatorBarComponent = {
 
                 componentHook('onInit');
                 let entryStep = _.findWhere(vm.steps, {state: $state.current.name});
-                vm.goTo(_getLastHistoryStep(progressHistory, $state.current));
+                // vm.goTo(_getLastHistoryStep(progressHistory, $state.current));
             }
 
 
@@ -99,9 +99,10 @@ const progressIndicatorBarComponent = {
 
 
             vm.goTo = (selectedStep)=>{
-                console.log(selectedStep);
+                
                 let goToStep = typeof selectedStep == 'object' ? selectedStep : _.findWhere(vm.steps, {title:selectedStep});
-                $log.log('goTo', goToStep.title);
+                $log.log(`goTo:${goToStep.title}`);
+
 
                 // get the index of the selcted step
                 let selectedIdx =  _.indexOf(_.pluck(vm.steps, 'title'), goToStep.title);
