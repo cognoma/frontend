@@ -61,7 +61,7 @@ const karmaBaseConfig = {
 
   files: [
     // app-specific code
-    'app/js/main.js',
+    'app/js/**/*.js',
 
     'app/js/templates.js',
 
@@ -70,7 +70,8 @@ const karmaBaseConfig = {
 
     // test files
     'test/unit/**/**/**/**/*.js'
-  ]
+  ],
+  exclude:['app/js/utils/**/*.js']
 
 };
 
