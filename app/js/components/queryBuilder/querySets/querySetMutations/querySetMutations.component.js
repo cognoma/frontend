@@ -12,7 +12,6 @@ const QuerySetMutationsComponent = {
               $log.log('');
 
               let vm = this;
-
               this.clearMutationSet = ()=>$rootScope.$emit('mutationSet:clear');
 
               this.sortMutations = sortParam=>{$rootScope.$emit('mutationSet:sort', {sortOn:  sortParam});}

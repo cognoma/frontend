@@ -32,7 +32,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       title:      'Query Builder:',
       url:        'query-builder',
       template:   '<query-builder id="query-builder" class="row"/>',
-      redirectTo: '/query-builder/mutations'
+      redirectTo: '/query-builder/mutations',      
     })
     .state({
       name:  'app.queryBuilder.mutations',

@@ -14,10 +14,12 @@ const QueryOverviewControlComponent = {
 
         $log = $log.getInstance('QueryOverviewControlComponent', true);
         $log.log('');
-
+        
         let vm = this;
 
-        vm.active = $state.current.name.includes(vm.listType);
+        this.$onInit = ()=>{
+            vm.active = $state.current.name.includes(vm.listType);
+        }
 
         this.clearSet = ()=>$rootScope.$emit('mutationSet:clear');
 

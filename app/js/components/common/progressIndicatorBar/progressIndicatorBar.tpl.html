@@ -1,0 +1,25 @@
+<section>
+	
+
+<span class="prgs-indct-bar-line" style="width:{{ $ctrl.lineWidth() }}%; left:{{ $ctrl.lineLeft()  }}%;"></span>
+
+<ol class="prgs-indct-bar-steps">
+
+	<li ng-repeat="step in $ctrl.steps"
+		class="prgs-indct-bar-step"  
+		ng-class="{'active': step.active}"
+		ng-click="$ctrl.goTo(step)"
+		>
+		<i ng-if="step.type == 'icon'" class="icon">{{step.icon}}</i>
+		<p ng-if="step.type == 'icon'" ><small>{{ step.title}}</small></p>	
+
+		<button 
+			ng-if="step.type == 'button'"
+			class="btn-small"
+		>
+			{{ step.title}}
+		</button>
+	</li>
+
+</ol>
+</section>
