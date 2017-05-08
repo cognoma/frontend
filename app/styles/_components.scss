@@ -2,14 +2,21 @@
 // Component Imports
 // =======================================================================
 
+@import "../js/components/common/progressIndicatorBar/_progressIndicatorBar";
+
+
 // =======================================================================
 // Global Nav
 // =======================================================================
 @import "../js/components/common/navGlobal/_navGlobal";
 
+
+
 // =======================================================================
 // Query Builder
 // ==========================================================================
+
+
 @import "../js/components/queryBuilder/queryOverview/_queryOverview";
 
 // Query Overview Control

@@ -28,10 +28,11 @@ A boilerplate using AngularJS, SASS, Gulp, and Browserify that also utilizes [th
 4. Checkout the develop branch `$ git checkout develop`
 5. Run `npm install` from project root directory
 6. Run `npm run dev`
-7. Your browser will automatically be opened and directed to the browser-sync proxy address and a separate browser will start with the results of the Karma unit tests
+7. Your browser will automatically be opened and directed to the browser-sync proxy address (http://localhost:3000) 
+8. To run unit test (continuous integration) open a separate terminal session run `$npm run unit` or `$gulp unit`. This will launch two new Chrome windows one with an html Unit test report summary and another that runs the tests.
 8. To prepare assets for production, run the `npm run build` script (Note: the production task does not fire up the express server, and won't provide you with browser-sync's live reloading. Simply use `npm run dev` during development. More information below)
 
-Now that `npm run dev` is running, the server is up as well and serving files from the `/build` directory. Any changes in the `/app` directory will be automatically processed by Gulp taks and the changes will be injected to any open browsers pointed at the proxy address as well as refershing and running unit tests.
+Now that `npm run dev` is running, the server is up as well and serving files from the `/build` directory. Any changes in the `/app` directory will be automatically processed by Gulp tasks and the changes will be injected to any open browsers pointed at the proxy address.
 
 ---
 
