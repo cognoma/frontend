@@ -4,7 +4,6 @@ const api_env = {
           production: 'https://api.cognoma.org'
         };
 
-
 const AppSettings = {
 
   app:{
@@ -13,8 +12,9 @@ const AppSettings = {
   },
 
   api:{
-    baseUrl:    api_env.production, 
+    baseUrl:    api_base.production,
     diseases:   '/diseases',
+    classifiers: '/classifiers',
     samples:    '/samples',
     geneSearch: {
       base: 'https://mygene.info/v3/query?q=',

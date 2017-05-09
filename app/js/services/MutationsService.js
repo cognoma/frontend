@@ -19,9 +19,7 @@ function MutationsService($q, $http, $timeout, $log, AppSettings, $httpParamSeri
       return `${AppSettings.api.baseUrl}${AppSettings.api.genes}/${_geneQuery}`;
     }
     
-  }
-
-  
+  };
     
 
 
