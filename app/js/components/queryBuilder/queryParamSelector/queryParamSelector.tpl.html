@@ -21,7 +21,8 @@
 			'col-lg-9' : $ctrl.searchResults.length > 0
 		}"
 	>
-  			<input type="text"
+  			<input id="query-param-selector-input"
+  				   type="text"
   				   class="form-control"
   				   placeholder="Search {{$ctrl.currentState()}} by Name"
 
@@ -55,10 +56,10 @@
 
 
 
-<mutations-instructions ng-if="$ctrl.currentState() == 'mutations'" class="row">
+<mutations-instructions ng-if="$ctrl.currentState() == 'mutations' && $ctrl.searchResults.length == 0" class="row">
 </mutations-instructions>
 
-<disease-type-instructions ng-if="$ctrl.currentState() == 'disease'" class="row">
+<disease-type-instructions ng-if="$ctrl.currentState() == 'disease' && $ctrl.searchResults.length == 0" class="row">
 </disease-type-instructions>
 
 

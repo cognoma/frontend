@@ -8,7 +8,7 @@ import browserSync from 'browser-sync';
 
 
 let _TEST_SERVER, _TEST_REPORT;
-
+const isCI = process.env.CI && Boolean(process.env.CI_PULL_REQUEST);
 
 // fire up an instance of browserSync to show the Karma HTML Reports
 // and live reload them as we code
@@ -48,15 +48,21 @@ gulp.task('unit', (done) =>{
             }));
             return process.exit(err);
         }
-        
+
     });
 
-  _TEST_SERVER.start();
-  showReport();
-  _TEST_SERVER.on('run_complete',() =>{
-    _TEST_REPORT.reload();
-  });
 
-  // showReport();
+  if(!isCI){
+    
+      showReport();
+
+      _TEST_SERVER.on('run_complete',() =>{
+        _TEST_REPORT.reload();
+      });    
+  }
+
+
+  return _TEST_SERVER.start();
+
 });
 
