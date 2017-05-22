@@ -12,7 +12,8 @@ const progressIndicatorBarComponent = {
                  '$state',
                  '$timeout',
                  '$sessionStorage',
-                 function ($log, $rootScope, _, $state, $timeout, $sessionStorage) {
+                 'ProgressIndicatorBarService',
+                 function ($log, $rootScope, _, $state, $timeout, $sessionStorage,ProgressIndicatorBarService) {
 
             'ngInject';
             $log = $log.getInstance('progressIndicatorBarComponent', true);
@@ -32,7 +33,8 @@ const progressIndicatorBarComponent = {
 
             vm.$onInit=()=>{
                 $log.log('$onInit');
-
+                // $rootScope.$emit(`PIB:onInit`, {pib:vm});
+                ProgressIndicatorBarService.registerBar(vm);
                 componentHook('onInit');
                 let entryStep = _.findWhere(vm.steps, {state: $state.current.name});
                 // vm.goTo(_getLastHistoryStep(progressHistory, $state.current));

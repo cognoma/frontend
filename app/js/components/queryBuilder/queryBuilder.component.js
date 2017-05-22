@@ -12,103 +12,107 @@ const QueryBuilderComponent = {
                  '$timeout',
                  'MutationsService',
                  'DiseaseService',
+                 'ProgressIndicatorBarService',
                  '$log',
-                 function($scope, $rootScope, _, DiseaseModel, $state,$q, $timeout, MutationsService, DiseaseService, $log) {
+                 function($scope, $rootScope, _, DiseaseModel, $state,$q, $timeout, MutationsService, DiseaseService, ProgressIndicatorBarService, $log) {
             	     'ngInject';
+
                    let vm = this;
-                   
+                  
+
                    $log = $log.getInstance('QueryBuilderComponent', true);
                    $log.log('');
+                  
                    
-
-            	     this.diseaseList = [];
-            	     this.mutationList = [];
-                   this.progressIndicators = [
+            	     vm.diseaseList  = [];
+            	     vm.mutationList = [];
+                   vm.progressIndicators = [
                     {
-                      title:'Search Genes',  
-                      state:'app.queryBuilder.mutations' , 
-                      icon:'', 
-                      active:true,
-                      type: 'icon'
+                      title:  'Search Genes',  
+                      state:  'app.queryBuilder.mutations' , 
+                      icon:   '', 
+                      active: true,
+                      type:   'icon'
                     },
                     {
-                      title:'Add Genes',     
-                      state:'app.queryBuilder.mutations' , 
-                      icon:'', 
-                      active:false,
-                      type:'icon'
+                      title:  'Add Genes',     
+                      state:  'app.queryBuilder.mutations' , 
+                      icon:   '', 
+                      active: false,
+                      type:   'icon'
                     },
                     {
-                      title:'Search Samples',
-                      state:'app.queryBuilder.disease' ,   
-                      icon:'', 
-                      active:false,
-                      type:'icon'
+                      title:  'Search Samples',
+                      state:  'app.queryBuilder.disease' ,   
+                      icon:   '', 
+                      active: false,
+                      type:   'icon'
                     },
                     {
-                      title:'Add Samples',  
-                      state:'app.queryBuilder.disease' ,   
-                      icon:'', 
-                      active:false ,
-                      type:'icon'
+                      title:  'Add Samples',  
+                      state:  'app.queryBuilder.disease' ,   
+                      icon:   '', 
+                      active: false ,
+                      type:   'icon'
                     }
                    ];
+
+                   let reviewIndicator = {
+                            title:  'Review Query',  
+                            state:  'app.queryBuilder.disease' ,   
+                            icon:   '', 
+                            active: false,
+                            type:   'button'
+                          };
+
+                    let _showReviewIndicator = () =>{
+                      let reviewIndicator_added = _.findWhere(vm.progressIndicators, {title: reviewIndicator.title}) != undefined;
+                      if((this.mutationList.length && this.diseaseList.length) && !reviewIndicator_added) vm.progressIndicators.push(reviewIndicator);
+                    }
+
+                    let _removeReviewIndicator = ()=>{
+                      
+                       let reviewIndicatorIndex =  _.findIndex(vm.progressIndicators,  reviewIndicator);
+
+                       if((!vm.mutationList.length || !vm.diseaseList.length) && reviewIndicatorIndex >= 0 ){
+                        vm.progressIndicators = [
+                          ...vm.progressIndicators.slice(0, reviewIndicatorIndex)
+                        ];
+                       } 
+                    };
+                    
 
                    vm.currentState = ()=>$state.current.name.split('.')[2];
 
                    vm.searchResults = [];
 
-                   
-                  /* =======================================================================
-                      query progress bar: hooks
-                  ========================================================================== */
-                   $rootScope.$on('PIB:queryBuilderProgress:onInit',(event,data)=>{
-                    vm.progressBar = data.pib;
-                   });
 
-                   $rootScope.$on('PIB:queryBuilderProgress:goTo', (event,data)=>{
+                   ProgressIndicatorBarService
+                      .get('queryBuilderProgress')
+                      .then(data=>{
+                        vm.progressBar = data;
+                      });
+                      
+                    
+                    
 
-                      let reviewIndicator = {
-                            title:'Review Query',  
-                            state:'app.queryBuilder.disease' ,   
-                            icon:'', 
-                            active:false,
-                            type:'button'
-                          };
 
-                      let reviewIndicator_exist = _.findWhere(vm.progressIndicators, {title: reviewIndicator.title}) != undefined;
 
-                      if(
-                        !reviewIndicator_exist &&
-                        data.hookData.title == 'Add Samples' && 
-                        (vm.diseaseList.length && vm.mutationList.length)
-
-                        ){
-
-                        data.pib.steps.push(reviewIndicator);
-                      }else if(
-                        reviewIndicator_exist &&
-                        (vm.diseaseList.length == 0 || vm.mutationList.length == 0)
-                      ){
-                        data.pib.steps.pop();
-                      }
-
-                   });
-                  
+                 
 
                    /* =======================================================================
                       querySets: list operations
                     ========================================================================== */
                    // pushes search result to querySet
                    vm._pushResultToSetBy = (params)=>{  
-                    let resultIdx = _.indexOf(_.pluck(vm.searchResults, params.param), params.result[params.param]);
-                    vm.searchResults.splice(resultIdx,1);
-                  };
+                      let resultIdx = _.indexOf(_.pluck(vm.searchResults, params.param), params.result[params.param]);
+                      vm.searchResults.splice(resultIdx,1);
+                   };
 
                   // clear the querySet 
                   vm._clearSet = (set)=>{ this[`${set}List`] = []; };
 
-                  // checks if set has been soreted by given params
+                  // checks if set has been sorted by given params
                   vm.setIsSorted = (list, sortedList, sortedOn)=>{
                       return _.isEqual(
                                   _.pluck(list, sortedOn),
@@ -131,17 +135,23 @@ const QueryBuilderComponent = {
                 $rootScope.$on('mutationSet:add', (e,mutation)=>{
                     this.mutationList.push(mutation);      
                     vm._pushResultToSetBy({result: mutation, set:this.mutationList, param: '_id'});
+                    vm.progressBar.advance();
+
                     if(this.diseaseList.length) vm._updateDL_mutationData();
                 });
 
 
-                $rootScope.$on('mutationSet:clear', ()=>{ vm._clearSet('mutation'); });
+                $rootScope.$on('mutationSet:clear', ()=>{ 
+                  vm._clearSet('mutation'); 
+                  _removeReviewIndicator();
+                });
 
 
                 $rootScope.$on('mutationSet:remove:mutation', (e, mutation)=>{
                     let mutationIndex = _.indexOf(_.pluck(this.mutationList, 'entrezgene'), mutation.entrezgene);
                     this.mutationList.splice(mutationIndex, 1);
                     if(this.diseaseList.length) vm._updateDL_mutationData();
+                    _removeReviewIndicator();
                 });
 
 
@@ -158,8 +168,8 @@ const QueryBuilderComponent = {
 
                 $rootScope.$on('diseaseSet:add', (e,disease)=>{
                     this.diseaseList.push(disease);
-                    if(this.mutationList.length)
-                    vm._pushResultToSetBy({result: disease, set:this.diseaseList, param: 'acronym'});
+                    if(this.mutationList.length) vm._pushResultToSetBy({result: disease, set:this.diseaseList, param: 'acronym'});
+                    _showReviewIndicator();
                 });
 
                 $rootScope.$on('diseaseSet:sort', (e, data)=>{
@@ -169,6 +179,8 @@ const QueryBuilderComponent = {
                 $rootScope.$on('diseaseSet:remove:disease', (e, disease)=>{
                     let dIndex = _.indexOf(_.pluck(this.diseaseList, 'acronym'), disease.name);
                     this.diseaseList.splice(dIndex, 1);
+
+                     _removeReviewIndicator();
                 });
 
 
@@ -207,7 +219,7 @@ const QueryBuilderComponent = {
                 // instead of handled with rootscope events 
                 this.onInputChange = (searchQuery)=>{
                     $log.info(`query: ${searchQuery}`);
-                    let progressState = vm.currentState() == 'mutations' ? 'Genes' : 'Samples';
+                    let progressState = (vm.currentState() == 'mutations' ) ? 'Genes' : 'Samples';
 
                       if(searchQuery.length == 0 ){
                           vm.searchResults = [];
