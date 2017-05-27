@@ -25,7 +25,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
     .state({
       name:         'app',
       url:          '/',
-      template:     '<app id="app" class="row"></app>'
+      template:     `<app id="app" class="row"></app>`,
     })
     .state({
       name:       'app.queryBuilder',

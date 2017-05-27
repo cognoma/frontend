@@ -12,8 +12,7 @@ const QueryParamSelectorComponent = {
                     '_',
                     '$state',
                     '$log',
-                    'DiseaseService',
-        function($rootScope, $scope, _, $state, $log, DiseaseService) {
+        function($rootScope, $scope, _, $state, $log) {
         	'ngInject';
             $log = $log.getInstance('QueryParamSelectorComponent', true);
             $log.log('');

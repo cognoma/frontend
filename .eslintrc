@@ -17,8 +17,8 @@
     "no-multi-spaces": 0,
     "no-trailing-spaces": 0,
     "no-extra-boolean-cast": 0,
-    //"no-unused-vars": 2,
+    "no-unused-vars": 2,
     "new-cap": 0,
-    //"camelcase": 2
+    "camelcase": 2
   }
 }

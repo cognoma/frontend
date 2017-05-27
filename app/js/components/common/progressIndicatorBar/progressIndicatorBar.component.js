@@ -36,7 +36,7 @@ const progressIndicatorBarComponent = {
                 // $rootScope.$emit(`PIB:onInit`, {pib:vm});
                 ProgressIndicatorBarService.registerBar(vm);
                 componentHook('onInit');
-                let entryStep = _.findWhere(vm.steps, {state: $state.current.name});
+                // let entryStep = _.findWhere(vm.steps, {state: $state.current.name});
                 // vm.goTo(_getLastHistoryStep(progressHistory, $state.current));
             }
 
@@ -139,7 +139,7 @@ const progressIndicatorBarComponent = {
             
 
             // update progress bar when state is change from other navigation
-            $rootScope.$on('$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) => {
+            $rootScope.$on('$stateChangeSuccess', (event, toState) => {
 
                 vm.goTo(_getLastHistoryStep(progressHistory, toState));
                 

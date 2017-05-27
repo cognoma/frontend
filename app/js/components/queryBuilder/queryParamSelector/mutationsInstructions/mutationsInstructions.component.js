@@ -10,7 +10,7 @@ const MutationsInstructionsComponent = {
             $log = $log.getInstance('MutationsInstructionsComponent', true);
             $log.log('');
 
-            const vm = this;
+            // const vm = this;
         	
         }]
 }

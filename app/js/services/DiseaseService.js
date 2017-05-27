@@ -10,12 +10,11 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
   });
 
   const service = {};
-
-  let localDiseases = sessionStorage.diseases;
+ 
 
   // converts raw server response to array Diesease Model promises
   // all models will be populated when resolved
-  let _responseTransformer = (serverResponse, mutationsGenes)=>serverResponse.map((diseaseResponse, idx)=>new DiseaseModel(diseaseResponse, mutationsGenes));
+  let _responseTransformer = (serverResponse, mutationsGenes)=>serverResponse.map((diseaseResponse)=>new DiseaseModel(diseaseResponse, mutationsGenes));
 
 
   /**
@@ -33,19 +32,18 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
 
     $log.log(`query:${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`);
 
-    // filter results in the service to simply logic in the templates
-    let _filtered_local_results = (searchQuery)=>filterFilter(angular.fromJson(localDiseases).results, searchQuery);
-
-
+    
     if ($localStorage.diseaseData) {
       diseasePromise = Promise.resolve($localStorage.diseaseData);
     } else {
-      diseasePromise = new Promise((resolve, reject)=>{
+      // @todo: handle reject state
+      diseasePromise = new Promise(resolve=>{
         DISEASES_RESOURCE.query((diseaseReponse) => {
           $localStorage.diseaseData = _.assign({}, diseaseReponse);
           resolve(diseaseReponse);
         });
       });
+
     }
 
     return diseasePromise

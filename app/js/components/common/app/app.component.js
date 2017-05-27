@@ -7,6 +7,16 @@ const AppComponent = {
         'ngInject';
         $log = $log.getInstance('AppComponent', true);
         $log.log('');
+
+        this.STATE ={
+        	query:{
+        		title:     '',
+        		mutations: [],
+        		diseases:  []
+        	}
+        };
+
+
    }]
 }
 

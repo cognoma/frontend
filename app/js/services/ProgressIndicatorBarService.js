@@ -13,9 +13,9 @@ function ProgressIndicatorBarService($log, _, $rootScope, $timeout) {
 
   service.instanceRegister = {};
 
-  service.registerBar = (PIB_instance)=>{
-      service.instanceRegister[`${PIB_instance.uid}`] = PIB_instance;
-      $log.log(`registerBar:${service.instanceRegister[`${PIB_instance.uid}`].uid}`);
+  service.registerBar = (ProgressBarInstance)=>{
+      service.instanceRegister[`${ProgressBarInstance.uid}`] = ProgressBarInstance;
+      $log.log(`registerBar:${service.instanceRegister[`${ProgressBarInstance.uid}`].uid}`);
   };
 
 

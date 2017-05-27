@@ -66,8 +66,8 @@ const QueryBuilderComponent = {
                           };
 
                     let _showReviewIndicator = () =>{
-                      let reviewIndicator_added = _.findWhere(vm.progressIndicators, {title: reviewIndicator.title}) != undefined;
-                      if((this.mutationList.length && this.diseaseList.length) && !reviewIndicator_added) vm.progressIndicators.push(reviewIndicator);
+                      let reviewIndicatorAdded = _.findWhere(vm.progressIndicators, {title: reviewIndicator.title}) != undefined;
+                      if((this.mutationList.length && this.diseaseList.length) && !reviewIndicatorAdded) vm.progressIndicators.push(reviewIndicator);
                     }
 
                     let _removeReviewIndicator = ()=>{
@@ -137,7 +137,7 @@ const QueryBuilderComponent = {
                     vm._pushResultToSetBy({result: mutation, set:this.mutationList, param: '_id'});
                     vm.progressBar.advance();
 
-                    if(this.diseaseList.length) vm._updateDL_mutationData();
+                    if(this.diseaseList.length) vm._updateDieseasListingsCounts();
                 });
 
 
@@ -150,7 +150,7 @@ const QueryBuilderComponent = {
                 $rootScope.$on('mutationSet:remove:mutation', (e, mutation)=>{
                     let mutationIndex = _.indexOf(_.pluck(this.mutationList, 'entrezgene'), mutation.entrezgene);
                     this.mutationList.splice(mutationIndex, 1);
-                    if(this.diseaseList.length) vm._updateDL_mutationData();
+                    if(this.diseaseList.length) vm._updateDieseasListingsCounts();
                     _removeReviewIndicator();
                 });
 
@@ -164,7 +164,7 @@ const QueryBuilderComponent = {
                   querySetDiseaseType: Event Handlers 
                   events are namspaced into "component:action:item"
                 ========================================================================== */
-                $rootScope.$on('diseaseSet:clear', (e,disease)=>{ vm._clearSet('disease'); });
+                $rootScope.$on('diseaseSet:clear', ()=>{ vm._clearSet('disease'); });
 
                 $rootScope.$on('diseaseSet:add', (e,disease)=>{
                     this.diseaseList.push(disease);
@@ -186,21 +186,21 @@ const QueryBuilderComponent = {
 
                 // update the positives and negatives count 
                 // for each disease listing 
-                vm._updateDL_mutationData = ()=>{
+                vm._updateDieseasListingsCounts = ()=>{
                     this.diseaseList.map(diseaseModel=>{
                         diseaseModel.mutationsLoading = true;
 
                         // mock server delay 
                         $timeout(()=>{
                           diseaseModel.getAggregates(this.mutationList)
-                                    .then(function(updatedModel) {
+                                    .then(function() {
                                       diseaseModel.mutationsLoading = false;
                                     });
                         }, 250);//END $timeout
 
                     });//END this.diseaseList.map
 
-                }//END vm._updateDL_mutationData 
+                }//END vm._updateDieseasListingsCounts 
 
 
 
