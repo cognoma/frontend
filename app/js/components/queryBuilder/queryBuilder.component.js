@@ -160,21 +160,21 @@ const QueryBuilderComponent = {
                 
 
                 vm.removeParamFromQuery = (paramData)=>{
-                    $log.log(`removeParamFromQuery:${paramData.id} ref by ${paramData.paramRef}`); 
-                    let currentSet = _.assign([],vm[`${vm.currentState()}Set`]);
-                    
-                    let mutationIndex = _.indexOf(_.pluck(currentSet, paramData.paramRef), paramData.id);
-                    $log.log(`removeParamFromQuery:mutationIndex:${mutationIndex}`);
+                    $log.log(`removeParamFromQuery:${paramData.paramType} - ${paramData.id} ref by ${paramData.paramRef}`); 
+                    let currentSet = _.assign([],vm[`${paramData.paramType}Set`]);
+
+                    let setIndex = _.indexOf(_.pluck(currentSet, paramData.paramRef), paramData.id);
+                    $log.log(`removeParamFromQuery:setIndex:${setIndex}`);
 
                     currentSet = [
-                      ...currentSet.slice(0, mutationIndex), 
-                      ...currentSet.slice(mutationIndex + 1)
+                      ...currentSet.slice(0, setIndex), 
+                      ...currentSet.slice(setIndex + 1)
                     ];
 
 
-                    vm[`${vm.currentState()}Set`] = currentSet;
+                   vm[`${paramData.paramType}Set`] = currentSet;
 
-                    return vm[`${vm.currentState()}Set`];
+                    return vm[`${paramData.paramType}Set`];
                     // if(vm.diseaseSet.length) vm._updateDieseasListingsCounts();
                     // _removeReviewIndicator();
                 }

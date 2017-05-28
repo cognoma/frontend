@@ -4,8 +4,8 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
   $log = $log.getInstance('DiseaseService', true);
   $log.log('');
 
-  const DISEASE_ENDPOINT = `${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`;
-  // const DISEASE_ENDPOINT = `http://localhost\:8080/diseases`;
+  // const DISEASE_ENDPOINT = `${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`;
+  const DISEASE_ENDPOINT = `http://localhost\:8080/diseases`;
 
   const DISEASES_RESOURCE = $resource(DISEASE_ENDPOINT,{},{ query:  {isArray:false} });
 

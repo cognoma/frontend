@@ -47,7 +47,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
         'queryOverview':      {template: `<query-overview 
                                                 mutations-set="$ctrl.mutationsSet" 
                                                 disease-set="$ctrl.diseaseSet"
-                                                remove-param="$ctrl.removeParamFromQuery({id, paramRef})"
+                                                remove-param="$ctrl.removeParamFromQuery({id, paramRef,paramType})"
                                             />`},
 
         'querySet':           {template: `<query-set-mutations 
@@ -70,7 +70,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
         'queryOverview':      {template: `<query-overview 
                                                 mutations-set="$ctrl.mutationsSet"
                                                 disease-set="$ctrl.diseaseSet"
-                                                remove-param="$ctrl.removeParamFromQuery({id, paramRef})"
+                                                remove-param="$ctrl.removeParamFromQuery({id, paramRef, paramType})"
                                            />`},
 
         'querySet':           {template: `<query-set-disease-type 
