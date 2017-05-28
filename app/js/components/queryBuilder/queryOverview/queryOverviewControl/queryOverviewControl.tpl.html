@@ -30,7 +30,7 @@
   			ng-repeat="gene in $ctrl.paramList"
   			symbol="gene.symbol"
         entrezgene="gene.entrezgene"
-        on-remove-param="$ctrl.removeParam({id, paramRef})"
+        on-remove-param="$ctrl.removeParam({id, paramRef,paramType})"
   		></mutation-listing>
 
   		<disease-listing
@@ -41,7 +41,7 @@
         positives="disease.positives"
         negatives="disease.negatives"
         is-loading="disease.mutationsLoading"
-        on-remove-param="$ctrl.removeParam({id, paramRef})"
+        on-remove-param="$ctrl.removeParam({id, paramRef,paramType})"
   		></disease-listing>
 
   		<button
