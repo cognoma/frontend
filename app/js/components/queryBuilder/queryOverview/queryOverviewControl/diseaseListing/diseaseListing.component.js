@@ -13,9 +13,11 @@ const diseaseListingComponent = {
     controller: ['$rootScope','$log',function ($rootScope, $log) {
             'ngInject';
             $log = $log.getInstance('diseaseListingComponent', true);
-            $log.log(`${this.name}:`);
 
-            
+            this.$onInit = ()=>{
+                $log.log(`${this.name}:`);    
+            }
+
 
         }]
 }

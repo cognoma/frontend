@@ -4,17 +4,19 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
   $log = $log.getInstance('DiseaseService', true);
   $log.log('');
 
+  // const DISEASE_ENDPOINT = `${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`;
+  const DISEASE_ENDPOINT = `http://localhost\:8080/diseases`;
 
-  const DISEASES_RESOURCE = $resource(`${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`,{},{
-    query:  {isArray:false}
-  });
+  const DISEASES_RESOURCE = $resource(DISEASE_ENDPOINT,{},{ query:  {isArray:false} });
 
   const service = {};
  
 
   // converts raw server response to array Diesease Model promises
   // all models will be populated when resolved
-  let _responseTransformer = (serverResponse, mutationsGenes)=>serverResponse.map((diseaseResponse)=>new DiseaseModel(diseaseResponse, mutationsGenes));
+  let _responseTransformer = (serverResponse, mutationsGenes)=>{
+    return serverResponse.map((diseaseResponse)=>new DiseaseModel(diseaseResponse, mutationsGenes));
+  }
 
 
   /**
@@ -27,37 +29,42 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
    *
    * @return {Array} filtered array of DieseasModels
    */
-  service.query = (searchQuery, dataSource = "local", mutationsGenes)=>{
+  service.query = (searchQuery, mutationsGenes)=>{
     let diseasePromise;
-
+    
     $log.log(`query:${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`);
 
     
     if ($localStorage.diseaseData) {
-      diseasePromise = Promise.resolve($localStorage.diseaseData);
+      $log.log('fetch disease data from localStorage')
+      if(!$localStorage.diseaseData.count) reject(`No Diseae Types found matching: "${searchQuery}"`);
+      diseasePromise =  Promise.resolve($localStorage.diseaseData);
+
     } else {
 
-      // @todo: handle reject state
-      diseasePromise = new Promise(resolve=>{
+      diseasePromise = new Promise((resolve, reject)=>{
 
-        DISEASES_RESOURCE.query((diseaseReponse) => {
-          if(!diseaseResponse.count) reject(`No diseaes types found matching: "${searchQuery}"`);
-          $localStorage.diseaseData = _.assign({}, diseaseReponse);
-          resolve(diseaseReponse);
+        $log.log('fetch disease data from localStorage');
+
+        DISEASES_RESOURCE.query((data) => {
+          if(!diseaseResponse.count) reject(`No Diseae Types found matching: "${searchQuery}"`);
+          $localStorage.diseaseData = _.assign({}, data);
+          resolve(data);
         });
-      });
 
+      });
 
     }
 
+
+
     return diseasePromise
               .then(diseaseResponse => {
-                $log.log(':fromDB to localDiseases');
-                
-                let filteredResults = filterFilter(diseaseResponse.results, searchQuery)
+                let filteredResults = filterFilter(diseaseResponse.results, searchQuery);
+                $log.log(`${filteredResults.length} filtered results found, building DiseaseModels ...`);
                 // wait for all models to be populated before resolving
                 return $q.all( _responseTransformer(filteredResults, mutationsGenes) );
-    });
+              });
 
 
   };//END service.query

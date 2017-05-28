@@ -20,12 +20,9 @@ const QueryOverviewControlComponent = {
 
         this.$onInit = ()=>{
             vm.active = $state.current.name.includes(vm.listType);
-            console.log(this);
         }
 
-        // vm.removeParam = data=>{
-        //     console.log(data)
-        // }
+        // this.removeParam = (data)=>{console.log(data)};
         
 
         this.clearSet = ()=>$rootScope.$emit('mutationSet:clear');
