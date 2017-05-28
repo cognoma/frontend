@@ -108,26 +108,6 @@ const QueryBuilderComponent = {
                       querySets: list operations
                     ========================================================================== */
 
-                    /**
-                     * @param  {Object} queryParam - mutation or DiseaseModel   
-                     * @return {Array} of objects 
-                     */
-                   // vm._removeParamFromSerachResults = queryParam=>{  
-                   //      let selectedResult = _.assign({}, queryParam),
-                   //          _searchResults = _.assign([], vm.searchResults),
-                   //          resultsIndex =  _.indexOf(_.pluck(_searchResults,'_id'),  selectedResult._id);
-
-                   //      // remove item of search resutls
-                   //      _searchResults = [
-                   //        ..._searchResults.slice(0, resultsIndex), 
-                   //        ..._searchResults.slice(resultsIndex + 1)
-                   //      ];
-
-                   //      vm.searchResults = _searchResults;
-                   //      return vm.searchResults;
-                   //  };
-
-
                   // clear the querySet 
                   vm._clearSet = (set)=>{ this[`${set}List`] = []; };
 
@@ -139,11 +119,11 @@ const QueryBuilderComponent = {
                               );
                   };
 
-                  // sort list on given param 
-                  vm.sortSetOn = (list, sortOn)=>{
-                    let sortedList = _.sortBy(list, sortOn);
-                    return (vm.setIsSorted(list, sortedList, sortOn) ? list.reverse() : sortedList);
-                  };
+                  // // sort list on given param 
+                  // vm.sortSetOn = (list, sortOn)=>{
+                  //   let sortedList = _.sortBy(list, sortOn);
+                  //   return (vm.setIsSorted(list, sortedList, sortOn) ? list.reverse() : sortedList);
+                  // };
             
                   
 
@@ -169,7 +149,7 @@ const QueryBuilderComponent = {
 
                       // if(vm.diseaseSet.length) vm._updateDieseasListingsCounts();
                       // vm.progressBar.advance();
-                      
+
                       return vm[`${vm.currentState()}Set`];
                     }
 
