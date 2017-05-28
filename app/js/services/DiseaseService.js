@@ -4,8 +4,8 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
   $log = $log.getInstance('DiseaseService', true);
   $log.log('');
 
-  const DISEASE_ENDPOINT = `${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`;
-  // const DISEASE_ENDPOINT = `http://localhost\:8080/diseases`;
+  // const DISEASE_ENDPOINT = `${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`;
+  const DISEASE_ENDPOINT = `http://localhost\:8080/diseases`;
 
   const DISEASES_RESOURCE = $resource(DISEASE_ENDPOINT,{},{ query:  {isArray:false} });
 
@@ -25,7 +25,7 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
    *
    * @param { String } searchQuery  -  query string passed from user input in QueryBuilder::onInputChange
    * @param { Object } dataSource  -   where to retrieve results from
-   * @param { Array } mutationsGenes  -   array of gene entrezid, usually from queryBuilder user selected genes
+   * @param { Array } mutationsGenes  -  array of gene entrezid, usually from queryBuilder user selected genes
    *
    * @return {Array} filtered array of DieseasModels
    */

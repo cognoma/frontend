@@ -18,6 +18,9 @@ const diseaseListingComponent = {
                 $log.log(`${this.name}:`);    
             }
 
+            
+
+            
 
         }]
 }

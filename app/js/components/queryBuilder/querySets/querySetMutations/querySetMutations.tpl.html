@@ -1,15 +1,15 @@
 <div class="row dashboard-column-header">
   <h2>GENES SET</h2>
-  <span class="badge">{{$ctrl.mutationSet.length}}</span>
+  <!-- <span ng-if="$ctrl.mutationSet.length" class="badge">{{$ctrl.mutationSet.length}}</span> -->
 </div>
 
   <div class="row list-controls">
     <div class="col-xs-9">
       <span>SELECTED GENES</span>
-      <span class="glyphicon glyphicon-sort" ng-click="$ctrl.sortMutations('symbol')"></span>
+      <span ng-if="$ctrl.mutationSet.length" class="glyphicon glyphicon-sort-by-alphabet" ng-click="$ctrl.sortResultsBy($ctrl.mutationSet,'name')"></span>
     </div>
     <div class="col-xs-2">
-      <button class="label clear-button" ng-click="$ctrl.clearMutationSet()">CLEAR</button>
+      <button ng-if="$ctrl.mutationSet.length" class="label clear-button" ng-click="$ctrl.clearMutationSet()">CLEAR</button>
     </div>
   </div>
 
