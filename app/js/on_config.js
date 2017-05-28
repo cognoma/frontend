@@ -45,12 +45,14 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       url:   '/mutations',
       views: {
         'queryOverview':      {template: `<query-overview 
-                                                mutation-set="$ctrl.mutationsSet" 
+                                                mutations-set="$ctrl.mutationsSet" 
                                                 disease-set="$ctrl.diseaseSet"
+                                                remove-param="$ctrl.removeParamFromQuery({id, paramRef})"
                                             />`},
 
         'querySet':           {template: `<query-set-mutations 
-                                                mutation-set="$ctrl.mutationsSet" />`},
+                                                mutation-set="$ctrl.mutationsSet" 
+                                          />`},
 
         'queryParamSelector': {template: `<query-param-selector 
                                                 disease-set="$ctrl.diseaseSet"
@@ -66,11 +68,14 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       url:    '/disease-type',
       views:{
         'queryOverview':      {template: `<query-overview 
-                                                mutation-set="$ctrl.mutationsSet"
-                                                disease-set="$ctrl.diseaseSet"/>`},
+                                                mutations-set="$ctrl.mutationsSet"
+                                                disease-set="$ctrl.diseaseSet"
+                                                remove-param="$ctrl.removeParamFromQuery({id, paramRef})"
+                                           />`},
 
         'querySet':           {template: `<query-set-disease-type 
-                                                disease-set="$ctrl.diseaseSet" />`},
+                                                disease-set="$ctrl.diseaseSet" 
+                                          />`},
 
         'queryParamSelector': {template: `<query-param-selector 
                                                 disease-set="$ctrl.diseaseSet"

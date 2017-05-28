@@ -9,7 +9,9 @@
   set-title="Gene Set"
   desc="classify samples by their mutation status in selected genes"
   list-type="mutations"
-  param-list="$ctrl.mutationSet">
+  param-list="$ctrl.mutationsSet"
+  remove-param="$ctrl.removeParam({id, paramRef})"
+>
 </query-overview-control>
 
 
@@ -18,7 +20,9 @@
   title="Disease Type"
   desc="Select Samples to Include in Query by Disease Type"
   list-type="disease"
-  param-list="$ctrl.diseaseSet">
+  param-list="$ctrl.diseaseSet"
+  remove-param="$ctrl.removeParam({id, paramRef})"
+  >
 </query-overview-control >
 
 

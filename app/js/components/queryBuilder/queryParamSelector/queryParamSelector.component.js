@@ -86,7 +86,7 @@ const QueryParamSelectorComponent = {
                     searchServices[vm.currentState()]
                           .query(searchQuery, {source: 'DB'}, vm.mutationsSet)
                           .then(response=>{
-                            
+                            console.log(response);
                                 $scope.$apply(()=>{
                                     if(response.length) vm.searchResults = _filteredSearchResutls(response);
                                     vm.isSearching = false;

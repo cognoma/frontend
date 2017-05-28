@@ -3,13 +3,25 @@ const template = require('./queryOverview.tpl.html');
 const QueryOverviewComponent = {
     template,
     bindings: {
-    	'mutationSet': ' = ',
-    	'diseaseSet': '  = '
+        'removeParam':  '&',
+    	'mutationsSet': '<',
+    	'diseaseSet':   '<'
     },
     controller: ['$log',function ($log) {
             'ngInject';
             $log = $log.getInstance('QueryOverviewComponent', true);
             $log.log('');
+            const vm = this;
+
+            vm.$onInit = ()=>{
+                console.log(this);
+            }
+
+            // vm.removeParam = (paramData)=>{
+            //     console.log(paramData)
+            // }
+            
+            
     }]
 }
 

@@ -36,22 +36,27 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
     if ($localStorage.diseaseData) {
       diseasePromise = Promise.resolve($localStorage.diseaseData);
     } else {
+
       // @todo: handle reject state
       diseasePromise = new Promise(resolve=>{
+
         DISEASES_RESOURCE.query((diseaseReponse) => {
+          if(!diseaseResponse.count) reject(`No diseaes types found matching: "${searchQuery}"`);
           $localStorage.diseaseData = _.assign({}, diseaseReponse);
           resolve(diseaseReponse);
         });
       });
 
+
     }
 
     return diseasePromise
-      .then(diseaseResponse => {
-        $log.log(':fromDB to localDiseases');
-        let filteredResults = filterFilter(diseaseResponse.results, searchQuery)
-        // wait for all models to be populated before resolving
-        return $q.all( _responseTransformer(filteredResults, mutationsGenes) );
+              .then(diseaseResponse => {
+                $log.log(':fromDB to localDiseases');
+                
+                let filteredResults = filterFilter(diseaseResponse.results, searchQuery)
+                // wait for all models to be populated before resolving
+                return $q.all( _responseTransformer(filteredResults, mutationsGenes) );
     });
 
 

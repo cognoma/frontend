@@ -4,7 +4,7 @@ const QueryBuilderComponent = {
     template,
     bindings: {
       'mutationsSet': '=',
-      'diseaseSet':   '='
+      'diseaseSet':   '=',
     },
     controller: ['$scope',
                  '$rootScope',
@@ -26,7 +26,7 @@ const QueryBuilderComponent = {
                    $log = $log.getInstance('QueryBuilderComponent', true);
                    $log.log('');
                   
-                   
+
             	     // vm.diseaseList  = [];
             	     // vm.mutationList = [];
 
@@ -137,6 +137,7 @@ const QueryBuilderComponent = {
                  *                         false if it already exists in set
                  */
                 vm.addParamToQuery = queryParamData=>{
+
                   let paramSet        = _.assign([], vm[`${vm.currentState()}Set`]),
                       queryParam      = queryParamData,
                       queryParamInSet = _.findWhere(paramSet, queryParam);
@@ -158,14 +159,29 @@ const QueryBuilderComponent = {
 
                 
 
+                vm.removeParamFromQuery = (paramData)=>{
+                    $log.log(`removeParamFromQuery:${paramData.id} ref by ${paramData.paramRef}`); 
+                    let currentSet = _.assign([],vm[`${vm.currentState()}Set`]);
+                    
+                    let mutationIndex = _.indexOf(_.pluck(currentSet, paramData.paramRef), paramData.id);
+                    $log.log(`removeParamFromQuery:mutationIndex:${mutationIndex}`);
 
-                // $rootScope.$on('mutationSet:add', (e,mutation)=>{
-                //     vm.mutationsSet.push(mutation);      
-                //     vm._removeParamFromSerachResults({result: mutation, set:vm.mutationsSet, param: '_id'});
-                //     vm.progressBar.advance();
+                    currentSet = [
+                      ...currentSet.slice(0, mutationIndex), 
+                      ...currentSet.slice(mutationIndex + 1)
+                    ];
 
-                //     if(vm.diseaseSet.length) vm._updateDieseasListingsCounts();
-                // });
+
+                    vm[`${vm.currentState()}Set`] = currentSet;
+
+                    return vm[`${vm.currentState()}Set`];
+                    // if(vm.diseaseSet.length) vm._updateDieseasListingsCounts();
+                    // _removeReviewIndicator();
+                }
+
+
+
+                
 
 
                 $rootScope.$on('mutationSet:clear', ()=>{ 
