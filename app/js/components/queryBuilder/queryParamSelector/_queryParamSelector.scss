@@ -16,6 +16,11 @@
 
 .query-param-selector-ctrls{
 	padding: 1rem 0 0 0;
+
+	.results-count{
+		margin-top:-5px;
+	}
+
 	.badge, .btn{}
 	.btn--mutation-sort{
 		height: 25px;

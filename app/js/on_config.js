@@ -31,7 +31,12 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       name:       'app.queryBuilder',
       title:      'Query Builder:',
       url:        'query-builder',
-      template:   '<query-builder id="query-builder" class="row"/>',
+      template:   `<query-builder 
+                        id="query-builder" 
+                        class="row"
+                        mutations-set="$ctrl.STATE.query.mutations"
+                        disease-set="$ctrl.STATE.query.diseases"
+                   />`,
       redirectTo: '/query-builder/mutations',      
     })
     .state({
@@ -39,9 +44,20 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       title: 'Query Builder: Mutations',
       url:   '/mutations',
       views: {
-        'queryOverview':      {template: '<query-overview mutation-set="$ctrl.mutationList" disease-set="$ctrl.diseaseList"/>'},
-        'querySet':           {template: '<query-set-mutations mutation-set="$ctrl.mutationList" />'},
-        'queryParamSelector': {template: '<query-param-selector on-change="$ctrl.onInputChange(search)" search-results="$ctrl.searchResults" />'}
+        'queryOverview':      {template: `<query-overview 
+                                                mutation-set="$ctrl.mutationsSet" 
+                                                disease-set="$ctrl.diseaseSet"
+                                            />`},
+
+        'querySet':           {template: `<query-set-mutations 
+                                                mutation-set="$ctrl.mutationsSet" />`},
+
+        'queryParamSelector': {template: `<query-param-selector 
+                                                disease-set="$ctrl.diseaseSet"
+                                                mutations-set="$ctrl.mutationsSet" 
+                                                on-change="$ctrl.onInputChange(search)" 
+                                                on-param-select="$ctrl.addParamToQuery(queryParamData)"
+                                          />`}
       }
     })
     .state({
@@ -49,9 +65,20 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
       title:  'Query Builder: Disease Type',
       url:    '/disease-type',
       views:{
-        'queryOverview':      {template: '<query-overview mutation-set="$ctrl.mutationList" disease-set="$ctrl.diseaseList"/>'},
-        'querySet':           {template: '<query-set-disease-type disease-set="$ctrl.diseaseList" />'},
-        'queryParamSelector': {template: '<query-param-selector on-change="$ctrl.onInputChange(search)" search-results="$ctrl.searchResults" />'}
+        'queryOverview':      {template: `<query-overview 
+                                                mutation-set="$ctrl.mutationsSet"
+                                                disease-set="$ctrl.diseaseSet"/>`},
+
+        'querySet':           {template: `<query-set-disease-type 
+                                                disease-set="$ctrl.diseaseSet" />`},
+
+        'queryParamSelector': {template: `<query-param-selector 
+                                                disease-set="$ctrl.diseaseSet"
+                                                mutations-set="$ctrl.mutationsSet" 
+                                                on-change="$ctrl.onInputChange(search)" 
+                                                search-results="$ctrl.searchResults" 
+                                                on-param-select="$ctrl.addParamToQuery(queryParamData)"
+                                          />`}
       }
     });
   

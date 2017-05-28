@@ -2,7 +2,10 @@ const template = require('./queryBuilder.tpl.html');
 
 const QueryBuilderComponent = {
     template,
-    bindings: {},
+    bindings: {
+      'mutationsSet': '=',
+      'diseaseSet':   '='
+    },
     controller: ['$scope',
                  '$rootScope',
                  '_',
@@ -24,8 +27,9 @@ const QueryBuilderComponent = {
                    $log.log('');
                   
                    
-            	     vm.diseaseList  = [];
-            	     vm.mutationList = [];
+            	     // vm.diseaseList  = [];
+            	     // vm.mutationList = [];
+
                    vm.progressIndicators = [
                     {
                       title:  'Search Genes',  
@@ -67,7 +71,7 @@ const QueryBuilderComponent = {
 
                     let _showReviewIndicator = () =>{
                       let reviewIndicatorAdded = _.findWhere(vm.progressIndicators, {title: reviewIndicator.title}) != undefined;
-                      if((this.mutationList.length && this.diseaseList.length) && !reviewIndicatorAdded) vm.progressIndicators.push(reviewIndicator);
+                      if((vm.mutationsSet.length && vm.diseaseSet.length) && !reviewIndicatorAdded) vm.progressIndicators.push(reviewIndicator);
                     }
 
                     let _removeReviewIndicator = ()=>{
@@ -84,7 +88,7 @@ const QueryBuilderComponent = {
 
                    vm.currentState = ()=>$state.current.name.split('.')[2];
 
-                   vm.searchResults = [];
+                   // vm.searchResults = [];
 
 
                    ProgressIndicatorBarService
@@ -103,11 +107,26 @@ const QueryBuilderComponent = {
                    /* =======================================================================
                       querySets: list operations
                     ========================================================================== */
-                   // pushes search result to querySet
-                   vm._pushResultToSetBy = (params)=>{  
-                      let resultIdx = _.indexOf(_.pluck(vm.searchResults, params.param), params.result[params.param]);
-                      vm.searchResults.splice(resultIdx,1);
-                   };
+
+                    /**
+                     * @param  {Object} queryParam - mutation or DiseaseModel   
+                     * @return {Array} of objects 
+                     */
+                   // vm._removeParamFromSerachResults = queryParam=>{  
+                   //      let selectedResult = _.assign({}, queryParam),
+                   //          _searchResults = _.assign([], vm.searchResults),
+                   //          resultsIndex =  _.indexOf(_.pluck(_searchResults,'_id'),  selectedResult._id);
+
+                   //      // remove item of search resutls
+                   //      _searchResults = [
+                   //        ..._searchResults.slice(0, resultsIndex), 
+                   //        ..._searchResults.slice(resultsIndex + 1)
+                   //      ];
+
+                   //      vm.searchResults = _searchResults;
+                   //      return vm.searchResults;
+                   //  };
+
 
                   // clear the querySet 
                   vm._clearSet = (set)=>{ this[`${set}List`] = []; };
@@ -132,13 +151,41 @@ const QueryBuilderComponent = {
                   querySetMutations: Event Handlers 
                   events are namspaced into "component:action:item"
                 ========================================================================== */
-                $rootScope.$on('mutationSet:add', (e,mutation)=>{
-                    this.mutationList.push(mutation);      
-                    vm._pushResultToSetBy({result: mutation, set:this.mutationList, param: '_id'});
-                    vm.progressBar.advance();
+                /**
+                 * @param  {Object} queryParam - mutation or DiseaseModel   
+                 * @return {Array | false} Array of objects if queryParam is added, 
+                 *                         false if it already exists in set
+                 */
+                vm.addParamToQuery = queryParamData=>{
+                  let paramSet        = _.assign([], vm[`${vm.currentState()}Set`]),
+                      queryParam      = queryParamData,
+                      queryParamInSet = _.findWhere(paramSet, queryParam);
 
-                    if(this.diseaseList.length) vm._updateDieseasListingsCounts();
-                });
+                    $log.log(`:${vm.currentState()}Set`);
+
+                    if(queryParamInSet == undefined){
+                      paramSet.push(queryParam);
+                      vm[`${vm.currentState()}Set`] = paramSet;
+
+                      // if(vm.diseaseSet.length) vm._updateDieseasListingsCounts();
+                      // vm.progressBar.advance();
+                      
+                      return vm[`${vm.currentState()}Set`];
+                    }
+
+                    return false;
+                };
+
+                
+
+
+                // $rootScope.$on('mutationSet:add', (e,mutation)=>{
+                //     vm.mutationsSet.push(mutation);      
+                //     vm._removeParamFromSerachResults({result: mutation, set:vm.mutationsSet, param: '_id'});
+                //     vm.progressBar.advance();
+
+                //     if(vm.diseaseSet.length) vm._updateDieseasListingsCounts();
+                // });
 
 
                 $rootScope.$on('mutationSet:clear', ()=>{ 
@@ -148,15 +195,15 @@ const QueryBuilderComponent = {
 
 
                 $rootScope.$on('mutationSet:remove:mutation', (e, mutation)=>{
-                    let mutationIndex = _.indexOf(_.pluck(this.mutationList, 'entrezgene'), mutation.entrezgene);
-                    this.mutationList.splice(mutationIndex, 1);
-                    if(this.diseaseList.length) vm._updateDieseasListingsCounts();
+                    let mutationIndex = _.indexOf(_.pluck(vm.mutationsSet, 'entrezgene'), mutation.entrezgene);
+                    vm.mutationsSet.splice(mutationIndex, 1);
+                    if(vm.diseaseSet.length) vm._updateDieseasListingsCounts();
                     _removeReviewIndicator();
                 });
 
 
                 $rootScope.$on('mutationSet:sort', (e, data)=>{
-                    this.mutationList = vm.sortSetOn(this.mutationList, data.sortOn );
+                    vm.mutationsSet = vm.sortSetOn(vm.mutationsSet, data.sortOn );
                 });
 
 
@@ -166,19 +213,14 @@ const QueryBuilderComponent = {
                 ========================================================================== */
                 $rootScope.$on('diseaseSet:clear', ()=>{ vm._clearSet('disease'); });
 
-                $rootScope.$on('diseaseSet:add', (e,disease)=>{
-                    this.diseaseList.push(disease);
-                    if(this.mutationList.length) vm._pushResultToSetBy({result: disease, set:this.diseaseList, param: 'acronym'});
-                    _showReviewIndicator();
-                });
-
+               
                 $rootScope.$on('diseaseSet:sort', (e, data)=>{
-                    this.diseaseList = vm.sortSetOn(this.diseaseList, data.sortOn );
+                    vm.diseaseSet = vm.sortSetOn(vm.diseaseSet, data.sortOn );
                 });
 
                 $rootScope.$on('diseaseSet:remove:disease', (e, disease)=>{
-                    let dIndex = _.indexOf(_.pluck(this.diseaseList, 'acronym'), disease.name);
-                    this.diseaseList.splice(dIndex, 1);
+                    let dIndex = _.indexOf(_.pluck(vm.diseaseSet, 'acronym'), disease.name);
+                    vm.diseaseSet.splice(dIndex, 1);
 
                      _removeReviewIndicator();
                 });
@@ -187,66 +229,21 @@ const QueryBuilderComponent = {
                 // update the positives and negatives count 
                 // for each disease listing 
                 vm._updateDieseasListingsCounts = ()=>{
-                    this.diseaseList.map(diseaseModel=>{
+                    vm.diseaseSet.map(diseaseModel=>{
                         diseaseModel.mutationsLoading = true;
 
                         // mock server delay 
                         $timeout(()=>{
-                          diseaseModel.getAggregates(this.mutationList)
+                          diseaseModel.getAggregates(vm.mutationsSet)
                                     .then(function() {
                                       diseaseModel.mutationsLoading = false;
                                     });
                         }, 250);//END $timeout
 
-                    });//END this.diseaseList.map
+                    });//END vm.diseaseSet.map
 
                 }//END vm._updateDieseasListingsCounts 
 
-
-
-
-                /* =======================================================================
-                  queryParamSelector Events
-                ========================================================================== */
-                // TODO: make angular search service to abstract search functionality
-                const searchServices = {
-                    'mutations': MutationsService,
-                    'disease':   DiseaseService
-                };
-
-                // ON USER SEARCH INPUT from queryParamSelector component
-                // this event is passed up through a callback chain 
-                // instead of handled with rootscope events 
-                this.onInputChange = (searchQuery)=>{
-                    $log.info(`query: ${searchQuery}`);
-                    let progressState = (vm.currentState() == 'mutations' ) ? 'Genes' : 'Samples';
-
-                      if(searchQuery.length == 0 ){
-                          vm.searchResults = [];
-                          vm.progressBar.goTo(`Search ${progressState}`);
-                      }else{
-
-                        // pass along the user input query and selected mutations list 
-                        // to the appropriate service 
-                        searchServices[vm.currentState()]
-                          .query(searchQuery, {source: 'DB'}, this.mutationList)
-                          .then(response=>{
-
-                            vm.progressBar.goTo(`Add ${progressState}`);
-
-                            // make sure we update the views 
-                            $scope.$apply(()=>{
-                              vm.searchResults = response; 
-                            });
-
-                          });//END searchServices[vm.currentState()]
-
-                      }
-                      
-                        
-                };///END this.onInputChange
-
-                
 
                 
             }]
