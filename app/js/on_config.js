@@ -51,7 +51,9 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
                                             />`},
 
         'querySet':           {template: `<query-set-mutations 
-                                                mutation-set="$ctrl.mutationsSet" 
+                                                mutations-set="$ctrl.mutationsSet" 
+                                                clear-set="$ctrl.clearSet({setType})"
+                                                sort-set="$ctrl.sortSetOn({set,sortOn})"
                                           />`},
 
         'queryParamSelector': {template: `<query-param-selector 
@@ -75,6 +77,8 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
 
         'querySet':           {template: `<query-set-disease-type 
                                                 disease-set="$ctrl.diseaseSet" 
+                                                clear-set="$ctrl.clearSet({setType})"
+                                                sort-set="$ctrl.sortSetOn({set,sortOn})"
                                           />`},
 
         'queryParamSelector': {template: `<query-param-selector 

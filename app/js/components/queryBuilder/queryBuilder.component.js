@@ -120,10 +120,15 @@ const QueryBuilderComponent = {
                   };
 
                   // // sort list on given param 
-                  // vm.sortSetOn = (list, sortOn)=>{
-                  //   let sortedList = _.sortBy(list, sortOn);
-                  //   return (vm.setIsSorted(list, sortedList, sortOn) ? list.reverse() : sortedList);
-                  // };
+                  vm.sortSetOn = (sortParams)=>{
+
+                    let list       = _.assign([], vm[`${sortParams.set}Set`]);
+                    let sortOn     = sortParams.sortOn;
+                    let sortedList = _.sortBy(list, sortOn);
+
+                    vm[`${sortParams.set}Set`] = (vm.setIsSorted(list, sortedList, sortOn) ? list.reverse() : sortedList);
+                    return (vm.setIsSorted(list, sortedList, sortOn) ? list.reverse() : sortedList);
+                  };
             
                   
 
@@ -181,14 +186,15 @@ const QueryBuilderComponent = {
 
 
 
+                vm.clearSet =setType=>{
+                    vm[`${setType.setType}Set`] = [];
+                    // _removeReviewIndicator();
+                }
+
                 
+                            
 
-
-                $rootScope.$on('mutationSet:clear', ()=>{ 
-                  vm._clearSet('mutation'); 
-                  _removeReviewIndicator();
-                });
-
+                
 
                 $rootScope.$on('mutationSet:remove:mutation', (e, mutation)=>{
                     let mutationIndex = _.indexOf(_.pluck(vm.mutationsSet, 'entrezgene'), mutation.entrezgene);

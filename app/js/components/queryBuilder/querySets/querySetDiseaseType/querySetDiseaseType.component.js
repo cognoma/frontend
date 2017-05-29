@@ -3,8 +3,9 @@ const template = require('./querySetDiseaseType.tpl.html');
 const QuerySetDiseaseTypeComponent = {
     template,
     bindings: {
-      'mutationSet': '=',
-      'diseaseSet':  '='
+      'diseaseSet':  '<',
+      'clearSet':     '&',
+      'sortSet':      '&'
     },
     controller:['$rootScope','_','$log', function ($rootScope,_, $log) {
           'ngInject';
@@ -12,9 +13,7 @@ const QuerySetDiseaseTypeComponent = {
           $log.log('');
 
           let vm = this;
-          vm.clearDiseaseSet = ()=>{ $rootScope.$emit('diseaseSet:clear') }
-          vm.sortSetBy = sortParam=>{$rootScope.$emit('diseaseSet:sort',{sortOn:sortParam})}
-
+          
           vm.samplesTotal = ()=>{
             let samplesFlattened = _.pluck(this.diseaseSet, 'samples').map(samples=>samples.length);
             return _.reduce(samplesFlattened, (a,b)=>a+b);

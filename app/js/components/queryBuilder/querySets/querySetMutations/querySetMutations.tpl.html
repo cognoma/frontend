@@ -4,12 +4,23 @@
 </div>
 
   <div class="row list-controls">
+
     <div class="col-xs-9">
       <span>SELECTED GENES</span>
-      <span ng-if="$ctrl.mutationSet.length" class="glyphicon glyphicon-sort-by-alphabet" ng-click="$ctrl.sortResultsBy($ctrl.mutationSet,'name')"></span>
+      <span 
+        ng-if="$ctrl.mutationsSet.length" 
+        class="glyphicon glyphicon-sort-by-alphabet" 
+        ng-click="$ctrl.sortSet({set:'mutations',sortOn:'symbol'})"></span>
     </div>
+
     <div class="col-xs-2">
-      <button ng-if="$ctrl.mutationSet.length" class="label clear-button" ng-click="$ctrl.clearMutationSet()">CLEAR</button>
+      <button 
+        class="label clear-button"
+        ng-if="$ctrl.mutationsSet.length"  
+        ng-click="$ctrl.clearSet({setType:'mutations'})">
+          CLEAR
+      </button>
+
     </div>
   </div>
 
@@ -19,7 +30,7 @@
 
 <ul class="col-xs-3">
   <li class="label gene-label"
-    ng-repeat="mutation in $ctrl.mutationSet track by $index"
+    ng-repeat="mutation in $ctrl.mutationsSet track by $index"
     ng-mouseover="$ctrl.highlightGene($index)"
     ng-mouseleave="$ctrl.highlightGene($index)"
   >{{mutation.symbol}}</li>
@@ -31,8 +42,8 @@
     ng-class="{'active':gene.active, 'faded':  $ctrl.geneHovered}"
     class="gene-card-display-item clearfix"
 
-    ng-if="$ctrl.mutationSet.length"
-    ng-repeat="gene in $ctrl.mutationSet"
+    ng-if="$ctrl.mutationsSet.length"
+    ng-repeat="gene in $ctrl.mutationsSet"
 
     symbol="{{gene.symbol}}"
     entrez-id="gene.entrezgene"
@@ -42,7 +53,7 @@
 
   <div class="empty-card-space">
     <h4 class="empty-card-text"
-      ng-if="!$ctrl.mutationSet.length"
+      ng-if="!$ctrl.mutationsSet.length"
     >
       DRAG AND DROP OR CLICK GENES TO ADD
     </h4>
