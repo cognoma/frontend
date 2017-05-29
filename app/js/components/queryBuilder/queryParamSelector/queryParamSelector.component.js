@@ -30,14 +30,15 @@ const QueryParamSelectorComponent = {
         	'ngInject';
 
 
-            $log = $log.getInstance('QueryParamSelectorComponent', true);
+            $log = $log.getInstance('QueryParamSelectorComponent', false);
             $log.log('');
 
             const vm = this;
 
-            vm.currentState = () => $state.current.name.split('.')[2];
+            
 
             vm.$onInit = ()=>{
+                vm.currentState = () => $state.current.name.split('.')[2];
                 vm.searchResults =[];
                 vm.searchQuery='';
                 vm.isSearching = false;
@@ -86,7 +87,7 @@ const QueryParamSelectorComponent = {
                     searchServices[vm.currentState()]
                           .query(searchQuery, vm.mutationsSet)
                           .then(response=>{
-                              
+
                                 $scope.$apply(()=>{
                                     if(response.length) vm.searchResults = _filteredSearchResutls(response);
                                     vm.isSearching = false;

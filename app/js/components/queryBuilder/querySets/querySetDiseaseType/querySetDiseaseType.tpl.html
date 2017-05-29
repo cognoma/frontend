@@ -35,7 +35,7 @@
 
   <div
     class="row"
-    ng-repeat="disease in $ctrl.diseaseSet track by $index"
+    ng-repeat="disease in $ctrl.diseaseSet | orderBy : 'positives' : true"
     ng-if="$ctrl.diseaseSet.length"
   >
     <disease-card

@@ -1,7 +1,7 @@
 function MutationsService($q, $http, $timeout, $log, AppSettings, $httpParamSerializer) {
   'ngInject';
 
-    $log = $log.getInstance('MutationsService', true);
+    $log = $log.getInstance('MutationsService', false);
     $log.log('');
 
 

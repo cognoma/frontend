@@ -1,7 +1,7 @@
 function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFilter, _, $localStorage) {
   'ngInject';
 
-  $log = $log.getInstance('DiseaseService', true);
+  $log = $log.getInstance('DiseaseService', false);
   $log.log('');
 
   // const DISEASE_ENDPOINT = `${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`;

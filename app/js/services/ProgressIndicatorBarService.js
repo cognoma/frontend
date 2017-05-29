@@ -1,7 +1,7 @@
 function ProgressIndicatorBarService($log, _, $rootScope, $timeout) {
   'ngInject';
 
-  $log = $log.getInstance('ProgressIndicatorBarService', true);
+  $log = $log.getInstance('ProgressIndicatorBarService', false);
   $log.log('');
 
   const service = {};

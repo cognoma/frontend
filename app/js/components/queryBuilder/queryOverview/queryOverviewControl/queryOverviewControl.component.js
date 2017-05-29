@@ -10,24 +10,19 @@ const QueryOverviewControlComponent = {
         'paramList':   '<',
         'removeParam': '&'
     },
-    controller: ['$rootScope','$state','$log',function ($rootScope, $state, $log) {
+    controller: ['$state','$log',function ($state, $log) {
         'ngInject';
 
-        $log = $log.getInstance('QueryOverviewControlComponent', true);
-        $log.log('');
+        $log = $log.getInstance('QueryOverviewControlComponent', false);
+        
         
         let vm = this;
 
-        this.$onInit = ()=>{
+        vm.$onInit = ()=>{
+            $log.log(vm.title);
             vm.active = $state.current.name.includes(vm.listType);
         }
 
-        // this.removeParam = (data)=>{console.log(data)};
-        
-
-        this.clearSet = ()=>$rootScope.$emit('mutationSet:clear');
-
-        this.resetSearch = ()=>$rootScope.$emit('paramSearch:reset');
 
 
     }]

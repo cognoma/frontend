@@ -5,7 +5,7 @@ const AppComponent = {
     bindings: {},
     controller: ['$rootScope','$log', function($rootScope, $log){
         'ngInject';
-        $log = $log.getInstance('AppComponent', true);
+        $log = $log.getInstance('AppComponent', false);
         $log.log('');
 
         this.STATE ={

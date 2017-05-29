@@ -9,19 +9,13 @@ const QueryOverviewComponent = {
     },
     controller: ['$log',function ($log) {
             'ngInject';
-            $log = $log.getInstance('QueryOverviewComponent', true);
+
+            $log = $log.getInstance('QueryOverviewComponent', false);
             $log.log('');
-            const vm = this;
 
-            vm.$onInit = ()=>{
-                console.log(this);
-            }
+            // const vm = this;
 
-            // vm.removeParam = (paramData)=>{
-            //     console.log(paramData)
-            // }
-            
-            
+        
     }]
 }
 

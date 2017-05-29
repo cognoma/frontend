@@ -15,7 +15,10 @@ const QuerySetDiseaseTypeComponent = {
           let vm = this;
           
           vm.samplesTotal = ()=>{
-            let samplesFlattened = _.pluck(this.diseaseSet, 'samples').map(samples=>samples.length);
+            let samplesFlattened = _.pluck(this.diseaseSet, 'samples').map(samples=>{
+              return (typeof samples  == 'number' ? samples : samples.length);
+            });
+
             return _.reduce(samplesFlattened, (a,b)=>a+b);
           }
 

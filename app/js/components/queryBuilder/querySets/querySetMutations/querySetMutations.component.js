@@ -7,12 +7,10 @@ const QuerySetMutationsComponent = {
       'clearSet':     '&',
       'sortSet':      '&'
     },
-    controller: [
-                '$rootScope',
-                '$log',
-                function($rootScope, $log){
+    controller: [ '$rootScope', '$log', function($rootScope, $log){
               'ngInject';
-              $log = $log.getInstance('QuerySetMutationsComponent', true);
+
+              $log = $log.getInstance('QuerySetMutationsComponent', false);
               $log.log('');
 
               let vm = this;

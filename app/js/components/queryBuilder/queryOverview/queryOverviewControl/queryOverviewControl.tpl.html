@@ -35,7 +35,7 @@
 
   		<disease-listing
   			ng-if="$ctrl.listType == 'disease'"
-  			ng-repeat="disease in $ctrl.paramList"
+  			ng-repeat="disease in $ctrl.paramList | orderBy : 'positives' : true "
   			name="{{::disease.name}}"
         samples="disease.samples"
         positives="disease.positives"

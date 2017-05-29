@@ -7,7 +7,7 @@ const MutationsInstructionsComponent = {
 
         function( $log) {
         	'ngInject';
-            $log = $log.getInstance('MutationsInstructionsComponent', true);
+            $log = $log.getInstance('MutationsInstructionsComponent', false);
             $log.log('');
 
             // const vm = this;
