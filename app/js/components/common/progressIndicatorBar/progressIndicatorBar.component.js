@@ -8,12 +8,20 @@ const progressIndicatorBarComponent = {
     },
     controller: ['$log',
                  '$rootScope',
+                 '$scope',
                  '_',
                  '$state',
                  '$timeout',
                  '$sessionStorage',
                  'ProgressIndicatorBarService',
-                 function ($log, $rootScope, _, $state, $timeout, $sessionStorage,ProgressIndicatorBarService) {
+                 function ($log, 
+                           $rootScope,
+                           $scope,
+                            _, 
+                            $state, 
+                            $timeout, 
+                            $sessionStorage,
+                            ProgressIndicatorBarService) {
 
             'ngInject';
             $log = $log.getInstance('progressIndicatorBarComponent', true);
@@ -65,13 +73,13 @@ const progressIndicatorBarComponent = {
             
             // sets the active state of the next inactive step
             // and returns that steps object 
-            vm.advance =()=>{
+            vm.advance =(changeState = true)=>{
                 // check each step in the steps array for active state 
                 // find the step with an index of +1 the current active state 
                 let nextStep = vm.steps[_currentActiveIdx()+1];
                 nextStep.active = true;
                 progressHistory.push(nextStep);
-                $state.go(nextStep.state);
+                if(changeState)$state.go(nextStep.state);
                 componentHook('advance', nextStep);
                 return nextStep;
                 // return the step object of step that was advanced to 
@@ -82,7 +90,7 @@ const progressIndicatorBarComponent = {
             
             // takes the current active step and sets it to inactive 
             // returns the object of the newly active state 
-            vm.goBack =()=>{
+            vm.goBack =(changeState = true)=>{
                 // get current active step 
                 let currentStep = vm.currentStep();
                 // get step that has an index of -1 the current active (previous step)
@@ -92,7 +100,7 @@ const progressIndicatorBarComponent = {
                 progressHistory.push(previousStep.state);
                 componentHook('goback', {previousStep, currentStep});
                 
-                $state.go(previousStep.state);
+                if(changeState) $state.go(previousStep.state);
                 // return the newly active step 
                 return previousStep;
             };
@@ -100,19 +108,29 @@ const progressIndicatorBarComponent = {
 
 
 
-            vm.goTo = (selectedStep)=>{
+            vm.goTo = (selectedStep, changeState = true)=>{
+                //make an array of steps with 
+                let _steps = _.assign([],vm.steps).map(step=>{
+                    step.title = step.title.toLowerCase();
+                    return step;
+                })
                 
-                let goToStep = typeof selectedStep == 'object' ? selectedStep : _.findWhere(vm.steps, {title:selectedStep});
+                let goToStep = typeof selectedStep == 'object' ? selectedStep : _.findWhere(_steps, {title:selectedStep.toLowerCase()});
+
                 $log.log(`goTo:${goToStep.title}`);
+                
+                if(goToStep == undefined) return;
 
 
                 // get the index of the selcted step
-                let selectedIdx =  _.indexOf(_.pluck(vm.steps, 'title'), goToStep.title);
+                let selectedIdx =  _.indexOf(_steps, goToStep);
+                
 
                 // set all previous steps to active 
                 for (var i = 0; i < selectedIdx; i++ ) { 
                     if(vm.steps[i] != undefined) vm.steps[i].active = true; 
                 }
+
                 // set all steps after selected step to inactive 
                 let previousSteps = vm.steps.slice(selectedIdx+1);
                 previousSteps.map(step=>{step.active = false;});
@@ -122,12 +140,14 @@ const progressIndicatorBarComponent = {
                 progressHistory.push(goToStep);
                 componentHook('goTo', goToStep);
                 // change state to selectedStep state 
-                $state.go(goToStep.state );
+                if(changeState)$state.go(goToStep.state );
 
 
                 // return the selected step object 
                 return goToStep;
             };
+
+
 
 
             let _getLastHistoryStep = (progressHistory, toState)=>{
@@ -139,11 +159,14 @@ const progressIndicatorBarComponent = {
             
 
             // update progress bar when state is change from other navigation
-            $rootScope.$on('$stateChangeSuccess', (event, toState) => {
-
+          let stateChangeListener =  $rootScope.$on('$stateChangeSuccess', (event, toState) => {
                 vm.goTo(_getLastHistoryStep(progressHistory, toState));
-                
             });
+
+
+          $scope.$on('destroy',()=>{
+            stateChangeListener();
+          });
 
 
 

@@ -11,13 +11,23 @@ const QueryBuilderComponent = {
                  '_',
                  'DiseaseModel',
                  '$state',
-                 '$q',
                  '$timeout',
                  'MutationsService',
                  'DiseaseService',
                  'ProgressIndicatorBarService',
                  '$log',
-                 function($scope, $rootScope, _, DiseaseModel, $state,$q, $timeout, MutationsService, DiseaseService, ProgressIndicatorBarService, $log) {
+                 function(
+                    $scope, 
+                    $rootScope, 
+                    _, 
+                    DiseaseModel, 
+                    $state,
+                    $timeout, 
+                    MutationsService, 
+                    DiseaseService, 
+                    ProgressIndicatorBarService, 
+                    $log) {
+
             	     'ngInject';
 
                    let vm = this;
@@ -25,20 +35,24 @@ const QueryBuilderComponent = {
 
                    $log = $log.getInstance('QueryBuilderComponent', true);
                    $log.log('');
+                   vm.currentState = ()=>$state.current.name.split('.')[2];
+                   const progessStateName = vm.currentState() == 'mutations' ? 'genes' : 'samples';
 
                    vm.$onInit = ()=>{
 
-                    vm.currentState = ()=>$state.current.name.split('.')[2];
+                        
+                        // get the progress bar controller 
+                        // and attach it to the local scope
+                        ProgressIndicatorBarService
+                            .get('queryBuilderProgress')
+                            .then(progressBarInstance=>{ 
+                              vm.progressBar = progressBarInstance;
+                              vm.progressBar.goTo(`Search ${progessStateName}`);
+                            });
 
-                    // get the progress bar controller 
-                    // and attach it to the local scope
-                    // ProgressIndicatorBarService
-                    //   .get('queryBuilderProgress')
-                    //   .then(progressBarInstance=>{ 
-                    //     _setupProgressBar(progressBarInstance);
-                    //   });
-                      
                    }
+
+                   
 
                     
 
@@ -46,16 +60,7 @@ const QueryBuilderComponent = {
                       Progress Indicator Bar 
                     ========================================================================== */
 
-                   /**
-                    * Define our progress bar setup 
-                    * @param  {Object} progressBarInstance - progress bar controller object 
-                    * @return {Object} - the progressBar object attached to local scope
-                    */
-                   let _setupProgressBar = progressBarInstance=>{
-                        // attach instance to local scope
-                        vm.progressBar = progressBarInstance;
-
-                        // define the steps for the query builder 
+                   // define the steps for the query builder 
                         vm.progressIndicators = [
                             {
                               title:  'Search Genes',  
@@ -96,10 +101,6 @@ const QueryBuilderComponent = {
                              type:   'button'
                          };
 
-                        // return the instance for testing 
-                        return vm.progressBar;
-                   }
-
 
                    
                     /**
@@ -108,7 +109,10 @@ const QueryBuilderComponent = {
                      */
                     let _showReviewIndicator = () =>{
                       let reviewIndicatorAdded = _.findWhere(vm.progressIndicators, {title: reviewIndicator.title}) != undefined;
-                      if((vm.mutationsSet.length && vm.diseaseSet.length) && !reviewIndicatorAdded) vm.progressIndicators.push(reviewIndicator);
+                      if((vm.mutationsSet.length && vm.diseaseSet.length) && !reviewIndicatorAdded){
+                        vm.progressIndicators.push(reviewIndicator);
+                        vm.progressBar.goTo(reviewIndicator, false);
+                      } 
                     }
 
 
@@ -121,7 +125,7 @@ const QueryBuilderComponent = {
                       
                        let reviewIndicatorIndex =  _.findIndex(vm.progressIndicators,  reviewIndicator);
 
-                       if((!vm.mutationList.length || !vm.diseaseList.length) && reviewIndicatorIndex >= 0 ){
+                       if((!vm.mutationsSet.length || !vm.diseaseSet.length) && reviewIndicatorIndex >= 0 ){
                         vm.progressIndicators = [
                           ...vm.progressIndicators.slice(0, reviewIndicatorIndex)
                         ];
@@ -142,7 +146,7 @@ const QueryBuilderComponent = {
                    */
                     vm.clearSet =setType=>{
                         vm[`${setType.setType}Set`] = [];
-                        // _removeReviewIndicator();
+                        _removeReviewIndicator();
                     }
 
                   
@@ -204,7 +208,9 @@ const QueryBuilderComponent = {
                       vm[`${vm.currentState()}Set`] = paramSet;
 
                       vm._updateDieseasListingsCounts();
-                      // vm.progressBar.advance();
+
+                      if(vm[`${vm.currentState()}Set`].length > 3) vm.progressBar.advance(false);
+                      _showReviewIndicator();
 
                       return vm[`${vm.currentState()}Set`];
                     }
@@ -239,18 +245,14 @@ const QueryBuilderComponent = {
                    vm[`${paramData.paramType}Set`] = currentSet;
 
                      vm._updateDieseasListingsCounts();
-                    // _removeReviewIndicator();
+                    _removeReviewIndicator();
 
                     return vm[`${paramData.paramType}Set`];
                 }
 
 
 
-               
 
-                /* =======================================================================
-                    
-                ========================================================================== */
 
     
                 /**

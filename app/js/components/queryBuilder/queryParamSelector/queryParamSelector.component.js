@@ -16,6 +16,7 @@ const QueryParamSelectorComponent = {
                 'MutationsService',
                 'DiseaseService',
                 '$filter',
+                'ProgressIndicatorBarService',
         function(
             $rootScope, 
             $scope, 
@@ -24,7 +25,8 @@ const QueryParamSelectorComponent = {
             $log,
             MutationsService,
             DiseaseService,
-            $filter
+            $filter,
+            ProgressIndicatorBarService
             ) {
 
         	'ngInject';
@@ -34,15 +36,26 @@ const QueryParamSelectorComponent = {
             $log.log('');
 
             const vm = this;
-
+            vm.currentState = () => $state.current.name.split('.')[2];
+            const progessStateName = vm.currentState() == 'mutations' ? 'genes' : 'samples';
             
 
             vm.$onInit = ()=>{
-                vm.currentState = () => $state.current.name.split('.')[2];
+                
                 vm.searchResults =[];
                 vm.searchQuery='';
                 vm.isSearching = false;
+
+                 ProgressIndicatorBarService
+                    .get('queryBuilderProgress')
+                    .then(progressBarInstance=>{ 
+                      vm.progressBar = progressBarInstance;
+                    });
+
             }
+
+
+
 
 
             /**
@@ -89,7 +102,13 @@ const QueryParamSelectorComponent = {
                           .then(response=>{
 
                                 $scope.$apply(()=>{
-                                    if(response.length) vm.searchResults = _filteredSearchResutls(response);
+                                    if(response.length){
+                                      vm.searchResults = _filteredSearchResutls(response);
+                                      vm.progressBar.goTo(`Add ${progessStateName}`);
+                                    } else{
+                                      vm.progressBar.goTo(`Search ${progessStateName}`);  
+                                    }
+                                    
                                     vm.isSearching = false;
                                 });
                             
