@@ -50,7 +50,7 @@ describe('UNIT::component: querySetMutations:',()=>{
         ];
 
         element = angular.element(`
-            <query-set-mutations mutation-set="mutationList" />
+            <query-set-mutations mutations-set="mutationList" />
         `);
 
         $compile(element)(parentScope);      
@@ -82,7 +82,7 @@ describe('UNIT::component: querySetMutations:',()=>{
 
 
 
-  describe('event emitters: ',()=>{
+  xdescribe('event emitters: ',()=>{
 
   	it('sortMutations("symbol") fires mutationSet:sort event ', ()=>{
         const mutationSort_spy = jasmine.createSpy('mutationSort_spy');

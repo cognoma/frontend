@@ -128,7 +128,7 @@ const progressIndicatorBarComponent = {
 
                 // set all previous steps to active 
                 for (var i = 0; i < selectedIdx; i++ ) { 
-                    if(vm.steps[i] != undefined) vm.steps[i].active = true; 
+                    if(vm.steps[i] && vm.steps[i] != undefined) vm.steps[i].active = true; 
                 }
 
                 // set all steps after selected step to inactive 
