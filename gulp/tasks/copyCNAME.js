@@ -9,6 +9,7 @@ gulp.task('copyCNAME', function(cb) {
 
   // copies the CNAME file to the build directory 
   // for use with github pages
-  gulp.src(['./CNAME']).pipe(gulp.dest('./build'));
+  return gulp.src(['./CNAME']).pipe(gulp.dest('./build'));
+
 
 });

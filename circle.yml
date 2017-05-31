@@ -1,3 +1,7 @@
+branches:
+  ignore:
+    - gh-pages
+
 dependencies:
   post:
     - wget https://saucelabs.com/downloads/sc-latest-linux.tar.gz
