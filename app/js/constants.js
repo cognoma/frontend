@@ -1,4 +1,4 @@
-const api_env = {
+const apiEnv = {
           local:      '',
           dev:        'http://localhost\:8080',
           production: 'https://api.cognoma.org'
@@ -13,13 +13,13 @@ const AppSettings = {
   },
 
   api:{
-    baseUrl:    api_env.production, 
+    baseUrl:    apiEnv.production, 
     diseases:   '/diseases',
     samples:    '/samples',
     geneSearch: {
       base: 'https://mygene.info/v3/query?q=',
       params:{
-        suggest_from: 'symbol^2,alias',
+        suggest_from: 'symbol^2,alias', // eslint-disable-line
         species:      'human',
         entrezonly:   'true',
         size:          100

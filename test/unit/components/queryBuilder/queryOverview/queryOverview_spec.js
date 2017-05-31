@@ -74,7 +74,7 @@ describe('UNIT::component: queryOverview:', () => {
       
         ];
         element = angular.element(`
-            <query-overview mutation-set='mutationList' disease-set='diseaseList'/>
+            <query-overview mutations-set='mutationList' disease-set='diseaseList'/>
         `);
         $compile(element)(parentScope);      
         parentScope.$digest();

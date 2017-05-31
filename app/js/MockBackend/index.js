@@ -10,7 +10,7 @@ let MockBackend = angular.module('MockBackend', requires);
 
 
 
-function MockBackend_onRun($httpBackend, _) {
+function MockBackendOnRun($httpBackend, _) {
   'ngInject';
   /* =======================================================================
     Mutations Endpoints = /genes 
@@ -98,7 +98,7 @@ function MockBackend_onRun($httpBackend, _) {
 
 
 
-angular.module('MockBackend').run(MockBackend_onRun);
+angular.module('MockBackend').run(MockBackendOnRun);
 
 
 export default MockBackend;
