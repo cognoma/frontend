@@ -32,14 +32,12 @@
 			text-transform: uppercase;
 			&:hover{cursor:pointer;}
 		}
-		.query-overview--control-setTitle{
-			padding:  0 0 0 28px;
-			margin-top:0;
-			text-transform: uppercase;
-			font-weight:100;
+		.query-overview--control-count{
+			display: inline-block;
+			transform:translateY(-2px);
+			color:$black;
 		}
-
-
+		
 
 		// .query-overview--control-params{
 		// 	padding:0 28px;
@@ -48,29 +46,39 @@
 			.query-overview--control-param{
 				position: relative;
 				margin: 5px 0;
-				padding:3px 5px 3px 10px;
+				padding:3px 5px;
 				background:rgba($white, 0.75);
 				color:$black;
+				text-align: center;
 				// border:1px solid rgba($blue, 0.5);
 
 				// &:nth-child(odd){margin-right: 10px;}
 				.glyphicon-remove-circle{
+					height:100%;
 					position: absolute;
-					top: 3px;
-					right: 3px;
+					z-index:-1;
+					top: 0px;
+					right: -10px;
+					padding-left:3px;
 					border:none;
-					background: none;
+					font-size: 11px;
+					background: $white;
 					outline:none;
 					opacity: 0;
+					border-top-right-radius: 3px;
+					border-bottom-right-radius: 3px;
 					transition: all 0.25s ease;
+					border-left:1px solid $black;
 				}
 
 				&:hover{
 					cursor:pointer;
 					box-shadow: 0 0 5px 0 rgba($black, 0.5);
 					background: rgba($white, 1);
+					z-index:100;
 
 					.glyphicon-remove-circle{
+						right: -19px;
 						opacity: 1;
 					}
 				}

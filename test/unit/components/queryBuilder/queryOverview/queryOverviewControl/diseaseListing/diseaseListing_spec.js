@@ -131,7 +131,7 @@ describe('UNIT::component: diseaseListing:', () => {
 
     
 
-    describe('event emitters:',()=>{
+    xdescribe('event emitters:',()=>{
 
       it('removeMutation() fires diseaseSet:remove:disease event ', ()=>{
         const diseaseSetRemove_spy = jasmine.createSpy('diseaseSetRemove_spy');

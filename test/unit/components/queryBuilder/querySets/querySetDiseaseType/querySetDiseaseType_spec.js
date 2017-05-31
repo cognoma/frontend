@@ -68,7 +68,7 @@ describe('UNIT::component: querySetDiseaseType:',()=>{
 
 
 
-  describe('event emitters: ',()=>{
+  xdescribe('event emitters: ',()=>{
 
   	it('sortSetBy("positives") fires diseaeSet:sort event ', ()=>{
         const diseaseSetSort_spy = jasmine.createSpy('diseaseSetSort_spy');

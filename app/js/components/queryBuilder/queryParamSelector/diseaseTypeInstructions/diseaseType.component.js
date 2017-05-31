@@ -10,7 +10,7 @@ const DiseaseTypeInstructionsComponent = {
             $log = $log.getInstance('DiseaseTypeInstructionsComponent', true);
             $log.log('');
 
-            const vm = this;
+            // const vm = this;
         	
         }]
 }

@@ -1,11 +1,12 @@
 describe('UNIT::component: progressIndicatorBar:', () => {
-  let $componentController;
-  let parentScope;
-  let element;  
-  let state;
-  let $_rootScope;
 
+  let $componentController,
+      $sessionStorage,
+      parentScope,
+      element,  
+      $_rootScope;
 
+ 
 
   function findIn(element, selector) {
   	return angular.element(element[0].querySelector(selector));
@@ -69,13 +70,7 @@ describe('UNIT::component: progressIndicatorBar:', () => {
 
     }));
     
-    // Attribute: title
-    // it('uid: displays initial state value', () => {
-    //   let entrezgeneEl = findIn(element, '.query-overview--control-param-title');
-    //   expect(entrezgeneEl).toBeDefined();
-    //   expect(entrezgeneEl.text()).toEqual(parentScope.mutationsList[0].symbol); 
-    // });
-
+  
    
   it('repeats proper number of elements in progressIndicators', () => {
       
@@ -88,52 +83,46 @@ describe('UNIT::component: progressIndicatorBar:', () => {
     });
 
 
-  xit('advances the active state by one index', ($componentController) => {
-      var ctrl = $componentController('progressIndicatorBar', null);
-
-      expect(true).toBe(true);
+  it('advances the active state to the next index', () => {
+      // test the advance method
+      var ctrl = element.isolateScope().$ctrl;
+      // should return the next active state object
+      expect(ctrl.advance()).toEqual(parentScope.progressIndicators[1]);
+      
+      // make sure active states are set properly 
+      expect(parentScope.progressIndicators[0].active).toBe(true);
+      expect(parentScope.progressIndicators[1].active).toBe(true);
+      expect(parentScope.progressIndicators[2].active).toBe(false);
   });
 
 
-  xdescribe('event emitters:',()=>{
+  it('takes the current active step and sets it to inactive ',()=>{
+    // test the goBack method
+    var ctrl = element.isolateScope().$ctrl;
+    ctrl.advance();
+    expect(ctrl.goBack()).toEqual(parentScope.progressIndicators[0]);
+    expect(parentScope.progressIndicators[1].active).toBe(false);
+    expect(parentScope.progressIndicators[0].active).toBe(true);
+    
+  });
 
-    // it('removeMutation() fires mutationSet:remove:mutation event ', ()=>{
-    //    parentScope.mutationsList =[
-    //       {
-    //         '_id': '4331',
-    //         '_score': 17.74919,
-    //         'entrezgene': 4331,
-    //         'name': 'MNAT1, CDK activating kinase assembly factor',
-    //         'symbol': 'MNAT1',
-    //         'taxid': 9606
-    //       },
-    //       {
-    //         '_id': '388324',
-    //         '_score': 15.771275,
-    //         'entrezgene': 388324,
-    //         'name': 'inhibitor of CDK, cyclin A1 interacting protein 1',
-    //         'symbol': 'INCA1',
-    //         'taxid': 9606
-    //       },
-    //       {
-    //         '_id': '1030',
-    //         '_score': 0.9556542,
-    //         'entrezgene': 1030,
-    //         'name': 'cyclin dependent kinase inhibitor 2B',
-    //         'symbol': 'CDKN2B',
-    //         'taxid': 9606
-    //       }
 
-    //     ];
-    //     parentScope.$digest();
-    //     const mutationSetRemove_spy = jasmine.createSpy('mutationSetRemove_spy');
-    //     $_rootScope.$on('mutationSet:remove:mutation', mutationSetRemove_spy);
-        
-    //     const emitEventButton = findIn(element, '.glyphicon-remove-circle');
-    //     emitEventButton.triggerHandler('click');
+  it('should activate and return the given step', ()=>{
+    // test the goTo method
+    // test the goBack method
+    var ctrl = element.isolateScope().$ctrl;
+    ctrl.goTo(parentScope.progressIndicators[2]);
 
-    //     expect(mutationSetRemove_spy).toHaveBeenCalledWith(jasmine.anything(), {entrezgene: parentScope.mutationsList[0].entrezgene});
-    //   });
-  })
+    expect(ctrl.goTo(parentScope.progressIndicators[2])).toEqual(parentScope.progressIndicators[2]);
+
+    expect(parentScope.progressIndicators[0].active).toBe(true);
+    expect(parentScope.progressIndicators[1].active).toBe(true);
+    expect(parentScope.progressIndicators[2].active).toBe(true);
+    
+    
+  });
+
+
+  
 
 });

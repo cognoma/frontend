@@ -1,7 +1,7 @@
 function MutationsService($q, $http, $timeout, $log, AppSettings, $httpParamSerializer) {
   'ngInject';
 
-    $log = $log.getInstance('MutationsService', true);
+    $log = $log.getInstance('MutationsService', false);
     $log.log('');
 
 
@@ -35,8 +35,10 @@ function MutationsService($q, $http, $timeout, $log, AppSettings, $httpParamSeri
   service.query = function(geneQuery) {
     $log.log(`query::${geneQuery.toUpperCase()}`);
 
+
     // promise wrapper 
-    return new Promise((resolve, reject) => {
+    // @todo: handle reject condition
+    return new Promise((resolve) => {
 
       // get all genes and transfrom then into Gene Models
       return $http.get(endpoint(geneQuery))

@@ -4,6 +4,9 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
   $log = $log.getInstance('DiseaseModel', false);
   $log.log('');
 
+  // const API_BASE = `${AppSettings.api.baseUrl}`;
+  const API_BASE = `http://localhost\:8080`;
+
    /**
    * Model constructor and initialization
    * @api public
@@ -34,7 +37,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
       angular.extend(this, diseaseResponse, {});
 
         this.getAggregates(mutationsGenes)
-            .then(model_w_aggs=>{
+            .then(()=>{
               dfd.resolve(this);      
             });
         
@@ -52,10 +55,11 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
    */
   DiseaseModel.prototype._loadSamples = function() {
     let _model = this;
-    let samples_endpoint = `${AppSettings.api.baseUrl}${AppSettings.api.samples}?disease=${this.acronym}`;
-    $log.log(`_loadSamples:${samples_endpoint}`);
+    const SAMPLES_ENDPOINT = `${API_BASE}${AppSettings.api.samples}?disease=${this.acronym}`;
 
-    return $http.get(`${AppSettings.api.baseUrl}${AppSettings.api.samples}?disease=${this.acronym}`)
+    $log.log(`_loadSamples:${SAMPLES_ENDPOINT}`);
+
+    return $http.get(SAMPLES_ENDPOINT)
                 .then(samplesResponse=>{
                     _model.samples = samplesResponse.data.count;
                     return _model.samples;
@@ -75,10 +79,12 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
     $log.log(`_loadMutatedGenes:${mutationsGenes.length}`);
     let _model = this;
     let mutationsParmas = this._buildMutationsGenesParams(mutationsGenes);
-    let postivies_endpoint =  `${AppSettings.api.baseUrl}${AppSettings.api.samples}?limit=1&disease=${this.acronym}${mutationsParmas}`;
+    
+    const POSITIVES_ENDPOINT = `${API_BASE}${AppSettings.api.samples}?limit=1&disease=${this.acronym}${mutationsParmas}`;
+    
     
     if(mutationsGenes.length){
-      return $http.get(postivies_endpoint)
+      return $http.get(POSITIVES_ENDPOINT)
                 .then(mutatedGenesResponse=>{
                   _model.positives = mutatedGenesResponse.data.count;
                   return _model;
@@ -103,9 +109,9 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
   // convenience method to build "&mutations__gene=<entrezID>&mutations__gene=<entrezID>"
   DiseaseModel.prototype._buildMutationsGenesParams = function(mutationsGenes) {
     $log.log(`_buildMutationsGenesParams:${mutationsGenes.length}`);
-    let mutations__genes = '';
-    mutationsGenes.map((gene)=>{ mutations__genes += `&mutations__gene=${gene.entrezgene}`});
-    return mutations__genes;
+    let mutationsGenesParams = '';
+    mutationsGenes.map((gene)=>{ mutationsGenesParams += `&mutations__gene=${gene.entrezgene}`});
+    return mutationsGenesParams;
   }  
 
 
@@ -122,7 +128,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
    */
   DiseaseModel.prototype.getAggregates = function(mutationsGenes) {
     $log.log('getAggregates:');
-    let _model = this;
+    
     let dfd = $q.defer();
 
     // each method returns a promise 
