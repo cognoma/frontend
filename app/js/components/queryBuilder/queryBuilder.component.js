@@ -26,12 +26,14 @@ const QueryBuilderComponent = {
                     MutationsService, 
                     DiseaseService, 
                     ProgressIndicatorBarService, 
-                    $log) {
+                    $log
+                    ) {
 
             	     'ngInject';
 
                    let vm = this;
                   
+                    
 
                    $log = $log.getInstance('QueryBuilderComponent', true);
                    $log.log('');
@@ -39,7 +41,7 @@ const QueryBuilderComponent = {
                    const progessStateName = vm.currentState() == 'mutations' ? 'genes' : 'samples';
 
                    vm.$onInit = ()=>{
-
+                      
                         
                         // get the progress bar controller 
                         // and attach it to the local scope
@@ -145,8 +147,9 @@ const QueryBuilderComponent = {
                    * @return {Void}
                    */
                     vm.clearSet =setType=>{
-                        vm[`${setType.setType}Set`] = [];
+                        
                         _removeReviewIndicator();
+                        return vm[`${setType.setType}Set`] = [];
                     }
 
                   
@@ -242,7 +245,7 @@ const QueryBuilderComponent = {
                     ];
 
 
-                   vm[`${paramData.paramType}Set`] = currentSet;
+                    vm[`${paramData.paramType}Set`] = currentSet;
 
                      vm._updateDieseasListingsCounts();
                     _removeReviewIndicator();
@@ -271,7 +274,7 @@ const QueryBuilderComponent = {
 
                             diseaseModel
                                 .getAggregates(vm.mutationsSet)
-                                .then(function(data) {
+                                .then(function() {
                                     diseaseModel.mutationsLoading = false;
                                 });
                         

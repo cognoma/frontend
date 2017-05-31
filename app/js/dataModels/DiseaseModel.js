@@ -4,8 +4,8 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
   $log = $log.getInstance('DiseaseModel', false);
   $log.log('');
 
-  // const API_BASE = `${AppSettings.api.baseUrl}`;
-  const API_BASE = `http://localhost\:8080`;
+  const API_BASE = `${AppSettings.api.baseUrl}`;
+  
 
    /**
    * Model constructor and initialization
