@@ -1,8 +1,12 @@
 $prgs_bar_speed: .5s;
 
 #prgs-indct-bar{
+	width: 100%;
 	display: block;
-	position: relative;
+	position: fixed;
+	bottom:0;
+	left:0;
+	z-index: 20000;
 	height: 60px;
 	background: $black;
 }

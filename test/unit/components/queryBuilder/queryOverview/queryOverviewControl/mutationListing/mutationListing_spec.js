@@ -37,7 +37,7 @@ describe('UNIT::component: mutationListing:', () => {
         	   <mutation-listing                
                 ng-repeat="mutation in mutationsList"
                 entrezgene="mutation.entrezgene"
-                symbol="{{mutation.symbol}}"
+                symbol="mutation.symbol"
               ></mutation-listing>
             </div>
         `);
@@ -94,7 +94,7 @@ describe('UNIT::component: mutationListing:', () => {
     });
 
 
-  describe('event emitters:',()=>{
+  xdescribe('event emitters:',()=>{
 
     it('removeMutation() fires mutationSet:remove:mutation event ', ()=>{
        parentScope.mutationsList =[

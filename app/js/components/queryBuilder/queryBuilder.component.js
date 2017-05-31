@@ -2,239 +2,285 @@ const template = require('./queryBuilder.tpl.html');
 
 const QueryBuilderComponent = {
     template,
-    bindings: {},
+    bindings: {
+      'mutationsSet': '=',
+      'diseaseSet':   '=',
+    },
     controller: ['$scope',
                  '$rootScope',
                  '_',
                  'DiseaseModel',
                  '$state',
-                 '$q',
                  '$timeout',
                  'MutationsService',
                  'DiseaseService',
+                 'ProgressIndicatorBarService',
                  '$log',
-                 function($scope, $rootScope, _, DiseaseModel, $state,$q, $timeout, MutationsService, DiseaseService, $log) {
+                 function(
+                    $scope, 
+                    $rootScope, 
+                    _, 
+                    DiseaseModel, 
+                    $state,
+                    $timeout, 
+                    MutationsService, 
+                    DiseaseService, 
+                    ProgressIndicatorBarService, 
+                    $log) {
+
             	     'ngInject';
+
                    let vm = this;
-                   
+                  
+
                    $log = $log.getInstance('QueryBuilderComponent', true);
                    $log.log('');
-                   
-
-            	     this.diseaseList = [];
-            	     this.mutationList = [];
-                   this.progressIndicators = [
-                    {
-                      title:'Search Genes',  
-                      state:'app.queryBuilder.mutations' , 
-                      icon:'', 
-                      active:true,
-                      type: 'icon'
-                    },
-                    {
-                      title:'Add Genes',     
-                      state:'app.queryBuilder.mutations' , 
-                      icon:'', 
-                      active:false,
-                      type:'icon'
-                    },
-                    {
-                      title:'Search Samples',
-                      state:'app.queryBuilder.disease' ,   
-                      icon:'', 
-                      active:false,
-                      type:'icon'
-                    },
-                    {
-                      title:'Add Samples',  
-                      state:'app.queryBuilder.disease' ,   
-                      icon:'', 
-                      active:false ,
-                      type:'icon'
-                    }
-                   ];
-
                    vm.currentState = ()=>$state.current.name.split('.')[2];
+                   const progessStateName = vm.currentState() == 'mutations' ? 'genes' : 'samples';
 
-                   vm.searchResults = [];
+                   vm.$onInit = ()=>{
+
+                        
+                        // get the progress bar controller 
+                        // and attach it to the local scope
+                        ProgressIndicatorBarService
+                            .get('queryBuilderProgress')
+                            .then(progressBarInstance=>{ 
+                              vm.progressBar = progressBarInstance;
+                              vm.progressBar.goTo(`Search ${progessStateName}`);
+                            });
+
+                   }
 
                    
-                  /* =======================================================================
-                      query progress bar: hooks
-                  ========================================================================== */
-                   $rootScope.$on('PIB:queryBuilderProgress:onInit',(event,data)=>{
-                    vm.progressBar = data.pib;
-                   });
 
-                   $rootScope.$on('PIB:queryBuilderProgress:goTo', (event,data)=>{
+                    
 
-                      let reviewIndicator = {
-                            title:'Review Query',  
-                            state:'app.queryBuilder.disease' ,   
-                            icon:'', 
-                            active:false,
-                            type:'button'
-                          };
+                    /* =======================================================================
+                      Progress Indicator Bar 
+                    ========================================================================== */
 
-                      let reviewIndicator_exist = _.findWhere(vm.progressIndicators, {title: reviewIndicator.title}) != undefined;
+                   // define the steps for the query builder 
+                        vm.progressIndicators = [
+                            {
+                              title:  'Search Genes',  
+                              state:  'app.queryBuilder.mutations' , 
+                              icon:   '', 
+                              active: true,
+                              type:   'icon'
+                            },
+                            {
+                              title:  'Add Genes',     
+                              state:  'app.queryBuilder.mutations' , 
+                              icon:   '', 
+                              active: false,
+                              type:   'icon'
+                            },
+                            {
+                              title:  'Search Samples',
+                              state:  'app.queryBuilder.disease' ,   
+                              icon:   '', 
+                              active: false,
+                              type:   'icon'
+                            },
+                            {
+                              title:  'Add Samples',  
+                              state:  'app.queryBuilder.disease' ,   
+                              icon:   '', 
+                              active: false ,
+                              type:   'icon'
+                            }
+                        ];
 
-                      if(
-                        !reviewIndicator_exist &&
-                        data.hookData.title == 'Add Samples' && 
-                        (vm.diseaseList.length && vm.mutationList.length)
+                        // define the 'Review Query' button to be added  
+                        let reviewIndicator = {
+                             title:  'Review Query',  
+                             state:  'app.queryBuilder.disease' ,   
+                             icon:   '', 
+                             active: false,
+                             type:   'button'
+                         };
 
-                        ){
 
-                        data.pib.steps.push(reviewIndicator);
-                      }else if(
-                        reviewIndicator_exist &&
-                        (vm.diseaseList.length == 0 || vm.mutationList.length == 0)
-                      ){
-                        data.pib.steps.pop();
-                      }
+                   
+                    /**
+                     * Add the "Review Query" Button to the Progress Bar 
+                     * if it's not already added 
+                     */
+                    let _showReviewIndicator = () =>{
+                      let reviewIndicatorAdded = _.findWhere(vm.progressIndicators, {title: reviewIndicator.title}) != undefined;
+                      if((vm.mutationsSet.length && vm.diseaseSet.length) && !reviewIndicatorAdded){
+                        vm.progressIndicators.push(reviewIndicator);
+                        vm.progressBar.goTo(reviewIndicator, false);
+                      } 
+                    }
 
-                   });
-                  
+
+
+
+                    /**
+                     * Remove the "Review Query" button from the progress bar 
+                     */
+                    let _removeReviewIndicator = ()=>{
+                      
+                       let reviewIndicatorIndex =  _.findIndex(vm.progressIndicators,  reviewIndicator);
+
+                       if((!vm.mutationsSet.length || !vm.diseaseSet.length) && reviewIndicatorIndex >= 0 ){
+                        vm.progressIndicators = [
+                          ...vm.progressIndicators.slice(0, reviewIndicatorIndex)
+                        ];
+                       } 
+                    };
+                    
+
+                   
 
                    /* =======================================================================
                       querySets: list operations
                     ========================================================================== */
-                   // pushes search result to querySet
-                   vm._pushResultToSetBy = (params)=>{  
-                    let resultIdx = _.indexOf(_.pluck(vm.searchResults, params.param), params.result[params.param]);
-                    vm.searchResults.splice(resultIdx,1);
-                  };
 
-                  // clear the querySet 
-                  vm._clearSet = (set)=>{ this[`${set}List`] = []; };
+                  /**
+                   * @param  {String} setType - type of query set to manipulate 
+                   * 
+                   * @return {Void}
+                   */
+                    vm.clearSet =setType=>{
+                        vm[`${setType.setType}Set`] = [];
+                        _removeReviewIndicator();
+                    }
 
-                  // checks if set has been soreted by given params
-                  vm.setIsSorted = (list, sortedList, sortedOn)=>{
+                  
+                  /**
+                   * Checks if set has been sorted by given params
+                   * @param  {Array}
+                   * @param  {Array}
+                   * @param  {String}
+                   * 
+                   * @return {Boolean}
+                   */
+                  let _setIsSorted = (list, sortedList, sortedOn)=>{
                       return _.isEqual(
                                   _.pluck(list, sortedOn),
                                   _.pluck(sortedList, sortedOn),
                               );
                   };
 
-                  // sort list on given param 
-                  vm.sortSetOn = (list, sortOn)=>{
+                  
+                  /**
+                   * Sort a set given property
+                   * if set is already sorted returns a reversed sorted set 
+                   * if is NOT already sorted returns a sorted set 
+                   * 
+                   * @param  {Object} sortParams 
+                   *             |- {String} set - type of query set to manipulate
+                   *             |- {String} sortOn - the property to sort the array by 
+                   *             
+                   * @return {Array} - array of objects sorted by specified property  
+                   */
+                  vm.sortSetOn = (sortParams)=>{
+
+                    let list       = _.assign([], vm[`${sortParams.set}Set`]);
+                    let sortOn     = sortParams.sortOn;
                     let sortedList = _.sortBy(list, sortOn);
-                    return (vm.setIsSorted(list, sortedList, sortOn) ? list.reverse() : sortedList);
+
+                    vm[`${sortParams.set}Set`] = (_setIsSorted(list, sortedList, sortOn) ? list.reverse() : sortedList);
+                    return (_setIsSorted(list, sortedList, sortOn) ? list.reverse() : sortedList);
                   };
             
                   
 
-                /* =======================================================================
-                  querySetMutations: Event Handlers 
-                  events are namspaced into "component:action:item"
-                ========================================================================== */
-                $rootScope.$on('mutationSet:add', (e,mutation)=>{
-                    this.mutationList.push(mutation);      
-                    vm._pushResultToSetBy({result: mutation, set:this.mutationList, param: '_id'});
-                    if(this.diseaseList.length) vm._updateDL_mutationData();
-                });
 
+                /**
+                 * @param  {Object} queryParam - mutation or DiseaseModel   
+                 * @return {Array | false} Array of objects if queryParam is added, 
+                 *                         false if it already exists in set
+                 */
+                vm.addParamToQuery = queryParamData=>{
 
-                $rootScope.$on('mutationSet:clear', ()=>{ vm._clearSet('mutation'); });
+                  let paramSet        = _.assign([], vm[`${vm.currentState()}Set`]),
+                      queryParam      = queryParamData,
+                      queryParamInSet = _.findWhere(paramSet, queryParam);
 
+                    $log.log(`:${vm.currentState()}Set`);
 
-                $rootScope.$on('mutationSet:remove:mutation', (e, mutation)=>{
-                    let mutationIndex = _.indexOf(_.pluck(this.mutationList, 'entrezgene'), mutation.entrezgene);
-                    this.mutationList.splice(mutationIndex, 1);
-                    if(this.diseaseList.length) vm._updateDL_mutationData();
-                });
+                    if(queryParamInSet == undefined){
+                      paramSet.push(queryParam);
+                      vm[`${vm.currentState()}Set`] = paramSet;
 
+                      vm._updateDieseasListingsCounts();
 
-                $rootScope.$on('mutationSet:sort', (e, data)=>{
-                    this.mutationList = vm.sortSetOn(this.mutationList, data.sortOn );
-                });
+                      if(vm[`${vm.currentState()}Set`].length > 3) vm.progressBar.advance(false);
+                      _showReviewIndicator();
 
+                      return vm[`${vm.currentState()}Set`];
+                    }
 
-                /* =======================================================================
-                  querySetDiseaseType: Event Handlers 
-                  events are namspaced into "component:action:item"
-                ========================================================================== */
-                $rootScope.$on('diseaseSet:clear', (e,disease)=>{ vm._clearSet('disease'); });
-
-                $rootScope.$on('diseaseSet:add', (e,disease)=>{
-                    this.diseaseList.push(disease);
-                    if(this.mutationList.length)
-                    vm._pushResultToSetBy({result: disease, set:this.diseaseList, param: 'acronym'});
-                });
-
-                $rootScope.$on('diseaseSet:sort', (e, data)=>{
-                    this.diseaseList = vm.sortSetOn(this.diseaseList, data.sortOn );
-                });
-
-                $rootScope.$on('diseaseSet:remove:disease', (e, disease)=>{
-                    let dIndex = _.indexOf(_.pluck(this.diseaseList, 'acronym'), disease.name);
-                    this.diseaseList.splice(dIndex, 1);
-                });
-
-
-                // update the positives and negatives count 
-                // for each disease listing 
-                vm._updateDL_mutationData = ()=>{
-                    this.diseaseList.map(diseaseModel=>{
-                        diseaseModel.mutationsLoading = true;
-
-                        // mock server delay 
-                        $timeout(()=>{
-                          diseaseModel.getAggregates(this.mutationList)
-                                    .then(function(updatedModel) {
-                                      diseaseModel.mutationsLoading = false;
-                                    });
-                        }, 250);//END $timeout
-
-                    });//END this.diseaseList.map
-
-                }//END vm._updateDL_mutationData 
-
-
-
-
-                /* =======================================================================
-                  queryParamSelector Events
-                ========================================================================== */
-                // TODO: make angular search service to abstract search functionality
-                const searchServices = {
-                    'mutations': MutationsService,
-                    'disease':   DiseaseService
+                    return false;
                 };
 
-                // ON USER SEARCH INPUT from queryParamSelector component
-                // this event is passed up through a callback chain 
-                // instead of handled with rootscope events 
-                this.onInputChange = (searchQuery)=>{
-                    $log.info(`query: ${searchQuery}`);
-                    let progressState = vm.currentState() == 'mutations' ? 'Genes' : 'Samples';
 
-                      if(searchQuery.length == 0 ){
-                          vm.searchResults = [];
-                          vm.progressBar.goTo(`Search ${progressState}`);
-                      }else{
 
-                        // pass along the user input query and selected mutations list 
-                        // to the appropriate service 
-                        searchServices[vm.currentState()]
-                          .query(searchQuery, {source: 'DB'}, this.mutationList)
-                          .then(response=>{
 
-                            vm.progressBar.goTo(`Add ${progressState}`);
+                /**
+                 * @param  {Obejct} paramData 
+                 *              | - {String} paramType - type of query set to manipulate 
+                 *              | - {String | Number} id - specific identifier for item to remove from query set 
+                 *              | - {String} paramRef - property of object to search the query set by, should be the property type of the id 
+                 *              
+                 * @return {Array} - return the new array for testing 
+                 */
+                vm.removeParamFromQuery = (paramData)=>{
+                    $log.log(`removeParamFromQuery:${paramData.paramType} - ${paramData.id} ref by ${paramData.paramRef}`); 
+                    let currentSet = _.assign([],vm[`${paramData.paramType}Set`]);
 
-                            // make sure we update the views 
-                            $scope.$apply(()=>{
-                              vm.searchResults = response; 
-                            });
+                    let setIndex = _.indexOf(_.pluck(currentSet, paramData.paramRef), paramData.id);
+                    $log.log(`removeParamFromQuery:setIndex:${setIndex}`);
 
-                          });//END searchServices[vm.currentState()]
+                    currentSet = [
+                      ...currentSet.slice(0, setIndex), 
+                      ...currentSet.slice(setIndex + 1)
+                    ];
 
-                      }
-                      
+
+                   vm[`${paramData.paramType}Set`] = currentSet;
+
+                     vm._updateDieseasListingsCounts();
+                    _removeReviewIndicator();
+
+                    return vm[`${paramData.paramType}Set`];
+                }
+
+
+
+
+
+    
+                /**
+                 * Update the positives and negatives count for each disease listing 
+                 * using the DiseaseModel to calculate a new set of aggregate values
+                 * based on the current user selected query param. sets
+                 * 
+                 * @return {Void}
+                 */
+                vm._updateDieseasListingsCounts = ()=>{
+
+                    if(vm.diseaseSet.length){
+
+                        vm.diseaseSet.map(diseaseModel=>{
+                            diseaseModel.mutationsLoading = true;
+
+                            diseaseModel
+                                .getAggregates(vm.mutationsSet)
+                                .then(function(data) {
+                                    diseaseModel.mutationsLoading = false;
+                                });
                         
-                };///END this.onInputChange
+                        });//END vm.diseaseSet.map
 
-                
+                    }//end if
+                    
+                }//_updateDieseasListingsCounts
+
 
                 
             }]
