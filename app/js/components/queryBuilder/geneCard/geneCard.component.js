@@ -12,7 +12,7 @@ const GeneCardComponent = {
     controller: ['$log',function($log) {
           'ngInject';
           $log = $log.getInstance('GeneCardComponent', false);
-          $log.log(`${this.name}`);
+          // $log.log(`${this.entrezId}`);
           
           this.link = 'link';
           

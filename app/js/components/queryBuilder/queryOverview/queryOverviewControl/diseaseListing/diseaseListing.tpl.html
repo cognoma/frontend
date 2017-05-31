@@ -27,7 +27,8 @@
   	<button 
         class="glyphicon glyphicon-remove-circle text-danger col-lg-1" 
         aria-hidden="true"
-        ng-click="$ctrl.removeDisease($ctrl)">
+        ng-click="$ctrl.onRemoveParam({id: $ctrl.name, paramRef:'name', paramType:'disease'})"
+    >
   </button>
 
  </div>	  		

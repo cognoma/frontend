@@ -2,26 +2,27 @@ const template = require('./queryOverviewControl.tpl.html');
 
 const QueryOverviewControlComponent = {
     template,
-    bindings: {
-    	title:    '@',
-        setTitle: '@',
-        desc:     '@',
-        listType: '@',
-        paramList:'='
+    bindings: {   
+    	'title':       '@',
+        'setTitle':    '@',
+        'desc':        '@',
+        'listType':    '@',
+        'paramList':   '<',
+        'removeParam': '&'
     },
-    controller: ['$rootScope','$state','$log',function ($rootScope, $state, $log) {
+    controller: ['$state','$log',function ($state, $log) {
         'ngInject';
 
-        $log = $log.getInstance('QueryOverviewControlComponent', true);
-        $log.log('');
-
+        $log = $log.getInstance('QueryOverviewControlComponent', false);
+        
+        
         let vm = this;
 
-        vm.active = $state.current.name.includes(vm.listType);
+        vm.$onInit = ()=>{
+            $log.log(vm.title);
+            vm.active = $state.current.name.includes(vm.listType);
+        }
 
-        this.clearSet = ()=>$rootScope.$emit('mutationSet:clear');
-
-        this.resetSearch = ()=>$rootScope.$emit('paramSearch:reset');
 
 
     }]

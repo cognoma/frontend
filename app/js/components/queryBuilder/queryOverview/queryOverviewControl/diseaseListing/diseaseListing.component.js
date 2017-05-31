@@ -3,18 +3,25 @@ const template = require('./diseaseListing.tpl.html');
 const diseaseListingComponent = {
     template,
     bindings: {
-        name:        '@',
-        positives:   '=',
-        negatives:   '=',
-        samples:     '=',
-        'isLoading': '<'
+        'name':          '@',
+        'positives':     '=',
+        'negatives':     '=',
+        'samples':       '=',
+        'isLoading':     '<',
+        'onRemoveParam': '&'
     },
     controller: ['$rootScope','$log',function ($rootScope, $log) {
             'ngInject';
             $log = $log.getInstance('diseaseListingComponent', true);
-            $log.log(`${this.name}:`);
 
-            this.removeDisease = disease=>$rootScope.$emit('diseaseSet:remove:disease', disease);
+            this.$onInit = ()=>{
+                $log.log(`${this.name}:`);    
+            }
+
+            
+
+            
+
         }]
 }
 

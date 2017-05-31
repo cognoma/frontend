@@ -5,15 +5,16 @@
   <div class="list-controls">
     <div class="col-xs-10">
       <span>SELECTED DISEASE TYPES</span>
+
       <span
         class="glyphicon glyphicon-sort"
-        ng-click="$ctrl.sortSetBy('positives')"
+        ng-click="$ctrl.sortSet({set:'disease',sortOn:'positives'})"
       >
         </span>
     </div>
     <div class="col-xs-2">
       <button class="label clear-button disease-clear-button"
-            ng-click="$ctrl.clearDiseaseSet()">CLEAR</button>
+            ng-click="$ctrl.clearSet({setType:'disease'})">CLEAR</button>
     </div>
   </div>
 
@@ -34,7 +35,7 @@
 
   <div
     class="row"
-    ng-repeat="disease in $ctrl.diseaseSet track by $index"
+    ng-repeat="disease in $ctrl.diseaseSet | orderBy : 'positives' : true"
     ng-if="$ctrl.diseaseSet.length"
   >
     <disease-card

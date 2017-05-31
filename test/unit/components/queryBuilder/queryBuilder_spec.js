@@ -5,24 +5,73 @@ describe('UNIT::component: queryBuilder:', () => {
   let mutationListings;
   let diseaseListings;
   var $componentController;
-  
+  let ctrl;  
 
   function findIn(element, selector) {
   	return angular.element(element[0].querySelector(selector));
    }
 
+   
 
    //load templates from $templateCache
   beforeEach(angular.mock.module('app'));
   beforeEach(angular.mock.module('app.components'));
+
+
   beforeEach(inject(function(_$componentController_) {
     $componentController = _$componentController_;
   }));
+
   beforeEach(inject(($compile, $rootScope) => {
       
         parentScope = $rootScope.$new();
+
+        parentScope.mutations =[
+          {
+            '_id':        '4331',
+            '_score':     17.74919,
+            'entrezgene': 4331,
+            'name':       'MNAT1, CDK activating kinase assembly factor',
+            'symbol':     'MNAT1',
+            'taxid':      9606
+          }
+        ];
+
+      parentScope.diseaes =[
+          {
+            'acronym':          'ACC',
+            'name':             'adrenocortical cancer',
+            'positives':        20,
+            'samples':          [],
+            'mutationsLoading': false
+          },
+          {
+            'acronym':          'BLCA',
+            'name':             'bladder urothelial carcinoma',
+            'positives':        11,
+            'samples':          [],
+            'mutationsLoading': false
+          },
+           {
+              'acronym':          'CHOL',
+              'name':             'cholangiocarcinoma',
+              'positives':        33,
+              'samples':          [],
+              'mutationsLoading': false
+            }
+      
+        ];
+
+        ctrl = $componentController('queryBuilder', {scope:parentScope}, {mutationsSet: parentScope.mutations, diseaseSet: parentScope.diseaes, currentState: ()=>"mutations"});
+
+
         element = angular.element(`
-            <query-builder id="test-query-builder" class="row"/>
+            <query-builder 
+                id="test-query-builder" 
+                class="row"
+                mutations-set="mutations"
+                disease-set="diseases"
+            />
         `);
         $compile(element)(parentScope);      
         parentScope.$digest();
@@ -31,18 +80,39 @@ describe('UNIT::component: queryBuilder:', () => {
     }));
     
 
-    it('should call the `onChange` binding, on  queryParamSelector search onInputChange', function() {
-      var onInputChangeSpy = jasmine.createSpy('onInputChange');
-      var bindings = { onChange: onInputChangeSpy};
-      var ctrl = $componentController('queryBuilder', null, bindings);
-      
-      ctrl.onChange('foo');
-      expect(onInputChangeSpy).toHaveBeenCalledWith('foo');
+    it('should two-way bind the mutationsSet binding',()=>{
+
+
+        expect(ctrl.mutationsSet).toEqual(parentScope.mutations);
+        // ctrl.addParamToQuery( 
+        //   {
+        //     '_id': '143384',
+        //     '_score': 0.94585234,
+        //     'entrezgene': 143384,
+        //     'name': 'CDK2 associated cullin domain 1',
+        //     'symbol': 'CACUL1',
+        //     'taxid': 9606
+        //   }
+        //   );
+
+        
+
+        expect(parentScope.mutations).toEqual(ctrl.mutationsSet);
+
+        // console.log(ctrl.currentState());
+        // expect(ctrl.mutationsSet).toEqual(parentScope.mutations);
+
+    });
+
+
+
+    xit('clearSet: should clear all items from specified array',()=>{
+
     });
 
   
 
-    describe('MutationSet Event Handlers:',()=>{
+    xdescribe('MutationSet Event Handlers:',()=>{
       let ctrl, mock_mutations;
       beforeEach(()=>{
         ctrl = $componentController('queryBuilder', null);
@@ -124,32 +194,43 @@ describe('UNIT::component: queryBuilder:', () => {
 
 
 
-    describe('DiseaseSet Event Handlers:',()=>{
-      let ctrl, mock_diseaess;
+    xdescribe('DiseaseSet Event Handlers:',()=>{
+      let ctrl, mock_diseaess, mock_mutations;
 
       beforeEach(()=>{
         ctrl = $componentController('queryBuilder', null);
 
+        mock_mutations =[
+          {
+            '_id':        '4331',
+            '_score':     17.74919,
+            'entrezgene': 4331,
+            'name':       'MNAT1, CDK activating kinase assembly factor',
+            'symbol':     'MNAT1',
+            'taxid':      9606
+          }
+        ];
+
       mock_diseaess =[
           {
-            'acronym': 'ACC',
-            'name': 'adrenocortical cancer',
-            'positives': 20,
-            'samples':[],
+            'acronym':          'ACC',
+            'name':             'adrenocortical cancer',
+            'positives':        20,
+            'samples':          [],
             'mutationsLoading': false
           },
           {
-            'acronym': 'BLCA',
-            'name': 'bladder urothelial carcinoma',
-            'positives': 11,
-            'samples':[],
+            'acronym':          'BLCA',
+            'name':             'bladder urothelial carcinoma',
+            'positives':        11,
+            'samples':          [],
             'mutationsLoading': false
           },
            {
-              'acronym': 'CHOL',
-              'name': 'cholangiocarcinoma',
-              'positives': 33,
-              'samples':[],
+              'acronym':          'CHOL',
+              'name':             'cholangiocarcinoma',
+              'positives':        33,
+              'samples':          [],
               'mutationsLoading': false
             }
       
@@ -158,14 +239,14 @@ describe('UNIT::component: queryBuilder:', () => {
       });
 
   
-      it('handles DiseaseSet:add event', () => {
+      xit('handles DiseaseSet:add event', () => {
         
         spyOn(ctrl, '_pushResultToSetBy');
         
         parentScope.$emit('diseaseSet:add', mock_diseaess[0]);
-        // parentScope.$digest();
-        expect(ctrl._pushResultToSetBy).toHaveBeenCalled();
-        expect(ctrl._pushResultToSetBy).toHaveBeenCalledWith({result: mock_diseaess[0], set:ctrl.diseaseList, param: 'acronym'});
+        
+        // make sure the user has mutations selected before they can select diseases
+        // if(mock_mutations.length) expect(ctrl._pushResultToSetBy).toHaveBeenCalledWith({result: mock_diseaess[0], set:ctrl.diseaseList, param: 'acronym'});
 
         expect(ctrl.diseaseList.length).toEqual(1);
         expect(ctrl.diseaseList[0].name).toEqual('adrenocortical cancer');
@@ -173,7 +254,7 @@ describe('UNIT::component: queryBuilder:', () => {
 
 
 
-      it('handles disaseSet:remove:disease event', () => {
+      xit('handles disaseSet:remove:disease event', () => {
         ctrl.diseaseList = mock_diseaess;  
         // remove second disease from list 
         // mock the diseaseListing comonent structure

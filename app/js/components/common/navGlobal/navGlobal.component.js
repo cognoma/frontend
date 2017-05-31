@@ -4,7 +4,7 @@ const NavGlobalComponent = {
     template,
     controller: ['$log',function ($log) {
         	'ngInject';
-        	$log = $log.getInstance('NavGlobalComponent', true);
+        	$log = $log.getInstance('NavGlobalComponent', false);
         	$log.log('');
         }]
 }

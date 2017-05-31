@@ -13,7 +13,7 @@ import 'angular-animate';
 import 'angular-resource';
 import './components';
 import 'angular-ui-router';
-import 'ui-router-route-to-components';
+// import 'ui-router-route-to-components';
 import 'angular-ui-bootstrap';
 import './filters';
 import './directives';
@@ -31,7 +31,7 @@ underscore.factory('_', ()=>{ return _;});
 
 // create and bootstrap application
 const requires = [
-  'ui.router.components',
+  // 'ui.router.components',
   'ui.router',
   'ui.bootstrap',
   'ngAnimate',

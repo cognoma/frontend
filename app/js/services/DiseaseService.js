@@ -1,21 +1,22 @@
 function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFilter, _, $localStorage) {
   'ngInject';
 
-  $log = $log.getInstance('DiseaseService', true);
+  $log = $log.getInstance('DiseaseService', false);
   $log.log('');
 
+  const DISEASE_ENDPOINT = `${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`;
+  
 
-  const DISEASES_RESOURCE = $resource(`${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`,{},{
-    query:  {isArray:false}
-  });
+  const DISEASES_RESOURCE = $resource(DISEASE_ENDPOINT,{},{ query:  {isArray:false} });
 
   const service = {};
-
-  let localDiseases = sessionStorage.diseases;
+ 
 
   // converts raw server response to array Diesease Model promises
   // all models will be populated when resolved
-  let _responseTransformer = (serverResponse, mutationsGenes)=>serverResponse.map((diseaseResponse, idx)=>new DiseaseModel(diseaseResponse, mutationsGenes));
+  let _responseTransformer = (serverResponse, mutationsGenes)=>{
+    return serverResponse.map((diseaseResponse)=>new DiseaseModel(diseaseResponse, mutationsGenes));
+  }
 
 
   /**
@@ -24,37 +25,46 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
    *
    * @param { String } searchQuery  -  query string passed from user input in QueryBuilder::onInputChange
    * @param { Object } dataSource  -   where to retrieve results from
-   * @param { Array } mutationsGenes  -   array of gene entrezid, usually from queryBuilder user selected genes
+   * @param { Array } mutationsGenes  -  array of gene entrezid, usually from queryBuilder user selected genes
    *
    * @return {Array} filtered array of DieseasModels
    */
-  service.query = (searchQuery, dataSource = "local", mutationsGenes)=>{
+  service.query = (searchQuery, mutationsGenes)=>{
     let diseasePromise;
-
+    
     $log.log(`query:${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`);
 
-    // filter results in the service to simply logic in the templates
-    let _filtered_local_results = (searchQuery)=>filterFilter(angular.fromJson(localDiseases).results, searchQuery);
-
-
+    
     if ($localStorage.diseaseData) {
-      diseasePromise = Promise.resolve($localStorage.diseaseData);
+      $log.log('fetch disease data from localStorage')
+      if(!$localStorage.diseaseData.count) reject(`No Diseae Types found matching: "${searchQuery}"`);
+      diseasePromise =  Promise.resolve($localStorage.diseaseData);
+
     } else {
+
       diseasePromise = new Promise((resolve, reject)=>{
-        DISEASES_RESOURCE.query((diseaseReponse) => {
-          $localStorage.diseaseData = _.assign({}, diseaseReponse);
-          resolve(diseaseReponse);
+
+        $log.log('fetch disease data from localStorage');
+
+        DISEASES_RESOURCE.query((data) => {
+          if(!diseaseResponse.count) reject(`No Diseae Types found matching: "${searchQuery}"`);
+          $localStorage.diseaseData = _.assign({}, data);
+          resolve(data);
         });
+
       });
+
     }
 
+
+
     return diseasePromise
-      .then(diseaseResponse => {
-        $log.log(':fromDB to localDiseases');
-        let filteredResults = filterFilter(diseaseResponse.results, searchQuery)
-        // wait for all models to be populated before resolving
-        return $q.all( _responseTransformer(filteredResults, mutationsGenes) );
-    });
+              .then(diseaseResponse => {
+                  let filteredResults = filterFilter(diseaseResponse.results, searchQuery);
+                  $log.log(`${filteredResults.length} filtered results found, building DiseaseModels ...`);
+                  // wait for all models to be populated before resolving
+                  return $q.all( _responseTransformer(filteredResults, mutationsGenes) );
+              });
 
 
   };//END service.query

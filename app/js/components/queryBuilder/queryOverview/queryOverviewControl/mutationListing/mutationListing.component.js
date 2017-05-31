@@ -2,17 +2,22 @@ const template = require('./mutationListing.tpl.html');
 
 const mutationListingComponent = {
     template,
+    
     bindings: {
-        'symbol':     '@',
-        'entrezgene': '<'
+        'symbol':        '<',
+        'entrezgene':    '<',
+        'onRemoveParam': '&'
     },
     controller: ['$rootScope','$log',function($rootScope, $log){
             'ngInject';
+             
+             const vm = this;
 
-             $log = $log.getInstance('mutationListingComponent', true);
-             $log.log(`${this.symbol}:`);
-
-            this.removeMutation = $id=>$rootScope.$emit('mutationSet:remove:mutation', {entrezgene: $id});
+             vm.$onInit = ()=>{
+                $log = $log.getInstance('mutationListingComponent', true);
+                $log.log(`${this.symbol}:`);   
+             }
+             
 
         }]
 }
