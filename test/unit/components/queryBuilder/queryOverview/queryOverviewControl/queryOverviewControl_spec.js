@@ -31,12 +31,9 @@ var $_locationProvider,
     beforeEach(inject(($compile, $rootScope) => {
       $_rootScope = $rootScope;
       parentScope = $rootScope.$new();
+      parentScope.removeParam = jasmine.createSpy('removeParam');
 
-    	parentScope.title = 'Mutations';
-      parentScope.setTitle = 'Gene Set';
-      parentScope.desc = 'Lorem ipsum dolor sit amet';
-      parentScope.listType = 'mutations';
-
+    	
       parentScope.mutationsList = [
             {
             '_id':        '4331',
@@ -51,14 +48,13 @@ var $_locationProvider,
 
         element = angular.element(`
             <query-overview-control
-                id="#test-overviewCtrl"
-                title="{{title}}"
-                set-title="{{setTitle}}"
-                desc="{{desc}}"
-                list-type="{{listType}}"
+                title="Genes"
+                desc="classify samples by their mutation status in selected genes"
+                list-type="mutations"
                 param-list="mutationsList"
-            >
-            </query-overview-control>
+                remove-param="removeParam({id, paramRef, paramType})"
+              >
+              </query-overview-control>
         `);
 
         var chlidScope = element.find('#test-overviewCtrl').scope();
@@ -79,24 +75,18 @@ var $_locationProvider,
       let title_attrVal = findIn(element, '.js-test-title').text().trim();
       let titleEl = findIn(element, '.js-test-title');
         expect(titleEl).toBeDefined();
-        expect(title_attrVal).toEqual(parentScope.title + ' (1)');
+        expect(title_attrVal).toEqual("Genes (1)");
     });
 
 
-    // Attribute: set-title
-    xit('shows the set title', () => {
-      let setTitle_el = findIn(element, '.query-overview--control-setTitle');
-        expect(setTitle_el).toBeDefined();
-        expect(setTitle_el.text().trim()).toEqual(parentScope.setTitle);
-    });
-
-
+    
 
     // Attribute: description
     it('desc attr: tooltip message displays initial state value of desc', () => {
       let infoBoxMesage_attrVal = findIn(element, '.glyphicon-info-sign').attr('uib-tooltip');
-      expect(infoBoxMesage_attrVal).toEqual(parentScope.desc);
+      expect(infoBoxMesage_attrVal).toEqual("classify samples by their mutation status in selected genes");
     });
+
 
     // Attribute: param-list
     it('binds the mutationsList to param-list attr in controller', () => {
@@ -166,26 +156,16 @@ var $_locationProvider,
 
     });
 
-    xdescribe('event emmters:',()=>{
-      it('clearSet() fires mutationSet:clear event ', ()=>{
-        const mutationSetClear_spy = jasmine.createSpy('mutationSetClear_spy');
-        $_rootScope.$on('mutationSet:clear', mutationSetClear_spy);
 
-        element.isolateScope().$ctrl.clearSet();
-        expect(mutationSetClear_spy).toHaveBeenCalled();
-      });
+    it('should call "removeParam" method on parent component',()=>{
+      var ctrl = element.isolateScope().$ctrl;
 
-
-      it('resetSearch() fires paramSearch:reset event ', ()=>{
-        const resetSearch_spy = jasmine.createSpy('resetSearch_spy');
-        $_rootScope.$on('paramSearch:reset', resetSearch_spy);
-
-        element.isolateScope().$ctrl.resetSearch();
-        expect(resetSearch_spy).toHaveBeenCalled();
-      });
-
-
+      ctrl.removeParam({id: 4331, paramRef:'entrezgene', paramType:'mutations'});
+      expect(parentScope.removeParam).toHaveBeenCalledWith({id: 4331, paramRef:'entrezgene', paramType:'mutations'}); 
+      
     });
+
+    
 
 
 

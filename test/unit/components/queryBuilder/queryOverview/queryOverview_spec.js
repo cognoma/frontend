@@ -21,6 +21,9 @@ describe('UNIT::component: queryOverview:', () => {
   beforeEach(inject(($compile, $rootScope) => {
       
         parentScope = $rootScope.$new();
+
+        parentScope.removeParamFromQuery = jasmine.createSpy('removeParam');
+
         parentScope.mutationList =[
           {
             '_id': '4331',
@@ -74,7 +77,11 @@ describe('UNIT::component: queryOverview:', () => {
       
         ];
         element = angular.element(`
-            <query-overview mutations-set='mutationList' disease-set='diseaseList'/>
+            <query-overview 
+              mutations-set='mutationList' 
+              disease-set='diseaseList'
+              remove-param="removeParamFromQuery({id, paramRef,paramType})"
+            />
         `);
         $compile(element)(parentScope);      
         parentScope.$digest();
@@ -94,6 +101,8 @@ describe('UNIT::component: queryOverview:', () => {
     it('renders the proper number of diseaseListing components',()=>{
       expect(diseaseListings.length).toEqual(parentScope.diseaseList.length);
     });
+
+    
 
 
 
