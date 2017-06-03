@@ -7,7 +7,8 @@ describe('UNIT::component: diseaseListing:', () => {
 
 
   function findIn(element, selector) {
-  	return angular.element(element[0].querySelector(selector));
+    let el = element[0] ? element[0] : element;
+  	return angular.element(el.querySelector(selector));
    }
 
 
@@ -21,8 +22,10 @@ describe('UNIT::component: diseaseListing:', () => {
     beforeEach(inject(($compile, $rootScope) => {
       $_rootScope = $rootScope;
       parentScope = $rootScope.$new();
+
       parentScope.listType = 'disease';
-      parentScope.diseaseList = [
+
+      parentScope.paramList = [
         {
         'acronym': 'ACC',
         'name':    'adrenocortical cancer',
@@ -32,18 +35,24 @@ describe('UNIT::component: diseaseListing:', () => {
         'samples':[{}]
         }
       ];
+
+      parentScope.removeParam = jasmine.createSpy('onRemoveParam');
       
 
         element = angular.element(`
           <div>
+
               <disease-listing
-                ng-repeat="disease in diseaseList"
-                name="{{disease.acronym}}"
+                ng-if="listType == 'disease'"
+                ng-repeat="disease in paramList | orderBy : 'positives' : true "
+                name="{{::disease.name}}"
                 samples="disease.samples"
                 positives="disease.positives"
                 negatives="disease.negatives"
                 is-loading="disease.mutationsLoading"
+                on-remove-param="removeParam({id, paramRef,paramType})"
               ></disease-listing>
+
             </div>
         `);
         
@@ -55,12 +64,12 @@ describe('UNIT::component: diseaseListing:', () => {
     }));
     
     // Attribute: title
-    it('shows the acronym of the diesase', () => {
+    it('shows the name of the diesase', () => {
       let title_attrVal = findIn(element, '.js-test-name').text();
       let titleEl = findIn(element, '.js-test-name');
       
       expect(titleEl).toBeDefined();
-      expect(title_attrVal).toEqual(parentScope.diseaseList[0].acronym);
+      expect(title_attrVal).toEqual(parentScope.paramList[0].name);
     });
 
 
@@ -69,7 +78,7 @@ describe('UNIT::component: diseaseListing:', () => {
       let sampleCount_Val = findIn(element, '.js-test-sampleCount').text();
       
       expect(sampleCountEl).toBeDefined();
-      var sampleCount = parentScope.diseaseList[0].samples.length;
+      var sampleCount = parentScope.paramList[0].samples.length;
       expect(+sampleCount_Val).toEqual(sampleCount);
     });
 
@@ -79,7 +88,7 @@ describe('UNIT::component: diseaseListing:', () => {
       let negativesCountEl = findIn(element, '.js-test-negatives');
       let negativesCount_Val = findIn(element, '.js-test-negatives').text();
       
-      let negs = parentScope.diseaseList[0].samples.length - parentScope.diseaseList[0].positives;
+      let negs = parentScope.paramList[0].samples.length - parentScope.paramList[0].positives;
 
       expect(negativesCountEl).toBeDefined();
       expect(+negativesCount_Val).toEqual(negs);
@@ -91,12 +100,13 @@ describe('UNIT::component: diseaseListing:', () => {
       let positivesCountEl = findIn(element, '.js-test-positives');
       let positivesCount_Val = findIn(element, '.js-test-positives').text();
       expect(positivesCountEl).toBeDefined();
-      expect(+positivesCount_Val).toEqual(parentScope.diseaseList[0].positives);
+      expect(+positivesCount_Val).toEqual(parentScope.paramList[0].positives);
     });
 
    
-    it('repeats proper number of elements in paramList', () => {
-      parentScope.diesaseList =[
+    it('repeats proper number of elements in paramList in desc order by "positives"', () => {
+
+      parentScope.paramList =[
           {
             'acronym': 'ACC',
             'name':    'adrenocortical cancer',
@@ -125,25 +135,23 @@ describe('UNIT::component: diseaseListing:', () => {
  
       let diseaseListings = angular.element(element[0].querySelectorAll('disease-listing'));
       // make sure all of the listings get rendered
-      expect(diseaseListings.length).toEqual(parentScope.diseaseList.length);
+      expect(diseaseListings.length).toEqual(parentScope.paramList.length);
+
+      // test order by 'postitives' on ng-repeat
+      let secondNameAttrVal = findIn(diseaseListings[1], '.js-test-name').text();
+      expect(secondNameAttrVal).toEqual(parentScope.paramList[2].name);
 
     });
 
     
+    it('should call "removeParam" method on parent component',()=>{
+      const removeParamButton = findIn(element, '.glyphicon-remove-circle');
+      removeParamButton.triggerHandler('click');
+ 
+      expect(parentScope.removeParam).toHaveBeenCalledWith({id:'adrenocortical cancer',paramRef:'name', paramType:'disease' });
+    });
 
-    xdescribe('event emitters:',()=>{
-
-      it('removeMutation() fires diseaseSet:remove:disease event ', ()=>{
-        const diseaseSetRemove_spy = jasmine.createSpy('diseaseSetRemove_spy');
-        $_rootScope.$on('diseaseSet:remove:disease', diseaseSetRemove_spy);
-        
-        const emitEventButton = findIn(element, '.glyphicon-remove-circle');
-        emitEventButton.triggerHandler('click');
-
-        expect(diseaseSetRemove_spy).toHaveBeenCalled();
-
-      });
-  })
+    
 
 
 

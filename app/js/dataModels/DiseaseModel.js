@@ -1,7 +1,7 @@
 function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
   'ngInject';
 
-  $log = $log.getInstance('DiseaseModel', false);
+  $log = $log.getInstance('DiseaseModel', true);
   $log.log('');
 
   const API_BASE = `${AppSettings.api.baseUrl}`;
@@ -100,8 +100,9 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
   // simple math for the number of samples without a mutated gene 
   // matching the user selected genes
   DiseaseModel.prototype._setNegatives = function(){
-    $log.log(`_setNegatives:`);
+    
      this.negatives = this.positives ?  (this.samples - this.positives) : null;
+     $log.log(`_setNegatives:${this.negatives}`);
   }
 
 
@@ -124,7 +125,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
    * 
    * @param { Array } mutationsGenes  -   array of gene entrezid, queryBuilder user selected genes
    * 
-   * @return Promise - resolved with model that is fully populated with aggregate data
+   * @return {Object} Promise - resolved with model that is fully populated with aggregate data
    */
   DiseaseModel.prototype.getAggregates = function(mutationsGenes) {
     $log.log('getAggregates:');
