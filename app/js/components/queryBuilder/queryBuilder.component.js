@@ -35,7 +35,7 @@ const QueryBuilderComponent = {
                   
                     
 
-                   $log = $log.getInstance('QueryBuilderComponent', true);
+                   $log = $log.getInstance('QueryBuilderComponent', false);
                    $log.log('');
                    vm.currentState = ()=>$state.current.name.split('.')[2];
                    const progessStateName = vm.currentState() == 'mutations' ? 'genes' : 'samples';
@@ -266,6 +266,8 @@ const QueryBuilderComponent = {
                  * @return {Void}
                  */
                 vm._updateDieseasListingsCounts = ()=>{
+                    $log.log(`_updateDieseasListingsCounts`);
+                    $log.log(vm.mutationsSet)
 
                     if(vm.diseaseSet.length){
 

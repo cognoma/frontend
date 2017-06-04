@@ -4,12 +4,9 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
   $log = $log.getInstance('DiseaseService', false);
   $log.log('');
 
-  const DISEASE_ENDPOINT = `${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`;
-  
-
+  const DISEASE_ENDPOINT  = `${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`;
   const DISEASES_RESOURCE = $resource(DISEASE_ENDPOINT,{},{ query:  {isArray:false} });
-
-  const service = {};
+  const service           = {};
  
 
   // converts raw server response to array Diesease Model promises
@@ -30,46 +27,50 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
    * @return {Array} filtered array of DieseasModels
    */
   service.query = (searchQuery, mutationsGenes)=>{
-    let diseasePromise;
     
-    $log.log(`query:${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`);
-
     
-    if ($localStorage.diseaseData) {
-      $log.log('fetch disease data from localStorage')
-      if(!$localStorage.diseaseData.count) reject(`No Diseae Types found matching: "${searchQuery}"`);
-      diseasePromise =  Promise.resolve($localStorage.diseaseData);
+      $log.log(`query:${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`);
 
-    } else {
 
-      diseasePromise = new Promise((resolve, reject)=>{
+      let diseasePromise = new Promise((resolve, reject)=>{
+          
 
-        $log.log('fetch disease data from localStorage');
+        if ($localStorage.diseaseData && $localStorage.diseaseData.count) {
+          if($localStorage.diseaseData.count == 0) return  reject(`No Diseae Types found matching: "${searchQuery}"`);
+          $log.log('fetch disease data from localStorage',$localStorage.diseaseData);
+           resolve($localStorage.diseaseData); 
+        }
 
-        DISEASES_RESOURCE.query((data) => {
-          if(!diseaseResponse.count) reject(`No Diseae Types found matching: "${searchQuery}"`);
-          $localStorage.diseaseData = _.assign({}, data);
-          resolve(data);
+        $log.log('fetch disease data from DB resource');
+
+        DISEASES_RESOURCE.query((diseaseResponse) => {
+          
+          $log.log(`found ${diseaseResponse.count} disease types in DB`);
+          if(diseaseResponse.count == 0) return  reject(`No Diseae Types found matching: "${searchQuery}"`);
+
+          $localStorage.diseaseData = _.assign({}, diseaseResponse);
+          resolve(diseaseResponse);
         });
 
-      });
+      });//end diseasePromise
 
-    }
-
+    
 
 
     return diseasePromise
               .then(diseaseResponse => {
+
                   let filteredResults = filterFilter(diseaseResponse.results, searchQuery);
                   $log.log(`${filteredResults.length} filtered results found, building DiseaseModels ...`);
                   // wait for all models to be populated before resolving
                   return $q.all( _responseTransformer(filteredResults, mutationsGenes) );
-              });
-
+              }).catch(error=>{console.log(error)});
 
   };//END service.query
 
 
+
+  
 
 
   return service;

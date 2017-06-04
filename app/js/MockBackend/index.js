@@ -12,6 +12,7 @@ let MockBackend = angular.module('MockBackend', requires);
 
 function MockBackendOnRun($httpBackend, _) {
   'ngInject';
+
   /* =======================================================================
     Mutations Endpoints = /genes 
   ========================================================================== */
@@ -47,7 +48,6 @@ function MockBackendOnRun($httpBackend, _) {
       ========================================================================== */
 
 
-    $httpBackend.whenGET('http://www.cbioportal.org/webservice.do?cmd=getMutationData&genetic_profile_id=acc_tcga_mutations&gene_list=ZFPM1').passThrough();  
     
     // Query; returns all samples.
     $httpBackend.whenGET('/samples').respond(diseaseData);  
@@ -59,7 +59,10 @@ function MockBackendOnRun($httpBackend, _) {
         return sample.disease == params.id;
       });
 
-      return [200, {count: Math.floor(Math.random() * samplesList.length) }, {}];
+
+      let POSITIVES = params.mutations__gene.length ? (Math.floor(Math.random() * samplesList.length) ): 0;
+
+      return [200, {count: POSITIVES }, {}];
     });
 
 
@@ -92,7 +95,8 @@ function MockBackendOnRun($httpBackend, _) {
   });
 
 
-    
+    // Passthrough everything
+    $httpBackend.whenGET(/[\s\S]*/).passThrough();
 
 }
 

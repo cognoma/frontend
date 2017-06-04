@@ -17,7 +17,7 @@ var $_locationProvider,
   
   function findIn(element, selector) {
     let el = element[0] ? element[0] : element;
-  	return angular.element(element.querySelector(selector));
+  	return angular.element(el.querySelector(selector));
    }
 
 
@@ -100,7 +100,7 @@ var $_locationProvider,
     }));
 
     // Attribute: title
-    xit('shows the title', () => {
+    it('shows the title', () => {
       let title_attrVal = findIn(element, '.js-test-title').text().trim();
       let titleEl = findIn(element, '.js-test-title');
         expect(titleEl).toBeDefined();
@@ -111,14 +111,14 @@ var $_locationProvider,
     
 
     // Attribute: description
-    xit('desc attr: tooltip message displays initial state value of desc', () => {
+    it('desc attr: tooltip message displays initial state value of desc', () => {
       let infoBoxMesage_attrVal = findIn(element, '.glyphicon-info-sign').attr('uib-tooltip');
       expect(infoBoxMesage_attrVal).toEqual("classify samples by their mutation status in selected genes");
     });
 
 
     // Attribute: param-list
-    xit('binds the mutationsList to param-list attr in controller', () => {
+    it('binds the mutationsList to param-list attr in controller', () => {
       // Here we are passing actual bindings to the component
       var ctrl = $componentController('queryOverviewControl', null, parentScope.mutationsList);
       expect(ctrl).toBeDefined();
@@ -127,7 +127,7 @@ var $_locationProvider,
 
 
     // Attribute: param-list
-    xit('renders the proper number of mutationListings components from param-list', () => {
+    it('renders the proper number of mutationListings components from param-list', () => {
       // make sure all of the listings get rendered
       parentScope.$digest();
       expect(mutationListings.length).toEqual(parentScope.mutationsList.length);
@@ -136,7 +136,7 @@ var $_locationProvider,
     });
 
 
-    xit('renders the proper number of mutationListings components from param-list value on $digest', () => {
+    it('renders the proper number of mutationListings components from param-list value on $digest', () => {
       parentScope.mutationsList = [
                                     {
                                       '_id': '4331',
@@ -174,19 +174,19 @@ var $_locationProvider,
     });
 
 
-    xit('active property set based on correct ui.state', ()=>{
-      $state.go('app.queryBuilder.mutations');
+    it('active property set based on correct ui.state', ()=>{
+      $_state.go('app.queryBuilder.mutations');
       parentScope.$digest();
        //Extract the Controller reference from compiled element
       var elementController = element.isolateScope().$ctrl;
-      elementController.active = $state.current.name.includes(elementController.listType);
+      elementController.active = $_state.current.name.includes(elementController.listType);
       // Assert
       expect(elementController.active).toBeTruthy();
 
     });
 
 
-    xit('should call "removeParam" method on parent component',()=>{
+    it('should call "removeParam" method on parent component',()=>{
       var ctrl = element.isolateScope().$ctrl;
 
       ctrl.removeParam({id: 4331, paramRef:'entrezgene', paramType:'mutations'});

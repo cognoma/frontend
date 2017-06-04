@@ -1,4 +1,4 @@
-module.exports = {
+let diseaseData = {
   'count': 33,
   'next': null,
   'previous': null,
@@ -137,3 +137,5 @@ module.exports = {
     }
   ]
 };
+
+export default diseaseData;

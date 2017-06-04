@@ -1,7 +1,7 @@
 function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
   'ngInject';
 
-  $log = $log.getInstance('DiseaseModel', true);
+  $log = $log.getInstance('DiseaseModel', false);
   $log.log('');
 
   const API_BASE = `${AppSettings.api.baseUrl}`;
@@ -62,6 +62,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
     return $http.get(SAMPLES_ENDPOINT)
                 .then(samplesResponse=>{
                     _model.samples = samplesResponse.data.count;
+                    $log.log(`_loadSamples:${samplesResponse.data.count} loaded for ${this.acronym}`);
                     return _model.samples;
           });
   }
@@ -90,7 +91,8 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
                   return _model;
                 });  
     }else{
-      return null;
+      _model.positives = 0
+      return _model;
     }
 
   }

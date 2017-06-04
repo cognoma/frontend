@@ -103,7 +103,6 @@ const QueryParamSelectorComponent = {
 
                                 $scope.$apply(()=>{
                                     if(response.length){
-                                      console.log(response);
                                       vm.searchResults = _filteredSearchResutls(response);
                                       vm.progressBar.goTo(`Add ${progessStateName}`);
                                     } else{
