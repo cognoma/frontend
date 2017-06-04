@@ -42,7 +42,7 @@ const requires = [
   'app.services',
   'app.factories',
   'app.models',
-  // 'MockBackend',
+  'MockBackend',
   'ngResource',
   'lib.underscore',
   'ngStorage',

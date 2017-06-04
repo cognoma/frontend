@@ -95,12 +95,13 @@ const QueryBuilderComponent = {
                         ];
 
                         // define the 'Review Query' button to be added  
-                        let reviewIndicator = {
-                             title:  'Review Query',  
+                        let indicatorButton = {
+                             title:  'Submit Query',  
                              state:  'app.queryBuilder.disease' ,   
                              icon:   '', 
                              active: false,
-                             type:   'button'
+                             type:   'button',
+                             action:()=>{alert();}
                          };
 
 
@@ -109,11 +110,11 @@ const QueryBuilderComponent = {
                      * Add the "Review Query" Button to the Progress Bar 
                      * if it's not already added 
                      */
-                    let _showReviewIndicator = () =>{
-                      let reviewIndicatorAdded = _.findWhere(vm.progressIndicators, {title: reviewIndicator.title}) != undefined;
-                      if((vm.mutationsSet.length && vm.diseaseSet.length) && !reviewIndicatorAdded){
-                        vm.progressIndicators.push(reviewIndicator);
-                        vm.progressBar.goTo(reviewIndicator, false);
+                    let _showIndicatorButton = () =>{
+                      let indicatorButtonAdded = _.findWhere(vm.progressIndicators, {title: indicatorButton.title}) != undefined;
+                      if((vm.mutationsSet.length && vm.diseaseSet.length) && !indicatorButtonAdded){
+                        vm.progressIndicators.push(indicatorButton);
+                        vm.progressBar.goTo(indicatorButton, false);
                       } 
                     }
 
@@ -123,13 +124,13 @@ const QueryBuilderComponent = {
                     /**
                      * Remove the "Review Query" button from the progress bar 
                      */
-                    let _removeReviewIndicator = ()=>{
+                    let _removeIndicatorButton = ()=>{
                       
-                       let reviewIndicatorIndex =  _.findIndex(vm.progressIndicators,  reviewIndicator);
+                       let indicatorButtonIndex =  _.findIndex(vm.progressIndicators,  indicatorButton);
 
-                       if((!vm.mutationsSet.length || !vm.diseaseSet.length) && reviewIndicatorIndex >= 0 ){
+                       if((!vm.mutationsSet.length || !vm.diseaseSet.length) && indicatorButtonIndex >= 0 ){
                         vm.progressIndicators = [
-                          ...vm.progressIndicators.slice(0, reviewIndicatorIndex)
+                          ...vm.progressIndicators.slice(0, indicatorButtonIndex)
                         ];
                        } 
                     };
@@ -148,7 +149,7 @@ const QueryBuilderComponent = {
                    */
                     vm.clearSet =setType=>{
                         
-                        _removeReviewIndicator();
+                        _removeIndicatorButton();
                         return vm[`${setType.setType}Set`] = [];
                     }
 
@@ -213,7 +214,7 @@ const QueryBuilderComponent = {
                       vm._updateDieseasListingsCounts();
 
                       if(vm[`${vm.currentState()}Set`].length > 3) vm.progressBar.advance(false);
-                      _showReviewIndicator();
+                      _showIndicatorButton();
 
                       return vm[`${vm.currentState()}Set`];
                     }
@@ -248,7 +249,7 @@ const QueryBuilderComponent = {
                     vm[`${paramData.paramType}Set`] = currentSet;
 
                      vm._updateDieseasListingsCounts();
-                    _removeReviewIndicator();
+                    _removeIndicatorButton();
 
                     return vm[`${paramData.paramType}Set`];
                 }

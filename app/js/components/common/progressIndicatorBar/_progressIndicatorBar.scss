@@ -8,7 +8,7 @@ $prgs_bar_speed: .5s;
 	left:0;
 	z-index: 20000;
 	height: 60px;
-	background: $white;
+	background: #eeeeee;
 }
 
 .prgs-indct-bar-line{
@@ -22,7 +22,7 @@ $prgs_bar_speed: .5s;
 	position: absolute;
 	top:35%;
 	left:50%;
-	transition: all $prgs_bar_speed ease
+	transition: all $prgs_bar_speed ease;
 }
 
 
@@ -31,7 +31,6 @@ $prgs_bar_speed: .5s;
 	display:flex;
 	margin: 0;
 	padding:0;
-
 }
 
 	.prgs-indct-bar-step{
@@ -47,7 +46,13 @@ $prgs_bar_speed: .5s;
 		text-align: center;
 		
 		&.active{
-			.icon{ border: 2px solid $green;  transform: scale(1);}
+
+			.icon{ 
+				border: 2px solid $green;  
+				transform: scale(1);
+				background: darken($green, 20%);
+			}
+
 			p{font-weight: bold; font-size: 1.25rem; color:darken($green, 10%);}
 		}
 
@@ -65,6 +70,10 @@ $prgs_bar_speed: .5s;
 			margin:0;padding:0;
 			text-transform: uppercase;
 			font-size: 1rem;
+		}
+
+		.btn{
+			text-transform: uppercase;
 		}
 	}
 

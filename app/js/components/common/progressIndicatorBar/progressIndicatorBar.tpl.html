@@ -15,7 +15,9 @@
 
 		<button 
 			ng-if="step.type == 'button'"
-			class="btn-small btn-success"
+			class=" btn btn-small btn-success"
+			ui-sref="step.state"
+			ng-click="step.action()"
 		>
 			{{ step.title}}
 		</button>
