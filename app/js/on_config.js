@@ -36,6 +36,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
                         class="row"
                         mutations-set="$ctrl.STATE.query.mutations"
                         disease-set="$ctrl.STATE.query.diseases"
+                        user="$ctrl.STATE.user"
                    />`,
       redirectTo: '/query-builder/mutations',      
     })

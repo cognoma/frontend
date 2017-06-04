@@ -3,8 +3,9 @@ const template = require('./queryBuilder.tpl.html');
 const QueryBuilderComponent = {
     template,
     bindings: {
-      'mutationsSet': '=',
-      'diseaseSet':   '=',
+      'mutationsSet': ' = ',
+      'diseaseSet':   ' = ',
+      'user':'          = '
     },
     controller: ['$scope',
                  '$rootScope',
@@ -16,6 +17,7 @@ const QueryBuilderComponent = {
                  'DiseaseService',
                  'ProgressIndicatorBarService',
                  '$log',
+                 'UserAuth',
                  function(
                     $scope, 
                     $rootScope, 
@@ -26,7 +28,8 @@ const QueryBuilderComponent = {
                     MutationsService, 
                     DiseaseService, 
                     ProgressIndicatorBarService, 
-                    $log
+                    $log,
+                    UserAuth
                     ) {
 
             	     'ngInject';
@@ -51,6 +54,8 @@ const QueryBuilderComponent = {
                               vm.progressBar = progressBarInstance;
                               vm.progressBar.goTo(`Search ${progessStateName}`);
                             });
+
+                        
 
                    }
 
@@ -101,9 +106,43 @@ const QueryBuilderComponent = {
                              icon:   '', 
                              active: false,
                              type:   'button',
-                             action:()=>{alert();}
+                             action:()=>{SubmitQuery();}
                          };
 
+
+                    let SubmitQuery =()=>{
+                      let diseases = [];
+                      let genes = [];
+
+                    // Check to make sure we have at least 1 gene and 1 disease
+                    if(vm.diseaseSet.length > 0 && vm.mutationSet.length > 0) {
+                        diseases = vm.diseaseSet.map(function(obj) {
+                          return obj['acronym'];
+                        });
+
+                        genes = vm.mutationSet.map(function(obj) {
+                          return obj['entrezgene'];
+                        });
+
+                        let query = $resource(`${AppSettings.api.baseUrl}${AppSettings.api.classifiers}/`, {}, {
+                          submit: {
+                            method: 'POST',
+                            headers: {
+                              Authorization: `Bearer ${vm.user.random_slugs[0]}`,
+                            }
+                          }
+                        });
+
+                        query.submit({
+                            diseases: diseases,
+                            genes: genes
+                        });
+                    
+                    } else {
+                      alert('You must select at least 1 disease and 1 gene.');
+                    }
+
+                  };
 
                    
                     /**
@@ -286,6 +325,8 @@ const QueryBuilderComponent = {
                     }//end if
                     
                 }//_updateDieseasListingsCounts
+
+
 
 
                 

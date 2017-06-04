@@ -13,10 +13,12 @@ const AppSettings = {
   },
 
   api:{
-    baseUrl:    apiEnv.local, 
-    diseases:   '/diseases',
-    samples:    '/samples',
-    geneSearch: {
+    baseUrl:     apiEnv.local, 
+    diseases:    '/diseases',
+    samples:     '/samples',
+    users:       '/users',
+    classifiers: '/classifiers',
+    geneSearch:  {
       base: 'https://mygene.info/v3/query?q=',
       params:{
         suggest_from: 'symbol^2,alias', // eslint-disable-line
