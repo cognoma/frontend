@@ -9,6 +9,8 @@ import './MockBackend';
 import '../../node_modules/angular-resource/angular-resource.js';
 import './utils/ng-storage/ngStorage.js';
 
+import 'angular-growl-v2';
+
 import 'angular-animate';
 import 'angular-resource';
 import './components';
@@ -46,6 +48,7 @@ const requires = [
   'ngResource',
   'lib.underscore',
   'ngStorage',
+  'angular-growl'
 ];
 
 // mount on window for testing

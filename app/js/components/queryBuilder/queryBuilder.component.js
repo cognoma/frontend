@@ -17,7 +17,6 @@ const QueryBuilderComponent = {
                  'DiseaseService',
                  'ProgressIndicatorBarService',
                  '$log',
-                 'UserAuth',
                  function(
                     $scope, 
                     $rootScope, 
@@ -29,7 +28,6 @@ const QueryBuilderComponent = {
                     DiseaseService, 
                     ProgressIndicatorBarService, 
                     $log,
-                    UserAuth
                     ) {
 
             	     'ngInject';

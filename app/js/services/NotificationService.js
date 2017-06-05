@@ -1,10 +1,18 @@
-function NotificationService($window, $log) {
+function NotificationService($window, $log, growl) {
   'ngInject';
   $log = $log.getInstance('NotificationService', true);
   $log.log('');
 
   const service = {
-  	notify:(message)=>{$window.alert(message)}
+    enabled: true, 
+    disable:()=>{  service.enabled = false; },
+  	notify:function(args){
+      
+      angular.extend(args, {show:true, config:{}});
+
+  		if(service.enabled && args.show) growl[args.type](args.message, args.config);
+
+    }
   };
   
   

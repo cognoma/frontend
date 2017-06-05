@@ -1,11 +1,14 @@
-function UserAuth(UserResourceService, $sessionStorage, NotificationService, $log) {
+function UserAuth(UserResourceService, $sessionStorage,$log) {
   'ngInject';
 
     $log = $log.getInstance('UserAuth', true);
   	$log.log('');
 
+
   // The public API of the service
   const Factory = {
+
+    
 
     // Get the first reason for needing a login
     // getLoginReason: function() {
@@ -16,12 +19,12 @@ function UserAuth(UserResourceService, $sessionStorage, NotificationService, $lo
     // Attempt to authenticate a user by the given userId
     login: function(userId) {
 
-    	return new Promise((resolve, reject)=>{
+    	return new Promise((resolve)=>{
     		UserResourceService.get({userId}, function(response){
       			Factory.currentUser = response.user;
       		  	if ( Factory.isAuthenticated() ) {
       		  		$sessionStorage.cognomaUser = Factory.currentUser;
-      		    	$log.log(`authenticated user: ${Factory.currentUser.name}`);
+      		    	$log.log(`logged in as user: ${Factory.currentUser.name}`);
       		    	resolve(Factory.currentUser);
       		  }
       		});
@@ -46,17 +49,18 @@ function UserAuth(UserResourceService, $sessionStorage, NotificationService, $lo
 
     // Ask the backend to see if a user is already authenticated - this may be from a previous session.
     requestCurrentUser: function() {
-    	return new Promise((resolve, reject)=>{
+    	return new Promise((resolve)=>{
 
     		if(!$sessionStorage.cognomaUser){
-    			$log.log('no currentUser found');
+    			
     			UserResourceService.save({},response=>{
     				Factory.currentUser = response.user;
-    				$log.log(`created user: ${Factory.currentUser.name}`);
+
+    				$log.log(`created new user: ${Factory.currentUser.name}`);
 
     				Factory
     					.login(response.user.id)
-    					.then(user=>resolve(user));
+    					.then(newUser=>resolve(newUser));
     				
     			});
 
@@ -64,7 +68,7 @@ function UserAuth(UserResourceService, $sessionStorage, NotificationService, $lo
     			$log.log('auto-login');
     			Factory
     				.login($sessionStorage.cognomaUser.id)
-    				.then(user=>resolve(user));;
+    				.then(user=>resolve(user));
     		}
 
     		

@@ -15,6 +15,14 @@ body {
     margin-left:0; 
     margin-right:0;
 }
+.growl-item{
+	height:60px;
+	width: 100%;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index: 100000;
+}
 
 /* =======================================================================
   Application Base
