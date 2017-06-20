@@ -4,6 +4,7 @@ function UserAuth(UserResourceService, $sessionStorage,$log) {
     $log = $log.getInstance('UserAuth', true);
   	$log.log('');
 
+  let $storage = $sessionStorage;
 
   // The public API of the service
   const Factory = {
@@ -17,16 +18,31 @@ function UserAuth(UserResourceService, $sessionStorage,$log) {
 
 
     // Attempt to authenticate a user by the given userId
-    login: function(userId) {
+    login: function(userId = null, userSlug = null) {
+      $log.log(`login::userId=${userId} userSlug=${userSlug}`);
 
     	return new Promise((resolve)=>{
+
+        if(userSlug){
+          console.log(
+            UserResourceService.getUserBySlug(userSlug)
+          );
+          // UserResourceService.getUserBySlug({userSlug}, data=>{
+          //   console.log(data);
+          //   resolve(data);
+          // })
+        }
+
     		UserResourceService.get({userId}, function(response){
-      			Factory.currentUser = response.user;
+          let user = response.user || response;
+            
+      			Factory.currentUser = Factory._setDefaultUserName(user);
+
       		  	if ( Factory.isAuthenticated() ) {
-      		  		$sessionStorage.cognomaUser = Factory.currentUser;
       		    	$log.log(`logged in as user: ${Factory.currentUser.name}`);
       		    	resolve(Factory.currentUser);
       		  }
+
       		});
 
     	});
@@ -47,20 +63,38 @@ function UserAuth(UserResourceService, $sessionStorage,$log) {
     //   });
     // },
 
+    _saveUserToStorage:(userObj)=>{
+      $storage.cognomaUser =  userObj
+      return $storage.cognomaUser;
+    },
+
+    // @todo: need to set Guest User as default in backend
+    _setDefaultUserName:userObj=>{
+      userObj.name = `Guser User ${userObj.id}`;
+      return userObj;
+    },
+    
     // Ask the backend to see if a user is already authenticated - this may be from a previous session.
     requestCurrentUser: function() {
+      $log.log('requestCurrentUser');
+
     	return new Promise((resolve)=>{
 
     		if(!$sessionStorage.cognomaUser){
-    			
-    			UserResourceService.save({},response=>{
-    				Factory.currentUser = response.user;
+    			// crate User in DB
+    			UserResourceService.save({},response=>{  
+            let user = response.user || response;
+            
+    				Factory.currentUser = Factory._setUserDefaultName(user);
+            Factory._saveUserToStorage(Factory.currentUser);
 
     				$log.log(`created new user: ${Factory.currentUser.name}`);
 
     				Factory
-    					.login(response.user.id)
-    					.then(newUser=>resolve(newUser));
+    					.login(user.id)
+    					.then(newUser=>{
+                resolve(newUser)
+              });
     				
     			});
 
@@ -68,21 +102,14 @@ function UserAuth(UserResourceService, $sessionStorage,$log) {
     			$log.log('auto-login');
     			Factory
     				.login($sessionStorage.cognomaUser.id)
-    				.then(user=>resolve(user));
+    				.then(user=>{resolve(user)});
     		}
 
     		
 
     	});
     	
-      // if ( Factory.isAuthenticated() ) {
-      //   return $q.when(service.currentUser);
-      // } else {
-      //   return $http.get('/current-user').then(function(response) {
-      //     Factory.currentUser = response.data.user;
-      //     return Factory.currentUser;
-      //   });
-      // }
+      
     },
 
     // Information about the current user

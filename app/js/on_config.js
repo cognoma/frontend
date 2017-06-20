@@ -13,6 +13,8 @@ function OnConfig(
     $compileProvider.debugInfoEnabled(false);
   }
 
+  $httpProvider.interceptors.push('UserAuth_Interceptor');
+
   growlProvider
     .onlyUniqueMessages(true)
     .globalDisableCountDown(true)
@@ -58,7 +60,14 @@ function OnConfig(
     .state({
       name:  'app.queryBuilder.mutations',
       title: 'Query Builder: Mutations',
-      url:   '/mutations',
+      url:   '/mutations?userSlug',
+      resolve:{
+        user:['$stateParams','UserAuth', function($stateParams, UserAuth){
+          
+          UserAuth.login(null, $stateParams.userSlug);
+          return {};
+      }]
+      },
       views: {
         'queryOverview':      {template: `<query-overview 
                                                 mutations-set="$ctrl.mutationsSet" 

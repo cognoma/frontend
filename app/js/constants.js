@@ -13,7 +13,7 @@ const AppSettings = {
   },
 
   api:{
-    baseUrl:     apiEnv.local, 
+    baseUrl:     apiEnv.dev, 
     diseases:    '/diseases',
     samples:     '/samples',
     users:       '/users',
