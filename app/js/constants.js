@@ -13,7 +13,7 @@ const AppSettings = {
   },
 
   api:{
-    baseUrl:    apiEnv.production, 
+    baseUrl:    apiEnv.dev,
     diseases:   '/diseases',
     samples:    '/samples',
     geneSearch: {
