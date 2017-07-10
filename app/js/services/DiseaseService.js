@@ -46,10 +46,10 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
 
         $log.log('fetch disease data from localStorage');
 
-        DISEASES_RESOURCE.query((data) => {
-          if(!diseaseResponse.count) reject(`No Diseae Types found matching: "${searchQuery}"`);
-          $localStorage.diseaseData = _.assign({}, data);
-          resolve(data);
+        DISEASES_RESOURCE.query((diseaseResponse) => {
+          if(!diseaseResponse.count) reject(`No Disease Types found matching: "${searchQuery}"`);
+          $localStorage.diseaseData = _.assign({}, diseaseResponse);
+          resolve(diseaseResponse);
         });
 
       });
