@@ -17,3 +17,10 @@ test:
     - npm run unit
   post:
     - killall --wait sc  # wait for Sauce Connect to close the tunnel
+
+deployment:
+    production:
+        branch: master
+        commands:
+            - npm run build
+            - aws s3 sync build s3://$AWS_S3_BUCKET_PATH --delete
