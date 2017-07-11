@@ -13,8 +13,6 @@ function OnConfig(
     $compileProvider.debugInfoEnabled(false);
   }
 
-  $httpProvider.interceptors.push('UserAuth_Interceptor');
-
   growlProvider
     .onlyUniqueMessages(true)
     .globalDisableCountDown(true)

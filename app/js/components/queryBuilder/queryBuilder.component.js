@@ -113,12 +113,12 @@ const QueryBuilderComponent = {
                       let genes = [];
 
                     // Check to make sure we have at least 1 gene and 1 disease
-                    if(vm.diseaseSet.length > 0 && vm.mutationSet.length > 0) {
+                    if(vm.diseaseSet.length > 0 && vm.mutationsSet.length > 0) {
                         diseases = vm.diseaseSet.map(function(obj) {
                           return obj['acronym'];
                         });
 
-                        genes = vm.mutationSet.map(function(obj) {
+                        genes = vm.mutationsSet.map(function(obj) {
                           return obj['entrezgene'];
                         });
 

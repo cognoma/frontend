@@ -1,10 +1,11 @@
-function UserAuth(UserResourceService, $sessionStorage,$log) {
+function UserAuth(UserResourceService, $cookies,$log) {
   'ngInject';
 
     $log = $log.getInstance('UserAuth', true);
   	$log.log('');
 
-  let $storage = $sessionStorage;
+  let $storage = $cookies;
+  let storageObjectKey = 'cognoma-user';
 
   // The public API of the service
   const Factory = {
@@ -24,9 +25,9 @@ function UserAuth(UserResourceService, $sessionStorage,$log) {
     	return new Promise((resolve)=>{
 
         if(userSlug){
-          console.log(
-            UserResourceService.getUserBySlug(userSlug)
-          );
+          // console.log(
+          //   UserResourceService.getUserBySlug(userSlug)
+          // );
           // UserResourceService.getUserBySlug({userSlug}, data=>{
           //   console.log(data);
           //   resolve(data);
@@ -64,13 +65,15 @@ function UserAuth(UserResourceService, $sessionStorage,$log) {
     // },
 
     _saveUserToStorage:(userObj)=>{
-      $storage.cognomaUser =  userObj
-      return $storage.cognomaUser;
+      $storage.putObject(storageObjectKey ,  userObj);
+      return $storage.get(storageObjectKey);
     },
+
+    _getUserFromStorage:()=>$storage.getObject(storageObjectKey),
 
     // @todo: need to set Guest User as default in backend
     _setDefaultUserName:userObj=>{
-      userObj.name = `Guser User ${userObj.id}`;
+      userObj.name = `Guest User ${userObj.id}`;
       return userObj;
     },
     
@@ -79,13 +82,13 @@ function UserAuth(UserResourceService, $sessionStorage,$log) {
       $log.log('requestCurrentUser');
 
     	return new Promise((resolve)=>{
-
-    		if(!$sessionStorage.cognomaUser){
-    			// crate User in DB
+      
+    		if(!this._getUserFromStorage()){
+    			// create User in DB
     			UserResourceService.save({},response=>{  
             let user = response.user || response;
-            
-    				Factory.currentUser = Factory._setUserDefaultName(user);
+            // set new user as current user and save to cookie
+    				Factory.currentUser = Factory._setDefaultUserName(user);
             Factory._saveUserToStorage(Factory.currentUser);
 
     				$log.log(`created new user: ${Factory.currentUser.name}`);
@@ -100,8 +103,9 @@ function UserAuth(UserResourceService, $sessionStorage,$log) {
 
     		}else{
     			$log.log('auto-login');
+          
     			Factory
-    				.login($sessionStorage.cognomaUser.id)
+    				.login(this._getUserFromStorage().id)
     				.then(user=>{resolve(user)});
     		}
 

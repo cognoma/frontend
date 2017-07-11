@@ -8,6 +8,7 @@ import onRun     from './on_run';
 import './MockBackend';
 import '../../node_modules/angular-resource/angular-resource.js';
 import './utils/ng-storage/ngStorage.js';
+import 'angular-cookies';
 
 import 'angular-growl-v2';
 
@@ -48,6 +49,7 @@ const requires = [
   'ngResource',
   'lib.underscore',
   'ngStorage',
+  'ngCookies',
   'angular-growl'
 ];
 
