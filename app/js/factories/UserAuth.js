@@ -23,21 +23,20 @@ function UserAuth(UserResourceService, $cookies,$log) {
       $log.log(`login::userId=${userId} userSlug=${userSlug}`);
 
     	return new Promise((resolve)=>{
-
-        if(userSlug){
-          // console.log(
-          //   UserResourceService.getUserBySlug(userSlug)
-          // );
+        /**
+         * @tood: Setup getting a user by their slug
+         */
+        // if(userSlug){
           // UserResourceService.getUserBySlug({userSlug}, data=>{
           //   console.log(data);
           //   resolve(data);
           // })
-        }
+        // }
 
     		UserResourceService.get({userId}, function(response){
-          let user = response.user || response;
+          
+            Factory.currentUser = response.user || response;
             
-      			Factory.currentUser = Factory._setDefaultUserName(user);
 
       		  	if ( Factory.isAuthenticated() ) {
       		    	$log.log(`logged in as user: ${Factory.currentUser.name}`);
@@ -65,6 +64,7 @@ function UserAuth(UserResourceService, $cookies,$log) {
     // },
 
     _saveUserToStorage:(userObj)=>{
+    
       $storage.putObject(storageObjectKey ,  userObj);
       return $storage.get(storageObjectKey);
     },
@@ -90,23 +90,28 @@ function UserAuth(UserResourceService, $cookies,$log) {
             // set new user as current user and save to cookie
     				Factory.currentUser = Factory._setDefaultUserName(user);
             Factory._saveUserToStorage(Factory.currentUser);
+          
 
-    				$log.log(`created new user: ${Factory.currentUser.name}`);
+    				$log.log(`created new user and logged in as: ${Factory.currentUser.name}`);
+            // return newly created user
+            resolve(this._getUserFromStorage());  
 
-    				Factory
-    					.login(user.id)
-    					.then(newUser=>{
-                resolve(newUser)
-              });
+    				// Factory
+    				// 	.login(user.id)
+    				// 	.then(newUser=>{
+        //         resolve(newUser)
+        //       });
     				
     			});
 
     		}else{
     			$log.log('auto-login');
+          resolve(this._getUserFromStorage());  
+
+    			// Factory
+    			// 	.login(this._getUserFromStorage().id)
+    			// 	.then(user=>{resolve(user)});
           
-    			Factory
-    				.login(this._getUserFromStorage().id)
-    				.then(user=>{resolve(user)});
     		}
 
     		

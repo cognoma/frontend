@@ -8,9 +8,8 @@ function NotificationService($window, $log, growl) {
     disable:()=>{  service.enabled = false; },
   	notify:function(args){
       
-      angular.extend(args, {show:true, config:{}});
-
-  		if(service.enabled && args.show) growl[args.type](args.message, args.config);
+      let settings = angular.extend({}, {show:true, config:{}},args);
+  		if(service.enabled && settings.show) growl[settings.type](settings.message, settings.config);
 
     }
   };

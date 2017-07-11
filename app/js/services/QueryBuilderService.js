@@ -10,12 +10,12 @@ function QueryBuilderService( $resource, AppSettings, NotificationService) {
                 submit: {
                   method: 'POST',
                   headers: {
-                    Authorization: `Bearer ${user.random_slugs[0]}`,
+                    'Authorization': `Bearer ${user.random_slugs[0]}`,
                   }
                 }
               });
 
-
+        
         // Check to make sure we have at least 1 gene and 1 disease
           if(diseases.length > 0 && genes.length > 0) {
               // parse diseases for just their acronyms
@@ -27,7 +27,19 @@ function QueryBuilderService( $resource, AppSettings, NotificationService) {
               queryResource
                 .submit({diseases, genes})
                 .$promise.then(res=>{
-                  console.log(res);
+
+                  NotificationService.notify({
+                      type:    'success',
+                      message: `<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Classifier #${res.id} submitted!  
+                      <div class="btn-group" style="float:right;" role="group" >
+                          <button type="button" class="btn btn-default">Review Submission</button>
+                          <button type="button" class="btn btn-default">View My Classifiers</button>
+                          <button type="button" class="btn btn-default">Create New Classifier</button>
+                      </div>`,
+                      config:{ ttl: -1  }// stay open until users closes
+                      
+                  });
+
                 }, err=>{
                   console.log(err);
                 });

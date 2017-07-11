@@ -106,7 +106,10 @@ const QueryBuilderComponent = {
                              icon:   '', 
                              active: false,
                              type:   'button',
-                             action:()=>{QueryBuilderService.submitQuery(vm.diseaseSet, vm.mutationsSet, vm.user);}
+                             action:($event)=>{
+                              $event.preventDefault();
+                              QueryBuilderService.submitQuery(vm.diseaseSet, vm.mutationsSet, vm.user);
+                            }
                          };
 
 

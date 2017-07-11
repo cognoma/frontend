@@ -120,7 +120,7 @@ const progressIndicatorBarComponent = {
 
                 $log.log(`goTo:${goToStep.title}`);
                 
-                if(goToStep == undefined) return;
+                if(goToStep == undefined || goToStep.action != undefined) return;
 
 
                 // get the index of the selcted step
