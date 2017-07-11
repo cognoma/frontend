@@ -118,6 +118,7 @@ function UserAuth(UserResourceService, $cookies,$log) {
 
     // Information about the current user
     currentUser: null,
+    getCurrentUser:()=>this.currentUser,
 
     // Is the current user authenticated?
     isAuthenticated: function(){

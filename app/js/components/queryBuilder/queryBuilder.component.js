@@ -16,6 +16,7 @@ const QueryBuilderComponent = {
                  'MutationsService',
                  'DiseaseService',
                  'ProgressIndicatorBarService',
+                 'QueryBuilderService',
                  '$log',
                  function(
                     $scope, 
@@ -26,7 +27,8 @@ const QueryBuilderComponent = {
                     $timeout, 
                     MutationsService, 
                     DiseaseService, 
-                    ProgressIndicatorBarService, 
+                    ProgressIndicatorBarService,
+                    QueryBuilderService,
                     $log,
                     ) {
 
@@ -100,47 +102,15 @@ const QueryBuilderComponent = {
                         // define the 'Review Query' button to be added  
                         let indicatorButton = {
                              title:  'Submit Query',  
-                             state:  'app.queryBuilder.disease' ,   
+                             // state:  'app.queryBuilder.review' ,   
                              icon:   '', 
                              active: false,
                              type:   'button',
-                             action:()=>{SubmitQuery();}
+                             action:()=>{QueryBuilderService.submitQuery(vm.diseaseSet, vm.mutationsSet, vm.user);}
                          };
 
 
-                    let SubmitQuery =()=>{
-                      let diseases = [];
-                      let genes = [];
-
-                    // Check to make sure we have at least 1 gene and 1 disease
-                    if(vm.diseaseSet.length > 0 && vm.mutationsSet.length > 0) {
-                        diseases = vm.diseaseSet.map(function(obj) {
-                          return obj['acronym'];
-                        });
-
-                        genes = vm.mutationsSet.map(function(obj) {
-                          return obj['entrezgene'];
-                        });
-
-                        let query = $resource(`${AppSettings.api.baseUrl}${AppSettings.api.classifiers}/`, {}, {
-                          submit: {
-                            method: 'POST',
-                            headers: {
-                              Authorization: `Bearer ${vm.user.random_slugs[0]}`,
-                            }
-                          }
-                        });
-
-                        query.submit({
-                            diseases: diseases,
-                            genes: genes
-                        });
                     
-                    } else {
-                      alert('You must select at least 1 disease and 1 gene.');
-                    }
-
-                  };
 
                    
                     /**
