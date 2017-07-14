@@ -19,33 +19,30 @@ function UserAuth(UserResourceService, $cookies,$log) {
 
 
     // Attempt to authenticate a user by the given userId
-    login: function(userId = null, userSlug = null) {
-      $log.log(`login::userId=${userId} userSlug=${userSlug}`);
+    login: function(userSlug = null) {
+      $log.log(`login:: userSlug=${userSlug}`);
 
     	return new Promise((resolve)=>{
-        /**
-         * @tood: Setup getting a user by their slug
-         */
-        // if(userSlug){
-          // UserResourceService.getUserBySlug({userSlug}, data=>{
-          //   console.log(data);
-          //   resolve(data);
-          // })
-        // }
-
-    		UserResourceService.get({userId}, function(response){
           
-            Factory.currentUser = response.user || response;
-            
+        if(userSlug || this._getUserFromStorage()){
 
-      		  	if ( Factory.isAuthenticated() ) {
-      		    	$log.log(`logged in as user: ${Factory.currentUser.name}`);
-      		    	resolve(Factory.currentUser);
-      		  }
+          this._authenticateUser(userSlug)
+                .then(authedCookieUser=>{
+                  resolve(authedCookieUser);
+                });
 
-      		});
+        }else {        
 
-    	});
+          this._createNewUser()
+                  .then(newUser=>{
+                      Factory.currentUser = newUser;
+                      $log.log(`login::created new user and logged in as: ${Factory.currentUser.name}`);
+                      // return newly created user
+                      resolve(Factory.currentUser);  
+                  });
+        }
+
+      });
       
     },
 
@@ -64,66 +61,53 @@ function UserAuth(UserResourceService, $cookies,$log) {
     // },
 
     _saveUserToStorage:(userObj)=>{
-    
       $storage.putObject(storageObjectKey ,  userObj);
       return $storage.get(storageObjectKey);
     },
 
+
     _getUserFromStorage:()=>$storage.getObject(storageObjectKey),
+
 
     // @todo: need to set Guest User as default in backend
     _setDefaultUserName:userObj=>{
       userObj.name = `Guest User ${userObj.id}`;
       return userObj;
     },
-    
-    // Ask the backend to see if a user is already authenticated - this may be from a previous session.
-    requestCurrentUser: function() {
-      $log.log('requestCurrentUser');
 
-    	return new Promise((resolve)=>{
-      
-    		if(!this._getUserFromStorage()){
-    			// create User in DB
-    			UserResourceService.save({},response=>{  
-            let user = response.user || response;
-            // set new user as current user and save to cookie
-    				Factory.currentUser = Factory._setDefaultUserName(user);
-            Factory._saveUserToStorage(Factory.currentUser);
-          
 
-    				$log.log(`created new user and logged in as: ${Factory.currentUser.name}`);
-            // return newly created user
-            resolve(this._getUserFromStorage());  
-
-    				// Factory
-    				// 	.login(user.id)
-    				// 	.then(newUser=>{
-        //         resolve(newUser)
-        //       });
-    				
-    			});
-
-    		}else{
-    			$log.log('auto-login');
-          resolve(this._getUserFromStorage());  
-
-    			// Factory
-    			// 	.login(this._getUserFromStorage().id)
-    			// 	.then(user=>{resolve(user)});
-          
-    		}
-
-    		
-
-    	});
-    	
-      
+    _createNewUser:()=>{
+      return new Promise((resolve)=>{
+        UserResourceService.save({},newUserFromDB=>{ 
+            let newUserObj = Factory._setDefaultUserName(newUserFromDB);
+            Factory._saveUserToStorage(newUserObj);
+            resolve(newUserObj);
+        }); 
+      });
     },
+
+
+    _authenticateUser:(userSlug = null)=>{
+      let userCookie = Factory._getUserFromStorage();
+      
+      return new Promise((resolve)=>{
+
+          UserResourceService.get({userSlug: userSlug ? userSlug : userCookie.random_slugs[0] }, function(response){
+            Factory.currentUser =  Factory._setDefaultUserName(response);
+            
+            if ( Factory.isAuthenticated() ) {
+                $log.log(`logged in as user: ${Factory.currentUser.name}`);
+                resolve(Factory.currentUser);
+            }
+
+          });
+
+      });
+    },
+    
 
     // Information about the current user
     currentUser: null,
-    getCurrentUser:()=>this.currentUser,
 
     // Is the current user authenticated?
     isAuthenticated: function(){

@@ -9,16 +9,19 @@ const AppComponent = {
         $log.log('');
 
         this.$onInit=()=>{
-            UserAuth
-                .requestCurrentUser()
-                .then(authenticatedUser=>{
-                    this.STATE.user = authenticatedUser;
 
-                    NotificationService.notify({
-                        type:    'success',
-                        message: `Logged in as <strong>${authenticatedUser.name}</strong>`
-                    });
+            UserAuth
+            .login()
+            .then(authenticatedUser=>{
+                this.STATE.user = authenticatedUser;
+
+                NotificationService.notify({
+                    type:    'success',
+                    message: `Logged in as <strong>${authenticatedUser.name}</strong>`
                 });
+            });
+
+            
 
         }
 
