@@ -3,8 +3,9 @@ const template = require('./queryBuilder.tpl.html');
 const QueryBuilderComponent = {
     template,
     bindings: {
-      'mutationsSet': '=',
-      'diseaseSet':   '=',
+      'mutationsSet': ' = ',
+      'diseaseSet':   ' = ',
+      'user':'          = '
     },
     controller: ['$scope',
                  '$rootScope',
@@ -15,6 +16,7 @@ const QueryBuilderComponent = {
                  'MutationsService',
                  'DiseaseService',
                  'ProgressIndicatorBarService',
+                 'QueryBuilderService',
                  '$log',
                  function(
                     $scope, 
@@ -25,8 +27,9 @@ const QueryBuilderComponent = {
                     $timeout, 
                     MutationsService, 
                     DiseaseService, 
-                    ProgressIndicatorBarService, 
-                    $log
+                    ProgressIndicatorBarService,
+                    QueryBuilderService,
+                    $log,
                     ) {
 
             	     'ngInject';
@@ -51,6 +54,8 @@ const QueryBuilderComponent = {
                               vm.progressBar = progressBarInstance;
                               vm.progressBar.goTo(`Search ${progessStateName}`);
                             });
+
+                        
 
                    }
 
@@ -97,13 +102,18 @@ const QueryBuilderComponent = {
                         // define the 'Review Query' button to be added  
                         let indicatorButton = {
                              title:  'Submit Query',  
-                             state:  'app.queryBuilder.disease' ,   
+                             // state:  'app.queryBuilder.review' ,   
                              icon:   '', 
                              active: false,
                              type:   'button',
-                             action:()=>{alert();}
+                             action:($event)=>{
+                              $event.preventDefault();
+                              QueryBuilderService.submitQuery(vm.diseaseSet, vm.mutationsSet, vm.user);
+                            }
                          };
 
+
+                    
 
                    
                     /**
@@ -286,6 +296,8 @@ const QueryBuilderComponent = {
                     }//end if
                     
                 }//_updateDieseasListingsCounts
+
+
 
 
                 

@@ -8,6 +8,9 @@ import onRun     from './on_run';
 import './MockBackend';
 import '../../node_modules/angular-resource/angular-resource.js';
 import './utils/ng-storage/ngStorage.js';
+import 'angular-cookies';
+
+import 'angular-growl-v2';
 
 import 'angular-animate';
 import 'angular-resource';
@@ -42,10 +45,12 @@ const requires = [
   'app.services',
   'app.factories',
   'app.models',
-  'MockBackend',
+  // 'MockBackend',
   'ngResource',
   'lib.underscore',
   'ngStorage',
+  'ngCookies',
+  'angular-growl'
 ];
 
 // mount on window for testing
