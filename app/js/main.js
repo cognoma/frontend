@@ -1,5 +1,6 @@
 import angular from 'angular';
 
+
 // angular modules
 import constants from './constants';
 import onConfig  from './on_config';
