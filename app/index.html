@@ -71,6 +71,7 @@
     <!-- **** END NavBar **** -->
 
 
+    
   <div class="container-fluid">
 
     <div class="row">
@@ -79,7 +80,7 @@
         <!-- **** Sidebar Nav/ GlboalNav **** -->
         <div class="col-sm-2 col-md-1 sidebar">
             <ul class="nav nav-sidebar">
-                <li><h5>&nbsp;CLASSIFIER</h5></li>
+                <li><h5>CLASSIFIER</h5></li>
                 <li class="active"><a href="">Builder </a></li>
                 <li><a href="">Analytics</a></li>
                 <li><a href="">Results Exports</a></li>
@@ -99,32 +100,43 @@
         <div class="col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-1 main">  
 
             <h1 class="page-header">Classifier Builder</h1> 
-
+            
+            <!-- **** Query Progress Indicator Bar **** -->
             <div class="progress">
                   <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%">
                     <span class="sr-only">25% Complete (success)</span>
                 </div>
             </div>
+            <!-- **** END Progress Indicator Bar **** -->
 
 
             <div class="row">
 
+                <!-- **** Query Param Selector: Genes **** -->                
                 <div class="col-md-6">
                     <div class="panel panel-default">
-                        <!-- Default panel contents -->
 
                         <div class="panel-heading text-center">
-                            <span class="glyphicon glyphicon-question-sign pull-left"></span>
-                            Add Genes/Mutations
+                            
+                            <h4> <small><span class="glyphicon glyphicon-question-sign pull-left"></span></small> Add Genes</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- <input id="query-param-selector-input" type="search" class="form-control" placeholder="Genes by Name or Alternative Gene ID"  autofocus="1"> -->
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="Genes by Name or Alternative Gene ID" aria-describedby="basic-addon1" >
+                                    </div>
+                                </div>
+
+                        </div>
                         </div><!-- panel-heading -->
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input type="text" class="form-control text-center" placeholder="Search by Name">
-                            </div>
-                        </div>
-
+                        
+                        
                         <div class="row param-results">
+                            
                             <div class="col-md-5 col-md-offset-1">
                                 <div class="panel panel-default gene-card">
                                   <div class="panel-heading gene-card-heading">
@@ -183,19 +195,77 @@
                     </div> <!-- panel panel-default -->
 
                 </div><!-- col-md-6 -->
+                <!-- **** END Query Param Selector: Genes **** -->                
 
 
+                <!-- **** Query Param Selector: Disease Type **** -->                
                 <div class="col-md-6">
                     <div class="panel panel-default">
-                      <!-- Default panel contents -->
-                      <div class="panel-heading text-center">
-                        <span class="glyphicon glyphicon-question-sign pull-left"></span>
-                        Add Diseases by Type
-                      </div>
-                    
-                      
-                    </div>
-                </div>
+
+                        <div class="panel-heading text-center">
+                            
+                            <h4> <small><span class="glyphicon glyphicon-question-sign pull-left"></span></small> Add Disease Samples <small>by type</small></h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="by Disease Name" aria-describedby="basic-addon1" >
+                                    </div>
+                                </div>
+
+                        </div>
+                        </div><!-- panel-heading -->
+                        
+                        <div class="list-group">
+
+                            <button type="button" class="list-group-item">
+                              <strong>Diseases Type </strong>
+                              <div class=" pull-right">
+                                  <span class="label label-default"> 44</span> |
+                                  <span class="label label-success">14</span>
+                                  <span class="label label-danger">30</span>    
+                              </div>
+                            </button>
+
+                            <button type="button" class="list-group-item">
+                              <strong>Diseases Type </strong>
+                              <div class=" pull-right">
+                                  <span class="label label-default"> 44</span> |
+                                  <span class="label label-success">14</span>
+                                  <span class="label label-danger">30</span>    
+                              </div>
+                            </button>
+
+                            <button type="button" class="list-group-item">
+                              <strong>Diseases Type </strong>
+                              <div class=" pull-right">
+                                  <span class="label label-default"> 44</span> |
+                                  <span class="label label-success">14</span>
+                                  <span class="label label-danger">30</span>    
+                              </div>
+                            </button>
+
+                            <button type="button" class="list-group-item">
+                              <strong>Diseases Type </strong>
+                              <div class=" pull-right">
+                                  <span class="label label-default"> 44</span> |
+                                  <span class="label label-success">14</span>
+                                  <span class="label label-danger">30</span>    
+                              </div>
+                            </button>
+
+                            
+                            
+                        </div>
+
+
+                    </div> <!-- panel panel-default -->
+
+                </div><!-- col-md-6 -->
+                <!-- **** END Query Param Selector: Disease Type **** -->     
+                
 
             </div>  
 
