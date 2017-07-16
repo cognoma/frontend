@@ -43,3 +43,31 @@
     &.logged-out{ background-image: linear-gradient(#FF3019, #cf0404);}
     
 }
+
+// =======================================================================
+// Query Overview sidebar
+// =======================================================================
+.sidebar-right{
+	right:0;
+	left:auto;
+}
+.sidebar--queryoverview{
+	border:0;
+	background-color: #c4c4c4;
+}
+
+
+// =======================================================================
+// Query Parameter Panel
+// =======================================================================
+.param-results{
+	padding-top:30px;
+}
+
+
+
+
+
+
+
+
