@@ -56,7 +56,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="#">Username</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="#"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;&nbsp;Copy Login Link</a></li>
+                  <li><a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>&nbsp;&nbsp;Copy Login Link</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="#">My Classifiers</a></li>
               </ul>
@@ -74,8 +74,7 @@
   <div class="container-fluid">
 
     <div class="row">
-
-        
+        <
         <!-- **** Sidebar Nav/ GlboalNav **** -->
         <div class="col-sm-2 col-md-1 sidebar">
             <ul class="nav nav-sidebar">
@@ -96,21 +95,84 @@
 
 
         <!-- **** Main Dashboard **** -->
+
         <div class="col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-1 main">  
 
             <h1 class="page-header">Classifier Builder</h1> 
             
-            <!-- **** Query Progress Indicator Bar **** -->
-            <div class="progress">
-                  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%">
-                    <span class="sr-only">25% Complete (success)</span>
-                </div>
-            </div>
-            <!-- **** END Progress Indicator Bar **** -->
+           
 
 
             <div class="row">
 
+
+
+                <div class="col-md-12">
+                    <!-- **** Query Progress Indicator Bar **** -->
+                    <section id="prgs-indct-bar">
+                         <span class="prgs-indct-bar-line" style="width:75%; left:12.5%;"></span>
+
+                <ol class="prgs-indct-bar-steps">
+
+        <!-- ngRepeat: step in $ctrl.steps --><li ng-repeat="step in $ctrl.steps" class="prgs-indct-bar-step ng-scope active" ng-class="{'active': step.active}" ng-click="$ctrl.goTo(step)">
+    <!-- ngIf: step.type == 'icon' --><i ng-if="step.type == 'icon'" class="icon ng-binding ng-scope"></i><!-- end ngIf: step.type == 'icon' -->
+    <!-- ngIf: step.type == 'icon' --><p ng-if="step.type == 'icon'" class="ng-scope"><small class="ng-binding">search genes</small></p><!-- end ngIf: step.type == 'icon' -->  
+
+    <!-- ngIf: step.type == 'button' -->
+  </li><!-- end ngRepeat: step in $ctrl.steps --><li ng-repeat="step in $ctrl.steps" class="prgs-indct-bar-step ng-scope active" ng-class="{'active': step.active}" ng-click="$ctrl.goTo(step)" style="">
+    <!-- ngIf: step.type == 'icon' --><i ng-if="step.type == 'icon'" class="icon ng-binding ng-scope"></i><!-- end ngIf: step.type == 'icon' -->
+    <!-- ngIf: step.type == 'icon' --><p ng-if="step.type == 'icon'" class="ng-scope"><small class="ng-binding">add genes</small></p><!-- end ngIf: step.type == 'icon' --> 
+
+    <!-- ngIf: step.type == 'button' -->
+  </li><!-- end ngRepeat: step in $ctrl.steps --><li ng-repeat="step in $ctrl.steps" class="prgs-indct-bar-step ng-scope active" ng-class="{'active': step.active}" ng-click="$ctrl.goTo(step)">
+    <!-- ngIf: step.type == 'icon' --><i ng-if="step.type == 'icon'" class="icon ng-binding ng-scope"></i><!-- end ngIf: step.type == 'icon' -->
+    <!-- ngIf: step.type == 'icon' --><p ng-if="step.type == 'icon'" class="ng-scope"><small class="ng-binding">search samples</small></p><!-- end ngIf: step.type == 'icon' -->  
+
+    <!-- ngIf: step.type == 'button' -->
+  </li><!-- end ngRepeat: step in $ctrl.steps --><li ng-repeat="step in $ctrl.steps" class="prgs-indct-bar-step ng-scope active" ng-class="{'active': step.active}" ng-click="$ctrl.goTo(step)">
+    <!-- ngIf: step.type == 'icon' --><i ng-if="step.type == 'icon'" class="icon ng-binding ng-scope"></i><!-- end ngIf: step.type == 'icon' -->
+    <!-- ngIf: step.type == 'icon' --><p ng-if="step.type == 'icon'" class="ng-scope"><small class="ng-binding">add samples</small></p><!-- end ngIf: step.type == 'icon' --> 
+
+    <!-- ngIf: step.type == 'button' -->
+  </li><!-- end ngRepeat: step in $ctrl.steps -->
+
+</ol>
+                    </section>
+                    <!-- **** END Progress Indicator Bar **** -->
+
+                    <!-- **** Query Builder **** -->
+                  <div  class="QueryBuilder well">
+                        <!-- **** Query Header **** -->
+                        
+                            <h4 class="QueryBuilder__title text-uppercase text-info text-inline">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                Classifier Hypothesis/title
+                            </h4>
+
+                            <div class="QueryBuilder__meta_btns pull-right">
+                                <span class="glyphicon glyphicon-share-alt"></span>
+                                <span class="glyphicon glyphicon-floppy-saved"></span>
+                            </div>
+
+                        
+                        <!-- **** END Query Header **** -->
+
+                        
+                        
+                        
+                        <div class="row">
+                            
+                        </div>
+                  </div>
+                  <!-- **** END Query Builder **** -->
+
+              </div><!-- end col-md-12 -->
+
+
+
+
+
+        
                 <!-- **** Query Param Selector: Genes **** -->                
                 <div class="col-md-6">
                     <div class="panel panel-default">
@@ -136,53 +198,67 @@
                         <div class="row param-results">
                             
                             <div class="col-md-5 col-md-offset-1">
-                                <div class="panel panel-default gene-card">
-                                  <div class="panel-heading gene-card-heading">
+
+                                <div class="panel panel-default GeneCard">
+                                  <div class="panel-heading GeneCard__heading">
                                     CARD17  <span class="label label-default"><small>440068</small></span>
+                                    <div class="pull-right">
+                                        <span class="glyphicon glyphicon-star-empty"></span>
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </div>
+                                    
                                   </div>
                                 
                                   <div class="panel-body text-left" style="color: black">
                                     <small>caspase recruitment domain family member 17</small>
-                                    <a href="#" class="card-link"><h4></h4></a>
                                   </div>
                                 </div>
                             </div>
 
                             <div class="col-md-5">
-                                <div class="panel panel-default gene-card">
-                                  <div class="panel-heading gene-card-heading">
+                                <div class="panel panel-default GeneCard">
+                                  <div class="panel-heading GeneCard__heading">
                                     CARD17  <span class="label label-default"><small>440068</small></span>
+                                    <div class="pull-right">
+                                        <span class="glyphicon glyphicon-star-empty"></span>
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </div>
                                   </div>
                                 
                                   <div class="panel-body text-left" style="color: black">
                                     <small>caspase recruitment domain family member 17</small>
-                                    <a href="#" class="card-link"><h4></h4></a>
                                   </div>
                                 </div>
                             </div>
                             
                             <div class="col-md-5 col-md-offset-1">
-                                <div class="panel panel-default gene-card">
-                                  <div class="panel-heading gene-card-heading">
+                                <div class="panel panel-default GeneCard">
+                                  <div class="panel-heading GeneCard__heading">
                                     CARD17  <span class="label label-default"><small>440068</small></span>
+                                    <div class="pull-right">
+                                        <span class="glyphicon glyphicon-star-empty"></span>
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </div>
                                   </div>
                                 
                                   <div class="panel-body text-left" style="color: black">
                                     <small>caspase recruitment domain family member 17</small>
-                                    <a href="#" class="card-link"><h4></h4></a>
                                   </div>
                                 </div>
                             </div>
 
                             <div class="col-md-5">
-                                <div class="panel panel-default gene-card">
-                                  <div class="panel-heading gene-card-heading">
+                                <div class="panel panel-default GeneCard">
+                                  <div class="panel-heading GeneCard__heading">
                                     CARD17  <span class="label label-default"><small>440068</small></span>
+                                    <div class="pull-right">
+                                        <span class="glyphicon glyphicon-star-empty"></span>
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </div>
                                   </div>
                                 
                                   <div class="panel-body text-left" style="color: black">
                                     <small>caspase recruitment domain family member 17</small>
-                                    <a href="#" class="card-link"><h4></h4></a>
                                   </div>
                                 </div>
                             </div>
@@ -191,7 +267,6 @@
 
 
                     </div> <!-- panel panel-default -->
-
                 </div><!-- col-md-6 -->
                 <!-- **** END Query Param Selector: Genes **** -->                
 
@@ -216,51 +291,75 @@
                         </div>
                         </div><!-- panel-heading -->
 
-                        <table class="table">
-                          <thead>
-                            <tr>
-                              <th>Disease Name</th> <th class="text-right">Samples |</th> <th class="text-center"><small>+ </small></th> <th ><small>-&nbsp;&nbsp;</small></th>
-                            </tr>
-                          </thead>
-                        </table>
                         
                         <div class="list-group">
 
-                            <button type="button" class="list-group-item">
-                              Diseases Type 
-                              <div class=" pull-right">
-                                  <span class="label label-default"> 44</span> |
-                                  <span class="label label-success">14</span>
-                                  <span class="label label-danger">30</span>    
+                            <button type="button" class="DiseaseTypeCard list-group-item">
+                             <span class="DiseaseTypeCard__title">Diseases Type</span>
+                              
+                              <div class="SamplesCount well pull-right">
+                                   <strong title="total samples in disease type study">44</strong> |
+                                  <span class="label label-success" title="samples WITH selected Mutations">14</span>
+                                  <span class="label label-danger" title="samples WITHOUT selected Mutations">30</span>    
                               </div>
                             </button>
 
-                            <button type="button" class="list-group-item">
-                              Diseases Type 
-                              <div class=" pull-right">
-                                  <span class="label label-default"> 44</span> |
-                                  <span class="label label-success">14</span>
-                                  <span class="label label-danger">30</span>    
+
+                             <button type="button" class="DiseaseTypeCard list-group-item">
+                             <span class="DiseaseTypeCard__title">Diseases Type</span>
+                              
+                              <div class="SamplesCount well pull-right">
+                                   <strong title="total samples in disease type study">44</strong> |
+                                  <span class="label label-success" title="samples WITH selected Mutations">14</span>
+                                  <span class="label label-danger" title="samples WITHOUT selected Mutations">30</span>    
                               </div>
                             </button>
 
-                            <button type="button" class="list-group-item">
-                              Diseases Type 
-                              <div class=" pull-right">
-                                  <span class="label label-default"> 44</span> |
-                                  <span class="label label-success">14</span>
-                                  <span class="label label-danger">30</span>    
+
+                             <button type="button" class="DiseaseTypeCard list-group-item">
+                             <span class="DiseaseTypeCard__title">Diseases Type</span>
+                              
+                              <div class="SamplesCount well pull-right">
+                                   <strong title="total samples in disease type study">44</strong> |
+                                  <span class="label label-success" title="samples WITH selected Mutations">14</span>
+                                  <span class="label label-danger" title="samples WITHOUT selected Mutations">30</span>    
                               </div>
                             </button>
 
-                            <button type="button" class="list-group-item">
-                              Diseases Type 
-                              <div class=" pull-right">
-                                  <span class="label label-default"> 44</span> |
-                                  <span class="label label-success">14</span>
-                                  <span class="label label-danger">30</span>    
+
+                             <button type="button" class="DiseaseTypeCard list-group-item">
+                             <span class="DiseaseTypeCard__title">Diseases Type</span>
+                              
+                              <div class="SamplesCount well pull-right">
+                                   <strong title="total samples in disease type study">44</strong> |
+                                  <span class="label label-success" title="samples WITH selected Mutations">14</span>
+                                  <span class="label label-danger" title="samples WITHOUT selected Mutations">30</span>    
                               </div>
                             </button>
+
+
+                             <button type="button" class="DiseaseTypeCard list-group-item">
+                             <span class="DiseaseTypeCard__title">Diseases Type</span>
+                              
+                              <div class="SamplesCount well pull-right">
+                                   <strong title="total samples in disease type study">44</strong> |
+                                  <span class="label label-success" title="samples WITH selected Mutations">14</span>
+                                  <span class="label label-danger" title="samples WITHOUT selected Mutations">30</span>    
+                              </div>
+                            </button>
+
+                             <button type="button" class="DiseaseTypeCard list-group-item">
+                             <span class="DiseaseTypeCard__title">Diseases Type</span>
+                              
+                              <div class="SamplesCount well pull-right">
+                                   <strong title="total samples in disease type study">44</strong> |
+                                  <span class="label label-success" title="samples WITH selected Mutations">14</span>
+                                  <span class="label label-danger" title="samples WITHOUT selected Mutations">30</span>    
+                              </div>
+                            </button>
+
+                           
+                            
 
                             
                             

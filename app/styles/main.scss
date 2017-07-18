@@ -15,7 +15,7 @@
 // @import 'base';
 
 // Components
-// @import 'components';
+@import 'components';
 
 
 // =======================================================================
@@ -57,6 +57,22 @@
 }
 
 
+/* =======================================================================
+  Query Builder panel 
+  ========================================================================== */
+  .QueryBuilder__title{
+    display:inline-block;
+  }
+
+  .QueryBuilder__meta_btns{
+    margin-top:10px;
+    font-size:18px;
+    opacity:0.5;
+    .glyphicon{margin-left:10px;}
+  }
+
+
+
 // =======================================================================
 // Query Parameter Panel
 // =======================================================================
@@ -64,10 +80,46 @@
 	padding-top:30px;
 }
 
+.DiseaseTypeCard{
+    &:hover{
+        .DiseaseTypeCard__title{
+            font-weight:bold;
+        }
+    }
+}
 
 
+.GeneCard{
+    &:hover{
+        .GeneCard__heading{
+            .glyphicon, .lablel{opacity:1;}
+        }
+    }
+}
 
+.GeneCard__heading{
+    .glyphicon{
+        opacity:0;
+        transition:all 0.25s ease;
+    }
+}
 
+.SamplesCount{
+    padding:3px 5px 3px 10px;
+    margin-bottom:0;
+    &:before{
+        content:'Samples';
+        display:inline-block;
+        margin-right:-60px;
+        opacity:0;
+        transition: all 0.25s ease;
+    }
 
-
+    &:hover{
+        &:before{
+            margin-right:5px;
+            opacity:1;
+        }
+    }
+}
 
