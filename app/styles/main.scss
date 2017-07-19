@@ -51,26 +51,39 @@
 	right:0;
 	left:auto;
 }
-.sidebar--queryoverview{
+.QueryOverview{
 	border:0;
 	background-color: #c4c4c4;
 }
 
 
-/* =======================================================================
-  Query Builder panel 
-  ========================================================================== */
-  .QueryBuilder__title{
-    display:inline-block;
-  }
+.QueryOverviewGenes{margin-bottom:30px;}
 
-  .QueryBuilder__meta_btns{
-    margin-top:10px;
-    font-size:18px;
-    opacity:0.5;
-    .glyphicon{margin-left:10px;}
-  }
+.GeneCard--listing{
+    .panel-body,
+    .label{
+        display:none;
+    }
+}
 
+.GeneCard--listing__actions{
+    position: absolute;
+    right:19px;
+    top:12px;
+    float:none;
+}
+  
+
+.QueryOverviewDiseaseTypes__heading{
+        padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    .SamplesCount{
+        &:before{
+            margin-right:5px;
+            opacity:1;
+        }
+    }
+}
 
 
 // =======================================================================
@@ -98,6 +111,7 @@
 }
 
 .GeneCard__heading{
+
     .glyphicon{
         opacity:0;
         transition:all 0.25s ease;
