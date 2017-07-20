@@ -31,10 +31,7 @@ describe('Unit: Component: App', function() {
 
 
   
-  
-
-
-
+ 
 it('should render the app element',()=>{
   expect(element).not.toEqual(undefined);
 });
@@ -55,5 +52,4 @@ it('should have a STATE object attached to the controller',()=>{
 
 
 });
-
 
