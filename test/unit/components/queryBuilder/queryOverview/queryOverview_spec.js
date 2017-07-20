@@ -2,25 +2,31 @@ describe('UNIT::component: queryOverview:', () => {
  
   let parentScope;
   let element;  
+  let $state;
   let mutationListings;
   let diseaseListings;
   var $componentController;
   
 
   function findIn(element, selector) {
-  	return angular.element(element[0].querySelector(selector));
+    let el = element[0] ? element[0] : element;
+  	return angular.element(el.querySelector(selector));
    }
 
 
    //load templates from $templateCache
   beforeEach(angular.mock.module('app'));
   beforeEach(angular.mock.module('app.components'));
-  beforeEach(inject(function(_$componentController_) {
+  beforeEach(inject(function(_$componentController_,_$state_) {
     $componentController = _$componentController_;
+    $state = _$state_;
   }));
   beforeEach(inject(($compile, $rootScope) => {
       
         parentScope = $rootScope.$new();
+
+        parentScope.removeParamFromQuery = jasmine.createSpy('removeParam');
+
         parentScope.mutationList =[
           {
             '_id': '4331',
@@ -74,7 +80,11 @@ describe('UNIT::component: queryOverview:', () => {
       
         ];
         element = angular.element(`
-            <query-overview mutations-set='mutationList' disease-set='diseaseList'/>
+            <query-overview 
+              mutations-set='mutationList' 
+              disease-set='diseaseList'
+              remove-param="removeParamFromQuery({id, paramRef,paramType})"
+            />
         `);
         $compile(element)(parentScope);      
         parentScope.$digest();
@@ -95,6 +105,16 @@ describe('UNIT::component: queryOverview:', () => {
       expect(diseaseListings.length).toEqual(parentScope.diseaseList.length);
     });
 
+
+    it('should call "removeParamFromQuery" on parent component with given param ',()=>{
+        var ctrl = element.isolateScope().$ctrl;
+
+        ctrl.removeParam({id: 388324, paramRef:'entrezgene', paramType:'mutations'});
+        expect(parentScope.removeParamFromQuery).toHaveBeenCalledWith({id: 388324, paramRef:'entrezgene', paramType:'mutations'}); 
+    });
+
+
+    
 
 
 

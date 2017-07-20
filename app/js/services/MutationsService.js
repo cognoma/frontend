@@ -11,20 +11,12 @@ function MutationsService($q, $http, $timeout, $log, AppSettings, $httpParamSeri
   
   let endpoint = (geneQuery ='')=>{
     let _geneQuery = geneQuery.toUpperCase();
-    
-    if(AppSettings.api.baseUrl.includes('api.cognoma.org')){
-      //production - mygene.info query endpoint
-      return `${AppSettings.api.geneSearch.base}${_geneQuery}&${$httpParamSerializer(AppSettings.api.geneSearch.params)}`;  
-    }else{
-      return `${AppSettings.api.baseUrl}${AppSettings.api.genes}/${_geneQuery}`;
-    }
+    return `${AppSettings.api.geneSearch.base}${_geneQuery}&${$httpParamSerializer(AppSettings.api.geneSearch.params)}`;  
     
   }
 
   
-    
-
-
+  
   /**
    * Get all genes/mutations for search query
    *  

@@ -77,6 +77,7 @@ const progressIndicatorBarComponent = {
                 // check each step in the steps array for active state 
                 // find the step with an index of +1 the current active state 
                 let nextStep = vm.steps[_currentActiveIdx()+1];
+                if(nextStep == undefined) return;
                 nextStep.active = true;
                 progressHistory.push(nextStep);
                 if(changeState)$state.go(nextStep.state);
@@ -119,7 +120,7 @@ const progressIndicatorBarComponent = {
 
                 $log.log(`goTo:${goToStep.title}`);
                 
-                if(goToStep == undefined) return;
+                if(goToStep == undefined || goToStep.action != undefined) return;
 
 
                 // get the index of the selcted step

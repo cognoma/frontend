@@ -2,41 +2,48 @@ describe('UNIT::component: queryOverviewControl:', () => {
 
   let parentScope;
   let element;
-  let $state;
+  let $_state;
   let mutationListings;
   let diseaseListings;
   var $componentController;
-
+  let $_compile;
 
 var $_locationProvider,
     $_urlRouterProvider,
     $_stateProvider,
-    $_rootScope;
+    $_rootScope,
+    $timeout;
 
+  
   function findIn(element, selector) {
-  	return angular.element(element[0].querySelector(selector));
+    let el = element[0] ? element[0] : element;
+  	return angular.element(el.querySelector(selector));
    }
+
+
 
 
    //load templates from $templateCache
   beforeEach(angular.mock.module('app'));
   beforeEach(angular.mock.module('app.components'));
 
-  beforeEach(inject(function(_$componentController_, _$state_) {
+  beforeEach(inject(function(_$componentController_, $state, _$timeout_) {
     $componentController = _$componentController_;
-    $state = _$state_;
+    $_state = $state;
+    $timeout = _$timeout_;
   }));
+
+  
+
 
 
     beforeEach(inject(($compile, $rootScope) => {
+      $_compile = $compile;
       $_rootScope = $rootScope;
       parentScope = $rootScope.$new();
+      parentScope.removeParam = jasmine.createSpy('removeParam');
 
-    	parentScope.title = 'Mutations';
-      parentScope.setTitle = 'Gene Set';
-      parentScope.desc = 'Lorem ipsum dolor sit amet';
-      parentScope.listType = 'mutations';
-
+    	
       parentScope.mutationsList = [
             {
             '_id':        '4331',
@@ -48,20 +55,38 @@ var $_locationProvider,
           }
       ];
 
+      parentScope.diseaseList = [
+        {
+        'acronym': 'ACC',
+        'name':    'adrenocortical cancer',
+        'positives': 16,
+        'negatives': -15,
+        'mutationsLoading':false,
+        'samples':[{}]
+        }
+      ];
+
 
         element = angular.element(`
             <query-overview-control
-                id="#test-overviewCtrl"
-                title="{{title}}"
-                set-title="{{setTitle}}"
-                desc="{{desc}}"
-                list-type="{{listType}}"
+                title="Genes"
+                desc="classify samples by their mutation status in selected genes"
+                list-type="mutations"
                 param-list="mutationsList"
-            >
-            </query-overview-control>
+                remove-param="removeParam({id, paramRef, paramType})"
+              >
+              </query-overview-control>
+              <query-overview-control
+                class="row"
+                title="Disease Type"
+                desc="Select Samples to Include in Query by Disease Type"
+                list-type="disease"
+                param-list="diseaseList"
+                remove-param="removeParam({id, paramRef, paramType})"
+                >
+              </query-overview-control >
         `);
 
-        var chlidScope = element.find('#test-overviewCtrl').scope();
 
 
         $compile(element)(parentScope);
@@ -79,24 +104,18 @@ var $_locationProvider,
       let title_attrVal = findIn(element, '.js-test-title').text().trim();
       let titleEl = findIn(element, '.js-test-title');
         expect(titleEl).toBeDefined();
-        expect(title_attrVal).toEqual(parentScope.title + ' (1)');
+        expect(title_attrVal).toEqual("Genes (1)");
     });
 
 
-    // Attribute: set-title
-    xit('shows the set title', () => {
-      let setTitle_el = findIn(element, '.query-overview--control-setTitle');
-        expect(setTitle_el).toBeDefined();
-        expect(setTitle_el.text().trim()).toEqual(parentScope.setTitle);
-    });
-
-
+    
 
     // Attribute: description
     it('desc attr: tooltip message displays initial state value of desc', () => {
       let infoBoxMesage_attrVal = findIn(element, '.glyphicon-info-sign').attr('uib-tooltip');
-      expect(infoBoxMesage_attrVal).toEqual(parentScope.desc);
+      expect(infoBoxMesage_attrVal).toEqual("classify samples by their mutation status in selected genes");
     });
+
 
     // Attribute: param-list
     it('binds the mutationsList to param-list attr in controller', () => {
@@ -156,36 +175,40 @@ var $_locationProvider,
 
 
     it('active property set based on correct ui.state', ()=>{
-      $state.go('app.queryBuilder.mutations');
+      $_state.go('app.queryBuilder.mutations');
       parentScope.$digest();
        //Extract the Controller reference from compiled element
       var elementController = element.isolateScope().$ctrl;
-      elementController.active = $state.current.name.includes(elementController.listType);
+      elementController.active = $_state.current.name.includes(elementController.listType);
       // Assert
       expect(elementController.active).toBeTruthy();
 
     });
 
-    xdescribe('event emmters:',()=>{
-      it('clearSet() fires mutationSet:clear event ', ()=>{
-        const mutationSetClear_spy = jasmine.createSpy('mutationSetClear_spy');
-        $_rootScope.$on('mutationSet:clear', mutationSetClear_spy);
 
-        element.isolateScope().$ctrl.clearSet();
-        expect(mutationSetClear_spy).toHaveBeenCalled();
-      });
+    it('should call "removeParam" method on parent component',()=>{
+      var ctrl = element.isolateScope().$ctrl;
+
+      ctrl.removeParam({id: 4331, paramRef:'entrezgene', paramType:'mutations'});
+      expect(parentScope.removeParam).toHaveBeenCalledWith({id: 4331, paramRef:'entrezgene', paramType:'mutations'}); 
+      
+    });
 
 
-      it('resetSearch() fires paramSearch:reset event ', ()=>{
-        const resetSearch_spy = jasmine.createSpy('resetSearch_spy');
-        $_rootScope.$on('paramSearch:reset', resetSearch_spy);
+    it('should switch to give state on ".query-overview--control-param-add" button click ',()=>{
+  
+      
+      let addParamBtn = angular.element(element[2].querySelector('.query-overview--control-param-add'));
+          addParamBtn.triggerHandler('click');
 
-        element.isolateScope().$ctrl.resetSearch();
-        expect(resetSearch_spy).toHaveBeenCalled();
-      });
-
+          // @ref: https://stackoverflow.com/questions/25502568/angularjs-ui-router-test-ui-sref
+          $timeout.flush()
+      
+    
+      expect($_state.current.name).toEqual('app.queryBuilder.disease');
 
     });
+    
 
 
 

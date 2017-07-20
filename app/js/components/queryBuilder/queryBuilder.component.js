@@ -3,8 +3,9 @@ const template = require('./queryBuilder.tpl.html');
 const QueryBuilderComponent = {
     template,
     bindings: {
-      'mutationsSet': '=',
-      'diseaseSet':   '=',
+      'mutationsSet': ' = ',
+      'diseaseSet':   ' = ',
+      'user':'          = '
     },
     controller: ['$scope',
                  '$rootScope',
@@ -15,6 +16,7 @@ const QueryBuilderComponent = {
                  'MutationsService',
                  'DiseaseService',
                  'ProgressIndicatorBarService',
+                 'QueryBuilderService',
                  '$log',
                  function(
                     $scope, 
@@ -25,21 +27,24 @@ const QueryBuilderComponent = {
                     $timeout, 
                     MutationsService, 
                     DiseaseService, 
-                    ProgressIndicatorBarService, 
-                    $log) {
+                    ProgressIndicatorBarService,
+                    QueryBuilderService,
+                    $log,
+                    ) {
 
             	     'ngInject';
 
                    let vm = this;
                   
+                    
 
-                   $log = $log.getInstance('QueryBuilderComponent', true);
+                   $log = $log.getInstance('QueryBuilderComponent', false);
                    $log.log('');
                    vm.currentState = ()=>$state.current.name.split('.')[2];
                    const progessStateName = vm.currentState() == 'mutations' ? 'genes' : 'samples';
 
                    vm.$onInit = ()=>{
-
+                      
                         
                         // get the progress bar controller 
                         // and attach it to the local scope
@@ -49,6 +54,8 @@ const QueryBuilderComponent = {
                               vm.progressBar = progressBarInstance;
                               vm.progressBar.goTo(`Search ${progessStateName}`);
                             });
+
+                        
 
                    }
 
@@ -93,25 +100,31 @@ const QueryBuilderComponent = {
                         ];
 
                         // define the 'Review Query' button to be added  
-                        let reviewIndicator = {
-                             title:  'Review Query',  
-                             state:  'app.queryBuilder.disease' ,   
+                        let indicatorButton = {
+                             title:  'Submit Query',  
+                             // state:  'app.queryBuilder.review' ,   
                              icon:   '', 
                              active: false,
-                             type:   'button'
+                             type:   'button',
+                             action:($event)=>{
+                              $event.preventDefault();
+                              QueryBuilderService.submitQuery(vm.diseaseSet, vm.mutationsSet, vm.user);
+                            }
                          };
 
+
+                    
 
                    
                     /**
                      * Add the "Review Query" Button to the Progress Bar 
                      * if it's not already added 
                      */
-                    let _showReviewIndicator = () =>{
-                      let reviewIndicatorAdded = _.findWhere(vm.progressIndicators, {title: reviewIndicator.title}) != undefined;
-                      if((vm.mutationsSet.length && vm.diseaseSet.length) && !reviewIndicatorAdded){
-                        vm.progressIndicators.push(reviewIndicator);
-                        vm.progressBar.goTo(reviewIndicator, false);
+                    let _showIndicatorButton = () =>{
+                      let indicatorButtonAdded = _.findWhere(vm.progressIndicators, {title: indicatorButton.title}) != undefined;
+                      if((vm.mutationsSet.length && vm.diseaseSet.length) && !indicatorButtonAdded){
+                        vm.progressIndicators.push(indicatorButton);
+                        vm.progressBar.goTo(indicatorButton, false);
                       } 
                     }
 
@@ -121,13 +134,13 @@ const QueryBuilderComponent = {
                     /**
                      * Remove the "Review Query" button from the progress bar 
                      */
-                    let _removeReviewIndicator = ()=>{
+                    let _removeIndicatorButton = ()=>{
                       
-                       let reviewIndicatorIndex =  _.findIndex(vm.progressIndicators,  reviewIndicator);
+                       let indicatorButtonIndex =  _.findIndex(vm.progressIndicators,  indicatorButton);
 
-                       if((!vm.mutationsSet.length || !vm.diseaseSet.length) && reviewIndicatorIndex >= 0 ){
+                       if((!vm.mutationsSet.length || !vm.diseaseSet.length) && indicatorButtonIndex >= 0 ){
                         vm.progressIndicators = [
-                          ...vm.progressIndicators.slice(0, reviewIndicatorIndex)
+                          ...vm.progressIndicators.slice(0, indicatorButtonIndex)
                         ];
                        } 
                     };
@@ -145,8 +158,9 @@ const QueryBuilderComponent = {
                    * @return {Void}
                    */
                     vm.clearSet =setType=>{
-                        vm[`${setType.setType}Set`] = [];
-                        _removeReviewIndicator();
+                        
+                        _removeIndicatorButton();
+                        return vm[`${setType.setType}Set`] = [];
                     }
 
                   
@@ -210,7 +224,7 @@ const QueryBuilderComponent = {
                       vm._updateDieseasListingsCounts();
 
                       if(vm[`${vm.currentState()}Set`].length > 3) vm.progressBar.advance(false);
-                      _showReviewIndicator();
+                      _showIndicatorButton();
 
                       return vm[`${vm.currentState()}Set`];
                     }
@@ -242,10 +256,10 @@ const QueryBuilderComponent = {
                     ];
 
 
-                   vm[`${paramData.paramType}Set`] = currentSet;
+                    vm[`${paramData.paramType}Set`] = currentSet;
 
                      vm._updateDieseasListingsCounts();
-                    _removeReviewIndicator();
+                    _removeIndicatorButton();
 
                     return vm[`${paramData.paramType}Set`];
                 }
@@ -263,6 +277,8 @@ const QueryBuilderComponent = {
                  * @return {Void}
                  */
                 vm._updateDieseasListingsCounts = ()=>{
+                    $log.log(`_updateDieseasListingsCounts`);
+                    $log.log(vm.mutationsSet)
 
                     if(vm.diseaseSet.length){
 
@@ -271,7 +287,7 @@ const QueryBuilderComponent = {
 
                             diseaseModel
                                 .getAggregates(vm.mutationsSet)
-                                .then(function(data) {
+                                .then(function() {
                                     diseaseModel.mutationsLoading = false;
                                 });
                         
@@ -280,6 +296,8 @@ const QueryBuilderComponent = {
                     }//end if
                     
                 }//_updateDieseasListingsCounts
+
+
 
 
                 

@@ -1,9 +1,23 @@
-function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compileProvider,$httpProvider, $resourceProvider, $provide) {
+function OnConfig(
+    $stateProvider, 
+    $locationProvider, 
+    $urlRouterProvider, 
+    $compileProvider,
+    $httpProvider, 
+    $resourceProvider, 
+    $provide,
+    growlProvider) {
   'ngInject';
 
   if (process.env.NODE_ENV === 'production') {
     $compileProvider.debugInfoEnabled(false);
   }
+
+  growlProvider
+    .onlyUniqueMessages(true)
+    .globalDisableCountDown(true)
+    .globalTimeToLive(3000);
+  
 
   //activate LogDecorator for $log
   require('./utils/logging/LogDecorator.js')($provide);
@@ -19,6 +33,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
 
   // TODO: possibly separate queryBuilder functionality into it's own app
   $urlRouterProvider.when('/query-builder','/query-builder/mutations');
+  $urlRouterProvider.when('/','/query-builder/mutations');
   
   
   $stateProvider
@@ -36,13 +51,21 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $compil
                         class="row"
                         mutations-set="$ctrl.STATE.query.mutations"
                         disease-set="$ctrl.STATE.query.diseases"
+                        user="$ctrl.STATE.user"
                    />`,
       redirectTo: '/query-builder/mutations',      
     })
     .state({
       name:  'app.queryBuilder.mutations',
       title: 'Query Builder: Mutations',
-      url:   '/mutations',
+      url:   '/mutations?userSlug',
+      resolve:{
+        user:['$stateParams','UserAuth', function($stateParams, UserAuth){
+          
+          UserAuth.login(null, $stateParams.userSlug);
+          return {};
+      }]
+      },
       views: {
         'queryOverview':      {template: `<query-overview 
                                                 mutations-set="$ctrl.mutationsSet" 
