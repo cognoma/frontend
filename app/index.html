@@ -91,26 +91,41 @@
             <h3 class="text-center sub-header">Classifier Overview</h3>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 QueryOverviewBucket">
                     <h4 class="text-info" ><span class="glyphicon glyphicon-pencil"></span>  Classifier Title</h4>
                 </div>
             </div>
 
 
-            <div class="row QueryOverviewGenes__list">
-                <div class="col-md-12">
+            <div class="row ">
+                <div class="col-md-12 ">
 
-                    <!-- **** Query Overview: Genes **** -->
-                    <div class="QueryOverviewGenes">
-                        <h4 class="sub-header">
-                            Genes <small class="QueryOverviewGenes__count">(6)</small>
-                        </h4>
+                    <!-- **** QueryOverviewBucket: Genes **** -->
+                    <div class="QueryOverviewBucket">
+
+                        <div class="row QueryOverviewBucket__header">
+
+                            <div class="col-md-7">
+                              <h4>Genes <small>(6)</small></h4>
+                            </div>
+
+                            <div class="col-md-5 QueryOverviewBucket__controls ">
+                                <div class="pull-right">
+                                  <span class="glyphicon glyphicon-question-sign"></span>
+                                  <span class="glyphicon glyphicon-sort"></span>
+                                  <span class="glyphicon glyphicon-trash"></span>
+                                </div>
+                            </div>
+                    
+                        </div>
+
                         
                         <!-- **** Query Overview: Genes List **** -->
 
                           <div class="row">
 
-                              <div class="col-md-4">
+                              <div class="col-md-4 QueryOverviewBucket__list">
+
                                 <div class="panel panel-default GeneCard GeneCard--listing">
                                   <div class="panel-heading GeneCard__heading">
                                     CARD17  
@@ -216,36 +231,130 @@
                           </div><!-- row -->
                         <!-- **** END Query Overview: Genes List **** -->
 
+
                     </div>
-                    <!-- **** END Query Overview: Genes **** -->
+                    <!-- **** END QueryOverviewBucket: Genes **** -->
 
 
-                    <!-- **** Query Overview: DiseaseTypes **** -->
-                    <div class="row QueryOverviewDiseaseTypes">
+                </div><!-- col-md-12 -->
 
-                        <div class="col-md-12">
+            </div><!-- row -->
 
-                            <div class="row QueryOverviewDiseaseTypes__heading">
-                                <h4 class="col-md-5">
-                                    Disease Types <small class="QueryOverviewDiseaseTypes__count">(6)</small>
-                                </h4>
-                                <div class="col-md-7">
-                                    <div class="SamplesCount well pull-right">
-                                        <strong title="total samples in disease type study">1100</strong> |
-                                        <span class="label label-success" title="samples WITH selected Mutations">825</span>
-                                        <span class="label label-danger" title="samples WITHOUT selected Mutations">275</span>    
-                                    </div>
-                                </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <!-- **** QueryOverviewBucket: Disease Type **** -->
+                <div class="QueryOverviewBucket">
+
+                  <section class="QueryOverviewBucket__header">
+
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h4>Disease Types <small>(6)</small></h4>
+                           
+                        </div>  
+
+                        <div class="col-md-3 QueryOverviewBucket__controls ">
+                            <div class="pull-right">
+                              <span class="glyphicon glyphicon-question-sign"></span>
+                              <span class="glyphicon glyphicon-sort"></span>
+                              <span class="glyphicon glyphicon-trash"></span>
                             </div>
-                            
-
-
                         </div>
+    
                     </div>
-                    <!-- **** END Query Overview: DiseaseTypes **** -->
+                    
+                  </section>
+
+                   <div class="row">
+                    <div class="col-md-12">
+                         <div class="SamplesCount SamplesCount--totals pull-right is-open">
+                                <strong title="total samples in disease type study">44</strong> |&nbsp;
+                                <span class="label label-success" title="samples WITH selected Mutations">14</span>
+                                <span class="label label-danger" title="samples WITHOUT selected Mutations">30</span>    
+                        </div>
+                    </div>      
+                  </div>
+
+                  <div class="row QueryOverviewBucket__list">
+                      <div class="col-md-12">
+                           <button type="button" class="DiseaseTypeCard list-group-item">
+                             <span class="DiseaseTypeCard__title">Diseases Type</span>
+                              
+                              <div class="SamplesCount well pull-right">
+                                   <strong title="total samples in disease type study">44</strong> |
+                                  <span class="label label-success" title="samples WITH selected Mutations">14</span>
+                                  <span class="label label-danger" title="samples WITHOUT selected Mutations">30</span>    
+                              </div>
+                            </button>
+
+
+                            <button type="button" class="DiseaseTypeCard list-group-item">
+                             <span class="DiseaseTypeCard__title">Diseases Type</span>
+                              
+                              <div class="SamplesCount well pull-right">
+                                   <strong title="total samples in disease type study">44</strong> |
+                                  <span class="label label-success" title="samples WITH selected Mutations">14</span>
+                                  <span class="label label-danger" title="samples WITHOUT selected Mutations">30</span>    
+                              </div>
+                            </button>
+
+
+                            <button type="button" class="DiseaseTypeCard list-group-item">
+                             <span class="DiseaseTypeCard__title">Diseases Type</span>
+                              
+                              <div class="SamplesCount well pull-right">
+                                   <strong title="total samples in disease type study">44</strong> |
+                                  <span class="label label-success" title="samples WITH selected Mutations">14</span>
+                                  <span class="label label-danger" title="samples WITHOUT selected Mutations">30</span>    
+                              </div>
+                            </button>
+
+
+                            <button type="button" class="DiseaseTypeCard list-group-item">
+                             <span class="DiseaseTypeCard__title">Diseases Type</span>
+                              
+                              <div class="SamplesCount well pull-right">
+                                   <strong title="total samples in disease type study">44</strong> |
+                                  <span class="label label-success" title="samples WITH selected Mutations">14</span>
+                                  <span class="label label-danger" title="samples WITHOUT selected Mutations">30</span>    
+                              </div>
+                            </button>
+
+
+                            <button type="button" class="DiseaseTypeCard list-group-item">
+                             <span class="DiseaseTypeCard__title">Diseases Type</span>
+                              
+                              <div class="SamplesCount well pull-right">
+                                   <strong title="total samples in disease type study">44</strong> |
+                                  <span class="label label-success" title="samples WITH selected Mutations">14</span>
+                                  <span class="label label-danger" title="samples WITHOUT selected Mutations">30</span>    
+                              </div>
+                            </button>
+
+                      </div>
+                  </div>
+
+                 
+                    
+
+
+
+
+                
 
                 </div>
+                <!-- **** END QueryOverviewBucket: Disease Type **** -->
+
+              </div>
             </div>
+
+
+
+
+  
+  
+
         </div>
         <!-- **** Query Overview Sidebar **** -->
 

@@ -57,7 +57,23 @@
 }
 
 
-.QueryOverviewGenes{margin-bottom:30px;}
+.QueryOverviewBucket{margin-bottom:30px;}
+.QueryOverviewBucket__header{
+    border-bottom:1px solid #eee;
+    margin-bottom:10px;
+}
+
+.QueryOverviewBucket__controls{
+    margin-top:14px;
+}
+
+.QueryOverviewBucket__list{
+    .DiseaseTypeCard{
+        margin-bottom: 20px;
+    }
+}
+
+
 
 .GeneCard--listing{
     .panel-body,
@@ -74,16 +90,7 @@
 }
   
 
-.QueryOverviewDiseaseTypes__heading{
-        padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
-    .SamplesCount{
-        &:before{
-            margin-right:5px;
-            opacity:1;
-        }
-    }
-}
+
 
 
 // =======================================================================
@@ -121,6 +128,14 @@
 .SamplesCount{
     padding:3px 5px 3px 10px;
     margin-bottom:0;
+
+    &.is-open{
+        &:before{
+            margin-right:5px;
+            opacity:1;
+        }
+    }
+
     &:before{
         content:'Samples';
         display:inline-block;
@@ -135,5 +150,10 @@
             opacity:1;
         }
     }
+}
+
+
+.SamplesCount--totals{
+    margin:0 15px 12px 0;
 }
 
