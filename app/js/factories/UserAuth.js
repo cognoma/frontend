@@ -124,7 +124,7 @@ function UserAuth(UserResourceService, $cookies,$log) {
       return !!Factory.currentUser;
     },
     
-    // Is the current user an adminstrator?
+    // Is the current user an administrator?
     isAdmin: function() {
       return !!(Factory.currentUser && Factory.currentUser.admin);
     }

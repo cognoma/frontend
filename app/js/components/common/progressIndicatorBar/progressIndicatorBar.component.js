@@ -123,7 +123,7 @@ const progressIndicatorBarComponent = {
                 if(goToStep == undefined || goToStep.action != undefined) return;
 
 
-                // get the index of the selcted step
+                // get the index of the selected step
                 let selectedIdx =  _.indexOf(_steps, goToStep);
                 
 

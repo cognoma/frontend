@@ -41,7 +41,7 @@ const QueryBuilderComponent = {
                    $log = $log.getInstance('QueryBuilderComponent', false);
                    $log.log('');
                    vm.currentState = ()=>$state.current.name.split('.')[2];
-                   const progessStateName = vm.currentState() == 'mutations' ? 'genes' : 'samples';
+                   const progressStateName = vm.currentState() == 'mutations' ? 'genes' : 'samples';
 
                    vm.$onInit = ()=>{
                       
@@ -52,7 +52,7 @@ const QueryBuilderComponent = {
                             .get('queryBuilderProgress')
                             .then(progressBarInstance=>{ 
                               vm.progressBar = progressBarInstance;
-                              vm.progressBar.goTo(`Search ${progessStateName}`);
+                              vm.progressBar.goTo(`Search ${progressStateName}`);
                             });
 
                         
@@ -221,7 +221,7 @@ const QueryBuilderComponent = {
                       paramSet.push(queryParam);
                       vm[`${vm.currentState()}Set`] = paramSet;
 
-                      vm._updateDieseasListingsCounts();
+                      vm._updateDiseaseListingsCounts();
 
                       if(vm[`${vm.currentState()}Set`].length > 3) vm.progressBar.advance(false);
                       _showIndicatorButton();
@@ -236,7 +236,7 @@ const QueryBuilderComponent = {
 
 
                 /**
-                 * @param  {Obejct} paramData 
+                 * @param  {Object} paramData
                  *              | - {String} paramType - type of query set to manipulate 
                  *              | - {String | Number} id - specific identifier for item to remove from query set 
                  *              | - {String} paramRef - property of object to search the query set by, should be the property type of the id 
@@ -258,7 +258,7 @@ const QueryBuilderComponent = {
 
                     vm[`${paramData.paramType}Set`] = currentSet;
 
-                     vm._updateDieseasListingsCounts();
+                     vm._updateDiseaseListingsCounts();
                     _removeIndicatorButton();
 
                     return vm[`${paramData.paramType}Set`];
@@ -276,8 +276,8 @@ const QueryBuilderComponent = {
                  * 
                  * @return {Void}
                  */
-                vm._updateDieseasListingsCounts = ()=>{
-                    $log.log(`_updateDieseasListingsCounts`);
+                vm._updateDiseaseListingsCounts = ()=>{
+                    $log.log(`_updateDiseaseListingsCounts`);
                     $log.log(vm.mutationsSet)
 
                     if(vm.diseaseSet.length){
@@ -295,7 +295,7 @@ const QueryBuilderComponent = {
 
                     }//end if
                     
-                }//_updateDieseasListingsCounts
+                }//_updateDiseaseListingsCounts
 
 
 

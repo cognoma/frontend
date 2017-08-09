@@ -37,7 +37,7 @@ const QueryParamSelectorComponent = {
 
             const vm = this;
             vm.currentState = () => $state.current.name.split('.')[2];
-            const progessStateName = vm.currentState() == 'mutations' ? 'genes' : 'samples';
+            const progressStateName = vm.currentState() == 'mutations' ? 'genes' : 'samples';
             
 
             vm.$onInit = ()=>{
@@ -62,9 +62,9 @@ const QueryParamSelectorComponent = {
              * Filter our results so we don't return what's already added to the query
              * @param  {Array} rawSearchResults - array of objects returned from search
              * 
-             * @return {Array} array of results filted by the current state state from the query
+             * @return {Array} array of results filtered by the current state state from the query
              */
-            let _filteredSearchResutls = rawSearchResults =>{
+            let _filteredSearchResults = rawSearchResults =>{
                 
                 let comparator = vm.currentState() == 'mutations' ? '_id' : 'acronym';
                 return $filter('notInArrayFilter')(rawSearchResults, vm[`${vm.currentState()}Set`], comparator); 
@@ -80,9 +80,9 @@ const QueryParamSelectorComponent = {
             /**
              * Query parameter search functionality, delegates searching and 
              * result transformation to angular services.
-             * Returned restuls get filtered and bound to the local scope
+             * Returned results get filtered and bound to the local scope
              *  
-             * @param  {String} serachQuery - user input search string
+             * @param  {String} searchQuery - user input search string
              * @return {Void}
              */
             vm.onInputChange = searchQuery=>{
@@ -103,10 +103,10 @@ const QueryParamSelectorComponent = {
 
                                 $scope.$apply(()=>{
                                     if(response.length){
-                                      vm.searchResults = _filteredSearchResutls(response);
-                                      vm.progressBar.goTo(`Add ${progessStateName}`);
+                                      vm.searchResults = _filteredSearchResults(response);
+                                      vm.progressBar.goTo(`Add ${progressStateName}`);
                                     } else{
-                                      vm.progressBar.goTo(`Search ${progessStateName}`);  
+                                      vm.progressBar.goTo(`Search ${progressStateName}`);  
                                     }
                                     
                                     vm.isSearching = false;
@@ -127,7 +127,7 @@ const QueryParamSelectorComponent = {
             * @param  {Object} queryParam - mutation or DiseaseModel   
             * @return {Array} of objects 
             */
-            vm.removeParamFromSerachResults = queryParam=>{  
+            vm.removeParamFromSearchResults = queryParam=>{
                 
                 let selectedResult = _.assign({}, queryParam),
                     _searchResults = _.assign([], vm.searchResults),
@@ -156,7 +156,7 @@ const QueryParamSelectorComponent = {
             };
             
 
-            /** @depricated 
+            /** @deprecated
             // checks if set has been sorted by given params
             // let isSorted = (list, sortedList, sortedOn)=>{
             //     return _.isEqual(
@@ -174,7 +174,7 @@ const QueryParamSelectorComponent = {
              * @return {Array} 
              */
             vm.sortResultsBy = (list, sortOn)=>{
-                vm.searchResults = sortedResutlsBy(list, sortOn);
+                vm.searchResults = sortedResultsBy(list, sortOn);
             }
 
 
@@ -185,7 +185,7 @@ const QueryParamSelectorComponent = {
              * 
              * @return {Array} 
              */
-            let sortedResutlsBy = (list, sortOn)=>{
+            let sortedResultsBy = (list, sortOn)=>{
                 let results = _.assign([], list);
                 let sortedList = _.sortBy(results, sortOn).reverse();//reverse it to make it a descending list
                 

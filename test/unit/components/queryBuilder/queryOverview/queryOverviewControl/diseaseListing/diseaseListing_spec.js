@@ -64,7 +64,7 @@ describe('UNIT::component: diseaseListing:', () => {
     }));
     
     // Attribute: title
-    it('shows the name of the diesase', () => {
+    it('shows the name of the disease', () => {
       let title_attrVal = findIn(element, '.js-test-name').text();
       let titleEl = findIn(element, '.js-test-name');
       
@@ -137,7 +137,7 @@ describe('UNIT::component: diseaseListing:', () => {
       // make sure all of the listings get rendered
       expect(diseaseListings.length).toEqual(parentScope.paramList.length);
 
-      // test order by 'postitives' on ng-repeat
+      // test order by 'positives' on ng-repeat
       let secondNameAttrVal = findIn(diseaseListings[1], '.js-test-name').text();
       expect(secondNameAttrVal).toEqual(parentScope.paramList[2].name);
 
