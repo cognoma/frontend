@@ -24,7 +24,7 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
    * @param { Object } dataSource  -   where to retrieve results from
    * @param { Array } mutationsGenes  -  array of gene entrezid, usually from queryBuilder user selected genes
    *
-   * @return {Array} filtered array of DieseasModels
+   * @return {Array} filtered array of DiseaseModels
    */
   service.query = (searchQuery, mutationsGenes)=>{
     
