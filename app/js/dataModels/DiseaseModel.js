@@ -102,8 +102,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
   // simple math for the number of samples without a mutated gene 
   // matching the user selected genes
   DiseaseModel.prototype._setNegatives = function(){
-    
-     this.negatives = this.positives ?  (this.samples - this.positives) : null;
+     this.negatives = this.samples - this.positives;
      $log.log(`_setNegatives:${this.negatives}`);
   }
 
