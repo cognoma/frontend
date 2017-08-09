@@ -7,11 +7,6 @@
 .list-controls{
   margin: 1.75rem auto 4.5rem auto;
 }
-.clear-button{
-  background-color: $background--dark;
-  color: $gray-lighter;
-  border: none;
-}
 .gene-label{
   list-style: none;
   display: block;
@@ -62,19 +57,21 @@
 }
 
 .empty-card-space{
- border: 5px dotted white;
- border-radius: 4px;
- margin-left: 1rem;
- margin-right: 1rem;
- height: 15rem;
- color: white;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border: 5px dotted white;
+  border-radius: 4px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  height: 15rem;
+  color: white;
 }
 .empty-card-text{
-  text-align: center;
-  color: $black;
-  padding: 10px;
-  line-height: 1.5;
+  color: $white;
 }
+
 .dashboard-column-header{
 text-align: center;
   h2{

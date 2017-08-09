@@ -1,32 +1,33 @@
-  <div class="dashboard-column-header">
-    <h2>DISEASE Type SET</h2>
-    <span class="badge">{{$ctrl.diseaseSet.length}}</span>
-  </div>
-  <div class="list-controls">
-    <div class="col-xs-10">
-      <span>SELECTED DISEASE TYPES</span>
+<div class="row dashboard-column-header">
+  <h2>DISEASE Type SET</h2>
+  <span class="badge">{{$ctrl.diseaseSet.length}}</span>
+</div>
 
-      <span
-        class="glyphicon glyphicon-sort"
-        ng-click="$ctrl.sortSet({set:'disease',sortOn:'positives'})"
-      >
-        </span>
-    </div>
-    <div class="col-xs-2">
-      <button class="label clear-button disease-clear-button"
-            ng-click="$ctrl.clearSet({setType:'disease'})">CLEAR</button>
-    </div>
-  </div>
+<div class="list-controls">
+  <div class="col-xs-10">
+    <span>SELECTED DISEASE TYPES</span>
 
-  <div class="col-xs-12 sample-set-bar">
-    <span>SAMPLES {{ $ctrl.samplesTotal() }}</span>
-    <span>POSITIVES
-      <span class="glyphicon glyphicon-plus-sign text-success"></span>{{$ctrl.setTotalFor('positives')}}
-    </span>
-    <span>NEGATIVES
-      <span class="glyphicon glyphicon-minus-sign text-danger"></span>
-      {{$ctrl.setTotalFor('negatives')}}</span>
+    <span
+      class="glyphicon glyphicon-sort"
+      ng-click="$ctrl.sortSet({set:'disease',sortOn:'positives'})"
+    >
+      </span>
   </div>
+  <div class="col-xs-2">
+    <button class="label clear-button disease-clear-button"
+          ng-click="$ctrl.clearSet({setType:'disease'})">CLEAR</button>
+  </div>
+</div>
+
+<div class="col-xs-12 sample-set-bar">
+  <span>SAMPLES {{ $ctrl.samplesTotal() }}</span>
+  <span>POSITIVES
+    <span class="glyphicon glyphicon-plus-sign"></span>{{$ctrl.setTotalFor('positives')}}
+  </span>
+  <span>NEGATIVES
+    <span class="glyphicon glyphicon-minus-sign"></span>
+    {{$ctrl.setTotalFor('negatives')}}</span>
+</div>
 
 
 <!-- Disease Cards -->

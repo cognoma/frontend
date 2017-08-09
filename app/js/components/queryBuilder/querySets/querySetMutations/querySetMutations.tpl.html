@@ -1,28 +1,28 @@
 <div class="row dashboard-column-header">
   <h2>GENES SET</h2>
-  <!-- <span ng-if="$ctrl.mutationSet.length" class="badge">{{$ctrl.mutationSet.length}}</span> -->
+  <span class="badge">{{$ctrl.mutationsSet.length}}</span>
 </div>
 
-  <div class="row list-controls">
+<div class="row list-controls">
 
-    <div class="col-xs-9">
-      <span>SELECTED GENES</span>
-      <span 
-        ng-if="$ctrl.mutationsSet.length" 
-        class="glyphicon glyphicon-sort-by-alphabet" 
-        ng-click="$ctrl.sortSet({set:'mutations',sortOn:'symbol'})"></span>
-    </div>
-
-    <div class="col-xs-2">
-      <button 
-        class="label clear-button"
-        ng-if="$ctrl.mutationsSet.length"  
-        ng-click="$ctrl.clearSet({setType:'mutations'})">
-          CLEAR
-      </button>
-
-    </div>
+  <div class="col-xs-9">
+    <span>SELECTED GENES</span>
+    <span
+      ng-if="$ctrl.mutationsSet.length"
+      class="glyphicon glyphicon-sort-by-alphabet"
+      ng-click="$ctrl.sortSet({set:'mutations',sortOn:'symbol'})"></span>
   </div>
+
+  <div class="col-xs-2">
+    <button
+      class="label clear-button"
+      ng-if="$ctrl.mutationsSet.length"
+      ng-click="$ctrl.clearSet({setType:'mutations'})">
+        CLEAR
+    </button>
+
+  </div>
+</div>
 
 
 <!-- Gene Cards -->

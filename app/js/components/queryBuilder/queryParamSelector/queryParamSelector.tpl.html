@@ -8,7 +8,7 @@
 
 	<div class="col-lg-1 results-count" >
 
-		<small>results</small>
+		<small><b>results</b></small>
 
 		<span 
 			ng-if="$ctrl.isSearching"
@@ -27,7 +27,7 @@
   			<input id="query-param-selector-input"
   				   type="text"
   				   class="form-control"
-  				   placeholder="Search {{$ctrl.currentState()}} by Name"
+  				   placeholder="Search {{$ctrl.currentState() === 'mutations' ? 'genes' : 'diseases'}} by name"
 
   				   ng-model="$ctrl.searchQuery"
   				   ng-change="$ctrl.onInputChange($ctrl.searchQuery)"
