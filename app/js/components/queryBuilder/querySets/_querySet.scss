@@ -5,27 +5,20 @@
 	// width: 385px;
 	background: rgba($black, 0.58);//#9B9B9B	
 	color:$white;
-	&:before{
-		content: '';
-		display: block;
-		position: absolute;
-		top:0;
-		left:-10px;
+}
+.dashboard-column-header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
-		width: 0; 
-  		height: 0; 
-  		border-top: 20px solid transparent;
-  		border-bottom: 20px solid transparent; 
-  
-  		border-right:20px solid lighten($black, 20%); 
+	.badge{
+		background-color: $blue;
+		margin-left: 10px;
 	}
+}
 
-	.dashboard-column-header{
-		padding-top: 7px;
-		background: rgba($black, 0.5);
-	}
-	
-
-
-
+.clear-button{
+	background-color: $red;
+	color: $white;
+	border: none;
 }

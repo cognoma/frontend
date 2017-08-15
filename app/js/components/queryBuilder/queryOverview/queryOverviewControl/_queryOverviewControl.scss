@@ -12,13 +12,13 @@
 		color: $white;
 
 		&.active{
-			border-left:5px solid green;
+			border-left:5px solid $green;
 			border-top: none;
 			border-right:none;
 			border-bottom:none;
 			background:rgba($black, 0.25);
 			.query-overview--control-title{
-				color: lighten(green, 10%);
+				color: $green;
 			}
 		}
 	}
@@ -34,8 +34,8 @@
 		}
 		.query-overview--control-count{
 			display: inline-block;
-			transform:translateY(-2px);
-			color:$black;
+			transform: translateY(-2px);
+			color: $white;
 		}
 		
 
@@ -138,10 +138,10 @@
 				.sample-count--item{padding:0;}
 				.sample-positives{
 					// margin-right:10px;
-					.glyphicon{color:darken($green, 20%);}
+					.glyphicon{color:darken($green, 10%);}
 				}
 				.sample-negatives{
-					.glyphicon{color:darken($red, 20%);}
+					.glyphicon{color:darken($red, 10%);}
 				}
 
 

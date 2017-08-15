@@ -3,10 +3,9 @@ function UserResourceService($resource, AppSettings, $log) {
   $log = $log.getInstance('UserResourceService', true);
   $log.log('');
 
-  const USER_ENDPOINT = `${AppSettings.api.baseUrl}${AppSettings.api.users}/slug`;
+  const USER_ENDPOINT = `${AppSettings.api.baseUrl}${AppSettings.api.users}`;
 
-  return $resource(`${USER_ENDPOINT}/:userId:userSlug`,{userId:'@id',userSlug:'@slug'},{});
-
+  return $resource(`${USER_ENDPOINT}/:userSlug`,{userSlug:'@slug'},{});
 }
 
 export default {

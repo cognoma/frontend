@@ -62,7 +62,6 @@ function OnConfig(
       resolve:{
         user:['$stateParams','UserAuth', function($stateParams, UserAuth){
           
-          UserAuth.login($stateParams.userSlug);
           return {};
       }]
       },

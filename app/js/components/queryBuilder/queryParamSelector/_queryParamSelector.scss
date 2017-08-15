@@ -10,7 +10,9 @@
 	.dashboard-column-header{ 
 		background: $gray-light;
 		color: $black;
-		border-bottom: 5px solid $blue;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 }
 
@@ -85,9 +87,12 @@
 				.sample-count{ 
 					font-weight: bold;
 				}
-				.sample-pos{color:#3c763d;;}
-				.sample-neg{color:#a94442;}
+				.sample-pos{color:#28a745;;}
+				.sample-neg{color:#cb2431;}
 		}
 	}
+}
 
+.badge--counter{
+	background-color: $blue;
 }

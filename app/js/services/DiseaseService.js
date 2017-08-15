@@ -1,4 +1,4 @@
-function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFilter, _, $localStorage) {
+function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFilter, _, $localStorage, NotificationService) {
   'ngInject';
 
   $log = $log.getInstance('DiseaseService', false);
@@ -33,10 +33,8 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
 
 
       let diseasePromise = new Promise((resolve, reject)=>{
-          
-
         if ($localStorage.diseaseData && $localStorage.diseaseData.count) {
-          if($localStorage.diseaseData.count == 0) return  reject(`No Disease Types found matching: "${searchQuery}"`);
+          if($localStorage.diseaseData.count === 0) return  reject(`No Disease Types found matching: "${searchQuery}"`);
           $log.log('fetch disease data from localStorage',$localStorage.diseaseData);
            resolve($localStorage.diseaseData); 
         }
@@ -44,12 +42,17 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
         $log.log('fetch disease data from DB resource');
 
         DISEASES_RESOURCE.query((diseaseResponse) => {
-          
           $log.log(`found ${diseaseResponse.count} disease types in DB`);
-          if(diseaseResponse.count == 0) return  reject(`No Disease Types found matching: "${searchQuery}"`);
+          if(diseaseResponse.count === 0) return  reject(`No Disease Types found matching: "${searchQuery}"`);
 
           $localStorage.diseaseData = _.assign({}, diseaseResponse);
           resolve(diseaseResponse);
+        }, error => {
+          console.log(error)
+          NotificationService.notify({
+            type:    'error',
+            message: `Failed to load diseases.`
+          });
         });
 
       });//end diseasePromise
@@ -64,7 +67,13 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
                   $log.log(`${filteredResults.length} filtered results found, building DiseaseModels ...`);
                   // wait for all models to be populated before resolving
                   return $q.all( _responseTransformer(filteredResults, mutationsGenes) );
-              }).catch(error=>{console.log(error)});
+              }).catch(error=>{
+                console.log(error)
+                NotificationService.notify({
+                  type:    'error',
+                  message: `Failed to build DiseaseModels.`
+                });
+              });
 
   };//END service.query
 

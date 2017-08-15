@@ -23,8 +23,10 @@ function UserAuth(UserResourceService, $cookies,$log) {
       $log.log(`login:: userSlug=${userSlug}`);
 
     	return new Promise((resolve)=>{
-          
-        if(userSlug || this._getUserFromStorage()){
+    	  if (userSlug || this._getUserFromStorage()) {
+    	    if (!userSlug) {
+    	      userSlug = this._getUserFromStorage().random_slugs[0]
+          }
           this._authenticateUser(userSlug)
             .catch(error => {
               $log.log(`login:: login failed with slug ${userSlug}, creating new user`);
@@ -99,19 +101,21 @@ function UserAuth(UserResourceService, $cookies,$log) {
       let userCookie = Factory._getUserFromStorage();
       
       return new Promise((resolve, reject)=>{
+        if (userSlug === null || userSlug === undefined) {
+          reject("User slug is null or undefined")
+        }
 
-          UserResourceService.get({userSlug: userSlug ? userSlug : userCookie.random_slugs[0] }, function(response){
-            Factory.currentUser =  Factory._setDefaultUserName(response);
-            
-            if ( Factory.isAuthenticated() ) {
-                $log.log(`logged in as user: ${Factory.currentUser.name}`);
-                resolve(Factory.currentUser);
-            }
+        UserResourceService.get({userSlug: userSlug ? userSlug : userCookie.random_slugs[0] }, function(response){
+          Factory.currentUser =  Factory._setDefaultUserName(response);
 
-          }, function(error){
-            reject(error)
-          });
+          if ( Factory.isAuthenticated() ) {
+              $log.log(`logged in as user: ${Factory.currentUser.name}`);
+              resolve(Factory.currentUser);
+          }
 
+        }, function(error){
+          reject(error)
+        });
       });
     },
     

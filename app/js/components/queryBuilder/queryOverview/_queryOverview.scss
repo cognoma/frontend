@@ -6,7 +6,11 @@
 	background: $gray-light;
 	padding:0;
 	text-align: center;
-	.dashboard-column-header{ background: $black;}
+	.dashboard-column-header {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 }
 
 

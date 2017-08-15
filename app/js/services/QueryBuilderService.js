@@ -2,12 +2,31 @@ function QueryBuilderService( $resource, $http, AppSettings, NotificationService
   'ngInject';
 
   const QUERY_ENDPOINT = `${AppSettings.api.baseUrl}${AppSettings.api.classifiers}/`;
-  let USER_ENDPOINT = (id) => `${AppSettings.api.baseUrl}${AppSettings.api.users}/id/${id}/`;
+  let USER_ENDPOINT = (slug) => `${AppSettings.api.baseUrl}${AppSettings.api.users}/${slug}/`;
   const IGNORE_EXISTING_EMAIL = true
 
   const service = {
     submitQuery: function(diseases = [], genes =[], user){
-        
+      if (user === null || user === undefined) {
+        NotificationService.notify({
+          type:    'error',
+          message: `User is null or undefined.`
+        });
+        return
+      } else if (user.random_slugs === null || user.random_slugs === undefined) {
+        NotificationService.notify({
+          type:    'error',
+          message: `random_slugs is null or undefined.`
+        });
+        return
+      } else if (user.random_slugs.length < 1) {
+        NotificationService.notify({
+          type:    'error',
+          message: `random_slugs is empty.`
+        });
+        return
+      }
+
       let queryResource = $resource(QUERY_ENDPOINT, {}, {
                 submit: {
                   method: 'POST',
@@ -42,8 +61,12 @@ function QueryBuilderService( $resource, $http, AppSettings, NotificationService
 
             });
 
-          }, err=>{
-            console.log(err);
+          }, error => {
+            console.log(error);
+            NotificationService.notify({
+              type:    'error',
+              message: `Failed to submit classifier. Error: ${error}`
+            });
           });
 
         } else {
@@ -67,7 +90,7 @@ function QueryBuilderService( $resource, $http, AppSettings, NotificationService
           // validation succeeded
           $http({
             method: 'PUT',
-            url: USER_ENDPOINT(user.id),
+            url: USER_ENDPOINT(user.random_slugs[0]),
             headers: {
               'Authorization': `Bearer ${user.random_slugs[0]}`
             },
@@ -82,9 +105,10 @@ function QueryBuilderService( $resource, $http, AppSettings, NotificationService
             });
             submitClassifier()
           }, function errorCallback(error) {
+            console.log(error);
             NotificationService.notify({
               type:    'error',
-              message: `Failed to update email. Error: ${error}`
+              message: `Failed to update email.`
             });
           });
         } else {
