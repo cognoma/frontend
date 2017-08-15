@@ -100,7 +100,7 @@ var enchanceLogger = function( $log ){
  
 
     return $log;
-};//enchanceLogger
+};//enhanceLogger
 
 
 

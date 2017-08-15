@@ -113,7 +113,7 @@
 				name="{{gene.name}}"
 				score="{{gene._score}}"
 				link=""
-				ng-click="$ctrl.onParamSelect({queryParamData: gene}); $ctrl.removeParamFromSerachResults(gene)"
+				ng-click="$ctrl.onParamSelect({queryParamData: gene}); $ctrl.removeParamFromSearchResults(gene)"
 			></gene-card>
 
 			<disease-card
@@ -124,7 +124,7 @@
     			samples="disease.samples"
     			positives="{{disease.positives}}"
     			negatives="{{disease.negatives}}"
-    			ng-click="$ctrl.onParamSelect({queryParamData: disease}); $ctrl.removeParamFromSerachResults(disease)"
+    			ng-click="$ctrl.onParamSelect({queryParamData: disease}); $ctrl.removeParamFromSearchResults(disease)"
 
   			></disease-card>
 

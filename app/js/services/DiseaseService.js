@@ -9,7 +9,7 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
   const service           = {};
  
 
-  // converts raw server response to array Diesease Model promises
+  // converts raw server response to array Disease Model promises
   // all models will be populated when resolved
   let _responseTransformer = (serverResponse, mutationsGenes)=>{
     return serverResponse.map((diseaseResponse)=>new DiseaseModel(diseaseResponse, mutationsGenes));
@@ -24,7 +24,7 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
    * @param { Object } dataSource  -   where to retrieve results from
    * @param { Array } mutationsGenes  -  array of gene entrezid, usually from queryBuilder user selected genes
    *
-   * @return {Array} filtered array of DieseasModels
+   * @return {Array} filtered array of DiseaseModels
    */
   service.query = (searchQuery, mutationsGenes)=>{
     
@@ -36,7 +36,7 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
           
 
         if ($localStorage.diseaseData && $localStorage.diseaseData.count) {
-          if($localStorage.diseaseData.count == 0) return  reject(`No Diseae Types found matching: "${searchQuery}"`);
+          if($localStorage.diseaseData.count == 0) return  reject(`No Disease Types found matching: "${searchQuery}"`);
           $log.log('fetch disease data from localStorage',$localStorage.diseaseData);
            resolve($localStorage.diseaseData); 
         }
@@ -46,7 +46,7 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
         DISEASES_RESOURCE.query((diseaseResponse) => {
           
           $log.log(`found ${diseaseResponse.count} disease types in DB`);
-          if(diseaseResponse.count == 0) return  reject(`No Diseae Types found matching: "${searchQuery}"`);
+          if(diseaseResponse.count == 0) return  reject(`No Disease Types found matching: "${searchQuery}"`);
 
           $localStorage.diseaseData = _.assign({}, diseaseResponse);
           resolve(diseaseResponse);

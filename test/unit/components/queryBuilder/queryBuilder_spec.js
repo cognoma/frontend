@@ -69,7 +69,7 @@ describe('UNIT::component: queryBuilder:', () => {
       bindings = { mutationsSet:parentScope.STATE.query.mutations, 
                        diseaseSet:parentScope.STATE.query.diseases, 
                        currentState:()=>'mutations',
-                       _updateDieseasListingsCounts:()=>{},
+                       _updateDiseaseListingsCounts:()=>{},
                        progressBar:{
                         advance:()=>{},
                         goTo:()=>{}

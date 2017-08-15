@@ -69,7 +69,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
 
   
   /**
-   * GET (positives) - total number of samples in diesease that have a mutated gene a user selected gene
+   * GET (positives) - total number of samples in disease that have a mutated gene a user selected gene
    * sets the total count to a model property 
    * @api private 
    * @param { Array } mutationsGenes  -   array of gene entrezIds, queryBuilder user selected genes
@@ -79,9 +79,9 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
   DiseaseModel.prototype._loadMutatedGenes = function(mutationsGenes = []){
     $log.log(`_loadMutatedGenes:${mutationsGenes.length}`);
     let _model = this;
-    let mutationsParmas = this._buildMutationsGenesParams(mutationsGenes);
+    let mutationsParams = this._buildMutationsGenesParams(mutationsGenes);
     
-    const POSITIVES_ENDPOINT = `${API_BASE}${AppSettings.api.samples}?limit=1&disease=${this.acronym}${mutationsParmas}`;
+    const POSITIVES_ENDPOINT = `${API_BASE}${AppSettings.api.samples}?limit=1&disease=${this.acronym}${mutationsParams}`;
     
     
     if(mutationsGenes.length){
@@ -102,8 +102,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
   // simple math for the number of samples without a mutated gene 
   // matching the user selected genes
   DiseaseModel.prototype._setNegatives = function(){
-    
-     this.negatives = this.positives ?  (this.samples - this.positives) : null;
+     this.negatives = this.samples - this.positives;
      $log.log(`_setNegatives:${this.negatives}`);
   }
 
@@ -121,7 +120,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings){
 
   /**
    * Aggregate data from api to set the model's (samples, positives, negatives) properties.
-   * Promsie chanining in this method allows us to return a model result only after it has 
+   * Promise chaining in this method allows us to return a model result only after it has
    * been fully populated with aggregate data from disparate sources. 
    * @api public
    * 

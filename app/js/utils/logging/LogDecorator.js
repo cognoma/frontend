@@ -10,8 +10,8 @@
               // Register our $log decorator with AngularJS $provider
               $provide.decorator( '$log', [ "$delegate", function( $delegate )
               {
-               // NOTE: the LogEnchancer module returns a FUNCTION that we named `enchanceLoggerFn`
-               //       All the details of how the `enchancement` works is encapsulated in LogEnhancer!
+               // NOTE: the LogEnhancer module returns a FUNCTION that we named `enhanceLoggerFn`
+               //       All the details of how the `enhancement` works is encapsulated in LogEnhancer!
 
                   require('./LogEnhancer.js')( $delegate );
 

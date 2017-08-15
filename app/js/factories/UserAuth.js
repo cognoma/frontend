@@ -25,14 +25,22 @@ function UserAuth(UserResourceService, $cookies,$log) {
     	return new Promise((resolve)=>{
           
         if(userSlug || this._getUserFromStorage()){
-
           this._authenticateUser(userSlug)
-                .then(authedCookieUser=>{
-                  resolve(authedCookieUser);
+            .catch(error => {
+              $log.log(`login:: login failed with slug ${userSlug}, creating new user`);
+              this._createNewUser()
+                .then(newUser=>{
+                  Factory.currentUser = newUser;
+                  $log.log(`login:: created new user and logged in as: ${Factory.currentUser.name}`);
+                  // return newly created user
+                  resolve(Factory.currentUser);
                 });
+            })
+            .then(authedCookieUser=>{
+              resolve(authedCookieUser);
+            });
 
-        }else {        
-
+        } else {
           this._createNewUser()
                   .then(newUser=>{
                       Factory.currentUser = newUser;
@@ -90,7 +98,7 @@ function UserAuth(UserResourceService, $cookies,$log) {
     _authenticateUser:(userSlug = null)=>{
       let userCookie = Factory._getUserFromStorage();
       
-      return new Promise((resolve)=>{
+      return new Promise((resolve, reject)=>{
 
           UserResourceService.get({userSlug: userSlug ? userSlug : userCookie.random_slugs[0] }, function(response){
             Factory.currentUser =  Factory._setDefaultUserName(response);
@@ -100,6 +108,8 @@ function UserAuth(UserResourceService, $cookies,$log) {
                 resolve(Factory.currentUser);
             }
 
+          }, function(error){
+            reject(error)
           });
 
       });
@@ -114,7 +124,7 @@ function UserAuth(UserResourceService, $cookies,$log) {
       return !!Factory.currentUser;
     },
     
-    // Is the current user an adminstrator?
+    // Is the current user an administrator?
     isAdmin: function() {
       return !!(Factory.currentUser && Factory.currentUser.admin);
     }
