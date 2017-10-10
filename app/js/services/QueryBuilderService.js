@@ -1,4 +1,4 @@
-function QueryBuilderService( $resource, $http, AppSettings, NotificationService) {
+function QueryBuilderService( $resource, $http, AppSettings, NotificationService, _) {
   'ngInject';
 
   const QUERY_ENDPOINT = `${AppSettings.api.baseUrl}${AppSettings.api.classifiers}/`;
@@ -36,9 +36,14 @@ function QueryBuilderService( $resource, $http, AppSettings, NotificationService
                 }
               });
 
+      // Helper function to get the total number of positive or negative samples in a query
+      let getTotalsFor = setParam=>_.reduce(_.pluck(diseases, setParam), (a,b)=>a+b)
+
       function validateClassifier() {
-        // Check to make sure we have at least 1 gene, 1 disease, 20 positive samples and 20 negative samples
-        if(diseases.length > 0 && genes.length > 0 && number_positives > 20 && number_negatives > 20){
+        let number_positives = getTotalsFor('positives')
+        let number_negatives = getTotalsFor('negatives')
+        // 20 positive samples and 20 negative samples
+        if(number_positives > 20 && number_negatives > 20){
           return true
         } else {
           NotificationService.notify({
