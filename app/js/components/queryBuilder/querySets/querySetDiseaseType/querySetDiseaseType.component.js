@@ -5,7 +5,8 @@ const QuerySetDiseaseTypeComponent = {
     bindings: {
       'diseaseSet':  '<',
       'clearSet':     '&',
-      'sortSet':      '&'
+      'sortSet':      '&',
+      'selectAll': '&'
     },
     controller:['$rootScope','_','$log', function ($rootScope,_, $log) {
           'ngInject';
@@ -13,7 +14,7 @@ const QuerySetDiseaseTypeComponent = {
           $log.log('');
 
           let vm = this;
-          
+
           vm.samplesTotal = ()=>{
             let samplesFlattened = _.pluck(this.diseaseSet, 'samples').map(samples=>{
               return (typeof samples  == 'number' ? samples : samples.length);
