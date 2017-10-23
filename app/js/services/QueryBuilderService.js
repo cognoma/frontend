@@ -1,4 +1,4 @@
-function QueryBuilderService( $resource, $http, AppSettings, NotificationService, _) {
+function QueryBuilderService($resource, $http, AppSettings, NotificationService, _) {
   'ngInject';
 
   const QUERY_ENDPOINT = `${AppSettings.api.baseUrl}${AppSettings.api.classifiers}/`;
@@ -43,7 +43,7 @@ function QueryBuilderService( $resource, $http, AppSettings, NotificationService
         let number_positives = getTotalsFor('positives')
         let number_negatives = getTotalsFor('negatives')
         // 20 positive samples and 20 negative samples
-        if(number_positives > 20 && number_negatives > 20){
+        if (number_positives >= 20 && number_negatives >= 20) {
           return true
         } else {
           NotificationService.notify({
@@ -86,7 +86,7 @@ function QueryBuilderService( $resource, $http, AppSettings, NotificationService
 
       }
 
-      function getEmail(){
+      function executeSubmission(){
         if (user.email === null || user.email === undefined || IGNORE_EXISTING_EMAIL) {
           // update email
           let email = prompt("Enter your email address to receive your classifier:")
@@ -134,7 +134,7 @@ function QueryBuilderService( $resource, $http, AppSettings, NotificationService
       }
 
       if(validateClassifier()){
-        getEmail()
+        executeSubmission()
       }
     }
   };
