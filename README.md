@@ -1,4 +1,4 @@
-Cognoma Frontend Repository Structure and Git Workflow 
+Cognoma Frontend Repository Structure
 =====================================
 #Frontend Scaffolding
 **Based on [angularjs-gulp-browserify-boilerplate](https://github.com/jakemmarsh/angularjs-gulp-browserify-boilerplate)**
