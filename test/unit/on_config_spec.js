@@ -7,7 +7,7 @@ describe('UNIT: on_config', function () {
         $_rootScope,
         $_templateCache,
         $_location,
-        _state = "app"; //redirected root component state
+        _state = "app"; // redirected root component state
 
 
     beforeEach(function () {
