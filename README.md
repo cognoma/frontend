@@ -1,17 +1,5 @@
-Cognoma Frontend Repository Structure and Git Workflow 
+Cognoma Frontend Repository Structure
 =====================================
-This repository is setup with a [gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) style [Git Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows) in order to add structure and organization to the Cognoma product development lifecycle and support better for [Semantic Versioning](http://semver.org/). 
-
-The main principle behind the branching model is the ONLY production ready commits will be pushed and exist in the `master` branch. All other working copies will be supported by the `develop`, `feature\<feature-name>`, `release\<release-number>`, and `hotfix\<fix-number>` branches. 
-
-**Gitflow Resources**
-
-- [Git Workflow Overview](https://www.atlassian.com/git/tutorials/comparing-workflows)
-- [Gitflow Process Explained](http://nvie.com/posts/a-successful-git-branching-model/)
-- [IDE and text editor Extensions](https://github.com/nvie/gitflow)
-
----
-
 #Frontend Scaffolding
 **Based on [angularjs-gulp-browserify-boilerplate](https://github.com/jakemmarsh/angularjs-gulp-browserify-boilerplate)**
 
