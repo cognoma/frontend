@@ -1,4 +1,4 @@
-fdescribe('UNIT: on_config', function () {
+describe('UNIT: on_config', function () {
     var $_locationProvider,
         $_urlRouterProvider,
         $_stateProvider;
