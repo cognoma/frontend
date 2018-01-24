@@ -5,6 +5,7 @@ describe('Unit: Component: App', function() {
       scope,
       parentScope,
       $componentController,
+      httpBackend,
       ctrl;
 
   beforeEach(angular.mock.module('app'));
@@ -16,15 +17,15 @@ describe('Unit: Component: App', function() {
 
   beforeEach(function() {
     
-    angular.mock.inject(($compile, $rootScope) => {
+    angular.mock.inject(($compile, $rootScope, $httpBackend) => {
       scope = $rootScope;
+      httpBackend = $httpBackend;
      
       element = angular.element(
         `<app id="app"  class="row"></app>`
       );
 
       $compile(element)(scope);
-      scope.$digest();
     });
   });
 
