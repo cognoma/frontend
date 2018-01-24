@@ -57,13 +57,12 @@
 		}
 	}
 
-	.gene-card:hover{
-		box-shadow: 0 2px 5px rgba($black, 0.5);
-		cursor:pointer;
-	}
-	.disease-card:hover{
-		box-shadow: 0 2px 5px rgba($black, 0.5);
-		cursor:pointer;
+	.gene-card,
+	.disease-card{
+		&:hover{
+			box-shadow: 0 2px 5px rgba($black, 0.5);
+			cursor:pointer;
+		}
 	}
 	.disease-card{
 		.row{
