@@ -46,6 +46,10 @@ const QueryParamSelectorComponent = {
                 vm.searchQuery='';
                 vm.isSearching = false;
 
+                if (vm.currentState() === 'disease') {
+                  getSearchResults(vm.searchQuery);
+                }
+
                  ProgressIndicatorBarService
                     .get('queryBuilderProgress')
                     .then(progressBarInstance=>{ 
@@ -55,7 +59,29 @@ const QueryParamSelectorComponent = {
             }
 
 
+            function getSearchResults(searchQuery) {
+              vm.isSearching = true;
 
+              // pass along the user input query and selected mutations list 
+              // to the appropriate service 
+              searchServices[vm.currentState()]
+                .query(searchQuery, vm.mutationsSet)
+                .then(response=>{
+                  console.log(response);
+
+                  $scope.$apply(()=>{
+                      if(response.length){
+                        vm.searchResults = _filteredSearchResults(response);
+                        vm.progressBar.goTo(`Add ${progressStateName}`);
+                      } else{
+                        vm.progressBar.goTo(`Search ${progressStateName}`);  
+                      }
+                      
+                      vm.isSearching = false;
+                  });
+                  
+                });//END searchServices[vm.currentState()]
+            }
 
 
             /**
@@ -87,33 +113,12 @@ const QueryParamSelectorComponent = {
              */
             vm.onInputChange = searchQuery=>{
                 $log.info(`query: ${searchQuery}`);
-                
-                vm.isSearching = true;
 
-                if(searchQuery.length == 0 ){
+                // show all diseases when input is empty
+                if(vm.currentState() !== 'disease' && searchQuery.length == 0 ){
                     vm.searchResults = [];
-                    vm.isSearching = false;
                 }else{
-
-                    // pass along the user input query and selected mutations list 
-                    // to the appropriate service 
-                    searchServices[vm.currentState()]
-                          .query(searchQuery, vm.mutationsSet)
-                          .then(response=>{
-
-                                $scope.$apply(()=>{
-                                    if(response.length){
-                                      vm.searchResults = _filteredSearchResults(response);
-                                      vm.progressBar.goTo(`Add ${progressStateName}`);
-                                    } else{
-                                      vm.progressBar.goTo(`Search ${progressStateName}`);  
-                                    }
-                                    
-                                    vm.isSearching = false;
-                                });
-                            
-                          });//END searchServices[vm.currentState()]
-
+                  getSearchResults(searchQuery);
                 }
                       
                         
