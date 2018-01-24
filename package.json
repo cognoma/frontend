@@ -35,6 +35,7 @@
     "angular": "^1.5.0",
     "angular-animate": "^1.5.8",
     "angular-cookies": "^1.5.0",
+    "angular-growl-v2": "^0.7.5",
     "angular-mocks": "^1.5.8",
     "angular-resource": "^1.5.8",
     "angular-touch": "^1.5.8",

@@ -11,13 +11,13 @@ const karmaBaseConfig = {
   
 
   preprocessors: {
-    'app/js/**/*.js': ['browserify', 'coverage'],
+    'app/js/**/*.js': ['browserify'],
     'test/**/*.js': ['browserify']
   },
 
   browsers: ['Chrome'],
 
-  reporters: ['coverage', 'html','dots'],
+  reporters: ['html','dots'],
 
   htmlReporter: {
       outputDir: 'test/reports/unit_tests', // where to put the reports  
