@@ -7,7 +7,7 @@ describe('UNIT: on_config', function () {
         $_rootScope,
         $_templateCache,
         $_location,
-        _state = "app"; //root component state
+        _state = "app"; // redirected root component state
 
 
     beforeEach(function () {
@@ -76,7 +76,7 @@ describe('UNIT: on_config', function () {
 
             it('should activate the state', function() {
                 goTo(_state);
-                expect($_state.current.name).toBe(_state);
+                expect($_state.current.name).toBe('app.queryBuilder.mutations'); // app redirects to query-builder/mutations
             });
 
             // it('should have correct template defined', function() {

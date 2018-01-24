@@ -24,7 +24,6 @@ describe('Unit: Component: App', function() {
       );
 
       $compile(element)(scope);
-      scope.$digest();
     });
   });
 
