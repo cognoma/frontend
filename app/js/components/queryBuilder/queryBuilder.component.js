@@ -210,15 +210,15 @@ const QueryBuilderComponent = {
 
 
                 /**
-                 * @param  {Object} queryParam - mutation or DiseaseModel
+                 * @param  {Object} queryParam - Array of mutations or DiseaseModels
                  * @return {Array | false} Array of objects if queryParam is added,
                  *                         false if it already exists in set
                  */
                 vm.addParamToQuery = queryParamData=>{
+                  let paramSet = _.assign([], vm[`${vm.currentState()}Set`]);
 
-                  let paramSet        = _.assign([], vm[`${vm.currentState()}Set`]),
-                      queryParam      = queryParamData,
-                      queryParamInSet = _.findWhere(paramSet, queryParam);
+                  queryParamData.map((queryParam) => {
+                    let queryParamInSet = _.findWhere(paramSet, queryParam);
 
                     $log.log(`:${vm.currentState()}Set`);
 
@@ -235,7 +235,8 @@ const QueryBuilderComponent = {
                     }
 
                     return false;
-                };
+                  });
+                }
 
 
 

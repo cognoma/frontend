@@ -67,7 +67,6 @@ const QueryParamSelectorComponent = {
               searchServices[vm.currentState()]
                 .query(searchQuery, vm.mutationsSet)
                 .then(response=>{
-                  console.log(response);
 
                   $scope.$apply(()=>{
                       if(response.length){
@@ -159,6 +158,10 @@ const QueryParamSelectorComponent = {
                 vm.searchResults = _searchResults;
                 return vm.searchResults;
             };
+
+            vm.removeAllSearchResults = () => {
+              vm.searchResults = [];
+            }
             
 
             /** @deprecated
