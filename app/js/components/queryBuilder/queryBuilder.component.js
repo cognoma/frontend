@@ -163,12 +163,6 @@ const QueryBuilderComponent = {
                         return vm[`${setType.setType}Set`] = [];
                     }
 
-                    vm.selelectAll =setType=>{
-
-                        return vm[`${setType.setType}Set`] = ['GBM'];
-                    }
-
-
                   /**
                    * Checks if set has been sorted by given params
                    * @param  {Array}

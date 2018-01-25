@@ -5,8 +5,7 @@ const QuerySetDiseaseTypeComponent = {
     bindings: {
       'diseaseSet':  '<',
       'clearSet':     '&',
-      'sortSet':      '&',
-      'selectAll': '&'
+      'sortSet':      '&'
     },
     controller:['$rootScope','_','$log', function ($rootScope,_, $log) {
           'ngInject';
