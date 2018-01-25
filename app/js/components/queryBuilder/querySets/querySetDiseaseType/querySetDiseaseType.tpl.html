@@ -16,7 +16,7 @@
     >
       </span>
   </div>
-  <div class="col-xs-2">
+  <div class="col-xs-2" ng-if="$ctrl.diseaseSet.length">
     <button class="label clear-button disease-clear-button"
           ng-click="$ctrl.clearSet({setType:'disease'})">CLEAR</button>
   </div>
@@ -35,32 +35,20 @@
 
 <!-- Disease Cards -->
 <div class="card-container">
-<div class="disease-card-display col-xs-12">
-
-  <div
-    class="row"
-    ng-repeat="disease in $ctrl.diseaseSet | orderBy : 'positives' : true"
-    ng-if="$ctrl.diseaseSet.length"
-  >
-    <disease-card
-      id="{{disease.name}}"
-      positives="{{disease.positives}}"
-      negatives="{{disease.negatives}}"
-      samples="disease.samples"
-    ></disease-card>
-  </div>
-
-
-
-  <div class="empty-card-space col-xs-12">
-    <h4 class="empty-card-text"
-      ng-if="!$ctrl.diseaseSet.length"
+  <div class="disease-card-display col-xs-12">
+    <div
+      class="row"
+      ng-repeat="disease in $ctrl.diseaseSet | orderBy : 'positives' : true"
+      ng-if="$ctrl.diseaseSet.length"
     >
-      CLICK DISEASE TYPES TO ADD
-    </h4>
+      <disease-card
+        id="{{disease.name}}"
+        positives="{{disease.positives}}"
+        negatives="{{disease.negatives}}"
+        samples="disease.samples"
+      ></disease-card>
+    </div>
   </div>
-</div>
-
 </div>
 <!-- Ng repeat the selected Gene types -->
 <!-- Empty Card Space -->

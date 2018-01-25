@@ -1,0 +1,40 @@
+.cg-dot-loader {
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+
+	&__dot {
+		display: inline-block;
+		margin: 0 5px;
+		width: 15px;
+		height: 15px;
+		background: $green;
+		border-radius: 50%;
+		opacity: 0.5;
+		animation: dotGrow 1.2s ease-in-out alternate infinite;
+
+		&:nth-of-type(2) {
+			animation-delay: 0.12s;
+		}
+
+		&:nth-of-type(3) {
+			animation-delay: 0.24s;
+		}
+	}
+}
+
+@keyframes dotGrow {
+	20% {
+		transform: scale(1);
+	}
+
+   	50% {
+   		transform: scale(1.5);
+   		opacity: 1;
+   	}
+
+   	80% {
+   		transform: scale(1);
+   	}
+}
