@@ -215,9 +215,10 @@ const QueryBuilderComponent = {
                  *                         false if it already exists in set
                  */
                 vm.addParamToQuery = queryParamData=>{
-                  let paramSet = _.assign([], vm[`${vm.currentState()}Set`]);
+                  let paramSet = _.assign([], vm[`${vm.currentState()}Set`]),
+                      allParams = [];
 
-                  queryParamData.map((queryParam) => {
+                  queryParamData.forEach((queryParam) => {
                     let queryParamInSet = _.findWhere(paramSet, queryParam);
 
                     $log.log(`:${vm.currentState()}Set`);
@@ -230,12 +231,10 @@ const QueryBuilderComponent = {
 
                       if(vm[`${vm.currentState()}Set`].length > 3) vm.progressBar.advance(false);
                       _showIndicatorButton();
-
-                      return vm[`${vm.currentState()}Set`];
                     }
-
-                    return false;
                   });
+
+                  return vm[`${vm.currentState()}Set`];
                 }
 
 
