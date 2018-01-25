@@ -1,8 +1,8 @@
 .cg-dot-loader {
 	position: relative;
-	top: 50%;
+	margin-top: 150px;
 	left: 50%;
-	transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%);
 
 	&__dot {
 		display: inline-block;
