@@ -3,14 +3,10 @@
  ========================================================================== */
 .query-set{
 	// width: 385px;
-	background: rgba($black, 0.58);//#9B9B9B	
+	background: $background-light;
 	color:$white;
 }
 .dashboard-column-header {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
 	.badge{
 		background-color: $blue;
 		margin-left: 10px;

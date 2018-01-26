@@ -7,8 +7,12 @@ $prgs_bar_speed: .5s;
 	bottom:0;
 	left:0;
 	z-index: 20000;
-	height: 60px;
+	padding: 15px 0;
 	background-color: $background-dark;
+
+	section {
+		position: relative;
+	}
 }
 
 .prgs-indct-bar-line{
@@ -45,27 +49,28 @@ $prgs_bar_speed: .5s;
 	&.active{
 
 		.icon{
-			border: 2px solid $green;
+			border: 3px solid $green;
 			transform: scale(1);
-			background: darken($green, 20%);
+			background: $background-dark;
 		}
 
 		p{font-weight: bold; font-size: 1.5rem; color:$green;}
 	}
 
 	.icon{
+		border: 3px solid $background-light;
 		width:20px;
 		height: 20px;
 		display: block;
 		border-radius: 50%;
-		background: darken(#ccc, 20%);
+			background: $background-dark;
 		transform: scale(0.5);
 		transition: all $prgs_bar_speed ease;
 	}
 
 	p{
-		margin:0;padding:0;
-		text-transform: uppercase;
+		margin: 0;
+		padding:0;
 		font-size: 1.5rem;
 		color: darken(#ccc, 20%);
 	}

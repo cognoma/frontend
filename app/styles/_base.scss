@@ -1,5 +1,5 @@
 body {
-  font-family: Helvetica, sans-serif;
+  font-family: 'Rubik', Helvetica, sans-serif;
   color: $font-color--dark;
 }
 
@@ -41,23 +41,13 @@ body {
 	height: 100%;
 	padding:0;
 	margin:0;
+	color: $white;
 }
 
 .dashboard-column-header {
 	width: 100%;
-	height: 40px;
 	margin:0;
-	padding: 5px 0 0 0;
-
-
-	h2{
-		padding:0;
-		margin:0;
-		color:$white;
-		font-size: 24px;
-		text-transform: uppercase;
-		text-align: center;
-	}
+	padding: 5px 20px 0;
 }
 
 /* =======================================================================

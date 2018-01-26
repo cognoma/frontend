@@ -1,16 +1,9 @@
 /* =======================================================================
   Component: queryOverview 
  ========================================================================== */
-#query-overview{
-	// width: 256px;
-	background: $gray-light;
+.query-overview{
+	background: $background-medium;
 	padding:0;
-	text-align: center;
-	.dashboard-column-header {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
 }
 
 

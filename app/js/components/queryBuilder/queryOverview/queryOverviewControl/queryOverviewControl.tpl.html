@@ -1,4 +1,5 @@
 <div
+  ui-sref="app.queryBuilder.{{$ctrl.listType}}"
 	class="query-overview--control
 			   query-overview--{{::$ctrl.title.toLowerCase()}}
          row
@@ -7,15 +8,13 @@
 >
 
   <h4 class="query-overview--control-title">
-
-		<span class="glyphicon glyphicon-info-sign"
-		      uib-tooltip="{{::$ctrl.desc}}"
-		      tooltip-placement="bottom">
+		<span class="js-test-title">
+          {{::$ctrl.title}} <small class="query-overview--control-count" ng-if="$ctrl.paramList.length">({{$ctrl.paramList.length}})</small>
       </span>
 
-		<span class="js-test-title" 
-          ui-sref="app.queryBuilder.{{$ctrl.listType}}">
-          {{::$ctrl.title}} <small class="query-overview--control-count" ng-if="$ctrl.paramList.length">({{$ctrl.paramList.length}})</small>
+    <span class="glyphicon glyphicon-info-sign"
+          uib-tooltip="{{::$ctrl.desc}}"
+          tooltip-placement="bottom">
       </span>
   </h4>
 
