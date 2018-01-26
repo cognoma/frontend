@@ -43,6 +43,7 @@ const QueryParamSelectorComponent = {
             vm.$onInit = ()=>{
                 
                 vm.searchResults =[];
+                vm.selectedResults = [];
                 vm.searchQuery='';
                 vm.isSearching = false;
 

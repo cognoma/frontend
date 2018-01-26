@@ -3,17 +3,14 @@
  ========================================================================== */
 .query-param-selector{
 	padding: 40px;
-	text-align: center;
 	color: $font-color--dark;
-	grid-column: 2 / end;
+	grid-column: 3 / end;
 	grid-row: 2 / end;
 	background-color: #EBEDF2;
 
-	.dashboard-column-header{ 
-		color: $black;
+	&__header {
 		display: flex;
-		align-items: center;
-		justify-content: center;
+		justify-content: space-between;
 	}
 
 	&__results {

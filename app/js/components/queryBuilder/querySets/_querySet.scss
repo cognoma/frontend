@@ -2,7 +2,8 @@
   Component: querySet 
  ========================================================================== */
 .query-set{
-	// width: 385px;
+	grid-column: 2 / 3;
+	grid-row: 2 / end;
 	background: $background-light;
 	color:$white;
 }
