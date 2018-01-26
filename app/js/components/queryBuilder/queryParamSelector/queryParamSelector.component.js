@@ -47,6 +47,9 @@ const QueryParamSelectorComponent = {
                 vm.searchQuery='';
                 vm.isSearching = false;
 
+                vm.sortType = 'name';
+                vm.sortReverse = false;
+
                 if (vm.currentState() === 'disease') {
                   getSearchResults(vm.searchQuery);
                 }
