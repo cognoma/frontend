@@ -4,6 +4,8 @@
 .query-overview{
 	background: $background-medium;
 	padding:0;
+	grid-column: 1 / 2;
+	grid-row: 2 / end;
 }
 
 

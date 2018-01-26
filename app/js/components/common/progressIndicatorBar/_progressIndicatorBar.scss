@@ -4,11 +4,11 @@ $prgs_bar_speed: .5s;
 	width: 100%;
 	display: block;
 	position: relative;
-	bottom:0;
-	left:0;
 	z-index: 20000;
 	padding: 15px 0;
 	background-color: $background-dark;
+	grid-column: 1 / end;
+	grid-row: 1 / 2;
 
 	section {
 		position: relative;

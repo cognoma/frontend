@@ -2,10 +2,11 @@
   Component: queryParamSelector 
  ========================================================================== */
 .query-param-selector{
-	// width:calc(100% - 650px);
 	padding:0;
 	text-align: center;
 	color: $font-color--dark;
+	grid-column: 2 / end;
+	grid-row: 2 / end;
 
 	.dashboard-column-header{ 
 		color: $black;
