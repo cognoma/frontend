@@ -1,11 +1,7 @@
 <header class="query-param-selector__header">
-	<h2>Parameter Selector</h2>
-	<button class="btn btn-primary">
-		Add to query
-	</button>
-</header>
-<div class="query-param-selector-ctrls">
-	<div class="col-lg-1 results-count" >
+	<h2>{{$ctrl.currentState()}} Selector
+
+	<div class="results-count" >
 		<small><b>results</b></small>
 		<span 
 			ng-if="$ctrl.isSearching"
@@ -16,19 +12,25 @@
 			class="badge badge--counter">
 			{{ $ctrl.searchResults.length }}
 		</span>
-	</div>
-	<div class="col-lg-9">
-		<input id="query-param-selector-input"
-			type="text"
-			class="form-control"
-			placeholder="Search {{$ctrl.currentState() === 'mutations' ? 'genes' : 'diseases'}} by name"
-			ng-change="$ctrl.currentState() === 'mutations' ? $ctrl.onInputChange($ctrl.searchQuery) : null"
-			ng-model="$ctrl.searchQuery"
-			ng-model-options="{debounce: 300}"
-			autofocus="1"
-		>
-	</div>
-	<div class="col-lg-1">
+	</div></h2>
+	<button
+		class="btn btn-primary"
+		 ng-click="$ctrl.onParamSelect({queryParamData: $ctrl.searchResults});"
+	>
+		Add to query
+	</button>
+</header>
+<div class="query-param-selector__search">
+	<input id="query-param-selector-input"
+		type="text"
+		class="form-control"
+		placeholder="Search {{$ctrl.currentState() === 'mutations' ? 'genes' : 'diseases'}} by name"
+		ng-change="$ctrl.currentState() === 'mutations' ? $ctrl.onInputChange($ctrl.searchQuery) : null"
+		ng-model="$ctrl.searchQuery"
+		ng-model-options="{debounce: 300}"
+		autofocus="1"
+	><!-- 
+	<div>
 		<button
 			ng-if="$ctrl.currentState() == 'mutations'"
 			type="button"
@@ -57,7 +59,7 @@
 		>
 			<p>Positives</p>
 		</button>
-	</div>
+	</div> -->
 </div><!-- 
 <mutations-instructions ng-if="$ctrl.currentState() == 'mutations' && $ctrl.searchResults.length == 0" class="row">
 </mutations-instructions> -->
@@ -77,7 +79,12 @@
 			<thead>
 				<tr class="cg-table__thead-row">
 					<th class="cg-table__cell cg-table__cell--centered">
-						<input type="checkbox" />
+						<input
+							type="checkbox"
+							ng-model="$ctrl.isAllSelected"
+							ng-checked="$ctrl.areAllResultsSelected()"
+							ng-change="$ctrl.selectAllResults($ctrl.isAllSelected)"
+						/>
 					</th>
 					<th class="cg-table__cell">Name</th>
 					<th class="cg-table__cell">Samples</th>
@@ -104,7 +111,11 @@
 			<thead>
 				<tr class="cg-table__thead-row">
 					<th class="cg-table__cell cg-table__cell--centered">
-						<input type="checkbox" />
+						<input
+							type="checkbox"
+							ng-model="$ctrl.isAllSelected"
+							ng-change="$ctrl.selectAllResults($ctrl.isAllSelected)"
+						/>
 					</th>
 					<th class="cg-table__cell">Symbol</th>
 					<th class="cg-table__cell">Name</th>

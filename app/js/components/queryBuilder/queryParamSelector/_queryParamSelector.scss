@@ -13,6 +13,10 @@
 		justify-content: space-between;
 	}
 
+	&__search {
+		margin: 30px 0;
+	}
+
 	&__results {
 		height: 100%;
 	}
@@ -42,7 +46,6 @@
 }
 
 .query-param-selector-results{
-	margin-top:50px;
 	
 	.results-row{
 		overflow:scroll;

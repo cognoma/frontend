@@ -43,7 +43,7 @@ const QueryParamSelectorComponent = {
             vm.$onInit = ()=>{
                 
                 vm.searchResults =[];
-                vm.selectedResults = [];
+                vm.isAllSelected = false;
                 vm.searchQuery='';
                 vm.isSearching = false;
 
@@ -159,6 +159,18 @@ const QueryParamSelectorComponent = {
                 vm.searchResults = _searchResults;
                 return vm.searchResults;
             };
+
+            vm.areAllResultsSelected = () => {
+              if (!vm.searchResults.length) return false;
+              let notSelectedResults = _.some(vm.searchResults, result => !result.isSelected);
+              vm.isAllSelected = !notSelectedResults;
+            }
+
+            vm.selectAllResults = (isAllSelected) => {
+              vm.searchResults.map(result => {
+                result.isSelected = isAllSelected;
+              });
+            }
 
             vm.removeAllSearchResults = () => {
               vm.searchResults = [];
