@@ -8,7 +8,8 @@ body {
 }
 
 .container-fluid { 
-    padding: 0; 
+	display: flex;
+   	padding: 0; 
 }
 
 .row {
@@ -29,7 +30,8 @@ body {
  ========================================================================== */
 #app {
 	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
+	height: 100%;
 	display: block;
 	padding: 0;
 	margin:0;

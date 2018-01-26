@@ -177,7 +177,7 @@ it('should sort the specified set by the passed param name',()=>{
                             };
 
       expect(
-        ctrl.addParamToQuery(additionalParam)
+        ctrl.addParamToQuery([additionalParam])
       ).toEqual([...parentScope.STATE.query.mutations, additionalParam]);
       
       expect(ctrl.mutationsSet.length).toEqual(2);
@@ -238,7 +238,7 @@ it('should sort the specified set by the passed param name',()=>{
 
                             
       expect(
-        ctrl.addParamToQuery(additionalParam)
+        ctrl.addParamToQuery([additionalParam])
       ).toEqual([...parentScope.STATE.query.diseases, additionalParam]);
       
       expect(ctrl.diseaseSet.length).toEqual(4);
