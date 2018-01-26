@@ -8,9 +8,9 @@
 			class=" glyphicon glyphicon-refresh" 
 			></span> 
 		<span  
-			ng-if="!$ctrl.isSearching"
+			ng-if="!$ctrl.isSearching && $ctrl.filteredSearchResults.length"
 			class="badge badge--counter">
-			{{ $ctrl.searchResults.length }}
+			{{ $ctrl.filteredSearchResults.length }}
 		</span>
 	</div></h2>
 	<button
@@ -82,7 +82,6 @@
 						<input
 							type="checkbox"
 							ng-model="$ctrl.isAllSelected"
-							ng-checked="$ctrl.areAllResultsSelected()"
 							ng-change="$ctrl.selectAllResults($ctrl.isAllSelected)"
 						/>
 					</th>
@@ -93,11 +92,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="cg-table__row" ng-repeat="result in $ctrl.searchResults | filter: $ctrl.searchQuery">
+				<tr class="cg-table__row" ng-repeat="result in ($ctrl.filteredSearchResults = ($ctrl.searchResults | filter: $ctrl.searchQuery))">
 					<td class="cg-table__cell cg-table__cell--centered">
 						<input
 							type="checkbox"
 							ng-model="result.isSelected"
+							ng-change="$ctrl.areAllResultsSelected()"
 						/>
 					</td>
 				    <td class="cg-table__cell">{{result.name}}</td>
@@ -124,11 +124,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="cg-table__row" ng-repeat="result in $ctrl.searchResults | filter: $ctrl.searchQuery">
+				<tr class="cg-table__row" ng-repeat="result in ($ctrl.filteredSearchResults = ($ctrl.searchResults | filter: $ctrl.searchQuery))">
 					<td class="cg-table__cell cg-table__cell--centered">
 						<input
 							type="checkbox"
 							ng-model="result.isSelected"
+							ng-change="$ctrl.areAllResultsSelected()"
 						/>
 					</td>
 				    <td class="cg-table__cell">{{result.symbol}}</td>

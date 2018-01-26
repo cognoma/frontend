@@ -161,13 +161,12 @@ const QueryParamSelectorComponent = {
             };
 
             vm.areAllResultsSelected = () => {
-              if (!vm.searchResults.length) return false;
-              let notSelectedResults = _.some(vm.searchResults, result => !result.isSelected);
+              let notSelectedResults = _.some(vm.filteredSearchResults, result => !result.isSelected);
               vm.isAllSelected = !notSelectedResults;
             }
 
             vm.selectAllResults = (isAllSelected) => {
-              vm.searchResults.map(result => {
+              vm.filteredSearchResults.map(result => {
                 result.isSelected = isAllSelected;
               });
             }
