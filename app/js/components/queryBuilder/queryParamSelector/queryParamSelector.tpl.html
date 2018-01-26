@@ -15,7 +15,7 @@
 	</div></h2>
 	<button
 		class="btn btn-primary"
-		 ng-click="$ctrl.onParamSelect({queryParamData: $ctrl.searchResults});"
+		 ng-click="$ctrl.onParamSelect({queryParamData: $ctrl.filteredSearchResults});"
 	>
 		Add to query
 	</button>
@@ -97,7 +97,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="cg-table__row" ng-repeat="result in ($ctrl.filteredSearchResults = ($ctrl.searchResults | filter: $ctrl.searchQuery | orderBy:$ctrl.sortType:$ctrl.sortReverse))">
+				<tr
+					class="cg-table__row"
+					ng-repeat="result in ($ctrl.filteredSearchResults = ($ctrl.searchResults | filter: $ctrl.searchQuery | orderBy:$ctrl.sortType:$ctrl.sortReverse))"
+				>
 					<td class="cg-table__cell cg-table__cell--centered">
 						<input
 							type="checkbox"
@@ -129,7 +132,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="cg-table__row" ng-repeat="result in ($ctrl.filteredSearchResults = ($ctrl.searchResults | filter: $ctrl.searchQuery | orderBy:$ctrl.sortType:$ctrl.sortReverse))">
+				<tr
+					class="cg-table__row"
+					ng-repeat="result in ($ctrl.filteredSearchResults = ($ctrl.searchResults | filter: $ctrl.searchQuery | orderBy:$ctrl.sortType:$ctrl.sortReverse))"
+				>
 					<td class="cg-table__cell cg-table__cell--centered">
 						<input
 							type="checkbox"
