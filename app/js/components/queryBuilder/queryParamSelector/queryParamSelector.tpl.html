@@ -19,7 +19,7 @@
 			type="text"
 			class="form-control"
 			placeholder="Search {{$ctrl.currentState() === 'mutations' ? 'genes' : 'diseases'}} by name"
-
+			ng-change="$ctrl.currentState() === 'mutations' ? $ctrl.onInputChange($ctrl.searchQuery) : null"
 			ng-model="$ctrl.searchQuery"
 			ng-model-options="{debounce: 300}"
 			autofocus="1"
@@ -59,38 +59,42 @@
 <mutations-instructions ng-if="$ctrl.currentState() == 'mutations' && $ctrl.searchResults.length == 0" class="row">
 </mutations-instructions> -->
 <div class="query-param-selector__results">
-	<div class="cg-dot-loader" ng-if="$ctrl.isSearching">
-		<span class="cg-dot-loader__dot"></span>
-		<span class="cg-dot-loader__dot"></span>
-		<span class="cg-dot-loader__dot"></span>
-	</div>
 	<section
 		class="query-param-selector-results"
-		ng-if="$ctrl.searchResults.length"
 	>
 		<button class="btn" ng-click="$ctrl.onParamSelect({queryParamData: $ctrl.searchResults}); $ctrl.removeAllSearchResults();">
 			Add all diseases
 		</button>
-		<table>
+		<div class="cg-dot-loader" ng-if="$ctrl.isSearching">
+			<span class="cg-dot-loader__dot"></span>
+			<span class="cg-dot-loader__dot"></span>
+			<span class="cg-dot-loader__dot"></span>
+		</div>
+		<table class="cg-table" ng-if="$ctrl.currentState() == 'disease' && $ctrl.searchResults.length">
 			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Samples</th>
-					<th>Positives</th>
-					<th>Negatives</th>
+				<tr class="cg-table__thead-row">
+					<th class="cg-table__cell">
+						<input type="checkbox" />
+					</th>
+					<th class="cg-table__cell">Name</th>
+					<th class="cg-table__cell">Samples</th>
+					<th class="cg-table__cell">Positives</th>
+					<th class="cg-table__cell">Negatives</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="disease in $ctrl.searchResults | filter: $ctrl.searchQuery">
-				    <td class="sample-count">{{disease.name}}</td>
-				    <td class="sample-count">{{disease.samples}}</td>
-				    <td class="sample-pos">{{disease.positives}}</td>
-				    <td class="sample-neg">{{disease.negatives}}</td>
+				<tr class="cg-table__row" ng-repeat="disease in $ctrl.searchResults | filter: $ctrl.searchQuery">
+					<td class="cg-table__cell">
+						<input type="checkbox" />
+					</td>
+				    <td class="cg-table__cell">{{disease.name}}</td>
+				    <td class="cg-table__cell">{{disease.samples}}</td>
+				    <td class="cg-table__cell">{{disease.positives}}</td>
+				    <td class="cg-table__cell">{{disease.negatives}}</td>
 				</tr>
 			</tbody>
 		</table>
-		<!-- 
-		<div class="col-lg-12">
+		<div class="col-lg-12" ng-if="$ctrl.currentState() != 'disease'">
 			<div ng-if="$ctrl.currentState() == 'disease'" class="row">
 				<div class="col-lg-offset-8 col-lg-4" >
 					<div class="row results-headers">
@@ -123,7 +127,7 @@
 	    			ng-click="$ctrl.onParamSelect({queryParamData: [disease]}); $ctrl.removeParamFromSearchResults(disease)"
 	  			></disease-card>
 			</div>
-		</div> -->
+		</div>
 	</section>
 </div>
 
