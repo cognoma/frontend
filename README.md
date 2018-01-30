@@ -196,3 +196,15 @@ An example test is provided for the following types of AngularJS modules:
 - `unit/constants_spec.js`
 
 All unit tests are run with `npm run unit`. When running unit tests, code coverage is simultaneously calculated and output as an HTML file to the `/coverage` directory.
+
+### Coding Styleguide
+
+##### JavaScript
+
+* use [Prettier](https://github.com/prettier/prettier) to consistently format JavaScript
+* use [JSDoc](http://usejsdoc.org/) to document your JavaScript
+
+##### HTML
+
+* HTML lines should be limited to a max length of 100 characters
+* 2 spaces should be used for indentation
