@@ -1,6 +1,9 @@
 .query-set {
   color: $white;
   background: $background-light;
+
+  grid-column: 2 / 3;
+  grid-row: 2 / end;
 }
 
 .dashboard-column-header {
