@@ -1,73 +1,72 @@
-/* =======================================================================
-  Component: queryBuilder/querySets/querySetMutations
- ========================================================================== */
-.label{
- border-radius: 20px;
+.label {
+  border-radius: 20px;
 }
-.list-controls{
+
+.list-controls {
   margin: 1.75rem auto 4.5rem auto;
 }
-.gene-label{
-  list-style: none;
+
+.gene-label {
   display: block;
-  margin-bottom: 5px;
   padding: 4px 0;
-  border:1px solid rgba($black, 0.5);
+  margin-bottom: 5px;
+  list-style: none;
+  border: 1px solid rgba($black, 0.5);
   transition: all 0.5s ease;
 
   &.active,
-  &:hover{
-    border-color:$green;
+  &:hover {
     background-color: $green;
+    border-color: $green;
     cursor: pointer;
   }
 }
-.card-container{
-  margin-top: 10px
+
+.card-container {
+  margin-top: 10px;
 }
 
-.gene-card-display{
-  margin-top: 0rem;
-  padding-right: 2rem;
-  height:89vh;
+.gene-card-display {
   display: block;
+  height: 89vh;
+  padding-right: 2rem;
+  margin-top: 0rem;
   overflow: scroll;
 
-  .gene-card-display-item  {
-    margin:0 0 1em 0;
-    .gene-card{
+  .gene-card-display-item {
+    margin: 0 0 1em 0;
+    .gene-card {
       transition: all 0.5s ease;
     }
-    &.faded{
-      .gene-card{
-        opacity: 0.5;
+    &.faded {
+      .gene-card {
         transform: scale(0.75);
+        opacity: 0.5;
       }
     }
-    &.active{
-        .gene-card{
-          border-color:$green;
-          opacity: 1;
-          transform: scale(1.125);
-        }
+    &.active {
+      .gene-card {
+        border-color: $green;
+        transform: scale(1.125);
+        opacity: 1;
+      }
     }
-
   }
-
 }
 
-.empty-card-space{
-  display: flex;
+.empty-card-space {
   align-items: center;
-  text-align: center;
   justify-content: center;
+  display: flex;
+  height: 15rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  color: white;
+  text-align: center;
   border: 5px dotted white;
   border-radius: 4px;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  height: 15rem;
-  color: white;
 }
-.empty-card-text{
+
+.empty-card-text {
   color: $white;
 }

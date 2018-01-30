@@ -29,7 +29,7 @@
   </div>
   <div class="col-lg-1">
     <button
-      ng-if="$ctrl.currentState() == 'mutations'"
+      ng-if="$ctrl.currentState() === 'mutations'"
       type="button"
       class="btn
            btn-xs
@@ -44,7 +44,7 @@
       <p>Score</p>
     </button>
     <button
-      ng-if="$ctrl.currentState() == 'disease'"
+      ng-if="$ctrl.currentState() === 'disease'"
       type="button"
       class="btn
            btn-xs
@@ -58,7 +58,7 @@
     </button>
   </div>
 </div><!-- 
-<mutations-instructions ng-if="$ctrl.currentState() == 'mutations' && $ctrl.searchResults.length == 0" class="row">
+<mutations-instructions ng-if="$ctrl.currentState() === 'mutations' && $ctrl.searchResults.length === 0" class="row">
 </mutations-instructions> -->
 <div class="query-param-selector__results">
   <div class="cg-dot-loader" ng-if="$ctrl.isSearching">
@@ -74,7 +74,7 @@
       Add all diseases
     </button>
     <div class="col-lg-12">
-      <div ng-if="$ctrl.currentState() == 'disease'" class="row">
+      <div ng-if="$ctrl.currentState() === 'disease'" class="row">
         <div class="col-lg-offset-8 col-lg-4" >
           <div class="row results-headers">
             <p class="col-lg-4"><small>Samples</small></p>
@@ -85,7 +85,7 @@
       </div>
       <div class="row results-row">
         <gene-card
-          ng-if="$ctrl.currentState() == 'mutations'"
+          ng-if="$ctrl.currentState() === 'mutations'"
           class="col-lg-3 result"
           ng-repeat="gene in $ctrl.searchResults" 
           symbol="{{gene.symbol}}"
@@ -97,7 +97,7 @@
                     $ctrl.removeParamFromSearchResults(gene)"
         ></gene-card>
         <disease-card
-          ng-if="$ctrl.currentState() == 'disease'"
+          ng-if="$ctrl.currentState() === 'disease'"
           class="col-lg-12 result"
             ng-repeat="disease in $ctrl.searchResults "
             id="{{disease.name}}"
