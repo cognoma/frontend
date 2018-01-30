@@ -1,12 +1,12 @@
 <div class="row dashboard-column-header">
-  <h2>GENES SET</h2>
+  <h2>Genes Set</h2>
   <span class="badge">{{$ctrl.mutationsSet.length}}</span>
 </div>
 
 <div class="row list-controls">
 
   <div class="col-xs-9">
-    <span>SELECTED GENES</span>
+    <span>Selected Genes</span>
     <span
       ng-if="$ctrl.mutationsSet.length"
       class="glyphicon glyphicon-sort-by-alphabet"
@@ -18,7 +18,7 @@
       class="label clear-button"
       ng-if="$ctrl.mutationsSet.length"
       ng-click="$ctrl.clearSet({setType:'mutations'})">
-        CLEAR
+        Clear
     </button>
 
   </div>

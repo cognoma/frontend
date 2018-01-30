@@ -1,104 +1,112 @@
-/* =======================================================================
-  Component: queryParamSelector
- ========================================================================== */
-.query-param-selector{
-	// width:calc(100% - 650px);
-	background: $gray-lighter;
-	padding:0;
-	text-align: center;
+.query-param-selector {
+  padding: 0;
+  color: $font-color--dark;
+  text-align: center;
 
-	.dashboard-column-header{
-		background: $gray-light;
-		color: $black;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
+  grid-column: 3 / end;
+  grid-row: 2 / end;
 
-	&__results {
-		height: 100%;
-	}
+  .dashboard-column-header {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: $black;
+  }
+
+  &__results {
+    height: 100%;
+  }
 }
 
-.query-param-selector-ctrls{
-	padding: 1rem 0 0 0;
+.query-param-selector-ctrls {
+  padding: 1rem 0 0 0;
 
-	.results-count{
-		margin-top:-5px;
-	}
+  .results-count {
+    margin-top: -5px;
+  }
 
-	.badge, .btn{}
-	.btn--mutation-sort{
-		height: 25px;
-		background: $white;
-		padding:2px 5px;
-		margin-top:3px;
-		p{
-			display: inline-block;
-			font-size:10px;
-			margin: -15px 0px 0 -5px;
-			padding:0;
-			font-family: Helvetica, sans-serif;
-		}
-	}
+
+  .btn--mutation-sort {
+    height: 25px;
+    padding: 2px 5px;
+    margin-top: 3px;
+    background: $white;
+    p {
+      display: inline-block;
+      padding: 0;
+      margin: -15px 0 0 -5px;
+      font-family: Helvetica, sans-serif;
+      font-size: 10px;
+    }
+  }
 }
 
-.query-param-selector-results{
-	margin-top:50px;
+.query-param-selector-results {
+  margin-top: 50px;
 
-	.results-row{
-		overflow:scroll;
-		display: block;
-		height:88vh;
-	}
+  .results-row {
+    display: block;
+    height: 88vh;
+    overflow: scroll;
+  }
 
-	.results-headers{
-		padding:0;
-		p{
-			padding:0 0 0 10px;
-			margin:0;
-			text-align:left;
-		}
-	}
+  .results-headers {
+    padding: 0;
+    p {
+      padding: 0 0 0 10px;
+      margin: 0;
+      text-align: left;
+    }
+  }
 
-	.gene-card,
-	.disease-card{
-		&:hover{
-			box-shadow: 0 2px 5px rgba($black, 0.5);
-			cursor:pointer;
-		}
-	}
-	.disease-card{
-		.row{
-			width:50%;
-			float:left;
-		}
-		.disease-card-body{padding:0;}
-		.disease-card-title{
-			text-transform: capitalize;
-			text-align:left;
-			font-size: 16px;
-			padding:11px 0 10px 20px;
-			margin:0;
-		}
-		.disease-card-counts{
-			width: 30%;
-			float:right;
-			h6{display:none;}
-			p{margin:0;}
-			.samples{
-				padding:10px 0;
-				&:first-child{border-left: 1px solid $gray-light;}
-			}
-				.sample-count{
-					font-weight: bold;
-				}
-				.sample-pos{color:#28a745;;}
-				.sample-neg{color:#cb2431;}
-		}
-	}
+  .gene-card:hover {
+    box-shadow: 0 2px 5px rgba($black, 0.5);
+    cursor: pointer;
+  }
+
+  .disease-card {
+    .row {
+      float: left;
+      width: 50%;
+    }
+    .disease-card-body {
+      padding: 0;
+    }
+    .disease-card-title {
+      padding: 11px 0 10px 20px;
+      margin: 0;
+      font-size: 16px;
+      text-align: left;
+      text-transform: capitalize;
+    }
+    .disease-card-counts {
+      float: right;
+      width: 30%;
+      h6 {
+        display: none;
+      }
+      p {
+        margin: 0;
+      }
+      .samples {
+        padding: 10px 0;
+        &:first-child {
+          border-left: 1px solid $gray-light;
+        }
+      }
+      .sample-count {
+        font-weight: bold;
+      }
+      .sample-pos {
+        color: #28A745;;
+      }
+      .sample-neg {
+        color: #CB2431;
+      }
+    }
+  }
 }
 
-.badge--counter{
-	background-color: $blue;
+.badge--counter {
+  background-color: $blue;
 }

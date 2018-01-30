@@ -48,7 +48,7 @@ function OnConfig(
       url:        'query-builder',
       template:   `<query-builder 
                         id="query-builder" 
-                        class="row"
+                        class="query-builder"
                         mutations-set="$ctrl.STATE.query.mutations"
                         disease-set="$ctrl.STATE.query.diseases"
                         user="$ctrl.STATE.user"

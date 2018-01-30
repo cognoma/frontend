@@ -1,16 +1,7 @@
-/* =======================================================================
-  Component: queryOverview 
- ========================================================================== */
-#query-overview{
-	// width: 256px;
-	background: $gray-light;
-	padding:0;
-	text-align: center;
-	.dashboard-column-header {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
+.query-overview {
+  padding: 0;
+  background: $background-medium;
+
+  grid-column: 1 / 2;
+  grid-row: 2 / end;
 }
-
-

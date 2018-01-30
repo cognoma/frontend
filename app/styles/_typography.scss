@@ -5,38 +5,38 @@ p {
 .heading {
   margin-bottom: 0.618em;
 
-  &.-large {
+  &--large {
     font-size: $font-size--lg;
-    font-weight: bold;
+    font-weight: 400;
     line-height: $half-space * 3 / 2;
   }
 
-  &.-medium {
+  &--medium {
     font-size: $font-size--md;
     font-weight: normal;
     line-height: $half-space;
   }
 
-  &.-small {
+  &--small {
     font-size: $font-size--sm;
     font-weight: bold;
     line-height: $half-space * 2 / 3;
   }
 
-  &.-smallest {
+  &--smallest {
     font-size: $font-size--xs;
     font-weight: bold;
   }
 }
 
 h1 {
-  @extend .heading.-large;
+  @extend .heading--large;
 }
 
 h2 {
-  @extend .heading.-medium;
+  @extend .heading--large;
 }
 
 h3 {
-  @extend .heading.-small;
+  @extend .heading--small;
 }

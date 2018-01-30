@@ -208,3 +208,10 @@ All unit tests are run with `npm run unit`. When running unit tests, code covera
 
 * HTML lines should be limited to a max length of 100 characters
 * 2 spaces should be used for indentation
+
+##### SCSS
+
+* use the [BEM naming convention](http://getbem.com/) for naming classes 
+* do NOT use ID's as selectors
+* limit nesting to BEM modifiers
+* sort css properties according to [@mdo's code guide](http://codeguide.co/#css-declaration-order)
