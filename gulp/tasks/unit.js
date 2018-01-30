@@ -8,7 +8,7 @@ import browserSync from 'browser-sync';
 
 
 let _TEST_SERVER, _TEST_REPORT;
-const isCI = process.env.CI && Boolean(process.env.CI_PULL_REQUEST);
+const isCI = process.env.CI;
 
 // fire up an instance of browserSync to show the Karma HTML Reports
 // and live reload them as we code
