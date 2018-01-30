@@ -1,6 +1,6 @@
 function notInArrayFilter($filter, _) {
 	'ngInject';
-  return function(list, arrayFilter, element){
+  return function(list, arrayFilter){
   		// console.log(`list:`,list)
   		// console.log(`arrayFilter:`,arrayFilter);
 

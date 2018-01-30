@@ -40,10 +40,10 @@ function QueryBuilderService($resource, $http, AppSettings, NotificationService,
       let getTotalsFor = setParam=>_.reduce(_.pluck(diseases, setParam), (a,b)=>a+b)
 
       function validateClassifier() {
-        let number_positives = getTotalsFor('positives')
-        let number_negatives = getTotalsFor('negatives')
+        let numberPositives = getTotalsFor('positives')
+        let numberNegatives = getTotalsFor('negatives')
         // 20 positive samples and 20 negative samples
-        if (number_positives >= 20 && number_negatives >= 20) {
+        if (numberPositives >= 20 && numberNegatives >= 20) {
           return true
         } else {
           NotificationService.notify({
@@ -107,7 +107,7 @@ function QueryBuilderService($resource, $http, AppSettings, NotificationService,
               data: {
                 'email': email
               }
-            }).then(function successCallback(response) {
+            }).then(function successCallback() {
               NotificationService.notify({
                 type:    'success',
                 message: `<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Email updated!`,
