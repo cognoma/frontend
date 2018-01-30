@@ -1,0 +1,34 @@
+<table class="cg-table">
+  <thead>
+    <tr class="cg-table__thead-row">
+      <th class="cg-table__cell cg-table__cell--centered">
+        <input
+          type="checkbox"
+          ng-model="$ctrl.isAllSelected"
+          ng-change="$ctrl.selectAllResults($ctrl.isAllSelected)"
+        />
+      </th>
+      <th class="cg-table__cell" ng-repeat="column in $ctrl.columns">{{column.name}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      class="cg-table__row"
+      ng-repeat="result in ($ctrl.filteredSearchResults = ($ctrl.data | filter: $ctrl.searchQuery))"
+    >
+      <td class="cg-table__cell cg-table__cell--centered">
+        <input
+          type="checkbox"
+          ng-model="result.isSelected"
+          ng-change="$ctrl.areAllResultsSelected()"
+        />
+      </td>
+      <td class="cg-table__cell" ng-repeat="column in $ctrl.columns">{{result[column.id]}}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="cg-dot-loader" ng-if="$ctrl.isSearching">
+  <span class="cg-dot-loader__dot"></span>
+  <span class="cg-dot-loader__dot"></span>
+  <span class="cg-dot-loader__dot"></span>
+</div>

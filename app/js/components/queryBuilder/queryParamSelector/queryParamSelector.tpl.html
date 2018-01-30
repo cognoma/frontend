@@ -15,7 +15,7 @@
 	</div></h2>
 	<button
 		class="btn btn-primary"
-		 ng-click="$ctrl.onParamSelect({queryParamData: $ctrl.filteredSearchResults});"
+		 ng-click="$ctrl.onParamSelect({queryParamData: $ctrl.searchResults});"
 	>
 		Add to query
 	</button>
@@ -67,12 +67,13 @@
 	<section
 		class="query-param-selector-results"
 	>
-		<div class="cg-dot-loader" ng-if="$ctrl.isSearching">
-			<span class="cg-dot-loader__dot"></span>
-			<span class="cg-dot-loader__dot"></span>
-			<span class="cg-dot-loader__dot"></span>
-		</div>
-		<table class="cg-table" ng-if="$ctrl.currentState() == 'disease' && $ctrl.searchResults.length">
+		<cg-table
+			columns="$ctrl.columns"
+			data="$ctrl.searchResults"
+			search-query="$ctrl.searchQuery"
+			is-searching="$ctrl.isSearching"
+		></cg-table>
+<!-- 		<table class="cg-table" ng-if="$ctrl.currentState() == 'disease' && $ctrl.searchResults.length">
 			<thead>
 				<tr class="cg-table__thead-row">
 					<th class="cg-table__cell cg-table__cell--centered">
@@ -149,6 +150,6 @@
 				    <td class="cg-table__cell">{{result._score}}</td>
 				</tr>
 			</tbody>
-		</table>
+		</table> -->
 	</section>
 </div>

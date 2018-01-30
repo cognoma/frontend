@@ -47,6 +47,45 @@ const QueryParamSelectorComponent = {
         vm.sortType = "name";
         vm.sortReverse = false;
 
+        vm.columns =
+          vm.currentState() === "mutations"
+            ? [
+                {
+                  name: "Symbol",
+                  id: "symbol"
+                },
+                {
+                  name: "Name",
+                  id: "name"
+                },
+                {
+                  name: "Entrez ID",
+                  id: "entrezgene"
+                },
+                {
+                  name: "Score",
+                  id: "score"
+                }
+              ]
+            : [
+                {
+                  name: "Name",
+                  id: "name"
+                },
+                {
+                  name: "Positives",
+                  id: "positives"
+                },
+                {
+                  name: "Samples",
+                  id: "samples"
+                },
+                {
+                  name: "Negatives",
+                  id: "negatives"
+                }
+              ];
+
         if (vm.currentState() === "disease") {
           getSearchResults(vm.searchQuery);
         }
@@ -155,20 +194,6 @@ const QueryParamSelectorComponent = {
 
         vm.searchResults = _searchResults;
         return vm.searchResults;
-      };
-
-      vm.areAllResultsSelected = () => {
-        let notSelectedResults = _.some(
-          vm.filteredSearchResults,
-          result => !result.isSelected
-        );
-        vm.isAllSelected = !notSelectedResults;
-      };
-
-      vm.selectAllResults = isAllSelected => {
-        vm.filteredSearchResults.map(result => {
-          result.isSelected = isAllSelected;
-        });
       };
 
       vm.removeAllSearchResults = () => {
