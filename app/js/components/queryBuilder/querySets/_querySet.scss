@@ -1,21 +1,20 @@
-/* =======================================================================
-  Component: querySet 
- ========================================================================== */
-.query-set{
-	grid-column: 2 / 3;
-	grid-row: 2 / end;
-	background: $background-light;
-	color:$white;
-}
-.dashboard-column-header {
-	.badge{
-		background-color: $blue;
-		margin-left: 10px;
-	}
+.query-set {
+  color: $white;
+  background: $background-light;
+
+  grid-column: 2 / 3;
+  grid-row: 2 / end;
 }
 
-.clear-button{
-	background-color: $red;
-	color: $white;
-	border: none;
+.dashboard-column-header {
+  .badge {
+    margin-left: 10px;
+    background-color: $blue;
+  }
+}
+
+.clear-button {
+  color: $white;
+  background-color: $red;
+  border: none;
 }

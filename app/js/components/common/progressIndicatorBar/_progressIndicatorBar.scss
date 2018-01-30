@@ -1,83 +1,83 @@
-$prgs_bar_speed: .5s;
+$prgs_bar_speed: 0.5s;
 
-#prgs-indct-bar{
-	width: 100%;
-	display: block;
-	position: relative;
-	z-index: 20000;
-	padding: 15px 0;
-	background-color: $background-dark;
-	grid-column: 1 / end;
-	grid-row: 1 / 2;
+#prgs-indct-bar {
+  position: relative;
+  z-index: 20000;
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  background-color: $background-dark;
 
-	section {
-		position: relative;
-	}
+  grid-column: 1 / end;
+  grid-row: 1 / 2;
+
+  section {
+    position: relative;
+  }
 }
 
-.prgs-indct-bar-line{
-	width: 0;
-	display: block;
-	height: 3px;
-	background: darken($green, 10%);
-	z-index: 1;
-	position: absolute;
-	top:32%;
-	transition: all $prgs_bar_speed ease;
+.prgs-indct-bar-line {
+  position: absolute;
+  top: 32%;
+  z-index: 1;
+  display: block;
+  width: 0;
+  height: 3px;
+  background: darken($green, 10%);
+  transition: all $prgs_bar_speed ease;
 }
 
-
-
-.prgs-indct-bar-steps{
-	display:flex;
-	margin: 0;
-	padding:0;
+.prgs-indct-bar-steps {
+  display: flex;
+  padding: 0;
+  margin: 0;
 }
 
-.prgs-indct-bar-step{
-	position: relative;
-	z-index: 2;
-	display: flex;
-	flex-direction:column;
-	width: 100%;
-	height: 60px;
+.prgs-indct-bar-step {
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  height: 60px;
+  text-align: center;
 
-	align-items:center;
-	justify-content:center;
-	text-align: center;
+  &.active {
+    .icon {
+      background: $background-dark;
+      border: 3px solid $green;
+      transform: scale(1);
+    }
 
-	&.active{
+    p {
+      color: $green;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  }
 
-		.icon{
-			border: 3px solid $green;
-			transform: scale(1);
-			background: $background-dark;
-		}
+  .icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: $background-dark;
+    border: 3px solid $background-light;
+    border-radius: 50%;
+    transform: scale(0.5);
+    transition: all $prgs_bar_speed ease;
+  }
 
-		p{font-weight: bold; font-size: 1.5rem; color:$green;}
-	}
+  p {
+    padding: 0;
+    margin: 0;
+    color: darken(#CCC, 20%);
+    font-size: 1.5rem;
+  }
 
-	.icon{
-		border: 3px solid $background-light;
-		width:20px;
-		height: 20px;
-		display: block;
-		border-radius: 50%;
-			background: $background-dark;
-		transform: scale(0.5);
-		transition: all $prgs_bar_speed ease;
-	}
-
-	p{
-		margin: 0;
-		padding:0;
-		font-size: 1.5rem;
-		color: darken(#ccc, 20%);
-	}
-
-	.btn{
-		text-transform: uppercase;
-		background-color: $green;
-	}
+  .btn {
+    text-transform: uppercase;
+    background-color: $green;
+  }
 }
-
