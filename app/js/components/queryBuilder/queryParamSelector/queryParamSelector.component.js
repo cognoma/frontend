@@ -1,185 +1,181 @@
-const template = require('./queryParamSelector.tpl.html');
+const template = require("./queryParamSelector.tpl.html");
 
 const QueryParamSelectorComponent = {
-    template,
-    bindings:    {
-        'onParamSelect': '&',
-        'mutationsSet':  '<',
-        'diseaseSet':    '<',
-    },
-    controller: [
-                '$rootScope',
-                '$scope',
-                '_',
-                '$state',
-                '$log',
-                'MutationsService',
-                'DiseaseService',
-                '$filter',
-                'ProgressIndicatorBarService',
-        function(
-            $rootScope, 
-            $scope, 
-            _, 
-            $state, 
-            $log,
-            MutationsService,
-            DiseaseService,
-            $filter,
-            ProgressIndicatorBarService
-            ) {
+  template,
+  bindings: {
+    onParamSelect: "&",
+    mutationsSet: "<",
+    diseaseSet: "<"
+  },
+  controller: [
+    "$rootScope",
+    "$scope",
+    "_",
+    "$state",
+    "$log",
+    "MutationsService",
+    "DiseaseService",
+    "$filter",
+    "ProgressIndicatorBarService",
+    function(
+      $rootScope,
+      $scope,
+      _,
+      $state,
+      $log,
+      MutationsService,
+      DiseaseService,
+      $filter,
+      ProgressIndicatorBarService
+    ) {
+      "ngInject";
 
-        	'ngInject';
+      $log = $log.getInstance("QueryParamSelectorComponent", false);
+      $log.log("");
 
+      const vm = this;
+      vm.currentState = () => $state.current.name.split(".")[2];
+      const progressStateName =
+        vm.currentState() == "mutations" ? "genes" : "samples";
 
-            $log = $log.getInstance('QueryParamSelectorComponent', false);
-            $log.log('');
+      vm.$onInit = () => {
+        vm.searchResults = [];
+        vm.isAllSelected = false;
+        vm.searchQuery = "";
+        vm.isSearching = false;
 
-            const vm = this;
-            vm.currentState = () => $state.current.name.split('.')[2];
-            const progressStateName = vm.currentState() == 'mutations' ? 'genes' : 'samples';
-            
+        vm.sortType = "name";
+        vm.sortReverse = false;
 
-            vm.$onInit = ()=>{
-                
-                vm.searchResults =[];
-                vm.isAllSelected = false;
-                vm.searchQuery='';
-                vm.isSearching = false;
+        if (vm.currentState() === "disease") {
+          getSearchResults(vm.searchQuery);
+        }
 
-                vm.sortType = 'name';
-                vm.sortReverse = false;
+        ProgressIndicatorBarService.get("queryBuilderProgress").then(
+          progressBarInstance => {
+            vm.progressBar = progressBarInstance;
+          }
+        );
+      };
 
-                if (vm.currentState() === 'disease') {
-                  getSearchResults(vm.searchQuery);
-                }
+      function getSearchResults(searchQuery) {
+        vm.isSearching = true;
 
-                 ProgressIndicatorBarService
-                    .get('queryBuilderProgress')
-                    .then(progressBarInstance=>{ 
-                      vm.progressBar = progressBarInstance;
-                    });
+        // pass along the user input query and selected mutations list
+        // to the appropriate service
+        searchServices[vm.currentState()]
+          .query(searchQuery, vm.mutationsSet)
+          .then(response => {
+            $scope.$apply(() => {
+              if (response.length) {
+                vm.searchResults = _filteredSearchResults(response);
+                vm.progressBar.goTo(`Add ${progressStateName}`);
+              } else {
+                vm.progressBar.goTo(`Search ${progressStateName}`);
+              }
 
-            }
+              vm.isSearching = false;
+            });
+          }); //END searchServices[vm.currentState()]
+      }
 
+      /**
+       * Filter our results so we don't return what's already added to the query
+       * @param  {Array} rawSearchResults - array of objects returned from search
+       *
+       * @return {Array} array of results filtered by the current state state from the query
+       */
+      let _filteredSearchResults = rawSearchResults => {
+        let comparator = vm.currentState() == "mutations" ? "_id" : "acronym";
+        return $filter("notInArrayFilter")(
+          rawSearchResults,
+          vm[`${vm.currentState()}Set`],
+          comparator
+        );
+      };
 
-            function getSearchResults(searchQuery) {
-              vm.isSearching = true;
+      /** @todo : make angular search service to abstract search functionality */
+      //matches our search services to state definitions
+      const searchServices = {
+        mutations: MutationsService,
+        disease: DiseaseService
+      };
 
-              // pass along the user input query and selected mutations list 
-              // to the appropriate service 
-              searchServices[vm.currentState()]
-                .query(searchQuery, vm.mutationsSet)
-                .then(response=>{
+      /**
+       * Query parameter search functionality, delegates searching and
+       * result transformation to angular services.
+       * Returned results get filtered and bound to the local scope
+       *
+       * @param  {String} searchQuery - user input search string
+       * @return {Void}
+       */
+      vm.onInputChange = searchQuery => {
+        $log.info(`query: ${searchQuery}`);
 
-                  $scope.$apply(()=>{
-                      if(response.length){
-                        vm.searchResults = _filteredSearchResults(response);
-                        vm.progressBar.goTo(`Add ${progressStateName}`);
-                      } else{
-                        vm.progressBar.goTo(`Search ${progressStateName}`);  
-                      }
-                      
-                      vm.isSearching = false;
-                  });
-                  
-                });//END searchServices[vm.currentState()]
-            }
+        // show all diseases when input is empty
+        if (vm.currentState() !== "disease" && searchQuery.length == 0) {
+          vm.searchResults = [];
+        } else {
+          getSearchResults(searchQuery);
+        }
+      }; ///END vm.onInputChange
 
+      // vm.instructionsTemplate = `queryBuilder/queryParamSelector/${vm.currentState()}_instructions.tpl.html`;
 
-            /**
-             * Filter our results so we don't return what's already added to the query
-             * @param  {Array} rawSearchResults - array of objects returned from search
-             * 
-             * @return {Array} array of results filtered by the current state state from the query
-             */
-            let _filteredSearchResults = rawSearchResults =>{
-                
-                let comparator = vm.currentState() == 'mutations' ? '_id' : 'acronym';
-                return $filter('notInArrayFilter')(rawSearchResults, vm[`${vm.currentState()}Set`], comparator); 
-            }   
+      /**
+       * @param  {Object} queryParam - mutation or DiseaseModel
+       * @return {Array} of objects
+       */
+      vm.removeParamFromSearchResults = queryParam => {
+        let selectedResult = _.assign({}, queryParam),
+          _searchResults = _.assign([], vm.searchResults),
+          resultsIndex = null;
 
-            /** @todo : make angular search service to abstract search functionality */
-            //matches our search services to state definitions 
-            const searchServices = {
-                'mutations': MutationsService,
-                'disease':   DiseaseService
-            };
+        switch (vm.currentState()) {
+          case "mutations":
+            resultsIndex = _.indexOf(
+              _.pluck(_searchResults, "_id"),
+              selectedResult._id
+            );
+            break;
 
-            /**
-             * Query parameter search functionality, delegates searching and 
-             * result transformation to angular services.
-             * Returned results get filtered and bound to the local scope
-             *  
-             * @param  {String} searchQuery - user input search string
-             * @return {Void}
-             */
-            vm.onInputChange = searchQuery=>{
-                $log.info(`query: ${searchQuery}`);
+          case "disease":
+            resultsIndex = _.indexOf(
+              _.pluck(_searchResults, "acronym"),
+              selectedResult.acronym
+            );
+            break;
+        }
 
-                // show all diseases when input is empty
-                if(vm.currentState() !== 'disease' && searchQuery.length == 0 ){
-                    vm.searchResults = [];
-                }else{
-                  getSearchResults(searchQuery);
-                }
-                      
-                        
-            };///END vm.onInputChange
+        // remove item of search resutls
+        _searchResults = [
+          ..._searchResults.slice(0, resultsIndex),
+          ..._searchResults.slice(resultsIndex + 1)
+        ];
 
+        vm.searchResults = _searchResults;
+        return vm.searchResults;
+      };
 
-        	
-            // vm.instructionsTemplate = `queryBuilder/queryParamSelector/${vm.currentState()}_instructions.tpl.html`;
-            
-            /**
-            * @param  {Object} queryParam - mutation or DiseaseModel   
-            * @return {Array} of objects 
-            */
-            vm.removeParamFromSearchResults = queryParam=>{
-                
-                let selectedResult = _.assign({}, queryParam),
-                    _searchResults = _.assign([], vm.searchResults),
-                    resultsIndex =  null;
+      vm.areAllResultsSelected = () => {
+        let notSelectedResults = _.some(
+          vm.filteredSearchResults,
+          result => !result.isSelected
+        );
+        vm.isAllSelected = !notSelectedResults;
+      };
 
-                switch(vm.currentState()){
-                    case 'mutations':
-                        resultsIndex =  _.indexOf(_.pluck(_searchResults,'_id'),  selectedResult._id);
-                    break;
+      vm.selectAllResults = isAllSelected => {
+        vm.filteredSearchResults.map(result => {
+          result.isSelected = isAllSelected;
+        });
+      };
 
-                    case 'disease':
-                        resultsIndex =  _.indexOf(_.pluck(_searchResults,'acronym'),  selectedResult.acronym);
-                    break;
-                }
-    
+      vm.removeAllSearchResults = () => {
+        vm.searchResults = [];
+      };
 
-                // remove item of search resutls
-                _searchResults = [
-                  ..._searchResults.slice(0, resultsIndex), 
-                  ..._searchResults.slice(resultsIndex + 1)
-                ];
-
-
-                vm.searchResults = _searchResults;
-                return vm.searchResults;
-            };
-
-            vm.areAllResultsSelected = () => {
-              let notSelectedResults = _.some(vm.filteredSearchResults, result => !result.isSelected);
-              vm.isAllSelected = !notSelectedResults;
-            }
-
-            vm.selectAllResults = (isAllSelected) => {
-              vm.filteredSearchResults.map(result => {
-                result.isSelected = isAllSelected;
-              });
-            }
-
-            vm.removeAllSearchResults = () => {
-              vm.searchResults = [];
-            }
-            
-
-            /** @deprecated
+      /** @deprecated
             // checks if set has been sorted by given params
             // let isSorted = (list, sortedList, sortedOn)=>{
             //     return _.isEqual(
@@ -196,31 +192,29 @@ const QueryParamSelectorComponent = {
              * 
              * @return {Array} 
              */
-            vm.sortResultsBy = (list, sortOn)=>{
-                vm.searchResults = sortedResultsBy(list, sortOn);
-            }
+      vm.sortResultsBy = (list, sortOn) => {
+        vm.searchResults = sortedResultsBy(list, sortOn);
+      };
 
+      /**
+       * Sorts an Array in descending order based on teh given key
+       * @param  {Array} list- array of objects to sort
+       * @param  {String} sortOn - object key to sort on
+       *
+       * @return {Array}
+       */
+      let sortedResultsBy = (list, sortOn) => {
+        let results = _.assign([], list);
+        let sortedList = _.sortBy(results, sortOn).reverse(); //reverse it to make it a descending list
 
-             /**
-             * Sorts an Array in descending order based on teh given key
-             * @param  {Array} list- array of objects to sort  
-             * @param  {String} sortOn - object key to sort on 
-             * 
-             * @return {Array} 
-             */
-            let sortedResultsBy = (list, sortOn)=>{
-                let results = _.assign([], list);
-                let sortedList = _.sortBy(results, sortOn).reverse();//reverse it to make it a descending list
-                
-                return sortedList;
-                // return (isSorted(results, sortedList, sortOn) ? results.reverse() : sortedList);
-            };
-            
-        	
-        }]
-}
+        return sortedList;
+        // return (isSorted(results, sortedList, sortOn) ? results.reverse() : sortedList);
+      };
+    }
+  ]
+};
 
 export default {
-	name: 'queryParamSelector',
-	obj:  QueryParamSelectorComponent
+  name: "queryParamSelector",
+  obj: QueryParamSelectorComponent
 };
