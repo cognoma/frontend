@@ -1,5 +1,5 @@
 /* =======================================================================
-  Component: queryParamSelector 
+  Component: queryParamSelector
  ========================================================================== */
 .query-param-selector{
 	// width:calc(100% - 650px);
@@ -7,7 +7,7 @@
 	padding:0;
 	text-align: center;
 
-	.dashboard-column-header{ 
+	.dashboard-column-header{
 		background: $gray-light;
 		color: $black;
 		display: flex;
@@ -45,27 +45,29 @@
 
 .query-param-selector-results{
 	margin-top:50px;
-	
+
 	.results-row{
 		overflow:scroll;
 		display: block;
 		height:88vh;
-	}	
+	}
 
 	.results-headers{
 		padding:0;
 		p{
-			padding:0 0 0 10px; 
-			margin:0; 
+			padding:0 0 0 10px;
+			margin:0;
 			text-align:left;
 		}
 	}
 
-	.gene-card:hover{
-		box-shadow: 0 2px 5px rgba($black, 0.5);
-		cursor:pointer;
+	.gene-card,
+	.disease-card{
+		&:hover{
+			box-shadow: 0 2px 5px rgba($black, 0.5);
+			cursor:pointer;
+		}
 	}
-
 	.disease-card{
 		.row{
 			width:50%;
@@ -84,11 +86,11 @@
 			float:right;
 			h6{display:none;}
 			p{margin:0;}
-			.samples{ 
-				padding:10px 0; 
+			.samples{
+				padding:10px 0;
 				&:first-child{border-left: 1px solid $gray-light;}
 			}
-				.sample-count{ 
+				.sample-count{
 					font-weight: bold;
 				}
 				.sample-pos{color:#28a745;;}
