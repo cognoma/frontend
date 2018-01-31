@@ -1,7 +1,12 @@
 .query-overview {
   padding: 0;
+  color: $font-color--light;
   background: $background--medium;
 
   grid-column: 1 / 2;
   grid-row: 2 / end;
+
+  &__header {
+    padding: 15px 20px;
+  }
 }

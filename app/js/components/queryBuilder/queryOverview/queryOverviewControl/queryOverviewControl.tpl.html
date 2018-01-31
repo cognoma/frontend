@@ -1,20 +1,13 @@
 <div
   ui-sref="app.queryBuilder.{{$ctrl.listType}}"
 	class="query-overview--control
-			   query-overview--{{::$ctrl.title.toLowerCase()}}
-         row
-			"
+			   query-overview--{{::$ctrl.title.toLowerCase()}}"
   ng-class="{'active': $ctrl.active}"
 >
   <h4 class="query-overview--control-title">
 		<span class="js-test-title">
-          {{::$ctrl.title}} <small class="query-overview--control-count" ng-if="$ctrl.paramList.length">({{$ctrl.paramList.length}})</small>
-      </span>
-
-    <span class="glyphicon glyphicon-info-sign"
-          uib-tooltip="{{::$ctrl.desc}}"
-          tooltip-placement="bottom">
-      </span>
+      {{::$ctrl.title}} <small class="query-overview--control-count" ng-if="$ctrl.paramList.length">({{$ctrl.paramList.length}})</small>
+    </span>
   </h4>
   <div class="row query-overview--control-params">
   		<mutation-listing
