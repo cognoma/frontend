@@ -6,7 +6,6 @@
 			"
   ng-class="{'active': $ctrl.active}"
 >
-
   <h4 class="query-overview--control-title">
 		<span class="js-test-title">
           {{::$ctrl.title}} <small class="query-overview--control-count" ng-if="$ctrl.paramList.length">({{$ctrl.paramList.length}})</small>
@@ -17,12 +16,7 @@
           tooltip-placement="bottom">
       </span>
   </h4>
-
-
-
   <div class="row query-overview--control-params">
-
-
   		<mutation-listing
         class="col-lg-6"
   			ng-if=" $ctrl.listType == 'mutations' "
@@ -42,17 +36,5 @@
         is-loading="disease.mutationsLoading"
         on-remove-param="$ctrl.removeParam({id, paramRef,paramType})"
   		></disease-listing>
-
-  		<button
-        ui-sref="app.queryBuilder.{{::$ctrl.listType}}"
-  			ng-class="{ 'col-xs-6 col-lg-4': $ctrl.listType == 'mutations',
-  						      'col-xs-10': $ctrl.listType == 'disease' }"
-  			class="query-overview--control-param  query-overview--control-param-add text-uppercase"
-      >
-  			+
-  		</buttom>
-
-
   </div>
-
 </div>
