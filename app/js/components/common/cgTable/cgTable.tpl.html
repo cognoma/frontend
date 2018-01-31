@@ -43,6 +43,7 @@
       <td class="cg-table__cell" ng-repeat="column in $ctrl.columns">{{result[column.id]}}</td>
     </tr>
 </table>
+<p ng-if="$ctrl.data.length && !$ctrl.filteredSearchResults.length" class="cg-table__no-results">No results found.</p>
 <div class="cg-dot-loader" ng-if="$ctrl.isSearching">
   <span class="cg-dot-loader__dot"></span>
   <span class="cg-dot-loader__dot"></span>

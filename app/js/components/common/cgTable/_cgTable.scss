@@ -46,4 +46,10 @@
     display: inline-block;
     width: 50px;
   }
+
+  &__no-results {
+    margin: 30px 0;
+    font-size: $font-size--md;
+    text-align: center;
+  }
 }
