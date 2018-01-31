@@ -63,15 +63,10 @@
 </div><!-- 
 <mutations-instructions ng-if="$ctrl.currentState() == 'mutations' && $ctrl.searchResults.length == 0" class="row">
 </mutations-instructions> -->
-<div class="query-param-selector__results">
-	<section
-		class="query-param-selector-results"
-	>
-		<cg-table
-			columns="$ctrl.columns"
-			data="$ctrl.searchResults"
-			search-query="$ctrl.searchQuery"
-			is-searching="$ctrl.isSearching"
-		></cg-table>
-	</section>
-</div>
+<cg-table
+	columns="$ctrl.columns"
+	data="$ctrl.searchResults"
+	search-query="$ctrl.searchQuery"
+	is-searching="$ctrl.isSearching"
+	is-filter-disabled="$ctrl.currentState() === 'mutations'"
+></cg-table>
