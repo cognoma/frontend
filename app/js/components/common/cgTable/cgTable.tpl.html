@@ -1,3 +1,9 @@
+<div
+  class="cg-table__result-count"
+  ng-if="!$ctrl.isSearching && $ctrl.filteredSearchResults.length"
+>
+  {{ $ctrl.filteredSearchResults.length }} results
+</div>
 <table class="cg-table" ng-if="$ctrl.data.length && !$ctrl.isSearching">
   <thead>
     <tr class="cg-table__thead-row">
