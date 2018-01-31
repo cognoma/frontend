@@ -40,7 +40,6 @@ const QueryParamSelectorComponent = {
 
       vm.$onInit = () => {
         vm.searchResults = [];
-        vm.isAllSelected = false;
         vm.searchQuery = "";
         vm.isSearching = false;
 
@@ -49,37 +48,45 @@ const QueryParamSelectorComponent = {
             ? [
                 {
                   name: "Symbol",
-                  id: "symbol"
+                  id: "symbol",
+                  isSortable: true
                 },
                 {
                   name: "Name",
-                  id: "name"
+                  id: "name",
+                  isSortable: true
                 },
                 {
                   name: "Entrez ID",
-                  id: "entrezgene"
+                  id: "entrezgene",
+                  isSortable: true
                 },
                 {
                   name: "Score",
-                  id: "score"
+                  id: "score",
+                  isSortable: true
                 }
               ]
             : [
                 {
                   name: "Name",
-                  id: "name"
+                  id: "name",
+                  isSortable: true
                 },
                 {
                   name: "Samples",
-                  id: "samples"
+                  id: "samples",
+                  isSortable: true
                 },
                 {
                   name: "Positives",
-                  id: "positives"
+                  id: "positives",
+                  isSortable: true
                 },
                 {
                   name: "Negatives",
-                  id: "negatives"
+                  id: "negatives",
+                  isSortable: true
                 }
               ];
 

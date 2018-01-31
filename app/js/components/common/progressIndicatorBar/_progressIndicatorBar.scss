@@ -6,7 +6,7 @@ $prgs_bar_speed: 0.5s;
   display: block;
   width: 100%;
   padding: 15px 0;
-  background-color: $background-dark;
+  background-color: $background--dark;
 
   grid-column: 1 / end;
   grid-row: 1 / 2;
@@ -46,7 +46,7 @@ $prgs_bar_speed: 0.5s;
 
   &.active {
     .icon {
-      background: $background-dark;
+      background: $background--dark;
       border: 3px solid $green;
       transform: scale(1);
     }
@@ -62,8 +62,7 @@ $prgs_bar_speed: 0.5s;
     display: block;
     width: 20px;
     height: 20px;
-    background: $background-dark;
-    border: 3px solid $background-light;
+    background: $background--dark;
     border-radius: 50%;
     transform: scale(0.5);
     transition: all $prgs_bar_speed ease;

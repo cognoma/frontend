@@ -10,15 +10,19 @@
       </th>
       <th
         class="cg-table__cell"
+        ng-class="{'cg-table__cell--active': $ctrl.sortType === column.id,
+                  'cg-table__cell--sortable': column.isSortable}"
         ng-repeat="column in $ctrl.columns"
         ng-click="$ctrl.sortColumn(column.id)"
       >
         {{column.name}}
-        <span ng-show="$ctrl.sortType === column.id">
-          <span ng-show="!$ctrl.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
-          <span ng-show="$ctrl.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+        <span class="cg-table__sort-container">
+          <span ng-show="$ctrl.sortType === column.id">
+            <span ng-show="!$ctrl.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+            <span ng-show="$ctrl.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+          </span>
+          <span ng-show="$ctrl.sortType !== column.id" class="glyphicon glyphicon-sort"></span>
         </span>
-        <span ng-show="$ctrl.sortType !== column.id" class="glyphicon glyphicon-sort"></span>
       </th>
     </tr>
   </thead>

@@ -1,9 +1,9 @@
 .query-param-selector {
-  padding: 40px;
+  padding: 40px 60px;
   color: $font-color--dark;
-  background-color: #EBEDF2;
+  background-color: $background--light;
 
-  grid-column: 3 / end;
+  grid-column: 2 / end;
   grid-row: 2 / end;
 
   &__header {
