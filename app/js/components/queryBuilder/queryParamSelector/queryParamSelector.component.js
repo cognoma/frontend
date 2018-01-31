@@ -44,9 +44,6 @@ const QueryParamSelectorComponent = {
         vm.searchQuery = "";
         vm.isSearching = false;
 
-        vm.sortType = "name";
-        vm.sortReverse = false;
-
         vm.columns =
           vm.currentState() === "mutations"
             ? [
@@ -73,12 +70,12 @@ const QueryParamSelectorComponent = {
                   id: "name"
                 },
                 {
-                  name: "Positives",
-                  id: "positives"
-                },
-                {
                   name: "Samples",
                   id: "samples"
+                },
+                {
+                  name: "Positives",
+                  id: "positives"
                 },
                 {
                   name: "Negatives",
@@ -115,7 +112,7 @@ const QueryParamSelectorComponent = {
 
               vm.isSearching = false;
             });
-          }); //END searchServices[vm.currentState()]
+          });
       }
 
       /**
@@ -154,12 +151,14 @@ const QueryParamSelectorComponent = {
         // show all diseases when input is empty
         if (vm.currentState() !== "disease" && searchQuery.length == 0) {
           vm.searchResults = [];
-        } else {
+        } else if (vm.currentState() === "mutations") {
           getSearchResults(searchQuery);
         }
-      }; ///END vm.onInputChange
 
-      // vm.instructionsTemplate = `queryBuilder/queryParamSelector/${vm.currentState()}_instructions.tpl.html`;
+        vm.searchResults.forEach(result => {
+          result.isSelected = false;
+        });
+      };
 
       /**
        * @param  {Object} queryParam - mutation or DiseaseModel
@@ -196,27 +195,12 @@ const QueryParamSelectorComponent = {
         return vm.searchResults;
       };
 
-      vm.removeAllSearchResults = () => {
-        vm.searchResults = [];
-      };
-
-      /** @deprecated
-            // checks if set has been sorted by given params
-            // let isSorted = (list, sortedList, sortedOn)=>{
-            //     return _.isEqual(
-            //                 _.pluck(list, sortedOn),
-            //                 _.pluck(sortedList, sortedOn),
-            //             );
-            // };
-
-           
-            
-            /**
-             * @param  {Array} list- array of objects to sort  
-             * @param  {String} sortOn - object key to sort on 
-             * 
-             * @return {Array} 
-             */
+      /**
+       * @param  {Array} list- array of objects to sort
+       * @param  {String} sortOn - object key to sort on
+       *
+       * @return {Array}
+       */
       vm.sortResultsBy = (list, sortOn) => {
         vm.searchResults = sortedResultsBy(list, sortOn);
       };

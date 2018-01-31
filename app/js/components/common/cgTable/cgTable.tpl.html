@@ -8,13 +8,24 @@
           ng-change="$ctrl.selectAllResults($ctrl.isAllSelected)"
         />
       </th>
-      <th class="cg-table__cell" ng-repeat="column in $ctrl.columns">{{column.name}}</th>
+      <th
+        class="cg-table__cell"
+        ng-repeat="column in $ctrl.columns"
+        ng-click="$ctrl.sortColumn(column.id)"
+      >
+        {{column.name}}
+        <span ng-show="$ctrl.sortType === column.id">
+          <span ng-show="!$ctrl.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+          <span ng-show="$ctrl.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+        </span>
+        <span ng-show="$ctrl.sortType !== column.id" class="glyphicon glyphicon-sort"></span>
+      </th>
     </tr>
   </thead>
   <tbody>
     <tr
       class="cg-table__row"
-      ng-repeat="result in ($ctrl.filteredSearchResults = ($ctrl.data | filter: $ctrl.searchQuery))"
+      ng-repeat="result in ($ctrl.filteredSearchResults = ($ctrl.data | filter: $ctrl.searchQuery | orderBy: $ctrl.sortType:$ctrl.sortReverse))"
     >
       <td class="cg-table__cell cg-table__cell--centered">
         <input

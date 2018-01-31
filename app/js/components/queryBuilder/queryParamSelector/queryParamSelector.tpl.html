@@ -25,7 +25,7 @@
 		type="text"
 		class="form-control"
 		placeholder="Search {{$ctrl.currentState() === 'mutations' ? 'genes' : 'diseases'}} by name"
-		ng-change="$ctrl.currentState() === 'mutations' ? $ctrl.onInputChange($ctrl.searchQuery) : null"
+		ng-change="$ctrl.onInputChange($ctrl.searchQuery)"
 		ng-model="$ctrl.searchQuery"
 		ng-model-options="{debounce: 300}"
 		autofocus="1"
