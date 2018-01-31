@@ -101,11 +101,17 @@ const QueryParamSelectorComponent = {
         );
       };
 
+      /**
+       * Gets the appropriate queried search results from the correct service
+       * @param  {string} searchQuery - string to query on
+       */
       function getSearchResults(searchQuery) {
         vm.isSearching = true;
 
-        // pass along the user input query and selected mutations list
-        // to the appropriate service
+        /**
+         * pass along the user input query and selected mutations list
+         * to the appropriate service
+         */
         searchServices[vm.currentState()]
           .query(searchQuery, vm.mutationsSet)
           .then(response => {
