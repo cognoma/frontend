@@ -9,9 +9,10 @@ const cgTable = {
     searchQuery: "="
   },
   controller: [
+    "$scope",
     "$log",
     "_",
-    function($log, _) {
+    function($scope, $log, _) {
       "ngInject";
       $log = $log.getInstance("cgTableComponent", false);
       $log.log("");
@@ -21,10 +22,10 @@ const cgTable = {
       vm.$onInit = () => {
         vm.sortType = vm.columns[0].id;
         vm.sortReverse = false;
+        vm.isAllSelected = false;
       };
 
       vm.sortColumn = columnId => {
-        console.log(columnId);
         vm.sortType = columnId;
         vm.sortReverse = !vm.sortReverse;
       };
@@ -38,10 +39,18 @@ const cgTable = {
       };
 
       vm.selectAllResults = isAllSelected => {
-        vm.filteredSearchResults.map(result => {
+        vm.filteredSearchResults.forEach(result => {
           result.isSelected = isAllSelected;
         });
       };
+
+      $scope.$on("SEARCH_QUERY_CHANGED", () => {
+        vm.filteredSearchResults.forEach(result => {
+          result.isSelected = false;
+        });
+
+        vm.isAllSelected = false;
+      });
     }
   ]
 };

@@ -147,6 +147,7 @@ const QueryParamSelectorComponent = {
        */
       vm.onInputChange = searchQuery => {
         $log.info(`query: ${searchQuery}`);
+        $scope.$broadcast("SEARCH_QUERY_CHANGED");
 
         // show all diseases when input is empty
         if (vm.currentState() !== "disease" && searchQuery.length == 0) {
@@ -154,10 +155,6 @@ const QueryParamSelectorComponent = {
         } else if (vm.currentState() === "mutations") {
           getSearchResults(searchQuery);
         }
-
-        vm.searchResults.forEach(result => {
-          result.isSelected = false;
-        });
       };
 
       /**
