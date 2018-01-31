@@ -13,13 +13,13 @@
 			{{ $ctrl.filteredSearchResults.length }}
 		</span>
 	</div></h2>
-	<button
-		class="btn btn-primary"
-		 ng-click="$ctrl.onParamSelect({queryParamData: $ctrl.searchResults});"
-	>
-		Add to query
-	</button>
 </header>
+<button
+	class="button"
+	 ng-click="$ctrl.onParamSelect({queryParamData: $ctrl.searchResults});"
+>
+	Add to query
+</button>
 <div class="query-param-selector__search">
 	<input id="query-param-selector-input"
 		type="text"

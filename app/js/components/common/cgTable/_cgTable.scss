@@ -12,7 +12,6 @@
 
   &__row {
     background-color: $white;
-    border-top: 1px solid $athens-gray;
 
     &:hover {
       background-color: darken($white, 2%);
@@ -24,6 +23,7 @@
     padding: 15px;
     font-weight: inherit;
     text-align: left;
+    border-top: 1px solid $athens-gray;
 
     &--active {
       color: $font-color--dark;
