@@ -18,8 +18,8 @@
         {{column.name}}
         <span class="cg-table__sort-container">
           <span ng-show="$ctrl.sortType === column.id">
-            <span ng-show="!$ctrl.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
-            <span ng-show="$ctrl.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+            <span ng-show="$ctrl.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+            <span ng-show="!$ctrl.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
           </span>
           <span ng-show="$ctrl.sortType !== column.id" class="glyphicon glyphicon-sort"></span>
         </span>
