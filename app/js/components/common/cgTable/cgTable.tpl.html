@@ -21,14 +21,18 @@
         ng-repeat="column in $ctrl.columns"
         ng-click="$ctrl.sortColumn(column.id)"
       >
-        {{column.name}}
-        <span class="cg-table__sort-container">
-          <span ng-show="$ctrl.sortType === column.id">
-            <span ng-show="$ctrl.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
-            <span ng-show="!$ctrl.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+        <div class="cg-table__heading-cell">
+          {{column.name}}
+          <span class="cg-table__sort-container">
+            <span
+              ng-class="{'cg-table__sort-icon--active': column.id === $ctrl.sortType,
+                        'cg-table__sort-icon--reverse': !$ctrl.sortReverse}"
+              class="material-icons cg-table__sort-icon">
+              arrow_drop_down
+            </span><!-- 
+            <span ng-class="{'cg-table__sort-icon--active': !$ctrl.sortReverse && column.id === $ctrl.sortType}" class="material-icons cg-table__sort-icon">arrow_drop_up</span> -->
           </span>
-          <span ng-show="$ctrl.sortType !== column.id" class="glyphicon glyphicon-sort"></span>
-        </span>
+        </div>
       </th>
     </tr>
   </thead>

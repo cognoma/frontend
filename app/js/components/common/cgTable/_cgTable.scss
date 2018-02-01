@@ -42,9 +42,25 @@
     }
   }
 
+  &__heading-cell {
+    align-items: center;
+    display: flex;
+  }
+
+  &__sort-icon {
+    opacity: 0;
+
+    &--active {
+      opacity: 1;
+    }
+
+    &--reverse {
+      transform: rotate(180deg);
+    }
+  }
+
   &__sort-container {
     display: inline-block;
-    width: 50px;
   }
 
   &__no-results {
