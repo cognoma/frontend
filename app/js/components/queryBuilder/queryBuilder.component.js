@@ -16,7 +16,6 @@ const QueryBuilderComponent = {
     "$timeout",
     "MutationsService",
     "DiseaseService",
-    "ProgressIndicatorBarService",
     "QueryBuilderService",
     "$log",
     function(
@@ -28,7 +27,6 @@ const QueryBuilderComponent = {
       $timeout,
       MutationsService,
       DiseaseService,
-      ProgressIndicatorBarService,
       QueryBuilderService,
       $log
     ) {
@@ -41,17 +39,6 @@ const QueryBuilderComponent = {
       vm.currentState = () => $state.current.name.split(".")[2];
       const progressStateName =
         vm.currentState() == "mutations" ? "genes" : "samples";
-
-      vm.$onInit = () => {
-        // get the progress bar controller
-        // and attach it to the local scope
-        ProgressIndicatorBarService.get("queryBuilderProgress").then(
-          progressBarInstance => {
-            vm.progressBar = progressBarInstance;
-            vm.progressBar.goTo(`Search ${progressStateName}`);
-          }
-        );
-      };
 
       // define the steps for the query builder
       vm.progressIndicators = [

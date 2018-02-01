@@ -1,59 +1,40 @@
-/* =======================================================================
-  Component: navGlobal
-  ========================================================================== */
-#nav-global{
-	padding:0px;
-	background: $gray-light;
-	//background: #777777;
-	// width:60px;
+.cg-navbar {
+  padding: 10px 20px;
+  margin: 0;
+  background: $background--dark;
 
-	.nav-pills-item{
-		width: 100%;
-		margin-bottom: 20px;
-		&.active{
-			border-left:3px solid green;
-			a{
-				background: $black;
-				color:$white;
-			}
+  grid-column: 1 / end;
+  grid-row: 1 / 2;
 
-		}
-		a{
-			width: 100%;
-			height: 56px;
-			color: $black;
-			padding:0;
-			text-align:center;
-		}
+  &__list {
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
 
-		#cognoma-icon{
-			height: 100%;
-			padding: 5px;
-		}
-	}
+  &__link {
+    align-items: center;
+    display: flex;
+    text-decoration: none;
+  }
 
-	.global-nav-profile{
+  &__logo {
+    margin-right: 10px;
+  }
 
-		a{
-			width: 50px;
-			height:50px;
-			display: block;
-			margin:5px auto;
-			border-radius: 50%;
-			background: lighten($black, 50%);
-			overflow:hidden;
-			.glyphicon{font-size: 40px; margin-top: 10px;}
-		}
-	}
+  &__title {
+    color: $green;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
 
-	.global-nav-query{
-		a{
-			padding-top: 5px;
-			.glyphicon{
-				width: 100%;
-				font-size: 24px;
-			}
-		}
-		
-	}
+  .svg-cognoma-logo {
+    width: 30px;
+
+    fill: $green;
+  }
 }

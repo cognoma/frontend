@@ -7,6 +7,9 @@
   grid-row: 2 / end;
 
   &__header {
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
     padding: 15px 20px;
   }
 }
