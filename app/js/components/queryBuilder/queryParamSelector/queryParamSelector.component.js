@@ -204,6 +204,10 @@ const QueryParamSelectorComponent = {
         vm.searchResults = sortedResultsBy(list, sortOn);
       };
 
+      vm.isAddToQueryButtonDisabled = () => {
+        return !vm.searchResults.some(result => result.isSelected);
+      };
+
       /**
        * Sorts an Array in descending order based on teh given key
        * @param  {Array} list- array of objects to sort
