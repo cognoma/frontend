@@ -82,7 +82,7 @@ function QueryBuilderService(
           res => {
             NotificationService.notify({
               type: "success",
-              message: `<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Classifier #${
+              message: `<span class="material-icons" aria-hidden="true">check_circle</span> Classifier #${
                 res.id
               } submitted!
                 <div class="btn-group" role="group" >
@@ -134,7 +134,7 @@ function QueryBuilderService(
               function successCallback() {
                 NotificationService.notify({
                   type: "success",
-                  message: `<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Email updated!`,
+                  message: `<span class="material-icons" aria-hidden="true">check_circle</span> Email updated!`,
                   config: { ttl: -1 } // stay open until users closes
                 });
                 submitClassifier();
