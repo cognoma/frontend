@@ -1,8 +1,10 @@
 <div class="query-overview--control-param mutation-listing">
   	<span class="query-overview--control-param-title">{{$ctrl.symbol}}</span>
   	<button 
-  		class="glyphicon glyphicon-remove-circle text-danger col-lg-1" 
+  		class="material-icons query-overview--control__remove" 
   		aria-hidden="true"
   		ng-click="$ctrl.onRemoveParam({id: $ctrl.entrezgene, paramRef:'entrezgene', paramType:'mutations'})"
-  	></button>
+  	>
+      close 
+    </button>
  </div>	  		
