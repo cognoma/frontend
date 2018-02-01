@@ -10,6 +10,12 @@
   &:active {
     background-color: darken($bgColor, 10%);
   }
+
+  &[disabled] {
+    color: darken($manatee, 15%);
+    background-color: $manatee;
+    cursor: disabled;
+  }
 }
 
 .button {

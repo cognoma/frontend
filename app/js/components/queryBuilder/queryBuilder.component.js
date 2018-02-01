@@ -104,7 +104,6 @@ const QueryBuilderComponent = {
           !indicatorButtonAdded
         ) {
           vm.progressIndicators.push(indicatorButton);
-          vm.progressBar.goTo(indicatorButton, false);
         }
       };
 

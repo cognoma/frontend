@@ -1,6 +1,9 @@
 <div class="query-overview__header">
   <h2>Query Overview</h2>
-  <button class="button">
+  <button
+    class="button"
+    ng-disabled="!$ctrl.mutationsSet.length || !$ctrl.diseaseSet.length"
+  >
     Submit Query
   </button>
 </div>
