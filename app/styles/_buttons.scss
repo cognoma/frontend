@@ -1,12 +1,30 @@
-.button {
-  padding: 13px 25px;
+@mixin button($bgColor) {
   color: $white;
+  background: $bgColor;
+
+  &:hover {
+    background-color: darken($bgColor, 5%);
+  }
+
+  &:focus,
+  &:active {
+    background-color: darken($bgColor, 10%);
+  }
+}
+
+.button {
+  @include button($green);
+  padding: 13px 25px;
   font-size: 0.9rem;
   font-weight: 500;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  background: $green;
   box-shadow: none;
   border: none;
   outline: none;
+  cursor: pointer;
+
+  &--secondary {
+    @include button($fiord);
+  }
 }
