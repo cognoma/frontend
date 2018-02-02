@@ -135,8 +135,9 @@ describe("UNIT::component: diseaseListing:", () => {
   it('should call "removeParam" method on parent component', () => {
     const removeParamButton = findIn(
       element,
-      ".query-selector--control__remove"
+      ".query-overview--control__remove"
     );
+
     removeParamButton.triggerHandler("click");
 
     expect(parentScope.removeParam).toHaveBeenCalledWith({

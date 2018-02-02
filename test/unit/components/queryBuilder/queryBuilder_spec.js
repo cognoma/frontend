@@ -1,4 +1,4 @@
-fdescribe("UNIT::component: queryBuilder:", () => {
+describe("UNIT::component: queryBuilder:", () => {
   let parentScope,
     element,
     mutationListings,
