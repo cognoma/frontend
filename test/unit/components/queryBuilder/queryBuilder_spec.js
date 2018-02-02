@@ -1,11 +1,12 @@
-describe("UNIT::component: queryBuilder:", () => {
-  let parentScope;
-  let element;
-  let mutationListings;
-  let diseaseListings;
-  var $componentController;
-  let ctrl;
-  let bindings;
+fdescribe("UNIT::component: queryBuilder:", () => {
+  let parentScope,
+    element,
+    mutationListings,
+    diseaseListings,
+    $componentController,
+    ctrl,
+    bindings,
+    $httpBackend;
 
   function findIn(element, selector) {
     return angular.element(element[0].querySelector(selector));
@@ -22,7 +23,10 @@ describe("UNIT::component: queryBuilder:", () => {
   );
 
   beforeEach(
-    inject(($compile, $rootScope) => {
+    inject(($compile, $rootScope, _$httpBackend_) => {
+      $httpBackend = _$httpBackend_;
+
+      $httpBackend.whenGET("images/cognoma-logo.svg").respond(200, "");
       parentScope = $rootScope.$new();
       parentScope.STATE = {
         query: {
