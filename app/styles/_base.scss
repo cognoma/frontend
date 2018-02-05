@@ -1,3 +1,4 @@
+html,
 body {
   position: relative;
   width: 100%;
@@ -61,5 +62,20 @@ td {
   margin: 0;
 
   grid-template-columns: 500px 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto;
+}
+
+.home {
+  display: block;
+  height: 100%;
+  color: $white;
+  background: $background--medium;
+
+  &__container {
+    width: 80%;
+    max-width: 700px;
+    padding: 50px 0;
+    margin: 0 auto;
+    text-align: center;
+  }
 }

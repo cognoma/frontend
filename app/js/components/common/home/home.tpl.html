@@ -1,12 +1,10 @@
+<div class="home__container">
+  <h1>Welcome to Cognoma</h1>
+  <h2>putting machine learning in the hands of cancer biologists</h2>
 
+  <p>Use Cognoma to predict cancer mutations from gene expression profiles, based on public TCGA data.</p>
+  <p>Start by selecting which mutations and cancer types to model. Based on your selection, Cognoma will run the analysis and email you a Jupyter notebook with the results.</p>
 
-<h1 class="heading -large">{{ $ctrl.title | ExampleFilter }}!</h1>
-
-<h3 class="heading -medium">Here is a fancy number served up courtesy of Angular: <span class="number-example">{{ $ctrl.number }}</span></h3>
-
-<img src="images/angular.png" height="100" />
-<img src="images/gulp.png" height="100" />
-<img src="images/browserify.png" height="100" />
-
-<hr/>
-<div example-directive title="WOW!" click-message="You clicked me!">Directive is not loaded.</div>
+  <p>Cognoma is an open source tool created by the Philadelphia community, including the DataPhilly Meetup, the Childhood Cancer Data Lab at Alex's Lemonade Stand Foundation, and the Greene Lab at Penn. Learn more or ask questions on the project's GitHub.</p>
+  <button class="button" ui-sref="app.queryBuilder.mutations">Create a query</button>
+</div>
