@@ -1,27 +1,25 @@
-p {
-  margin-bottom: 1em;
-}
-
 .heading {
   margin-bottom: 0.618em;
+
+  &--xlarge {
+    margin-bottom: 0.3em;
+    font-size: $font-size--xl;
+  }
 
   &--large {
     margin: 0;
     font-size: $font-size--lg;
     font-weight: 400;
-    line-height: $half-space * 3 / 2;
   }
 
   &--medium {
     font-size: $font-size--md;
-    font-weight: normal;
-    line-height: $half-space;
+    font-weight: 300;
   }
 
   &--small {
     font-size: $font-size--sm;
-    font-weight: bold;
-    line-height: $half-space * 2 / 3;
+    font-weight: 300;
   }
 
   &--smallest {
@@ -40,4 +38,10 @@ h2 {
 
 h3 {
   @extend .heading--small;
+}
+
+p {
+  margin-bottom: 1em;
+  font-weight: 300;
+  line-height: 1.6;
 }
