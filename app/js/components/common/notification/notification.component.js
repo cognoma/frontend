@@ -5,10 +5,11 @@ const NotificationComponent = {
   controller: [
     "$log",
     "$rootScope",
+    "$scope",
     "$timeout",
-    function($log, $rootScope, $timeout) {
+    function($log, $rootScope, $scope, $timeout) {
       "ngInject";
-      $log = $log.getInstance("NotificationComponent", false);
+      $log = $log.getInstance("NotificationComponent", true);
       $log.log("");
 
       let vm = this;
@@ -22,6 +23,8 @@ const NotificationComponent = {
         const { message, type } = data;
         vm.message = message;
         vm.type = type;
+
+        $scope.$apply();
 
         $timeout(() => {
           vm.removeNotification();
