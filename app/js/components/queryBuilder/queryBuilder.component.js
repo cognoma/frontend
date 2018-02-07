@@ -16,7 +16,6 @@ const QueryBuilderComponent = {
     "$timeout",
     "MutationsService",
     "DiseaseService",
-    "QueryBuilderService",
     "$log",
     function(
       $scope,
@@ -27,7 +26,6 @@ const QueryBuilderComponent = {
       $timeout,
       MutationsService,
       DiseaseService,
-      QueryBuilderService,
       $log
     ) {
       "ngInject";
@@ -40,92 +38,6 @@ const QueryBuilderComponent = {
       const progressStateName =
         vm.currentState() == "mutations" ? "genes" : "samples";
 
-      // define the steps for the query builder
-      vm.progressIndicators = [
-        {
-          title: "Search Genes",
-          state: "app.queryBuilder.mutations",
-          icon: "",
-          active: true,
-          type: "icon"
-        },
-        {
-          title: "Add Genes",
-          state: "app.queryBuilder.mutations",
-          icon: "",
-          active: false,
-          type: "icon"
-        },
-        {
-          title: "Search Samples",
-          state: "app.queryBuilder.disease",
-          icon: "",
-          active: false,
-          type: "icon"
-        },
-        {
-          title: "Add Samples",
-          state: "app.queryBuilder.disease",
-          icon: "",
-          active: false,
-          type: "icon"
-        }
-      ];
-
-      // define the 'Review Query' button to be added
-      let indicatorButton = {
-        title: "Submit Query",
-        // state:  'app.queryBuilder.review' ,
-        icon: "",
-        active: false,
-        type: "button",
-        action: $event => {
-          $event.preventDefault();
-          QueryBuilderService.submitQuery(
-            vm.diseaseSet,
-            vm.mutationsSet,
-            vm.user
-          );
-        }
-      };
-
-      /**
-       * Add the "Review Query" Button to the Progress Bar
-       * if it's not already added
-       */
-      let _showIndicatorButton = () => {
-        let indicatorButtonAdded =
-          _.findWhere(vm.progressIndicators, {
-            title: indicatorButton.title
-          }) != undefined;
-        if (
-          vm.mutationsSet.length &&
-          vm.diseaseSet.length &&
-          !indicatorButtonAdded
-        ) {
-          vm.progressIndicators.push(indicatorButton);
-        }
-      };
-
-      /**
-       * Remove the "Review Query" button from the progress bar
-       */
-      let _removeIndicatorButton = () => {
-        let indicatorButtonIndex = _.findIndex(
-          vm.progressIndicators,
-          indicatorButton
-        );
-
-        if (
-          (!vm.mutationsSet.length || !vm.diseaseSet.length) &&
-          indicatorButtonIndex >= 0
-        ) {
-          vm.progressIndicators = [
-            ...vm.progressIndicators.slice(0, indicatorButtonIndex)
-          ];
-        }
-      };
-
       /* =======================================================================
                       querySets: list operations
                     ========================================================================== */
@@ -136,7 +48,6 @@ const QueryBuilderComponent = {
        * @return {Void}
        */
       vm.clearSet = setType => {
-        _removeIndicatorButton();
         return (vm[`${setType.setType}Set`] = []);
       };
 
@@ -201,7 +112,6 @@ const QueryBuilderComponent = {
 
             if (vm[`${vm.currentState()}Set`].length > 3)
               vm.progressBar.advance(false);
-            _showIndicatorButton();
           }
         });
 
@@ -238,7 +148,6 @@ const QueryBuilderComponent = {
         vm[`${paramData.paramType}Set`] = currentSet;
 
         vm._updateDiseaseListingsCounts();
-        _removeIndicatorButton();
 
         return vm[`${paramData.paramType}Set`];
       };

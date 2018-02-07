@@ -20,7 +20,6 @@ const QueryOverviewComponent = {
             const vm = this;
 
             vm.clickedSubmitQuery = evt => {
-                console.log("  CLICKED");
                 evt.preventDefault();
                 QueryBuilderService.submitQuery(
                     vm.diseaseSet,
