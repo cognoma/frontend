@@ -16,6 +16,7 @@ function QueryBuilderService(
 
   const service = {
     submitQuery: function(diseases = [], genes = [], user) {
+      console.log(diseases, genes, user);
       if (user === null || user === undefined) {
         NotificationService.notify({
           type: "error",
