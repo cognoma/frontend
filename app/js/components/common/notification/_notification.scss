@@ -1,0 +1,19 @@
+.notification {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  padding: 15px 20px;
+  background: $background--light;
+
+  &--success {
+    color: darken($alert--success, 50%);
+    background: $alert--success;
+  }
+
+  &--error {
+    color: darken($alert--error, 50%);
+    background: $alert--error;
+  }
+}

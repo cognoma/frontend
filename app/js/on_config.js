@@ -5,19 +5,13 @@ function OnConfig(
   $compileProvider,
   $httpProvider,
   $resourceProvider,
-  $provide,
-  growlProvider
+  $provide
 ) {
   "ngInject";
 
   if (process.env.NODE_ENV === "production") {
     $compileProvider.debugInfoEnabled(false);
   }
-
-  growlProvider
-    .onlyUniqueMessages(true)
-    .globalDisableCountDown(true)
-    .globalTimeToLive(3000);
 
   //activate LogDecorator for $log
   require("./utils/logging/LogDecorator.js")($provide);

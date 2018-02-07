@@ -1,71 +1,67 @@
-import angular from 'angular';
+import angular from "angular";
 
 // angular modules
-import constants from './constants';
-import onConfig  from './on_config';
-import onRun     from './on_run';
+import constants from "./constants";
+import onConfig from "./on_config";
+import onRun from "./on_run";
 
-import './MockBackend';
-import '../../node_modules/angular-resource/angular-resource.js';
-import './utils/ng-storage/ngStorage.js';
-import 'angular-cookies';
+import "./MockBackend";
+import "../../node_modules/angular-resource/angular-resource.js";
+import "./utils/ng-storage/ngStorage.js";
+import "angular-cookies";
 
-import 'angular-growl-v2';
+import "angular-sanitize";
 
-import 'angular-animate';
-import 'angular-resource';
-import './components';
-import 'angular-ui-router';
+import "angular-animate";
+import "angular-resource";
+import "./components";
+import "angular-ui-router";
 // import 'ui-router-route-to-components';
-import 'angular-ui-bootstrap';
-import './filters';
-import './directives';
-import './services';
-import './factories';
-import './dataModels';
+import "angular-ui-bootstrap";
+import "./filters";
+import "./directives";
+import "./services";
+import "./factories";
+import "./dataModels";
 
-
-import * as _ from 'underscore';
+import * as _ from "underscore";
 
 // small underscore.js factory
-let underscore = angular.module('lib.underscore', []);
-underscore.factory('_', ()=>{ return _;});
-
+let underscore = angular.module("lib.underscore", []);
+underscore.factory("_", () => {
+  return _;
+});
 
 // create and bootstrap application
 const requires = [
   // 'ui.router.components',
-  'ui.router',
-  'ui.bootstrap',
-  'ngAnimate',
-  require('angular-touch'),
-  'app.filters',
-  'app.components',
-  'app.directives',
-  'app.services',
-  'app.factories',
-  'app.models',
+  "ui.router",
+  "ui.bootstrap",
+  "ngAnimate",
+  require("angular-touch"),
+  "app.filters",
+  "app.components",
+  "app.directives",
+  "app.services",
+  "app.factories",
+  "app.models",
   // 'MockBackend',
-  'ngResource',
-  'lib.underscore',
-  'ngStorage',
-  'ngCookies',
-  'angular-growl'
+  "ngResource",
+  "lib.underscore",
+  "ngStorage",
+  "ngCookies",
+  "ngSanitize"
 ];
 
 // mount on window for testing
-window.app = angular.module('app', requires);
+window.app = angular.module("app", requires);
 
-angular.module('app').constant('AppSettings', constants);
+angular.module("app").constant("AppSettings", constants);
 
-angular.module('app').config(onConfig);
+angular.module("app").config(onConfig);
 
-angular.module('app').run(onRun);
+angular.module("app").run(onRun);
 
-
-
-
-
-angular.bootstrap(document, ['app'], {
+angular.bootstrap(document, ["app"], {
   strictDi: true
 });
