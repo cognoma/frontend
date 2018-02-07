@@ -52,12 +52,12 @@ function OnConfig(
       title: "Query Builder:",
       url: "query-builder",
       template: `<query-builder 
-                        id="query-builder" 
-                        class="query-builder"
-                        mutations-set="$ctrl.STATE.query.mutations"
-                        disease-set="$ctrl.STATE.query.diseases"
-                        user="$ctrl.STATE.user"
-                   />`,
+                    id="query-builder" 
+                    class="query-builder"
+                    mutations-set="$ctrl.STATE.query.mutations"
+                    disease-set="$ctrl.STATE.query.diseases"
+                    user="$ctrl.STATE.user"
+                />`,
       redirectTo: "/query-builder/mutations"
     })
     .state({
@@ -76,27 +76,19 @@ function OnConfig(
       views: {
         queryOverview: {
           template: `<query-overview 
-                                                mutations-set="$ctrl.mutationsSet" 
-                                                disease-set="$ctrl.diseaseSet"
-                                                remove-param="$ctrl.removeParamFromQuery({id, paramRef,paramType})"
-                                            />`
+                        mutations-set="$ctrl.mutationsSet" 
+                        disease-set="$ctrl.diseaseSet"
+                        remove-param="$ctrl.removeParamFromQuery({id, paramRef,paramType})"
+                        user="$ctrl.user"
+                    />`
         },
-
-        querySet: {
-          template: `<query-set-mutations 
-                                                mutations-set="$ctrl.mutationsSet" 
-                                                clear-set="$ctrl.clearSet({setType})"
-                                                sort-set="$ctrl.sortSetOn({set,sortOn})"
-                                          />`
-        },
-
         queryParamSelector: {
           template: `<query-param-selector 
-                                                disease-set="$ctrl.diseaseSet"
-                                                mutations-set="$ctrl.mutationsSet" 
-                                                on-change="$ctrl.onInputChange(search)" 
-                                                on-param-select="$ctrl.addParamToQuery(queryParamData)"
-                                          />`
+                        disease-set="$ctrl.diseaseSet"
+                        mutations-set="$ctrl.mutationsSet" 
+                        on-change="$ctrl.onInputChange(search)" 
+                        on-param-select="$ctrl.addParamToQuery(queryParamData)"
+                    />`
         }
       }
     })
@@ -107,28 +99,19 @@ function OnConfig(
       views: {
         queryOverview: {
           template: `<query-overview 
-                                                mutations-set="$ctrl.mutationsSet"
-                                                disease-set="$ctrl.diseaseSet"
-                                                remove-param="$ctrl.removeParamFromQuery({id, paramRef, paramType})"
-                                           />`
+                        mutations-set="$ctrl.mutationsSet"
+                        disease-set="$ctrl.diseaseSet"
+                        user="$ctrl.user"
+                    />`
         },
-
-        querySet: {
-          template: `<query-set-disease-type 
-                                                disease-set="$ctrl.diseaseSet" 
-                                                clear-set="$ctrl.clearSet({setType})"
-                                                sort-set="$ctrl.sortSetOn({set,sortOn})"
-                                          />`
-        },
-
         queryParamSelector: {
           template: `<query-param-selector 
-                                                disease-set="$ctrl.diseaseSet"
-                                                mutations-set="$ctrl.mutationsSet" 
-                                                on-change="$ctrl.onInputChange(search)" 
-                                                search-results="$ctrl.searchResults" 
-                                                on-param-select="$ctrl.addParamToQuery(queryParamData)"
-                                          />`
+                        disease-set="$ctrl.diseaseSet"
+                        mutations-set="$ctrl.mutationsSet" 
+                        on-change="$ctrl.onInputChange(search)" 
+                        search-results="$ctrl.searchResults" 
+                        on-param-select="$ctrl.addParamToQuery(queryParamData)"
+                    />`
         }
       }
     });
