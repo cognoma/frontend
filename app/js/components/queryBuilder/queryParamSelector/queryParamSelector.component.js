@@ -43,7 +43,7 @@ const QueryParamSelectorComponent = {
         vm.searchQuery = "";
         vm.isSearching = false;
 
-        _mutationColumns = [
+        const _mutationColumns = [
           {
             name: "Symbol",
             id: "symbol",
@@ -66,7 +66,7 @@ const QueryParamSelectorComponent = {
           }
         ];
 
-        _diseaseColumns = [
+        const _diseaseColumns = [
           {
             name: "Name",
             id: "name",
