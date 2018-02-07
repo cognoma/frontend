@@ -194,7 +194,7 @@ const QueryBuilderComponent = {
       };
 
       /**
-       * @param  {Array} queryParam - Array of mutations or DiseaseModels
+       * @param  {Array} queryParamData - Array of mutations or DiseaseModels
        * @return {Array | false} Array of objects if queryParam is added,
        *                         false if it already exists in set
        */

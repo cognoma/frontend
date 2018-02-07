@@ -43,52 +43,56 @@ const QueryParamSelectorComponent = {
         vm.searchQuery = "";
         vm.isSearching = false;
 
+        _mutationColumns = [
+          {
+            name: "Symbol",
+            id: "symbol",
+            isSortable: true
+          },
+          {
+            name: "Name",
+            id: "name",
+            isSortable: true
+          },
+          {
+            name: "Entrez ID",
+            id: "entrezgene",
+            isSortable: true
+          },
+          {
+            name: "Score",
+            id: "score",
+            isSortable: true
+          }
+        ];
+
+        _diseaseColumns = [
+          {
+            name: "Name",
+            id: "name",
+            isSortable: true
+          },
+          {
+            name: "Samples",
+            id: "samples",
+            isSortable: true
+          },
+          {
+            name: "Positives",
+            id: "positives",
+            isSortable: true
+          },
+          {
+            name: "Negatives",
+            id: "negatives",
+            isSortable: true
+          }
+        ];
+
         vm.columns =
           vm.currentState() === "mutations"
-            ? [
-                {
-                  name: "Symbol",
-                  id: "symbol",
-                  isSortable: true
-                },
-                {
-                  name: "Name",
-                  id: "name",
-                  isSortable: true
-                },
-                {
-                  name: "Entrez ID",
-                  id: "entrezgene",
-                  isSortable: true
-                },
-                {
-                  name: "Score",
-                  id: "score",
-                  isSortable: true
-                }
-              ]
-            : [
-                {
-                  name: "Name",
-                  id: "name",
-                  isSortable: true
-                },
-                {
-                  name: "Samples",
-                  id: "samples",
-                  isSortable: true
-                },
-                {
-                  name: "Positives",
-                  id: "positives",
-                  isSortable: true
-                },
-                {
-                  name: "Negatives",
-                  id: "negatives",
-                  isSortable: true
-                }
-              ];
+            ? _mutationColumns
+            : _diseaseColumns;
 
         if (vm.currentState() === "disease") {
           getSearchResults(vm.searchQuery);
