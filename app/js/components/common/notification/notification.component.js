@@ -13,15 +13,10 @@ const NotificationComponent = {
 
       let vm = this;
 
-      vm.$onInit = () => {
+      vm.removeNotification = () => {
         vm.message = "";
         vm.type = "";
       };
-
-      function _removeNotification() {
-        vm.message = "";
-        vm.type = "";
-      }
 
       $rootScope.$on("TRIGGERED_NOTIFICATION", (evt, data) => {
         const { message, type } = data;
@@ -29,7 +24,7 @@ const NotificationComponent = {
         vm.type = type;
 
         $timeout(() => {
-          _removeNotification();
+          vm.removeNotification();
         }, 5000);
       });
     }

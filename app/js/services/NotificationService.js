@@ -5,6 +5,12 @@ function NotificationService($window, $log, $rootScope) {
 
   const service = {};
 
+  /**
+   * Component calls this function to emit a global event that trigger a global notification
+   * @param  {object} args - An object of notification properties
+   *              | - {string} type - type of notification (i.e. "success")
+   *              | - {string} message - message of notification, can contain HTML
+   */
   service.notify = args => {
     $rootScope.$emit("TRIGGERED_NOTIFICATION", args);
   };

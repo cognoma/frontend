@@ -1,5 +1,10 @@
 <div
-  ng-if="$ctrl.message.length"
+  ng-if="$ctrl.message"
   class="notification notification--{{$ctrl.type}}"
-  ng-bind-html="$ctrl.message"
-></div>
+>
+  <span ng-bind-html="$ctrl.message"></span>
+  <button
+    class="material-icons notification__close"
+    ng-click="$ctrl.removeNotification()"
+  >close</button>
+</div>
