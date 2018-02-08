@@ -24,7 +24,7 @@
 
   &--smallest {
     font-size: $font-size--xs;
-    font-weight: bold;
+    font-weight: 300;
   }
 }
 
@@ -41,8 +41,8 @@ h3 {
 }
 
 p {
+  @extend .heading--smallest;
   margin-bottom: 1em;
-  font-weight: 300;
   line-height: 1.6;
 }
 

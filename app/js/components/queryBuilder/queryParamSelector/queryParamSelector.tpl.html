@@ -19,10 +19,34 @@
 		autofocus="1"
 	/>
 </div>
-<cg-table
-	columns="$ctrl.columns"
-	data="$ctrl.searchResults"
-	search-query="$ctrl.searchQuery"
-	is-searching="$ctrl.isSearching"
-	is-filter-disabled="$ctrl.currentState() === 'mutations'"
-></cg-table>
+<div class="tabs">
+	<button
+		class="tabs__button"
+		ng-click="$ctrl.activeTab = 'search'"
+		ng-class="{'tabs__button--active': $ctrl.activeTab === 'search'}"
+	>Search Results ({{$ctrl.searchResults.length}})</button>
+	<button
+		class="tabs__button"
+		ng-click="$ctrl.activeTab = 'added'"
+		ng-class="{'tabs__button--active': $ctrl.activeTab === 'added'}"
+	>Added to Query</button>
+</div>
+<div
+	ng-if="$ctrl.activeTab === 'search'"
+	class="tabs__content"
+>
+	<cg-table
+		columns="$ctrl.columns"
+		data="$ctrl.searchResults"
+		search-query="$ctrl.searchQuery"
+		is-searching="$ctrl.isSearching"
+		is-filter-disabled="$ctrl.currentState() === 'mutations'"
+	></cg-table>
+	<p ng-if="!$ctrl.searchResults.length">Begin searching to see results</p>
+</div>
+<div
+	ng-if="$ctrl.activeTab === 'added'"
+	class="tabs__content"
+>
+	<p>Added stuff</p>
+</div>

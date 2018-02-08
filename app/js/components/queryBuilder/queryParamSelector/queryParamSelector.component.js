@@ -33,6 +33,7 @@ const QueryParamSelectorComponent = {
 
       const vm = this;
       vm.currentState = () => $state.current.name.split(".")[2];
+      vm.activeTab = "search";
       const progressStateName =
         vm.currentState() == "mutations" ? "genes" : "samples";
 
