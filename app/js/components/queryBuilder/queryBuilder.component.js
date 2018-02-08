@@ -91,27 +91,27 @@ const QueryBuilderComponent = {
       };
 
       /**
-       * @param  {Array} queryParamData - Array of mutations or DiseaseModels
+       * @param  {Array} selectedParams - Array of mutations or DiseaseModels to be added
        * @return {Array | false} Array of objects if queryParam is added,
        *                         false if it already exists in set
        */
-      vm.addParamToQuery = queryParamData => {
-        let paramSet = _.assign([], vm[`${vm.currentState()}Set`]),
-          allParams = [];
+      vm.addParamsToQuery = selectedParams => {
+        const addedParams = vm[`${vm.currentState()}Set`],
+          comparator = vm.currentState() == "mutations" ? "_id" : "acronym";
 
-        queryParamData.forEach(queryParam => {
-          let queryParamInSet = _.findWhere(paramSet, queryParam);
+        const filteredSelectedParams = selectedParams.filter(
+          selectedParam =>
+            !addedParams.find(
+              addedParam => addedParam[comparator] === selectedParam[comparator]
+            )
+        );
 
-          $log.log(`:${vm.currentState()}Set`);
-
-          if (queryParamInSet == undefined && queryParam.isSelected) {
-            paramSet.push(queryParam);
-            vm[`${vm.currentState()}Set`] = paramSet;
-
-            vm._updateDiseaseListingsCounts();
-            queryParam.isSelected = false;
-          }
+        filteredSelectedParams.forEach(param => {
+          addedParams.push(param);
+          param.isSelected = false;
         });
+
+        vm._updateDiseaseListingsCounts();
 
         return vm[`${vm.currentState()}Set`];
       };

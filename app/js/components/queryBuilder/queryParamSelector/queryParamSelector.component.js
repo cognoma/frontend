@@ -231,7 +231,7 @@ const QueryParamSelectorComponent = {
        */
       vm.clickedAddButton = results => {
         const _selectedResults = results.filter(result => result.isSelected);
-        vm.onParamSelect({ queryParamData: results });
+        vm.onParamSelect({ selectedParams: _selectedResults });
         vm.searchResults = _filteredSearchResults(results, _selectedResults);
       };
 
