@@ -1,18 +1,22 @@
-.query-overview--control {
+.query-overview-control {
+  align-items: normal;
   display: block;
   width: 100%;
-  min-height: 200px;
-  padding-bottom: 20px;
+  padding: 20px;
   color: $white;
+  font-size: 20px;
   text-align: left;
+  border-left: 5px solid transparent;
 
-  &.active {
+  &:hover {
+    background: rgba($black, 0.15);
+  }
+
+  &--active {
     background: rgba($black, 0.25);
-    border-top: none;
-    border-right: none;
-    border-bottom: none;
     border-left: 5px solid $green;
-    .query-overview--control-title {
+
+    .query-overview-control__title {
       color: $green;
     }
   }
@@ -36,22 +40,21 @@
   }
 }
 
-.query-overview--control-title {
+&__title {
   position: relative;
-  padding: 17px 0 17px 17px;
-  margin: 0;
+  margin: 5px 0;
   text-transform: uppercase;
   &:hover {
     cursor: pointer;
   }
 }
-.query-overview--control-count {
+&__count {
   display: inline-block;
   color: $white;
   transform: translateY(-2px);
 }
 
-.query-overview--control-param {
+&__param {
   position: relative;
   padding: 3px 5px;
   margin: 5px 0;
@@ -65,19 +68,19 @@
     box-shadow: 0 0 5px 0 rgba($black, 0.5);
     cursor: pointer;
 
-    .query-overview--control__remove {
+    .query-overview-control__remove {
       right: -19px;
       opacity: 1;
     }
   }
 }
-.query-overview--control-param-title {
+&__param-title {
   font-weight: bold;
   text-transform: uppercase;
 }
 
 
-.query-overview--control-param-add {
+&__param-add {
   height: 25px;
   padding: 0;
   margin: 5px 0 5px 15px;
@@ -102,7 +105,7 @@
 .disease-listing {
   transition: 1s all ease;
 
-  .query-overview--control-param-title {
+  .query-overview-control-param-title {
     font-size: 12px;
   }
   .control-param-summary {
