@@ -109,6 +109,7 @@ const QueryBuilderComponent = {
             vm[`${vm.currentState()}Set`] = paramSet;
 
             vm._updateDiseaseListingsCounts();
+            queryParam.isSelected = false;
           }
         });
 

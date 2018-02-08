@@ -34,13 +34,18 @@ const QueryParamSelectorComponent = {
       const vm = this;
       vm.currentState = () => $state.current.name.split(".")[2];
       vm.activeTab = "search";
-      const progressStateName =
-        vm.currentState() == "mutations" ? "genes" : "samples";
 
       vm.$onInit = () => {
         vm.searchResults = [];
         vm.searchQuery = "";
         vm.isSearching = false;
+        vm.getAddedSet = () => {
+          if (vm.currentState() === "mutations") {
+            return vm.mutationsSet;
+          } else {
+            return vm.diseaseSet;
+          }
+        };
 
         const _mutationColumns = [
           {
@@ -114,7 +119,10 @@ const QueryParamSelectorComponent = {
           .then(response => {
             $scope.$apply(() => {
               if (response.length) {
-                vm.searchResults = _filteredSearchResults(response);
+                vm.searchResults = _filteredSearchResults(
+                  response,
+                  vm[`${vm.currentState()}Set`]
+                );
               }
 
               vm.isSearching = false;
@@ -128,11 +136,11 @@ const QueryParamSelectorComponent = {
        *
        * @return {Array} array of results filtered by the current state state from the query
        */
-      let _filteredSearchResults = rawSearchResults => {
+      let _filteredSearchResults = (rawSearchResults, addedSet) => {
         let comparator = vm.currentState() == "mutations" ? "_id" : "acronym";
         return $filter("notInArrayFilter")(
           rawSearchResults,
-          vm[`${vm.currentState()}Set`],
+          addedSet,
           comparator
         );
       };
@@ -211,6 +219,12 @@ const QueryParamSelectorComponent = {
 
       vm.isAddToQueryButtonDisabled = () => {
         return !vm.searchResults.some(result => result.isSelected);
+      };
+
+      vm.clickedAddButton = results => {
+        const _selectedResults = results.filter(result => result.isSelected);
+        vm.onParamSelect({ queryParamData: results });
+        vm.searchResults = _filteredSearchResults(results, _selectedResults);
       };
 
       /**
