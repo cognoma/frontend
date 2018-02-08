@@ -133,8 +133,9 @@ const QueryParamSelectorComponent = {
       /**
        * Filter our results so we don't return what's already added to the query
        * @param  {Array} rawSearchResults - array of objects returned from search
+       * @param {Array} addedSet - array of selected objects added to query
        *
-       * @return {Array} array of results filtered by the current state state from the query
+       * @return {Array} array of results filtered by the current state from the query
        */
       let _filteredSearchResults = (rawSearchResults, addedSet) => {
         let comparator = vm.currentState() == "mutations" ? "_id" : "acronym";
@@ -217,10 +218,17 @@ const QueryParamSelectorComponent = {
         vm.searchResults = sortedResultsBy(list, sortOn);
       };
 
+      /**
+       * Checks to see if add to query button should be disabled
+       */
       vm.isAddToQueryButtonDisabled = () => {
         return !vm.searchResults.some(result => result.isSelected);
       };
 
+      /**
+       * Adds selected results to query and filters out the newly added params from search results
+       * @param  {Array} results - search results
+       */
       vm.clickedAddButton = results => {
         const _selectedResults = results.filter(result => result.isSelected);
         vm.onParamSelect({ queryParamData: results });
