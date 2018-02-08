@@ -42,7 +42,7 @@
 		is-searching="$ctrl.isSearching"
 		is-filter-disabled="$ctrl.currentState() === 'mutations'"
 	></cg-table>
-	<p ng-if="!$ctrl.searchResults.length">Begin searching to see results</p>
+	<p ng-if="!$ctrl.searchResults.length && $ctrl.currentState() === 'mutations'">Begin searching to see results</p>
 </div>
 <div
 	ng-if="$ctrl.activeTab === 'added'"
