@@ -81,8 +81,9 @@ const QueryBuilderComponent = {
           addedParams.splice(
             _.indexOf(
               addedParams,
-              _.findWhere(addedParams, { comparator: param[comparator] })
-            )
+              _.findWhere(addedParams, { [comparator]: param[comparator] })
+            ),
+            1
           );
 
           $log.log(`removeParamFromQuery: ${param.comparator}`);

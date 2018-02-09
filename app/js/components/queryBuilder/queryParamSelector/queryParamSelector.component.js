@@ -257,10 +257,7 @@ const QueryParamSelectorComponent = {
 
       function _clickedRemoveButton(selectedParams) {
         const addedParams = vm.onParamRemove({ selectedParams });
-        vm.searchResults = _filteredSearchResults(
-          vm.searchResults,
-          addedParams
-        );
+        getSearchResults(vm.searchQuery);
       }
 
       vm.clickedButton = () => {
