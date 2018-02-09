@@ -39,56 +39,8 @@ const QueryBuilderComponent = {
         vm.currentState() == "mutations" ? "genes" : "samples";
 
       /* =======================================================================
-                      querySets: list operations
-                    ========================================================================== */
-
-      /**
-       * @param  {String} setType - type of query set to manipulate
-       *
-       * @return {Void}
-       */
-      vm.clearSet = setType => {
-        return (vm[`${setType.setType}Set`] = []);
-      };
-
-      /**
-       * Checks if set has been sorted by given params
-       * @param  {Array}
-       * @param  {Array}
-       * @param  {String}
-       *
-       * @return {Boolean}
-       */
-      let _setIsSorted = (list, sortedList, sortedOn) => {
-        return _.isEqual(
-          _.pluck(list, sortedOn),
-          _.pluck(sortedList, sortedOn)
-        );
-      };
-
-      /**
-       * Sort a set given property
-       * if set is already sorted returns a reversed sorted set
-       * if is NOT already sorted returns a sorted set
-       *
-       * @param  {Object} sortParams
-       *             |- {String} set - type of query set to manipulate
-       *             |- {String} sortOn - the property to sort the array by
-       *
-       * @return {Array} - array of objects sorted by specified property
-       */
-      vm.sortSetOn = sortParams => {
-        let list = _.assign([], vm[`${sortParams.set}Set`]);
-        let sortOn = sortParams.sortOn;
-        let sortedList = _.sortBy(list, sortOn);
-
-        vm[`${sortParams.set}Set`] = _setIsSorted(list, sortedList, sortOn)
-          ? list.reverse()
-          : sortedList;
-        return _setIsSorted(list, sortedList, sortOn)
-          ? list.reverse()
-          : sortedList;
-      };
+        querySets: list operations
+      ========================================================================== */
 
       /**
        * @param  {Array} selectedParams - Array of mutations or DiseaseModels to be added
@@ -117,12 +69,9 @@ const QueryBuilderComponent = {
       };
 
       /**
-       * @param  {Object} paramData
-       *              | - {String} paramType - type of query set to manipulate
-       *              | - {String | Number} id - specific identifier for item to remove from query set
-       *              | - {String} paramRef - property of object to search the query set by, should be the property type of the id
+       * @param  {Array} selectedParams - Array of mutations or DiseaseModels to be removed
        *
-       * @return {Array} - return the new array for testing
+       * @return {Array} - return array of added param objects
        */
       vm.removeParamFromQuery = selectedParams => {
         const addedParams = vm[`${vm.currentState()}Set`],
@@ -138,6 +87,8 @@ const QueryBuilderComponent = {
 
           $log.log(`removeParamFromQuery: ${param.comparator}`);
         });
+
+        vm._updateDiseaseListingsCounts();
 
         return addedParams;
       };
