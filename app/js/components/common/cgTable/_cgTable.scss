@@ -1,0 +1,55 @@
+.cg-table {
+  position: relative;
+  width: 100%;
+
+  &__thead-row {
+    color: $font-color--medium;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background-color: lighten($athens-gray, 3%);
+  }
+
+  &__row {
+    background-color: $white;
+    border-top: 1px solid $athens-gray;
+
+    &:hover {
+      background-color: darken($white, 2%);
+      box-shadow: inset 5px 0 0 0 $green;
+    }
+  }
+
+  &__cell {
+    padding: 15px;
+    font-weight: inherit;
+    text-align: left;
+
+    &--active {
+      color: $font-color--dark;
+    }
+
+    &--sortable {
+      cursor: pointer;
+
+      &:hover {
+        color: $font-color--dark;
+      }
+    }
+
+    &--centered {
+      text-align: center;
+    }
+  }
+
+  &__sort-container {
+    display: inline-block;
+    width: 50px;
+  }
+
+  &__no-results {
+    margin: 30px 0;
+    font-size: $font-size--md;
+    text-align: center;
+  }
+}

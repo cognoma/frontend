@@ -1,0 +1,51 @@
+<table class="cg-table" ng-if="$ctrl.data.length && !$ctrl.isSearching">
+  <thead>
+    <tr class="cg-table__thead-row">
+      <th class="cg-table__cell cg-table__cell--centered">
+        <input
+          type="checkbox"
+          ng-model="$ctrl.isAllSelected"
+          ng-change="$ctrl.selectAllResults($ctrl.isAllSelected)"
+        />
+      </th>
+      <th
+        class="cg-table__cell"
+        ng-class="{'cg-table__cell--active': $ctrl.sortType === column.id,
+                  'cg-table__cell--sortable': column.isSortable}"
+        ng-repeat="column in $ctrl.columns"
+        ng-click="$ctrl.sortColumn(column.id)"
+      >
+        {{column.name}}
+        <span class="cg-table__sort-container">
+          <span ng-show="$ctrl.sortType === column.id">
+            <span ng-show="$ctrl.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+            <span ng-show="!$ctrl.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+          </span>
+          <span ng-show="$ctrl.sortType !== column.id" class="glyphicon glyphicon-sort"></span>
+        </span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      class="cg-table__row"
+      ng-repeat="result in ($ctrl.filteredSearchResults = ($ctrl.data 
+                | filter: (!$ctrl.isFilterDisabled || '') && $ctrl.searchQuery 
+                | orderBy: $ctrl.sortType:$ctrl.sortReverse))"
+    >
+      <td class="cg-table__cell cg-table__cell--centered">
+        <input
+          type="checkbox"
+          ng-model="result.isSelected"
+          ng-change="$ctrl.areAllResultsSelected()"
+        />
+      </td>
+      <td class="cg-table__cell" ng-repeat="column in $ctrl.columns">{{result[column.id]}}</td>
+    </tr>
+</table>
+<p ng-if="$ctrl.data.length && !$ctrl.filteredSearchResults.length" class="cg-table__no-results">No results found.</p>
+<div class="cg-dot-loader" ng-if="$ctrl.isSearching">
+  <span class="cg-dot-loader__dot"></span>
+  <span class="cg-dot-loader__dot"></span>
+  <span class="cg-dot-loader__dot"></span>
+</div>

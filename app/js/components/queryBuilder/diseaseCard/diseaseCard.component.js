@@ -3,10 +3,7 @@ const template = require('./diseaseCard.tpl.html');
 const DiseaseCardComponent = {
     template,
     bindings: {
-      id: '@',
-      samples: '=',
-      positives: '@',
-      negatives: '@'
+      item: '='
     },
     controller: ['$log',function($log) {
             'ngInject';

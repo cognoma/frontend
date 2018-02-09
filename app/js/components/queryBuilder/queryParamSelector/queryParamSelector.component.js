@@ -43,6 +43,57 @@ const QueryParamSelectorComponent = {
         vm.searchQuery = "";
         vm.isSearching = false;
 
+        const _mutationColumns = [
+          {
+            name: "Symbol",
+            id: "symbol",
+            isSortable: true
+          },
+          {
+            name: "Name",
+            id: "name",
+            isSortable: true
+          },
+          {
+            name: "Entrez ID",
+            id: "entrezgene",
+            isSortable: true
+          },
+          {
+            name: "Score",
+            id: "score",
+            isSortable: true
+          }
+        ];
+
+        const _diseaseColumns = [
+          {
+            name: "Name",
+            id: "name",
+            isSortable: true
+          },
+          {
+            name: "Samples",
+            id: "samples",
+            isSortable: true
+          },
+          {
+            name: "Positives",
+            id: "positives",
+            isSortable: true
+          },
+          {
+            name: "Negatives",
+            id: "negatives",
+            isSortable: true
+          }
+        ];
+
+        vm.columns =
+          vm.currentState() === "mutations"
+            ? _mutationColumns
+            : _diseaseColumns;
+
         if (vm.currentState() === "disease") {
           getSearchResults(vm.searchQuery);
         }
@@ -113,16 +164,15 @@ const QueryParamSelectorComponent = {
        */
       vm.onInputChange = searchQuery => {
         $log.info(`query: ${searchQuery}`);
+        $scope.$broadcast("SEARCH_QUERY_CHANGED");
 
         // show all diseases when input is empty
         if (vm.currentState() !== "disease" && searchQuery.length == 0) {
           vm.searchResults = [];
-        } else {
+        } else if (vm.currentState() === "mutations") {
           getSearchResults(searchQuery);
         }
-      }; ///END vm.onInputChange
-
-      // vm.instructionsTemplate = `queryBuilder/queryParamSelector/${vm.currentState()}_instructions.tpl.html`;
+      };
 
       /**
        * @param  {Object} queryParam - mutation or DiseaseModel
@@ -159,27 +209,12 @@ const QueryParamSelectorComponent = {
         return vm.searchResults;
       };
 
-      vm.removeAllSearchResults = () => {
-        vm.searchResults = [];
-      };
-
-      /** @deprecated
-            // checks if set has been sorted by given params
-            // let isSorted = (list, sortedList, sortedOn)=>{
-            //     return _.isEqual(
-            //                 _.pluck(list, sortedOn),
-            //                 _.pluck(sortedList, sortedOn),
-            //             );
-            // };
-
-           
-            
-            /**
-             * @param  {Array} list- array of objects to sort  
-             * @param  {String} sortOn - object key to sort on 
-             * 
-             * @return {Array} 
-             */
+      /**
+       * @param  {Array} list- array of objects to sort
+       * @param  {String} sortOn - object key to sort on
+       *
+       * @return {Array}
+       */
       vm.sortResultsBy = (list, sortOn) => {
         vm.searchResults = sortedResultsBy(list, sortOn);
       };
