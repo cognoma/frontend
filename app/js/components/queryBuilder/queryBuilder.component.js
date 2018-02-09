@@ -70,7 +70,6 @@ const QueryBuilderComponent = {
 
       /**
        * @param  {Array} selectedParams - Array of mutations or DiseaseModels to be removed
-       *
        * @return {Array} - return array of added param objects
        */
       vm.removeParamFromQuery = selectedParams => {

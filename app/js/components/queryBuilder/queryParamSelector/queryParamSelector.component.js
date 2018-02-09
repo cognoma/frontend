@@ -210,16 +210,6 @@ const QueryParamSelectorComponent = {
       };
 
       /**
-       * @param  {Array} list- array of objects to sort
-       * @param  {String} sortOn - object key to sort on
-       *
-       * @return {Array}
-       */
-      vm.sortResultsBy = (list, sortOn) => {
-        vm.searchResults = sortedResultsBy(list, sortOn);
-      };
-
-      /**
        * Checks to see if add to/remove from query button should be disabled
        */
       vm.isButtonDisabled = () => {
@@ -232,6 +222,10 @@ const QueryParamSelectorComponent = {
         }
       };
 
+      /**
+       * Returns appropriate button title based on active tab
+       * @return {string} - button title
+       */
       vm.getButtonTitle = () => {
         if (
           vm.activeTab === "search" ||
@@ -255,11 +249,18 @@ const QueryParamSelectorComponent = {
         );
       }
 
+      /**
+       * Removes selected params from query and refreshes search results
+       * @param  {Array} selectedParams - selected search params to be removed
+       */
       function _clickedRemoveButton(selectedParams) {
         const addedParams = vm.onParamRemove({ selectedParams });
         getSearchResults(vm.searchQuery);
       }
 
+      /**
+       * Calls the remove/add query functions based on active tab
+       */
       vm.clickedButton = () => {
         const _params =
           vm.activeTab === "search"
@@ -271,21 +272,6 @@ const QueryParamSelectorComponent = {
         } else {
           _clickedRemoveButton(_selectedParams);
         }
-      };
-
-      /**
-       * Sorts an Array in descending order based on teh given key
-       * @param  {Array} list- array of objects to sort
-       * @param  {String} sortOn - object key to sort on
-       *
-       * @return {Array}
-       */
-      let sortedResultsBy = (list, sortOn) => {
-        let results = _.assign([], list);
-        let sortedList = _.sortBy(results, sortOn).reverse(); //reverse it to make it a descending list
-
-        return sortedList;
-        // return (isSorted(results, sortedList, sortOn) ? results.reverse() : sortedList);
       };
     }
   ]
