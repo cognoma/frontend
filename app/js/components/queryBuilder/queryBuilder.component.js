@@ -64,7 +64,6 @@ const QueryBuilderComponent = {
         });
 
         vm._updateDiseaseListingsCounts();
-
         return addedParams;
       };
 

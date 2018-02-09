@@ -38,12 +38,8 @@ describe("UNIT::component: diseaseListing:", () => {
               <disease-listing
                 ng-if="listType == 'disease'"
                 ng-repeat="disease in paramList | orderBy : 'positives' : true "
-                name="{{::disease.name}}"
-                samples="disease.samples"
-                positives="disease.positives"
-                negatives="disease.negatives"
-                is-loading="disease.mutationsLoading"
-                on-remove-param="removeParam({id, paramRef,paramType})"
+                disease=disease
+                on-remove-param="removeParam"
               ></disease-listing>
 
             </div>
@@ -140,10 +136,6 @@ describe("UNIT::component: diseaseListing:", () => {
 
     removeParamButton.triggerHandler("click");
 
-    expect(parentScope.removeParam).toHaveBeenCalledWith({
-      id: "adrenocortical cancer",
-      paramRef: "name",
-      paramType: "disease"
-    });
+    expect(parentScope.removeParam).toHaveBeenCalled();
   });
 });
