@@ -255,7 +255,6 @@ const QueryParamSelectorComponent = {
        */
       function _clickedRemoveButton(selectedParams) {
         const addedParams = vm.onParamRemove({ selectedParams });
-        getSearchResults(vm.searchQuery);
       }
 
       /**
@@ -273,6 +272,10 @@ const QueryParamSelectorComponent = {
           _clickedRemoveButton(_selectedParams);
         }
       };
+
+      $scope.$on("REMOVED_PARAMS_FROM_QUERY", () => {
+        getSearchResults(vm.searchQuery);
+      });
     }
   ]
 };

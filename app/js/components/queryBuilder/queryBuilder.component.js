@@ -90,6 +90,8 @@ const QueryBuilderComponent = {
 
         vm._updateDiseaseListingsCounts();
 
+        $scope.$broadcast("REMOVED_PARAMS_FROM_QUERY");
+
         return addedParams;
       };
 
