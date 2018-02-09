@@ -1,30 +1,32 @@
 // Colors
-// named with http://chir.ag/projects/name-that-color/
-
 $blue: #1F8DE2;
-$green: #64D8A2;
+$green: #56E39F;
 $red: #E21F3F;
+$gray-light: #E2E2E2;
 $black: #000;
 $white: #FFF;
 
-// Grays - from darkest to lightest
+// Grays - from lightest to darkest
+// named with http://chir.ag/projects/name-that-color/
+$athens-gray: #EBEDF2;
+$manatee: #9196A7;
 $shuttle-gray: #5C6777;
-$trout: #4E525F;
 $tuna: #323540;
 $charade: #292C36;
 
-// functional colors
+// Functional colors
 $font-color--dark: $shuttle-gray;
+$font-color--medium: $manatee;
 $font-color--light: $white;
-$background-dark: $charade;
-$background-medium: $tuna;
-$background-light: $trout;
+$background--dark: $charade;
+$background--medium: $tuna;
+$background--light: $athens-gray;
 
-// spacing
+// Spacing
 $full-space: 40px;
 $half-space: 20px;
 
-// font sizing
+// Font sizing
 $font-size--xs: 10px;
 $font-size--sm: 12px;
 $font-size--md: 16px;

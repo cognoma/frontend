@@ -1,109 +1,18 @@
 .query-param-selector {
-  padding: 0;
+  padding: 40px 60px;
   color: $font-color--dark;
-  text-align: center;
+  background-color: $background--light;
 
-  grid-column: 3 / end;
+  grid-column: 2 / end;
   grid-row: 2 / end;
 
-  .dashboard-column-header {
-    align-items: center;
-    justify-content: center;
+  &__header {
+    justify-content: space-between;
     display: flex;
-    color: $black;
   }
 
-  &__results {
-    height: 100%;
-  }
-}
-
-.query-param-selector-ctrls {
-  padding: 1rem 0 0 0;
-
-  .results-count {
-    margin-top: -5px;
-  }
-
-
-  .btn--mutation-sort {
-    height: 25px;
-    padding: 2px 5px;
-    margin-top: 3px;
-    background: $white;
-    p {
-      display: inline-block;
-      padding: 0;
-      margin: -15px 0 0 -5px;
-      font-family: Helvetica, sans-serif;
-      font-size: 10px;
-    }
-  }
-}
-
-.query-param-selector-results {
-  margin-top: 50px;
-
-  .results-row {
-    display: block;
-    height: 88vh;
-    overflow: scroll;
-  }
-
-  .results-headers {
-    padding: 0;
-    p {
-      padding: 0 0 0 10px;
-      margin: 0;
-      text-align: left;
-    }
-  }
-
-  .gene-card:hover {
-    box-shadow: 0 2px 5px rgba($black, 0.5);
-    cursor: pointer;
-  }
-
-  .disease-card {
-    .row {
-      float: left;
-      width: 50%;
-    }
-    .disease-card-body {
-      padding: 0;
-    }
-    .disease-card-title {
-      padding: 11px 0 10px 20px;
-      margin: 0;
-      font-size: 16px;
-      text-align: left;
-      text-transform: capitalize;
-    }
-    .disease-card-counts {
-      float: right;
-      width: 30%;
-      h6 {
-        display: none;
-      }
-      p {
-        margin: 0;
-      }
-      .samples {
-        padding: 10px 0;
-        &:first-child {
-          border-left: 1px solid $gray-light;
-        }
-      }
-      .sample-count {
-        font-weight: bold;
-      }
-      .sample-pos {
-        color: #28A745;;
-      }
-      .sample-neg {
-        color: #CB2431;
-      }
-    }
+  &__search {
+    margin: 30px 0;
   }
 }
 

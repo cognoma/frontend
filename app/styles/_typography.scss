@@ -6,6 +6,7 @@ p {
   margin-bottom: 0.618em;
 
   &--large {
+    margin: 0;
     font-size: $font-size--lg;
     font-weight: 400;
     line-height: $half-space * 3 / 2;

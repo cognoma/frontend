@@ -1,114 +1,40 @@
-<header class="row dashboard-column-header">
-  <h2>Parameter Selector</h2>
-</header>
-<div class="row query-param-selector-ctrls">
-  <div class="col-lg-1 results-count" >
-    <small><b>results</b></small>
-    <span 
-      ng-if="$ctrl.isSearching"
-      class=" glyphicon glyphicon-refresh" 
-    >
-    </span> 
-    <span  
-      ng-if="!$ctrl.isSearching"
-      class="badge badge--counter"
-    >
-      {{ $ctrl.searchResults.length }}
-    </span>
-  </div>
-  <div class="col-lg-9">
-    <input id="query-param-selector-input"
-      type="text"
-      class="form-control"
-      placeholder="Search {{$ctrl.currentState() === 'mutations' ? 'genes' : 'diseases'}} by name"
-      ng-model="$ctrl.searchQuery"
-      ng-change="$ctrl.onInputChange($ctrl.searchQuery)"
-      ng-model-options="{debounce: 300}"
-      autofocus="1"
-    >
-  </div>
-  <div class="col-lg-1">
-    <button
-      ng-if="$ctrl.currentState() === 'mutations'"
-      type="button"
-      class="btn
-           btn-xs
-           btn--mutation-sort
-           glyphicon
-           glyphicon-sort-by-attributes-alt
-           text-uppercase"
-      uib-tooltip="the internal score representing how well the query matches the returned gene object"
-      tooltip-placement="bottom"
-      ng-click="$ctrl.sortResultsBy($ctrl.searchResults, '_score')"
-    >
-      <p>Score</p>
-    </button>
-    <button
-      ng-if="$ctrl.currentState() === 'disease'"
-      type="button"
-      class="btn
-           btn-xs
-           btn--mutation-sort
-           glyphicon
-           glyphicon-sort-by-attributes-alt
-           text-uppercase"
-      ng-click="$ctrl.sortResultsBy($ctrl.searchResults, 'positives')"
-    >
-      <p>Positives</p>
-    </button>
-  </div>
-</div><!-- 
-<mutations-instructions ng-if="$ctrl.currentState() === 'mutations' && $ctrl.searchResults.length === 0" class="row">
-</mutations-instructions> -->
-<div class="query-param-selector__results">
-  <div class="cg-dot-loader" ng-if="$ctrl.isSearching">
-    <span class="cg-dot-loader__dot"></span>
-    <span class="cg-dot-loader__dot"></span>
-    <span class="cg-dot-loader__dot"></span>
-  </div>
-  <section
-    class="row query-param-selector-results"
-    ng-if="$ctrl.searchResults.length"
-  >
-    <button class="btn" ng-click="$ctrl.onParamSelect({queryParamData: $ctrl.searchResults}); $ctrl.removeAllSearchResults();">
-      Add all diseases
-    </button>
-    <div class="col-lg-12">
-      <div ng-if="$ctrl.currentState() === 'disease'" class="row">
-        <div class="col-lg-offset-8 col-lg-4" >
-          <div class="row results-headers">
-            <p class="col-lg-4"><small>Samples</small></p>
-            <p class="col-lg-4"><small>Positives</small></p>
-            <p class="col-lg-4"><small>Negatives</small></p>
-          </div>
-        </div>
-      </div>
-      <div class="row results-row">
-        <gene-card
-          ng-if="$ctrl.currentState() === 'mutations'"
-          class="col-lg-3 result"
-          ng-repeat="gene in $ctrl.searchResults" 
-          symbol="{{gene.symbol}}"
-          entrez-id="gene.entrezgene"
-          name="{{gene.name}}"
-          score="{{gene._score}}"
-          link=""
-          ng-click="$ctrl.onParamSelect({queryParamData: [gene]});
-                    $ctrl.removeParamFromSearchResults(gene)"
-        ></gene-card>
-        <disease-card
-          ng-if="$ctrl.currentState() === 'disease'"
-          class="col-lg-12 result"
-            ng-repeat="disease in $ctrl.searchResults "
-            id="{{disease.name}}"
-            samples="disease.samples"
-            positives="{{disease.positives}}"
-            negatives="{{disease.negatives}}"
-            ng-click="$ctrl.onParamSelect({queryParamData: [disease]});
-                      $ctrl.removeParamFromSearchResults(disease)"
-          ></disease-card>
-      </div>
-    </div>
-  </section>
-</div>
+<header class="query-param-selector__header">
+	<h2>{{$ctrl.currentState()}} Selector
 
+	<div class="results-count" >
+		<small><b>results</b></small>
+		<span 
+			ng-if="$ctrl.isSearching"
+			class=" glyphicon glyphicon-refresh" 
+			></span> 
+		<span  
+			ng-if="!$ctrl.isSearching && $ctrl.filteredSearchResults.length"
+			class="badge badge--counter">
+			{{ $ctrl.filteredSearchResults.length }}
+		</span>
+	</div></h2>
+	<button
+		class="btn btn-primary"
+		ng-click="$ctrl.onParamSelect({queryParamData: $ctrl.searchResults});"
+	>
+		Add to query
+	</button>
+</header>
+<div class="query-param-selector__search">
+	<input id="query-param-selector-input"
+		type="text"
+		class="form-control"
+		placeholder="Search {{$ctrl.currentState() === 'mutations' ? 'genes' : 'diseases'}} by name"
+		ng-change="$ctrl.onInputChange($ctrl.searchQuery)"
+		ng-model="$ctrl.searchQuery"
+		ng-model-options="{debounce: 300}"
+		autofocus="1"
+	/>
+</div>
+<cg-table
+	columns="$ctrl.columns"
+	data="$ctrl.searchResults"
+	search-query="$ctrl.searchQuery"
+	is-searching="$ctrl.isSearching"
+	is-filter-disabled="$ctrl.currentState() === 'mutations'"
+></cg-table>

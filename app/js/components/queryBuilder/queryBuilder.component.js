@@ -53,10 +53,6 @@ const QueryBuilderComponent = {
         );
       };
 
-      /* =======================================================================
-                      Progress Indicator Bar
-                    ========================================================================== */
-
       // define the steps for the query builder
       vm.progressIndicators = [
         {
@@ -211,7 +207,7 @@ const QueryBuilderComponent = {
 
           $log.log(`:${vm.currentState()}Set`);
 
-          if (queryParamInSet == undefined) {
+          if (queryParamInSet == undefined && queryParam.isSelected) {
             paramSet.push(queryParam);
             vm[`${vm.currentState()}Set`] = paramSet;
 
