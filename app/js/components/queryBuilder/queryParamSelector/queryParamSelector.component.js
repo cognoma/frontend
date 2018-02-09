@@ -4,6 +4,7 @@ const QueryParamSelectorComponent = {
   template,
   bindings: {
     onParamSelect: "&",
+    onParamRemove: "&",
     mutationsSet: "<",
     diseaseSet: "<"
   },
@@ -244,23 +245,34 @@ const QueryParamSelectorComponent = {
 
       /**
        * Adds selected results to query and filters out the newly added params from search results
-       * @param  {Array} results - search results
+       * @param  {Array} selectedParams - selected search params to be added
        */
-      function _clickedAddButton(results) {
-        const _selectedResults = results.filter(result => result.isSelected);
-        vm.onParamSelect({ selectedParams: _selectedResults });
-        vm.searchResults = _filteredSearchResults(results, _selectedResults);
+      function _clickedAddButton(selectedParams) {
+        const addedParams = vm.onParamSelect({ selectedParams });
+        vm.searchResults = _filteredSearchResults(
+          vm.searchResults,
+          addedParams
+        );
       }
 
-      function _clickedRemoveButton(results) {
-        console.log(results);
+      function _clickedRemoveButton(selectedParams) {
+        const addedParams = vm.onParamRemove({ selectedParams });
+        vm.searchResults = _filteredSearchResults(
+          vm.searchResults,
+          addedParams
+        );
       }
 
-      vm.clickedButton = results => {
+      vm.clickedButton = () => {
+        const _params =
+          vm.activeTab === "search"
+            ? vm.searchResults
+            : vm[`${vm.currentState()}Set`];
+        const _selectedParams = _params.filter(param => param.isSelected);
         if (vm.activeTab === "search") {
-          _clickedAddButton(results);
+          _clickedAddButton(_selectedParams);
         } else {
-          _clickedRemoveButton(results);
+          _clickedRemoveButton(_selectedParams);
         }
       };
 

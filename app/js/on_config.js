@@ -80,8 +80,8 @@ function OnConfig(
           template: `<query-param-selector 
                         disease-set="$ctrl.diseaseSet"
                         mutations-set="$ctrl.mutationsSet" 
-                        on-change="$ctrl.onInputChange(search)" 
                         on-param-select="$ctrl.addParamsToQuery(selectedParams)"
+                        on-param-remove="$ctrl.removeParamFromQuery(selectedParams)"
                     />`
         }
       }
@@ -102,9 +102,8 @@ function OnConfig(
           template: `<query-param-selector 
                         disease-set="$ctrl.diseaseSet"
                         mutations-set="$ctrl.mutationsSet" 
-                        on-change="$ctrl.onInputChange(search)" 
-                        search-results="$ctrl.searchResults" 
                         on-param-select="$ctrl.addParamsToQuery(selectedParams)"
+                        on-param-remove="$ctrl.removeParamFromQuery(selectedParams)"
                     />`
         }
       }

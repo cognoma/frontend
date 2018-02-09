@@ -113,7 +113,7 @@ const QueryBuilderComponent = {
 
         vm._updateDiseaseListingsCounts();
 
-        return vm[`${vm.currentState()}Set`];
+        return addedParams;
       };
 
       /**
@@ -125,29 +125,21 @@ const QueryBuilderComponent = {
        * @return {Array} - return the new array for testing
        */
       vm.removeParamFromQuery = selectedParams => {
-        /*$log.log(
-          `removeParamFromQuery:${paramData.paramType} - ${
-            paramData.id
-          } ref by ${paramData.paramRef}`
-        );
-        let currentSet = _.assign([], vm[`${paramData.paramType}Set`]);
+        const addedParams = vm[`${vm.currentState()}Set`],
+          comparator = vm.currentState() == "mutations" ? "_id" : "acronym";
 
-        let setIndex = _.indexOf(
-          _.pluck(currentSet, paramData.paramRef),
-          paramData.id
-        );
-        $log.log(`removeParamFromQuery:setIndex:${setIndex}`);
+        selectedParams.forEach(param => {
+          addedParams.splice(
+            _.indexOf(
+              addedParams,
+              _.findWhere(addedParams, { comparator: param[comparator] })
+            )
+          );
 
-        currentSet = [
-          ...currentSet.slice(0, setIndex),
-          ...currentSet.slice(setIndex + 1)
-        ];
+          $log.log(`removeParamFromQuery: ${param.comparator}`);
+        });
 
-        vm[`${paramData.paramType}Set`] = currentSet;
-
-        vm._updateDiseaseListingsCounts();*/
-
-        return vm[`${paramData.paramType}Set`];
+        return addedParams;
       };
 
       /**
