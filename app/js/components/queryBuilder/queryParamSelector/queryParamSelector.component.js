@@ -219,20 +219,49 @@ const QueryParamSelectorComponent = {
       };
 
       /**
-       * Checks to see if add to query button should be disabled
+       * Checks to see if add to/remove from query button should be disabled
        */
-      vm.isAddToQueryButtonDisabled = () => {
-        return !vm.searchResults.some(result => result.isSelected);
+      vm.isButtonDisabled = () => {
+        if (vm.activeTab === "search") {
+          return !vm.searchResults.some(result => result.isSelected);
+        } else {
+          return !vm[`${vm.currentState()}Set`].some(
+            result => result.isSelected
+          );
+        }
+      };
+
+      vm.getButtonTitle = () => {
+        if (
+          vm.activeTab === "search" ||
+          !vm[`${vm.currentState()}Set`].length
+        ) {
+          return "Add to query";
+        } else {
+          return "Remove from query";
+        }
       };
 
       /**
        * Adds selected results to query and filters out the newly added params from search results
        * @param  {Array} results - search results
        */
-      vm.clickedAddButton = results => {
+      function _clickedAddButton(results) {
         const _selectedResults = results.filter(result => result.isSelected);
         vm.onParamSelect({ selectedParams: _selectedResults });
         vm.searchResults = _filteredSearchResults(results, _selectedResults);
+      }
+
+      function _clickedRemoveButton(results) {
+        console.log(results);
+      }
+
+      vm.clickedButton = results => {
+        if (vm.activeTab === "search") {
+          _clickedAddButton(results);
+        } else {
+          _clickedRemoveButton(results);
+        }
       };
 
       /**

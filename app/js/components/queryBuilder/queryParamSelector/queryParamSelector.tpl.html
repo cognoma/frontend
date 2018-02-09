@@ -2,10 +2,10 @@
 	<h2>{{$ctrl.currentState()}} Selector</h2>
 	<button
 		class="button button--secondary"
-		ng-click="$ctrl.clickedAddButton($ctrl.searchResults)"
-		ng-disabled="$ctrl.isAddToQueryButtonDisabled()"
+		ng-click="$ctrl.clickedButton($ctrl.searchResults)"
+		ng-disabled="$ctrl.isButtonDisabled()"
 	>
-		Add to query
+		{{ $ctrl.getButtonTitle()}}
 	</button>
 </header>
 <div class="query-param-selector__search">

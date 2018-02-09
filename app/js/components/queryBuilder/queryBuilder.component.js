@@ -124,8 +124,8 @@ const QueryBuilderComponent = {
        *
        * @return {Array} - return the new array for testing
        */
-      vm.removeParamFromQuery = paramData => {
-        $log.log(
+      vm.removeParamFromQuery = selectedParams => {
+        /*$log.log(
           `removeParamFromQuery:${paramData.paramType} - ${
             paramData.id
           } ref by ${paramData.paramRef}`
@@ -145,7 +145,7 @@ const QueryBuilderComponent = {
 
         vm[`${paramData.paramType}Set`] = currentSet;
 
-        vm._updateDiseaseListingsCounts();
+        vm._updateDiseaseListingsCounts();*/
 
         return vm[`${paramData.paramType}Set`];
       };
