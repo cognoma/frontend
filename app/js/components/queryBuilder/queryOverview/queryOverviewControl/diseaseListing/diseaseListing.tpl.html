@@ -3,26 +3,26 @@
 	ng-class="{'data-loading': $ctrl.isLoading}"
 >
 
-  	<span class="query-overview--control-param-title js-test-name">{{$ctrl.name}}</span>
+  	<span class="query-overview--control-param-title js-test-name">{{$ctrl.disease.name}}</span>
 
   	<summary class="control-param-summary">
-  		<p class="sample-count">SAMPLES <strong class="js-test-sampleCount"> {{$ctrl.samples.length}}</strong> </p>
+  		<p class="sample-count">SAMPLES <strong class="js-test-sampleCount"> {{$ctrl.disease.samples.length}}</strong> </p>
 
   		<p class="sample-positives sample-count--item">
-  			 <span class="material-icons">{{ !$ctrl.isLoading ? 'add_circle_outline' : 'refresh'}}</span> 
-  			 <span ng-if="!$ctrl.isLoading" class="js-test-positives">{{$ctrl.positives}}</span> 
+  			 <span class="material-icons">{{ !$ctrl.disease.isLoading ? 'add_circle_outline' : 'refresh'}}</span> 
+  			 <span ng-if="!$ctrl.disease.isLoading" class="js-test-positives">{{$ctrl.disease.positives}}</span> 
   		</p>
 
   		<p class="sample-negatives sample-count--item"> 
-  			<span class="material-icons">{{ !$ctrl.isLoading ? 'remove_circle_outline' : 'refresh'}}</span> 
-  			<span ng-if="!$ctrl.isLoading" class="js-test-negatives">{{$ctrl.negatives}}</span> 
+  			<span class="material-icons">{{ !$ctrl.disease.isLoading ? 'remove_circle_outline' : 'refresh'}}</span> 
+  			<span ng-if="!$ctrl.disease.isLoading" class="js-test-negatives">{{$ctrl.disease.negatives}}</span> 
   		</p>
   	</summary>
 
   	<button 
         class="material-icons query-overview--control__remove" 
         aria-hidden="true"
-        ng-click="$ctrl.onRemoveParam({id: $ctrl.name, paramRef:'name', paramType:'disease'})"
+        ng-click="$ctrl.onRemoveParam([$ctrl.disease])"
     >close</button>
 
  </div>	  		

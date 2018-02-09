@@ -72,7 +72,7 @@ function OnConfig(
           template: `<query-overview 
                         mutations-set="$ctrl.mutationsSet" 
                         disease-set="$ctrl.diseaseSet"
-                        remove-param="$ctrl.removeParamFromQuery({id, paramRef,paramType})"
+                        remove-param="$ctrl.removeParamsFromQuery"
                         user="$ctrl.user"
                     />`
         },
@@ -81,7 +81,7 @@ function OnConfig(
                         disease-set="$ctrl.diseaseSet"
                         mutations-set="$ctrl.mutationsSet" 
                         on-param-select="$ctrl.addParamsToQuery(selectedParams)"
-                        on-param-remove="$ctrl.removeParamFromQuery(selectedParams)"
+                        on-param-remove="$ctrl.removeParamsFromQuery(selectedParams)"
                     />`
         }
       }
@@ -93,8 +93,9 @@ function OnConfig(
       views: {
         queryOverview: {
           template: `<query-overview 
-                        mutations-set="$ctrl.mutationsSet"
+                        mutations-set="$ctrl.mutationsSet" 
                         disease-set="$ctrl.diseaseSet"
+                        remove-param="$ctrl.removeParamsFromQuery"
                         user="$ctrl.user"
                     />`
         },
@@ -103,7 +104,7 @@ function OnConfig(
                         disease-set="$ctrl.diseaseSet"
                         mutations-set="$ctrl.mutationsSet" 
                         on-param-select="$ctrl.addParamsToQuery(selectedParams)"
-                        on-param-remove="$ctrl.removeParamFromQuery(selectedParams)"
+                        on-param-remove="$ctrl.removeParamsFromQuery(selectedParams)"
                     />`
         }
       }

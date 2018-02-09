@@ -13,20 +13,15 @@
   		<mutation-listing
   			ng-if=" $ctrl.listType == 'mutations' "
   			ng-repeat="gene in $ctrl.paramList"
-  			symbol="gene.symbol"
-        entrezgene="gene.entrezgene"
-        on-remove-param="$ctrl.removeParam({id, paramRef,paramType})"
+  			gene="gene"
+        on-remove-param="$ctrl.removeParam"
   		></mutation-listing>
 
   		<disease-listing
   			ng-if="$ctrl.listType == 'disease'"
   			ng-repeat="disease in $ctrl.paramList | orderBy : 'positives' : true "
-  			name="{{::disease.name}}"
-        samples="disease.samples"
-        positives="disease.positives"
-        negatives="disease.negatives"
-        is-loading="disease.mutationsLoading"
-        on-remove-param="$ctrl.removeParam({id, paramRef,paramType})"
+        disease="disease"
+        on-remove-param="$ctrl.removeParam"
   		></disease-listing>
   </div>
 </button>

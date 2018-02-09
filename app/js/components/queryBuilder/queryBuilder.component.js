@@ -72,7 +72,7 @@ const QueryBuilderComponent = {
        * @param  {Array} selectedParams - Array of mutations or DiseaseModels to be removed
        * @return {Array} - return array of added param objects
        */
-      vm.removeParamFromQuery = selectedParams => {
+      vm.removeParamsFromQuery = selectedParams => {
         const addedParams = vm[`${vm.currentState()}Set`],
           comparator = vm.currentState() == "mutations" ? "_id" : "acronym";
 
