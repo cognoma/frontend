@@ -119,12 +119,10 @@ const QueryParamSelectorComponent = {
           .query(searchQuery, vm.mutationsSet)
           .then(response => {
             $scope.$apply(() => {
-              if (response.length) {
-                vm.searchResults = _filteredSearchResults(
-                  response,
-                  vm[`${vm.currentState()}Set`]
-                );
-              }
+              vm.searchResults = _filteredSearchResults(
+                response,
+                vm[`${vm.currentState()}Set`]
+              );
 
               vm.isSearching = false;
             });
