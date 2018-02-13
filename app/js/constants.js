@@ -17,8 +17,7 @@ const AppSettings = {
     users: "/users",
     classifiers: "/classifiers",
     geneSearch: {
-      base:
-        "https://mygene.info/v3/query?q=type_of_gene:protein-coding%20AND%20",
+      base: "https://mygene.info/v3/query?q=type_of_gene:protein-coding",
       params: {
         suggest_from: "symbol^2,alias", // eslint-disable-line
         species: "human",

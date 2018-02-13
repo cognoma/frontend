@@ -49,7 +49,10 @@
           ng-change="$ctrl.areAllResultsSelected()"
         />
       </td>
-      <td class="cg-table__cell" ng-repeat="column in $ctrl.columns">{{result[column.id]}}</td>
+      <td class="cg-table__cell" ng-repeat="column in $ctrl.columns">
+        <span class="material-icons cg-table__loading-icon" ng-if="result.isLoading && column.showLoading">refresh</span>
+        <span ng-if="!result.isLoading || !column.showLoading">{{result[column.id]}}</span>
+      </td>
     </tr>
 </table>
 <p ng-if="$ctrl.data.length && !$ctrl.filteredSearchResults.length" class="cg-table__no-results">No results found.</p>

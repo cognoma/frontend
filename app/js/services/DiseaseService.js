@@ -1,20 +1,36 @@
-function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFilter, _, $localStorage, NotificationService) {
-  'ngInject';
+function DiseaseService(
+  $q,
+  $resource,
+  AppSettings,
+  DiseaseModel,
+  $log,
+  filterFilter,
+  _,
+  $localStorage,
+  NotificationService
+) {
+  "ngInject";
 
-  $log = $log.getInstance('DiseaseService', false);
-  $log.log('');
+  $log = $log.getInstance("DiseaseService", false);
+  $log.log("");
 
-  const DISEASE_ENDPOINT  = `${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`;
-  const DISEASES_RESOURCE = $resource(DISEASE_ENDPOINT,{},{ query:  {isArray:false} });
-  const service           = {};
- 
+  const DISEASE_ENDPOINT = `${AppSettings.api.baseUrl}${
+    AppSettings.api.diseases
+  }/`;
+  const DISEASES_RESOURCE = $resource(
+    DISEASE_ENDPOINT,
+    {},
+    { query: { isArray: false } }
+  );
+  const service = {};
 
   // converts raw server response to array Disease Model promises
   // all models will be populated when resolved
-  let _responseTransformer = (serverResponse, mutationsGenes)=>{
-    return serverResponse.map((diseaseResponse)=>new DiseaseModel(diseaseResponse, mutationsGenes));
-  }
-
+  let _responseTransformer = (serverResponse, mutationsGenes) => {
+    return serverResponse.map(
+      diseaseResponse => new DiseaseModel(diseaseResponse, mutationsGenes)
+    );
+  };
 
   /**
    * Gets all disease resources either from the server or a local storage method
@@ -26,67 +42,68 @@ function DiseaseService($q, $resource, AppSettings, DiseaseModel, $log, filterFi
    *
    * @return {Array} filtered array of DiseaseModels
    */
-  service.query = (searchQuery, mutationsGenes)=>{
-    
-    
-      $log.log(`query:${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`);
+  service.query = (searchQuery, mutationsGenes) => {
+    $log.log(`query:${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`);
 
+    let diseasePromise = new Promise((resolve, reject) => {
+      if ($localStorage.diseaseData && $localStorage.diseaseData.count) {
+        if ($localStorage.diseaseData.count === 0)
+          return reject(`No Disease Types found matching: "${searchQuery}"`);
+        $log.log(
+          "fetch disease data from localStorage",
+          $localStorage.diseaseData
+        );
+        resolve($localStorage.diseaseData);
+      }
 
-      let diseasePromise = new Promise((resolve, reject)=>{
-        if ($localStorage.diseaseData && $localStorage.diseaseData.count) {
-          if($localStorage.diseaseData.count === 0) return  reject(`No Disease Types found matching: "${searchQuery}"`);
-          $log.log('fetch disease data from localStorage',$localStorage.diseaseData);
-           resolve($localStorage.diseaseData); 
-        }
+      $log.log("fetch disease data from DB resource");
 
-        $log.log('fetch disease data from DB resource');
-
-        DISEASES_RESOURCE.query((diseaseResponse) => {
+      DISEASES_RESOURCE.query(
+        diseaseResponse => {
           $log.log(`found ${diseaseResponse.count} disease types in DB`);
-          if(diseaseResponse.count === 0) return  reject(`No Disease Types found matching: "${searchQuery}"`);
+          if (diseaseResponse.count === 0)
+            return reject(`No Disease Types found matching: "${searchQuery}"`);
 
           $localStorage.diseaseData = _.assign({}, diseaseResponse);
           resolve(diseaseResponse);
-        }, error => {
-          console.log(error)
+        },
+        error => {
+          console.log(error);
           NotificationService.notify({
-            type:    'error',
+            type: "error",
             message: `Failed to load diseases.`
           });
-        });
-
-      });//end diseasePromise
-
-    
-
+        }
+      );
+    }); //end diseasePromise
 
     return diseasePromise
-              .then(diseaseResponse => {
-
-                  let filteredResults = filterFilter(diseaseResponse.results, searchQuery);
-                  $log.log(`${filteredResults.length} filtered results found, building DiseaseModels ...`);
-                  // wait for all models to be populated before resolving
-                  return $q.all( _responseTransformer(filteredResults, mutationsGenes) );
-              }).catch(error=>{
-                console.log(error)
-                NotificationService.notify({
-                  type:    'error',
-                  message: `Failed to build DiseaseModels.`
-                });
-              });
-
-  };//END service.query
-
-
-
-  
-
+      .then(diseaseResponse => {
+        let filteredResults = filterFilter(
+          diseaseResponse.results,
+          searchQuery
+        );
+        $log.log(
+          `${
+            filteredResults.length
+          } filtered results found, building DiseaseModels ...`
+        );
+        // wait for all models to be populated before resolving
+        return $q.all(_responseTransformer(filteredResults, mutationsGenes));
+      })
+      .catch(error => {
+        console.log(error);
+        NotificationService.notify({
+          type: "error",
+          message: `Failed to build DiseaseModels.`
+        });
+      });
+  }; //END service.query
 
   return service;
-
 }
 
 export default {
-  name: 'DiseaseService',
-  fn:   DiseaseService
+  name: "DiseaseService",
+  fn: DiseaseService
 };

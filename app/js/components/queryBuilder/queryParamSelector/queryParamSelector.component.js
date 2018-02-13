@@ -80,17 +80,20 @@ const QueryParamSelectorComponent = {
           {
             name: "Samples",
             id: "samples",
-            isSortable: true
+            isSortable: true,
+            showLoading: true
           },
           {
             name: "Positives",
             id: "positives",
-            isSortable: true
+            isSortable: true,
+            showLoading: true
           },
           {
             name: "Negatives",
             id: "negatives",
-            isSortable: true
+            isSortable: true,
+            showLoading: true
           }
         ];
 
@@ -123,6 +126,20 @@ const QueryParamSelectorComponent = {
                 response,
                 vm[`${vm.currentState()}Set`]
               );
+
+              if (vm.currentState() === "disease") {
+                if (vm.searchResults.length) {
+                  vm.searchResults.map(diseaseModel => {
+                    diseaseModel.isLoading = true;
+
+                    diseaseModel
+                      .getAggregates(vm.mutationsSet)
+                      .then(function() {
+                        diseaseModel.isLoading = false;
+                      });
+                  }); //END vm.searchResults.map
+                } //end if
+              }
 
               vm.isSearching = false;
             });

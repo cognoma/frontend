@@ -14,7 +14,7 @@ const diseaseListingComponent = {
             $log = $log.getInstance("diseaseListingComponent", true);
 
             this.$onInit = () => {
-                $log.log(`${this.name}:`);
+                $log.log(`${this.disease.name}:`);
             };
         }
     ]
