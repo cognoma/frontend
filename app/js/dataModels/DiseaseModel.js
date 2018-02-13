@@ -30,14 +30,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings) {
   DiseaseModel.prototype.build = function(diseaseResponse, mutationsGenes) {
     $log.log(`build:${diseaseResponse.acronym}`);
 
-    let dfd = $q.defer();
     return angular.extend(this, diseaseResponse, {});
-
-    this.getAggregates(mutationsGenes).then(() => {
-      dfd.resolve(this);
-    });
-
-    return dfd.promise;
   };
 
   /**

@@ -24,18 +24,3 @@
     }
   }
 }
-
-@keyframes dotGrow {
-  20% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.5);
-    opacity: 1;
-  }
-
-  80% {
-    transform: scale(1);
-  }
-}

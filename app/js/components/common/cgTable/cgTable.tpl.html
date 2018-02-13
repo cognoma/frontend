@@ -50,8 +50,10 @@
         />
       </td>
       <td class="cg-table__cell" ng-repeat="column in $ctrl.columns">
-        <span class="material-icons cg-table__loading-icon" ng-if="result.isLoading && column.showLoading">refresh</span>
-        <span ng-if="!result.isLoading || !column.showLoading">{{result[column.id]}}</span>
+        <span
+          class="material-icons cg-table__loading-icon"
+          ng-class="{'cg-table__loading-icon--active': result.isLoading && column.showLoading}">refresh</span>
+        <span ng-if="!column.showLoading || !result.isLoading">{{result[column.id]}}</span>
       </td>
     </tr>
 </table>

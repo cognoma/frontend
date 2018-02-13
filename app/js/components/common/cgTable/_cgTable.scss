@@ -76,6 +76,12 @@
   }
 
   &__loading-icon {
+    display: none;
     font-size: inherit;
+    animation: rotating 1s infinite linear;
+
+    &--active {
+      display: inline-block;
+    }
   }
 }

@@ -137,8 +137,8 @@ const QueryParamSelectorComponent = {
                       .then(function() {
                         diseaseModel.isLoading = false;
                       });
-                  }); //END vm.searchResults.map
-                } //end if
+                  });
+                }
               }
 
               vm.isSearching = false;
