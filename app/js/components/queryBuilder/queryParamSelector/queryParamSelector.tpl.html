@@ -1,21 +1,9 @@
 <header class="query-param-selector__header">
-	<h2>{{$ctrl.currentState()}} Selector
-
-	<div class="results-count" >
-		<small><b>results</b></small>
-		<span 
-			ng-if="$ctrl.isSearching"
-			class=" glyphicon glyphicon-refresh" 
-			></span> 
-		<span  
-			ng-if="!$ctrl.isSearching && $ctrl.filteredSearchResults.length"
-			class="badge badge--counter">
-			{{ $ctrl.filteredSearchResults.length }}
-		</span>
-	</div></h2>
+	<h2>{{$ctrl.currentState()}} Selector</h2>
 	<button
-		class="btn btn-primary"
+		class="button button--secondary"
 		ng-click="$ctrl.onParamSelect({queryParamData: $ctrl.searchResults});"
+		ng-disabled="$ctrl.isAddToQueryButtonDisabled()"
 	>
 		Add to query
 	</button>
@@ -23,7 +11,7 @@
 <div class="query-param-selector__search">
 	<input id="query-param-selector-input"
 		type="text"
-		class="form-control"
+		class="textbox"
 		placeholder="Search {{$ctrl.currentState() === 'mutations' ? 'genes' : 'diseases'}} by name"
 		ng-change="$ctrl.onInputChange($ctrl.searchQuery)"
 		ng-model="$ctrl.searchQuery"

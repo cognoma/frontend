@@ -1,11 +1,16 @@
-<div class="row dashboard-column-header">
-  <h2>Query</h2>
+<div class="query-overview__header">
+  <h2>Query Overview</h2>
+  <button
+    class="button"
+    ng-disabled="!$ctrl.mutationsSet.length || !$ctrl.diseaseSet.length"
+    ng-click="$ctrl.clickedSubmitQuery($event)"
+  >
+    Submit Query
+  </button>
 </div>
 
-
 <query-overview-control
-  class="row"
-  title="Genes"
+  title="Mutations"
   set-title="Gene Set"
   desc="classify samples by their mutation status in selected genes"
   list-type="mutations"
@@ -14,17 +19,11 @@
 >
 </query-overview-control>
 
-
 <query-overview-control
-  class="row"
-  title="Disease Type"
+  title="Disease Types"
   desc="Select Samples to Include in Query by Disease Type"
   list-type="disease"
   param-list="$ctrl.diseaseSet"
   remove-param="$ctrl.removeParam({id, paramRef, paramType})"
   >
 </query-overview-control >
-
-
-
-
