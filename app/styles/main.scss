@@ -1,15 +1,12 @@
-// Vendor Imports
-@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
-@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap/glyphicons';
-
 // Variables
 @import 'vars';
 @import 'typography';
 
 // Base Layout
 @import 'base';
-
 @import 'loaders';
+@import 'buttons';
+@import 'textboxes';
 
 // Components
 @import 'components';

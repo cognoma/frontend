@@ -1,0 +1,14 @@
+.textbox {
+  width: 100%;
+  padding: 13px 25px;
+  color: $font-color--dark;
+  font-family: 'Rubik';
+  font-size: 1rem;
+  box-shadow: none;
+  border: none;
+  outline: none;
+
+  &::placeholder {
+    color: $font-color--medium;
+  }
+}

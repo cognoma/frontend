@@ -16,7 +16,6 @@ const QueryParamSelectorComponent = {
     "MutationsService",
     "DiseaseService",
     "$filter",
-    "ProgressIndicatorBarService",
     function(
       $rootScope,
       $scope,
@@ -25,8 +24,7 @@ const QueryParamSelectorComponent = {
       $log,
       MutationsService,
       DiseaseService,
-      $filter,
-      ProgressIndicatorBarService
+      $filter
     ) {
       "ngInject";
 
@@ -97,12 +95,6 @@ const QueryParamSelectorComponent = {
         if (vm.currentState() === "disease") {
           getSearchResults(vm.searchQuery);
         }
-
-        ProgressIndicatorBarService.get("queryBuilderProgress").then(
-          progressBarInstance => {
-            vm.progressBar = progressBarInstance;
-          }
-        );
       };
 
       /**
@@ -122,9 +114,6 @@ const QueryParamSelectorComponent = {
             $scope.$apply(() => {
               if (response.length) {
                 vm.searchResults = _filteredSearchResults(response);
-                vm.progressBar.goTo(`Add ${progressStateName}`);
-              } else {
-                vm.progressBar.goTo(`Search ${progressStateName}`);
               }
 
               vm.isSearching = false;
@@ -217,6 +206,10 @@ const QueryParamSelectorComponent = {
        */
       vm.sortResultsBy = (list, sortOn) => {
         vm.searchResults = sortedResultsBy(list, sortOn);
+      };
+
+      vm.isAddToQueryButtonDisabled = () => {
+        return !vm.searchResults.some(result => result.isSelected);
       };
 
       /**

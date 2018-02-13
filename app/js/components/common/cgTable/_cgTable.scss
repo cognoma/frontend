@@ -12,7 +12,6 @@
 
   &__row {
     background-color: $white;
-    border-top: 1px solid $athens-gray;
 
     &:hover {
       background-color: darken($white, 2%);
@@ -24,6 +23,7 @@
     padding: 15px;
     font-weight: inherit;
     text-align: left;
+    border-top: 1px solid $athens-gray;
 
     &--active {
       color: $font-color--dark;
@@ -42,14 +42,36 @@
     }
   }
 
+  &__heading-cell {
+    align-items: center;
+    display: flex;
+  }
+
+  &__sort-icon {
+    opacity: 0;
+
+    &--active {
+      opacity: 1;
+    }
+
+    &--reverse {
+      transform: rotate(180deg);
+    }
+  }
+
   &__sort-container {
     display: inline-block;
-    width: 50px;
   }
 
   &__no-results {
     margin: 30px 0;
     font-size: $font-size--md;
     text-align: center;
+  }
+
+  &__result-count {
+    margin: 30px 0 10px;
+    font-weight: 500;
+    text-align: right;
   }
 }

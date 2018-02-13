@@ -1,0 +1,36 @@
+@mixin button($bgColor) {
+  color: $white;
+  background: $bgColor;
+
+  &:hover {
+    background-color: darken($bgColor, 5%);
+  }
+
+  &:focus,
+  &:active {
+    background-color: darken($bgColor, 10%);
+  }
+
+  &[disabled] {
+    color: darken($manatee, 15%);
+    background-color: $manatee;
+    cursor: disabled;
+  }
+}
+
+.button {
+  @include button($green);
+  padding: 13px 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  box-shadow: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  &--secondary {
+    @include button($fiord);
+  }
+}

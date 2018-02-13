@@ -1,10 +1,22 @@
 body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
   color: $font-color--dark;
   font-family: 'Rubik', Helvetica, sans-serif;
+  font-size: 14px;
 }
 
 * {
   box-sizing: border-box;
+}
+
+table,
+td {
+  border-spacing: 0;
+  outline: none;
 }
 
 .badge--counter {
@@ -16,10 +28,6 @@ body {
   padding: 0;
 }
 
-.row {
-  margin-right: 0;
-  margin-left: 0;
-}
 .growl-item {
   position: fixed;
   top: 0;
@@ -42,20 +50,6 @@ body {
   overflow: hidden;
 }
 
-.dashboard-column {
-  position: relative;
-  display: block;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  color: $white;
-}
-
-.dashboard-column-header {
-  width: 100%;
-  margin: 0;
-}
-
 /* =======================================================================
   Query Builder
   ========================================================================== */
@@ -66,51 +60,6 @@ body {
   padding: 0;
   margin: 0;
 
-  grid-template-columns: 400px 1fr;
-  grid-template-rows: 80px 1fr;
-}
-
-/* =======================================================================
-  Info Box (tooltip)
- ========================================================================== */
-.info-box {
-  position: relative;
-  display: block;
-  width: 100%;
-  padding: 5px 10px;
-  margin: 0 0 10px 0;
-  color: $white;
-  font-size: 10px;
-  background: rgba($black, 0.25);
-
-  //arrow
-  &:before {
-    position: absolute;
-    top: -10px;
-    left: 20px;
-    width: 0;
-    height: 0;
-    content: '';
-    border-right: 10px solid transparent;
-    border-bottom: 10px solid rgba($black, 0.25);
-    border-left: 10px solid transparent;
-  }
-
-  .glyphicon {
-    padding: 7px 0 0 0;
-    margin: 0;
-  }
-
-  .glyphicon-info-sign {
-    padding-right: 10px;
-    font-size: 16px;
-  }
-
-  .glyphicon-remove-circle {
-    font-size: 12px;
-  }
-}
-
-.info-box-message {
-  display: inline-block;
+  grid-template-columns: 500px 1fr;
+  grid-template-rows: auto 1fr;
 }

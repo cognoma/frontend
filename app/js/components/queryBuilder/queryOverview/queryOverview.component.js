@@ -1,25 +1,37 @@
-const template = require('./queryOverview.tpl.html');
+const template = require("./queryOverview.tpl.html");
 
 const QueryOverviewComponent = {
     template,
     bindings: {
-        'removeParam':  '&',
-    	'mutationsSet': '<',
-    	'diseaseSet':   '<'
+        removeParam: "&",
+        mutationsSet: "<",
+        diseaseSet: "<",
+        user: "="
     },
-    controller: ['$log',function ($log) {
-            'ngInject';
+    controller: [
+        "$log",
+        "QueryBuilderService",
+        function($log, QueryBuilderService) {
+            "ngInject";
 
-            $log = $log.getInstance('QueryOverviewComponent', false);
-            $log.log('');
+            $log = $log.getInstance("QueryOverviewComponent", false);
+            $log.log("");
 
-            // const vm = this;
+            const vm = this;
 
-        
-    }]
-}
+            vm.clickedSubmitQuery = evt => {
+                evt.preventDefault();
+                QueryBuilderService.submitQuery(
+                    vm.diseaseSet,
+                    vm.mutationsSet,
+                    vm.user
+                );
+            };
+        }
+    ]
+};
 
 export default {
-	name: 'queryOverview',
-	obj: QueryOverviewComponent
+    name: "queryOverview",
+    obj: QueryOverviewComponent
 };
