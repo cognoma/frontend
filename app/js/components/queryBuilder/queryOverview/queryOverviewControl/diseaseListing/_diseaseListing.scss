@@ -1,0 +1,48 @@
+.disease-listing {
+  position: relative;
+  padding: 10px 15px;
+  margin: 10px 0;
+  background: rgba($white, 0.05);
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    background: rgba($white, 0.1);
+  }
+
+  &__title {
+    padding-bottom: 0.5em;
+    margin: 0;
+    margin-bottom: 1em;
+    font-size: $font-size--xs;
+    font-weight: 400;
+    border-bottom: 1px solid $font-color--dark;
+  }
+
+  &__summary {
+    justify-content: space-between;
+    display: flex;
+  }
+
+  &__stat {
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  &__loading-icon {
+    display: none;
+    font-size: inherit;
+    animation: rotating 1s infinite linear;
+
+    &--active {
+      display: inline-block;
+    }
+  }
+
+  &__remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    font-size: inherit;
+  }
+}

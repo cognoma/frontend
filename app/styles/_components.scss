@@ -10,8 +10,10 @@
 
 @import '../js/components/queryBuilder/queryOverview/_queryOverview';
 
-// Query Overview Control
 @import '../js/components/queryBuilder/queryOverview/queryOverviewControl/_queryOverviewControl';
 
-// Query Parameter Selector
 @import '../js/components/queryBuilder/queryParamSelector/_queryParamSelector';
+
+@import '../js/components/queryBuilder/queryOverview/queryOverviewControl/diseaseListing/_diseaseListing';
+
+@import '../js/components/queryBuilder/queryOverview/queryOverviewControl/mutationListing/_mutationListing';

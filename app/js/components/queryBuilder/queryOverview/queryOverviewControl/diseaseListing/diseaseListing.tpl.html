@@ -1,28 +1,30 @@
 <div 
-	class="query-overview--control-param disease-listing"
+	class="disease-listing"
 	ng-class="{'data-loading': $ctrl.isLoading}"
 >
-
-  	<span class="query-overview--control-param-title js-test-name">{{$ctrl.disease.name}}</span>
-
-  	<summary class="control-param-summary">
-  		<p class="sample-count">SAMPLES <strong class="js-test-sampleCount">{{$ctrl.disease.samples}}</strong> </p>
-
-  		<p class="sample-positives sample-count--item">
-  			 <span class="material-icons">{{ !$ctrl.disease.isLoading ? 'add_circle_outline' : 'refresh'}}</span> 
-  			 <span ng-if="!$ctrl.disease.isLoading" class="js-test-positives">{{$ctrl.disease.positives}}</span> 
-  		</p>
-
-  		<p class="sample-negatives sample-count--item"> 
-  			<span class="material-icons">{{ !$ctrl.disease.isLoading ? 'remove_circle_outline' : 'refresh'}}</span> 
-  			<span ng-if="!$ctrl.disease.isLoading" class="js-test-negatives">{{$ctrl.disease.negatives}}</span> 
-  		</p>
-  	</summary>
-
-  	<button 
-        class="material-icons query-overview--control__remove" 
-        aria-hidden="true"
-        ng-click="$ctrl.onRemoveParam([$ctrl.disease])"
-    >close</button>
-
+	<h5 class="disease-listing__title js-test-name">{{$ctrl.disease.name}}</h5>
+	<div class="disease-listing__summary">
+    <span class="disease-listing__stat">
+		  Samples: <span class="js-test-sampleCount">{{$ctrl.disease.samples}}</span>
+    </span>
+		<span class="disease-listing__stat">
+			Positives: 
+      <span ng-if="!$ctrl.disease.isLoading" class="js-test-positives">{{$ctrl.disease.positives}}</span> 
+      <span
+        class="material-icons disease-listing__loading-icon"
+        ng-class="{'disease-listing__loading-icon--active': $ctrl.disease.isLoading}">refresh</span>
+		</span>
+		<span class="disease-listing__stat"> 
+			Negatives: 
+      <span ng-if="!$ctrl.disease.isLoading" class="js-test-negatives">{{$ctrl.disease.negatives}}</span> 
+      <span
+        class="material-icons disease-listing__loading-icon"
+        ng-class="{'disease-listing__loading-icon--active': $ctrl.disease.isLoading}">refresh</span>
+		</span>
+	</div>
+  <button 
+      class="material-icons disease-listing__remove" 
+      aria-hidden="true"
+      ng-click="$ctrl.onRemoveParam([$ctrl.disease])"
+  >close</button>
  </div>	  		

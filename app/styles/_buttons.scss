@@ -1,6 +1,7 @@
 @mixin button($bgColor) {
   color: $white;
   background: $bgColor;
+  transition: all 0.2s ease-in-out;
 
   &:hover {
     background-color: darken($bgColor, 5%);
@@ -20,6 +21,7 @@
 
 button,
 .button {
+  font-family: 'Rubik', Helvetica, sans-serif;
   background: none;
   box-shadow: none;
   border: none;
