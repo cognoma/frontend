@@ -84,12 +84,7 @@ function QueryBuilderService(
               type: "success",
               message: `<span class="material-icons" aria-hidden="true">check_circle</span> Classifier #${
                 res.id
-              } submitted!
-                <div class="btn-group" role="group" >
-                    <button type="button" class="button">Review Submission</button>
-                    <button type="button" class="button">View My Classifiers</button>
-                    <button type="button" class="button">Create New Classifier</button>
-                </div>`,
+              } submitted!`,
               config: { ttl: -1 } // stay open until users closes
             });
           },
