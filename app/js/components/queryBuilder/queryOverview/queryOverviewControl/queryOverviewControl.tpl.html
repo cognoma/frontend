@@ -6,20 +6,26 @@
 >
   <h4 class="query-overview-control__title">
 		<span class="js-test-title">
-      Add {{::$ctrl.title}} <small class="query-overview-control__count" ng-if="$ctrl.paramList.length">({{$ctrl.paramList.length}})</small>
+      {{::$ctrl.title}} <span class="query-overview-control__count" ng-if="$ctrl.paramList.length">({{$ctrl.paramList.length}})</span>
     </span>
   </h4>
+  <span
+    class="query-overview-control__subhead"
+    ng-if="!$ctrl.paramList.length"
+  >
+    Click here to begin adding {{::$ctrl.title | lowercase}}
+  </span>
   <div class="query-overview-control__params query-overview-control__params--{{::$ctrl.title.toLowerCase()}}">
   		<mutation-listing
   			ng-if=" $ctrl.listType == 'mutations' "
-  			ng-repeat="gene in $ctrl.paramList"
+  			ng-repeat="gene in $ctrl.paramList | orderBy : 'name' : false"
   			gene="gene"
         on-remove-param="$ctrl.removeParam"
   		></mutation-listing>
 
   		<disease-listing
   			ng-if="$ctrl.listType == 'disease'"
-  			ng-repeat="disease in $ctrl.paramList | orderBy : 'positives' : true "
+  			ng-repeat="disease in $ctrl.paramList | orderBy : 'name' : false "
         disease="disease"
         on-remove-param="$ctrl.removeParam"
   		></disease-listing>

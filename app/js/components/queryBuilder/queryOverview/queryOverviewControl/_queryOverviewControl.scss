@@ -21,6 +21,11 @@
     .query-overview-control__title {
       color: $green;
     }
+
+    &:hover {
+      background: rgba($black, 0.25);
+      border-left: 5px solid $green;
+    }
   }
 
   &__title {
@@ -31,6 +36,12 @@
     &:hover {
       cursor: pointer;
     }
+  }
+
+  &__subhead {
+    margin-top: 0.5em;
+    color: $font-color--medium;
+    font-size: $font-size--xs;
   }
 
   &__count {

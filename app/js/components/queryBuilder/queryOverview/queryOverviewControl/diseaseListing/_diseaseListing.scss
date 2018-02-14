@@ -2,20 +2,17 @@
   position: relative;
   padding: 10px 15px;
   margin: 10px 0;
-  background: rgba($white, 0.05);
+  background: rgba($white, 0.1);
   transition: all 0.1s ease-in-out;
-
-  &:hover {
-    background: rgba($white, 0.1);
-  }
+  cursor: auto;
 
   &__title {
     padding-bottom: 0.5em;
     margin: 0;
     margin-bottom: 1em;
     font-size: $font-size--xs;
-    font-weight: 400;
-    border-bottom: 1px solid $font-color--dark;
+    font-weight: 500;
+    border-bottom: 2px solid rgba($black, 0.2);
   }
 
   &__summary {
@@ -25,7 +22,7 @@
 
   &__stat {
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
   }
 
   &__loading-icon {
@@ -43,6 +40,11 @@
     top: 0;
     right: 0;
     padding: 10px;
+    color: rgba($black, 0.6);
     font-size: inherit;
+
+    &:hover {
+      color: $green;
+    }
   }
 }
