@@ -23,8 +23,8 @@
           Submit
         </button>
       </field>
-      <div class="query-modal__error" ng-show="emailForm.$submitted || emailForm.email.$touched">
-        <span ng-show="emailForm.email.$invalid">This is not a valid email.</span>
+      <div class="query-modal__error">
+        <span ng-show="emailForm.email.$invalid && (emailForm.$submitted || emailForm.email.$touched)">This is not a valid email.</span>
       </div>
     </form>
   </div>
