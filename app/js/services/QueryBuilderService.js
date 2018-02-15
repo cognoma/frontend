@@ -68,6 +68,7 @@ function QueryBuilderService(
               } submitted!`
             });
             $rootScope.$emit('MODAL_CLOSED');
+            $rootScope.$emit('QUERY_SUBMITTED');
           },
           error => {
             console.log(error);
