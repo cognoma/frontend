@@ -1,5 +1,7 @@
 <div class="query-modal" ng-show="$ctrl.isShown">
-  <div class="query-modal__svg" id="mount-be50b195-ed35-485a-a867-cc7bb8393b81"></div>
+  <div class="query-modal__header">
+    <ng-include class="query-modal__svg" src="'images/processing.svg'"></ng-include>
+  </div>
   <div class="query-modal__container">
     <h1>Your analysis is being processed!</h1>
     <p>Processing usually takes 5 to 15 minutes. Enter your email and we will email you a Jupyter Notebook with the results when they're ready.</p>
@@ -14,7 +16,7 @@
           required
         />
         <button
-          class="button button--secondary query-modal__button"
+          class="button query-modal__button"
           ng-click="$ctrl.clickedSubmitEmail($event)"
           ng-disabled="emailForm.$invalid"
         >

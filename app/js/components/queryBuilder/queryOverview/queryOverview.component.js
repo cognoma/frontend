@@ -21,7 +21,7 @@ const QueryOverviewComponent = {
 
             const vm = this;
 
-            vm.isModalShown = false;
+            vm.isModalShown = true;
 
             // Helper function to get the total number of positive or negative samples in a query
             let getTotalsFor = setParam =>
