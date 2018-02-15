@@ -182,7 +182,7 @@ const QueryParamSelectorComponent = {
         $scope.$broadcast("SEARCH_QUERY_CHANGED");
 
         // show all diseases when input is empty
-        if (vm.currentState() !== "disease" && searchQuery.length == 0 && !diseaseSet.legnth) {
+        if (vm.currentState() !== "disease" && searchQuery.length == 0) {
           vm.searchResults = [];
         } else if (vm.currentState() === "mutations") {
           getSearchResults(searchQuery);
