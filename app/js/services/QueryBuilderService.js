@@ -3,7 +3,6 @@ function QueryBuilderService(
   $http,
   AppSettings,
   NotificationService,
-  _,
   $rootScope
 ) {
   "ngInject";
@@ -52,25 +51,6 @@ function QueryBuilderService(
           }
         }
       );
-
-      // Helper function to get the total number of positive or negative samples in a query
-      let getTotalsFor = setParam =>
-        _.reduce(_.pluck(diseases, setParam), (a, b) => a + b);
-
-      function validateClassifier() {
-        let numberPositives = getTotalsFor("positives");
-        let numberNegatives = getTotalsFor("negatives");
-        // 20 positive samples and 20 negative samples
-        if (numberPositives >= 20 && numberNegatives >= 20) {
-          return true;
-        } else {
-          NotificationService.notify({
-            type: "error",
-            message:
-              "You must select at least 1 disease and 1 gene; and the query must have at least 20 positive and 20 negative samples"
-          });
-        }
-      }
 
       function submitClassifier() {
         // parse diseases for just their acronyms
@@ -150,9 +130,7 @@ function QueryBuilderService(
         }
       }
 
-      if (validateClassifier()) {
-        executeSubmission(email);
-      }
+      executeSubmission(email);
     }
   };
 
