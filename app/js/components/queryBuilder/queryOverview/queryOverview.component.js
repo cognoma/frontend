@@ -13,7 +13,8 @@ const QueryOverviewComponent = {
         "QueryBuilderService",
         "_",
         "NotificationService",
-        function($log, QueryBuilderService, _, NotificationService) {
+        "$rootScope",
+        function($log, QueryBuilderService, _, NotificationService, $rootScope) {
             "ngInject";
 
             $log = $log.getInstance("QueryOverviewComponent", false);
@@ -21,7 +22,7 @@ const QueryOverviewComponent = {
 
             const vm = this;
 
-            vm.isModalShown = true;
+            vm.isModalShown = false;
 
             // Helper function to get the total number of positive or negative samples in a query
             let getTotalsFor = setParam =>
@@ -44,7 +45,9 @@ const QueryOverviewComponent = {
 
             vm.clickedSubmitQuery = evt => {
                 evt.preventDefault();
-                if (_validateClassifier()) vm.isModalShown = true;
+                if (_validateClassifier()) {
+                  $rootScope.$emit('MODAL_OPENED');
+                }
             };
         }
     ]

@@ -1,9 +1,6 @@
 <div class="query-modal" ng-show="$ctrl.isShown">
-  <div class="query-modal__header">
-    <ng-include class="query-modal__svg" src="'images/processing.svg'"></ng-include>
-  </div>
   <div class="query-modal__container">
-    <h1>Your analysis is being processed!</h1>
+    <h1>Your query is ready to be processed!</h1>
     <p>Processing usually takes 5 to 15 minutes. Enter your email and we will email you a Jupyter Notebook with the results when they're ready.</p>
     <form name="emailForm" class="query-modal__form" novalidate>
       <field class="query-modal__field">
@@ -31,5 +28,7 @@
   <button 
       class="material-icons query-modal__remove" 
       aria-hidden="true"
+      ng-click="$ctrl.clickedClose($event)"
   >close</button>
+  <ng-include class="query-modal__svg" src="'images/processing.svg'"></ng-include>
 </div>

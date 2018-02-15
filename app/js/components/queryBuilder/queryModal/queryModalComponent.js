@@ -13,7 +13,8 @@ const QueryModalComponent = {
     "$log",
     "QueryBuilderService",
     "$rootScope",
-    function($log, QueryBuilderService, $rootScope) {
+    "$document",
+    function($log, QueryBuilderService, $rootScope, $document) {
       "ngInject";
 
       $log = $log.getInstance("queryModalComponent", false);
@@ -22,6 +23,16 @@ const QueryModalComponent = {
       const vm = this;
 
       vm.email = '';
+
+      function _closedModal() {
+        vm.isShown = false;
+        $document[0].body.classList.remove('query-modal__overlay');
+      }
+
+      function _openedModal() {
+        vm.isShown = true;
+        $document[0].body.classList.add('query-modal__overlay');
+      }
 
       vm.clickedSubmitEmail = evt => {
         evt.preventDefault();
@@ -33,8 +44,17 @@ const QueryModalComponent = {
         );
       };
 
+      vm.clickedClose = evt => {
+        evt.preventDefault();
+        _closedModal();
+      }
+
       $rootScope.$on("MODAL_CLOSED", () => {
-        vm.isShown = false;
+        _closedModal();
+      });
+
+      $rootScope.$on("MODAL_OPENED", () => {
+        _openedModal();
       });
     }
   ]
