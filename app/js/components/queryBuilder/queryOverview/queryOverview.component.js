@@ -19,13 +19,11 @@ const QueryOverviewComponent = {
 
             const vm = this;
 
+            vm.isModalShown = false;
+
             vm.clickedSubmitQuery = evt => {
                 evt.preventDefault();
-                QueryBuilderService.submitQuery(
-                    vm.diseaseSet,
-                    vm.mutationsSet,
-                    vm.user
-                );
+                vm.isModalShown = true;
             };
         }
     ]

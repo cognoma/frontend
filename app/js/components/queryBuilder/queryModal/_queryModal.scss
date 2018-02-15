@@ -1,0 +1,52 @@
+.query-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 10;
+  width: 80vh;
+  height: 80vh;
+  min-width: 685px;
+  background: $white;
+  transform: translate(-50%, -50%);
+
+  &__svg {
+    justify-content: center;
+    display: flex;
+    padding: 10px;
+    background: $background--dark;
+  }
+
+  &__container {
+    width: 90%;
+    padding: 50px;
+    margin: 0 auto;
+    color: $font-color--dark;
+    text-align: center;
+  }
+
+  &__form {
+    text-align: left;
+  }
+
+  &__field {
+    display: flex;
+    margin-top: 40px;
+  }
+
+  &__remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    color: $white;
+  }
+
+  &__button {
+    min-width: 30%;
+  }
+
+  &__error {
+    margin: 0.5em 0;
+    color: $red;
+  }
+}

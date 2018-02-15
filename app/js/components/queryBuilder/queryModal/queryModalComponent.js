@@ -2,13 +2,40 @@ const template = require("./queryModal.tpl.html");
 
 const QueryModalComponent = {
   template,
-  bindings: {},
+  bindings: {
+      removeParam: "<",
+      mutationsSet: "<",
+      diseaseSet: "<",
+      user: "=",
+      isShown: "="
+  },
   controller: [
     "$log",
-    function($log) {
+    "QueryBuilderService",
+    "$rootScope",
+    function($log, QueryBuilderService, $rootScope) {
       "ngInject";
-      $log = $log.getInstance("QueryModalComponent", true);
+
+      $log = $log.getInstance("queryModalComponent", false);
       $log.log("");
+
+      const vm = this;
+
+      vm.email = '';
+
+      vm.clickedSubmitEmail = evt => {
+        evt.preventDefault();
+        QueryBuilderService.submitQuery(
+            vm.diseaseSet,
+            vm.mutationsSet,
+            vm.user,
+            vm.email
+        );
+      };
+
+      $rootScope.$on("MODAL_CLOSED", () => {
+        vm.isShown = false;
+      });
     }
   ]
 };

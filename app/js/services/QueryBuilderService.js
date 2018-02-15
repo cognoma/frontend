@@ -3,7 +3,8 @@ function QueryBuilderService(
   $http,
   AppSettings,
   NotificationService,
-  _
+  _,
+  $rootScope
 ) {
   "ngInject";
 
@@ -15,7 +16,7 @@ function QueryBuilderService(
   const IGNORE_EXISTING_EMAIL = true;
 
   const service = {
-    submitQuery: function(diseases = [], genes = [], user) {
+    submitQuery: function(diseases = [], genes = [], user, email) {
       if (user === null || user === undefined) {
         NotificationService.notify({
           type: "error",
@@ -84,9 +85,9 @@ function QueryBuilderService(
               type: "success",
               message: `<span class="material-icons" aria-hidden="true">check_circle</span> Classifier #${
                 res.id
-              } submitted!`,
-              config: { ttl: -1 } // stay open until users closes
+              } submitted!`
             });
+            $rootScope.$emit('MODAL_CLOSED');
           },
           error => {
             console.log(error);
@@ -98,17 +99,17 @@ function QueryBuilderService(
         );
       }
 
-      function executeSubmission() {
+      function executeSubmission(email) {
         if (
           user.email === null ||
           user.email === undefined ||
           IGNORE_EXISTING_EMAIL
         ) {
           // update email
-          let email = prompt(
+          /*let email = prompt(
             "Enter your email address to receive your classifier:"
           );
-
+*/
           function validateEmail(email) {
             const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
@@ -127,11 +128,6 @@ function QueryBuilderService(
               }
             }).then(
               function successCallback() {
-                NotificationService.notify({
-                  type: "success",
-                  message: `<span class="material-icons" aria-hidden="true">check_circle</span> Email updated!`,
-                  config: { ttl: -1 } // stay open until users closes
-                });
                 submitClassifier();
               },
               function errorCallback(error) {
@@ -155,7 +151,7 @@ function QueryBuilderService(
       }
 
       if (validateClassifier()) {
-        executeSubmission();
+        executeSubmission(email);
       }
     }
   };
