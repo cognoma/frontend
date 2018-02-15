@@ -17,7 +17,8 @@ const AppComponent = {
 
                 NotificationService.notify({
                     type:    'success',
-                    message: `Logged in as <strong>${authenticatedUser.name}</strong>`
+                    message: `Logged in as <strong>${authenticatedUser.name}</strong>`,
+                    isDismissable: true
                 });
             });
 
