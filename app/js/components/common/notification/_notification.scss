@@ -1,0 +1,26 @@
+.notification {
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  width: 100%;
+  padding: 15px 20px;
+  font-weight: 400;
+  background: $background--light;
+
+  &__close {
+    color: inherit;
+  }
+
+  &--success {
+    color: darken($alert--success, 50%);
+    background: $alert--success;
+  }
+
+  &--error {
+    color: darken($alert--error, 50%);
+    background: $alert--error;
+  }
+}

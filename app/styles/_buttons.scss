@@ -18,6 +18,15 @@
   }
 }
 
+button,
+.button {
+  background: none;
+  box-shadow: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
 .button {
   @include button($green);
   padding: 13px 25px;
@@ -25,10 +34,6 @@
   font-weight: 500;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  box-shadow: none;
-  border: none;
-  outline: none;
-  cursor: pointer;
 
   &--secondary {
     @include button($fiord);
