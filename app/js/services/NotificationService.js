@@ -1,26 +1,24 @@
-function NotificationService($window, $log, growl) {
-  'ngInject';
-  $log = $log.getInstance('NotificationService', true);
-  $log.log('');
+function NotificationService($log, $rootScope) {
+  "ngInject";
+  $log = $log.getInstance("NotificationService", true);
+  $log.log("");
 
-  const service = {
-    enabled: true, 
-    disable:()=>{  service.enabled = false; },
-  	notify:function(args){
-      
-      let settings = angular.extend({}, {show:true, config:{}},args);
-  		if(service.enabled && settings.show) growl[settings.type](settings.message, settings.config);
+  const service = {};
 
-    }
+  /**
+   * Component calls this function to emit a global event that trigger a global notification
+   * @param  {object} args - An object of notification properties
+   *              | - {string} type - type of notification (i.e. "success")
+   *              | - {string} message - message of notification, can contain HTML
+   */
+  service.notify = args => {
+    $rootScope.$emit("TRIGGERED_NOTIFICATION", args);
   };
-  
-  
-  
-  return service;
 
+  return service;
 }
 
 export default {
-  name: 'NotificationService',
-  fn: 	NotificationService
+  name: "NotificationService",
+  fn: NotificationService
 };

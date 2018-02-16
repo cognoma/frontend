@@ -109,9 +109,6 @@ const QueryBuilderComponent = {
             vm[`${vm.currentState()}Set`] = paramSet;
 
             vm._updateDiseaseListingsCounts();
-
-            if (vm[`${vm.currentState()}Set`].length > 3)
-              vm.progressBar.advance(false);
           }
         });
 

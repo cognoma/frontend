@@ -1,10 +1,9 @@
 .cg-navbar {
+  display: block;
+  width: 100%;
   padding: 10px 20px;
   margin: 0;
   background: $background--dark;
-
-  grid-column: 1 / end;
-  grid-row: 1 / 2;
 
   &__list {
     align-items: center;
@@ -30,6 +29,12 @@
     font-weight: 300;
     letter-spacing: 2px;
     text-transform: uppercase;
+  }
+
+  &__subtitle {
+    padding-left: 2px;
+    margin: 0;
+    color: $white;
   }
 
   .svg-cognoma-logo {

@@ -5,19 +5,13 @@ function OnConfig(
   $compileProvider,
   $httpProvider,
   $resourceProvider,
-  $provide,
-  growlProvider
+  $provide
 ) {
   "ngInject";
 
   if (process.env.NODE_ENV === "production") {
     $compileProvider.debugInfoEnabled(false);
   }
-
-  growlProvider
-    .onlyUniqueMessages(true)
-    .globalDisableCountDown(true)
-    .globalTimeToLive(3000);
 
   //activate LogDecorator for $log
   require("./utils/logging/LogDecorator.js")($provide);
@@ -33,7 +27,7 @@ function OnConfig(
 
   // TODO: possibly separate queryBuilder functionality into it's own app
   $urlRouterProvider.when("/query-builder", "/query-builder/mutations");
-  $urlRouterProvider.when("/", "/query-builder/mutations");
+  $urlRouterProvider.when("/", "/home");
 
   $stateProvider
     .state({
@@ -42,16 +36,21 @@ function OnConfig(
       template: `<app id="app" class="row"></app>`
     })
     .state({
+      name: "app.home",
+      url: "home",
+      template: `<home class="home" />`
+    })
+    .state({
       name: "app.queryBuilder",
       title: "Query Builder:",
       url: "query-builder",
       template: `<query-builder 
-                        id="query-builder" 
-                        class="query-builder"
-                        mutations-set="$ctrl.STATE.query.mutations"
-                        disease-set="$ctrl.STATE.query.diseases"
-                        user="$ctrl.STATE.user"
-                   />`,
+                    id="query-builder" 
+                    class="query-builder"
+                    mutations-set="$ctrl.STATE.query.mutations"
+                    disease-set="$ctrl.STATE.query.diseases"
+                    user="$ctrl.STATE.user"
+                />`,
       redirectTo: "/query-builder/mutations"
     })
     .state({
@@ -70,20 +69,19 @@ function OnConfig(
       views: {
         queryOverview: {
           template: `<query-overview 
-                                                mutations-set="$ctrl.mutationsSet" 
-                                                disease-set="$ctrl.diseaseSet"
-                                                remove-param="$ctrl.removeParamFromQuery({id, paramRef,paramType})"
-                                                user="$ctrl.user"
-                                            />`
+                        mutations-set="$ctrl.mutationsSet" 
+                        disease-set="$ctrl.diseaseSet"
+                        remove-param="$ctrl.removeParamFromQuery({id, paramRef,paramType})"
+                        user="$ctrl.user"
+                    />`
         },
-
         queryParamSelector: {
           template: `<query-param-selector 
-                                                disease-set="$ctrl.diseaseSet"
-                                                mutations-set="$ctrl.mutationsSet" 
-                                                on-change="$ctrl.onInputChange(search)" 
-                                                on-param-select="$ctrl.addParamToQuery(queryParamData)"
-                                          />`
+                        disease-set="$ctrl.diseaseSet"
+                        mutations-set="$ctrl.mutationsSet" 
+                        on-change="$ctrl.onInputChange(search)" 
+                        on-param-select="$ctrl.addParamToQuery(queryParamData)"
+                    />`
         }
       }
     })
@@ -94,26 +92,24 @@ function OnConfig(
       views: {
         queryOverview: {
           template: `<query-overview 
-                                                mutations-set="$ctrl.mutationsSet"
-                                                disease-set="$ctrl.diseaseSet"
-                                                remove-param="$ctrl.removeParamFromQuery({id, paramRef, paramType})"
-                                                user="$ctrl.user"
-                                           />`
+                        mutations-set="$ctrl.mutationsSet"
+                        disease-set="$ctrl.diseaseSet"
+                        user="$ctrl.user"
+                    />`
         },
-
         queryParamSelector: {
           template: `<query-param-selector 
-                                                disease-set="$ctrl.diseaseSet"
-                                                mutations-set="$ctrl.mutationsSet" 
-                                                on-change="$ctrl.onInputChange(search)" 
-                                                search-results="$ctrl.searchResults" 
-                                                on-param-select="$ctrl.addParamToQuery(queryParamData)"
-                                          />`
+                        disease-set="$ctrl.diseaseSet"
+                        mutations-set="$ctrl.mutationsSet" 
+                        on-change="$ctrl.onInputChange(search)" 
+                        search-results="$ctrl.searchResults" 
+                        on-param-select="$ctrl.addParamToQuery(queryParamData)"
+                    />`
         }
       }
     });
 
-  $urlRouterProvider.otherwise("/");
+  $urlRouterProvider.otherwise("/home");
 }
 
 export default OnConfig;
