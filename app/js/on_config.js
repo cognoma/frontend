@@ -37,7 +37,6 @@ function OnConfig(
     })
     .state({
       name: "app.home",
-      title: "Cognoma",
       url: "home",
       template: `<home class="home" />`
     })
