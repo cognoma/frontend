@@ -23,7 +23,7 @@ const AppComponent = {
               message: `Logged in as <strong>${
                 authenticatedUser.name
               }</strong>`,
-              isDismissable: true
+              isAutoDismiss: true
             });
           });
         });

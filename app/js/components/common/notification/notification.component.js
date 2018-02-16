@@ -21,13 +21,13 @@ const NotificationComponent = {
       };
 
       $rootScope.$on("TRIGGERED_NOTIFICATION", (evt, data) => {
-        const { message, type, isDismissable = false } = data;
+        const { message, type, isAutoDismiss = false } = data;
         $log.log(`triggered: ${type} message=${message}`);
 
         vm.message = message;
         vm.type = type;
 
-        if (isDismissable) {
+        if (isAutoDismiss) {
           $timeout(() => {
             vm.removeNotification();
           }, 5000);
