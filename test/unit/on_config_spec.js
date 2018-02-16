@@ -39,9 +39,9 @@ describe("UNIT: on_config", function() {
         expect($_urlRouterProvider.otherwise).toHaveBeenCalled();
     });
 
-    xit("$urlRouterProvider: should have called registered 5 routes", function() {
-        //Otherwise internally calls when. So, call count of when has to be 5
-        expect($_urlRouterProvider.when.calls.count()).toBe(5);
+    it("$urlRouterProvider: should have called registered 7 routes", function() {
+        //Otherwise internally calls when. So, call count of when has to be 7
+        expect($_urlRouterProvider.when.calls.count()).toBe(7);
     });
 
     describe("STATE::", () => {
@@ -137,10 +137,10 @@ describe("UNIT: on_config", function() {
                 expect($_state.current.name).toBe(_state);
             });
 
-            xit("should have 3 views defined", function() {
+            it("should have 2 views defined", function() {
                 goTo(_state);
                 expect($_state.current.views).toBeDefined();
-                expect(Object.keys($_state.current.views).length).toBe(3);
+                expect(Object.keys($_state.current.views).length).toBe(2);
             });
         });
 
@@ -173,10 +173,10 @@ describe("UNIT: on_config", function() {
                 expect($_state.current.name).toBe(_state);
             });
 
-            xit("should have 3 views defined", function() {
+            it("should have 2 views defined", function() {
                 goTo(_state);
                 expect($_state.current.views).toBeDefined();
-                expect(Object.keys($_state.current.views).length).toBe(3);
+                expect(Object.keys($_state.current.views).length).toBe(2);
             });
         });
     }); ///STATES
