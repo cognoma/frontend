@@ -27,8 +27,6 @@ const NotificationComponent = {
         vm.message = message;
         vm.type = type;
 
-        $scope.$apply();
-
         if (isDismissable) {
           $timeout(() => {
             vm.removeNotification();
