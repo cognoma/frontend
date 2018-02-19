@@ -12,7 +12,7 @@
 	<input id="query-param-selector-input"
 		type="text"
 		class="textbox"
-		placeholder="Search {{$ctrl.currentState() === 'mutations' ? 'genes' : 'diseases'}} by name"
+		placeholder="Search {{$ctrl.currentState() === 'mutations' ? 'genes' : 'diseases'}}"
 		ng-change="$ctrl.onInputChange($ctrl.searchQuery)"
 		ng-model="$ctrl.searchQuery"
 		ng-model-options="{debounce: 300}"
@@ -42,7 +42,8 @@
 		is-searching="$ctrl.isSearching"
 		is-filter-disabled="$ctrl.currentState() === 'mutations'"
 	></cg-table>
-	<p ng-if="!$ctrl.searchResults.length && $ctrl.currentState() === 'mutations' && !$ctrl.isSearching">Begin searching to see results</p>
+	<p ng-if="!$ctrl.searchQuery.length && $ctrl.currentState() === 'mutations' && !$ctrl.isSearching">Begin searching to see results.</p>
+	<p ng-if="$ctrl.searchQuery.length && !$ctrl.searchResults.length && $ctrl.currentState() === 'mutations' && !$ctrl.isSearching">No results found.</p>
 </div>
 <div
 	ng-if="$ctrl.activeTab === 'added'"
