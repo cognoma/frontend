@@ -38,7 +38,8 @@ describe("UNIT::component: queryBuilder:", () => {
               entrezgene: 4331,
               name: "MNAT1, CDK activating kinase assembly factor",
               symbol: "MNAT1",
-              taxid: 9606
+              taxid: 9606,
+              isSelected: false
             }
           ],
           diseases: [
@@ -47,21 +48,24 @@ describe("UNIT::component: queryBuilder:", () => {
               name: "adrenocortical cancer",
               positives: 20,
               samples: [],
-              mutationsLoading: false
+              mutationsLoading: false,
+              isSelected: false
             },
             {
               acronym: "BLCA",
               name: "bladder urothelial carcinoma",
               positives: 11,
               samples: [],
-              mutationsLoading: false
+              mutationsLoading: false,
+              isSelected: false
             },
             {
               acronym: "CHOL",
               name: "cholangiocarcinoma",
               positives: 33,
               samples: [],
-              mutationsLoading: false
+              mutationsLoading: false,
+              isSelected: false
             }
           ]
         }
@@ -99,60 +103,18 @@ describe("UNIT::component: queryBuilder:", () => {
     })
   );
 
-  it("clearSet: should clear all items from given setType", () => {
-    ctrl.clearSet({ setType: "mutations" });
-    expect(ctrl.mutationsSet.length).toBe(0);
-  });
-
-  it("should sort the specified set by the passed param name", () => {
-    // rearrange the disease order
-
-    bindings.diseaseSet = [
-      parentScope.STATE.query.diseases[1],
-      parentScope.STATE.query.diseases[2],
-      parentScope.STATE.query.diseases[0]
-    ];
-    ctrl = $componentController(
-      "queryBuilder",
-      { scope: parentScope },
-      bindings
-    );
-
-    expect(ctrl.sortSetOn({ sortOn: "acronym", set: "disease" })).toEqual([
-      {
-        acronym: "ACC",
-        name: "adrenocortical cancer",
-        positives: 20,
-        samples: [],
-        mutationsLoading: false
-      },
-      {
-        acronym: "BLCA",
-        name: "bladder urothelial carcinoma",
-        positives: 11,
-        samples: [],
-        mutationsLoading: false
-      },
-      {
-        acronym: "CHOL",
-        name: "cholangiocarcinoma",
-        positives: 33,
-        samples: [],
-        mutationsLoading: false
-      }
-    ]);
-  });
-
   describe("mutationsSet", () => {
     it("should remove a specified param from the set", () => {
       expect(ctrl.mutationsSet).toEqual(parentScope.STATE.query.mutations);
 
       expect(
-        ctrl.removeParamFromQuery({
-          paramType: "mutations",
-          id: 4331,
-          paramRef: "entrezgene"
-        })
+        ctrl.removeParamsFromQuery([
+          {
+            paramType: "mutations",
+            id: 4331,
+            paramRef: "entrezgene"
+          }
+        ])
       ).toEqual([]);
 
       expect(ctrl.mutationsSet.length).toEqual(0);
@@ -168,12 +130,11 @@ describe("UNIT::component: queryBuilder:", () => {
         name: "inhibitor of CDK, cyclin A1 interacting protein 1",
         symbol: "INCA1",
         taxid: 9606,
-        isSelected: true
+        isSelected: false
       };
 
-      expect(ctrl.addParamToQuery([additionalParam])).toEqual([
-        ...parentScope.STATE.query.mutations,
-        additionalParam
+      expect(ctrl.addParamsToQuery([additionalParam])).toEqual([
+        ...parentScope.STATE.query.mutations
       ]);
 
       expect(ctrl.mutationsSet.length).toEqual(2);
@@ -188,25 +149,32 @@ describe("UNIT::component: queryBuilder:", () => {
     it("should remove a specified param from the set", () => {
       expect(ctrl.diseaseSet).toEqual(parentScope.STATE.query.diseases);
       expect(
-        ctrl.removeParamFromQuery({
-          paramType: "disease",
-          id: "BLCA",
-          paramRef: "acronym"
-        })
+        ctrl.removeParamsFromQuery([
+          {
+            acronym: "BLCA",
+            name: "bladder urothelial carcinoma",
+            positives: 11,
+            samples: [],
+            mutationsLoading: false,
+            isSelected: false
+          }
+        ])
       ).toEqual([
         {
           acronym: "ACC",
           name: "adrenocortical cancer",
           positives: 20,
           samples: [],
-          mutationsLoading: false
+          mutationsLoading: false,
+          isSelected: false
         },
         {
           acronym: "CHOL",
           name: "cholangiocarcinoma",
           positives: 33,
           samples: [],
-          mutationsLoading: false
+          mutationsLoading: false,
+          isSelected: false
         }
       ]);
 
@@ -225,9 +193,8 @@ describe("UNIT::component: queryBuilder:", () => {
         isSelected: true
       };
 
-      expect(ctrl.addParamToQuery([additionalParam])).toEqual([
-        ...parentScope.STATE.query.diseases,
-        additionalParam
+      expect(ctrl.addParamsToQuery([additionalParam])).toEqual([
+        ...parentScope.STATE.query.diseases
       ]);
 
       expect(ctrl.diseaseSet.length).toEqual(4);

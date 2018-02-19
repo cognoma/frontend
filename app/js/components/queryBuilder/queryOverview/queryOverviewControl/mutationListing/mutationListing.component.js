@@ -1,28 +1,29 @@
-const template = require('./mutationListing.tpl.html');
+const template = require("./mutationListing.tpl.html");
 
 const mutationListingComponent = {
     template,
-    
+
     bindings: {
-        'symbol':        '<',
-        'entrezgene':    '<',
-        'onRemoveParam': '&'
+        gene: "<",
+        onRemoveParam: "<"
     },
-    controller: ['$rootScope','$log',function($rootScope, $log){
-            'ngInject';
-             
-             const vm = this;
+    controller: [
+        "$rootScope",
+        "$log",
+        function($rootScope, $log) {
+            "ngInject";
 
-             vm.$onInit = ()=>{
-                $log = $log.getInstance('mutationListingComponent', true);
-                $log.log(`${this.symbol}:`);   
-             }
-             
+            const vm = this;
 
-        }]
-}
+            vm.$onInit = () => {
+                $log = $log.getInstance("mutationListingComponent", true);
+                $log.log(`${this.gene.symbol}:`);
+            };
+        }
+    ]
+};
 
 export default {
-	name: 'mutationListing',
-	obj: mutationListingComponent
+    name: "mutationListing",
+    obj: mutationListingComponent
 };

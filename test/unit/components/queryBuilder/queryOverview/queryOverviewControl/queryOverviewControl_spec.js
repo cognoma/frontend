@@ -65,7 +65,7 @@ describe("UNIT::component: queryOverviewControl:", () => {
                 desc="classify samples by their mutation status in selected genes"
                 list-type="mutations"
                 param-list="mutationsList"
-                remove-param="removeParam({id, paramRef, paramType})"
+                remove-param="removeParam"
               >
               </query-overview-control>
               <query-overview-control
@@ -74,7 +74,7 @@ describe("UNIT::component: queryOverviewControl:", () => {
                 desc="Select Samples to Include in Query by Disease Type"
                 list-type="disease"
                 param-list="diseaseList"
-                remove-param="removeParam({id, paramRef, paramType})"
+                remove-param="removeParam"
                 >
               </query-overview-control >
         `);

@@ -3,7 +3,7 @@ const template = require("./queryOverview.tpl.html");
 const QueryOverviewComponent = {
     template,
     bindings: {
-        removeParam: "&",
+        removeParam: "<",
         mutationsSet: "<",
         diseaseSet: "<",
         user: "="

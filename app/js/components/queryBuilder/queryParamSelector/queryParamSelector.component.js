@@ -4,6 +4,7 @@ const QueryParamSelectorComponent = {
   template,
   bindings: {
     onParamSelect: "&",
+    onParamRemove: "&",
     mutationsSet: "<",
     diseaseSet: "<"
   },
@@ -33,13 +34,19 @@ const QueryParamSelectorComponent = {
 
       const vm = this;
       vm.currentState = () => $state.current.name.split(".")[2];
-      const progressStateName =
-        vm.currentState() == "mutations" ? "genes" : "samples";
+      vm.activeTab = "search";
 
       vm.$onInit = () => {
         vm.searchResults = [];
         vm.searchQuery = "";
         vm.isSearching = false;
+        vm.getAddedSet = () => {
+          if (vm.currentState() === "mutations") {
+            return vm.mutationsSet;
+          } else {
+            return vm.diseaseSet;
+          }
+        };
 
         const _mutationColumns = [
           {
@@ -112,9 +119,10 @@ const QueryParamSelectorComponent = {
           .query(searchQuery, vm.mutationsSet)
           .then(response => {
             $scope.$apply(() => {
-              if (response.length) {
-                vm.searchResults = _filteredSearchResults(response);
-              }
+              vm.searchResults = _filteredSearchResults(
+                response,
+                vm[`${vm.currentState()}Set`]
+              );
 
               vm.isSearching = false;
             });
@@ -124,14 +132,15 @@ const QueryParamSelectorComponent = {
       /**
        * Filter our results so we don't return what's already added to the query
        * @param  {Array} rawSearchResults - array of objects returned from search
+       * @param {Array} addedSet - array of selected objects added to query
        *
-       * @return {Array} array of results filtered by the current state state from the query
+       * @return {Array} array of results filtered by the current state from the query
        */
-      let _filteredSearchResults = rawSearchResults => {
+      let _filteredSearchResults = (rawSearchResults, addedSet) => {
         let comparator = vm.currentState() == "mutations" ? "_id" : "acronym";
         return $filter("notInArrayFilter")(
           rawSearchResults,
-          vm[`${vm.currentState()}Set`],
+          addedSet,
           comparator
         );
       };
@@ -199,33 +208,72 @@ const QueryParamSelectorComponent = {
       };
 
       /**
-       * @param  {Array} list- array of objects to sort
-       * @param  {String} sortOn - object key to sort on
-       *
-       * @return {Array}
+       * Checks to see if add to/remove from query button should be disabled
        */
-      vm.sortResultsBy = (list, sortOn) => {
-        vm.searchResults = sortedResultsBy(list, sortOn);
-      };
-
-      vm.isAddToQueryButtonDisabled = () => {
-        return !vm.searchResults.some(result => result.isSelected);
+      vm.isButtonDisabled = () => {
+        if (vm.activeTab === "search") {
+          return !vm.searchResults.some(result => result.isSelected);
+        } else {
+          return !vm[`${vm.currentState()}Set`].some(
+            result => result.isSelected
+          );
+        }
       };
 
       /**
-       * Sorts an Array in descending order based on teh given key
-       * @param  {Array} list- array of objects to sort
-       * @param  {String} sortOn - object key to sort on
-       *
-       * @return {Array}
+       * Returns appropriate button title based on active tab
+       * @return {string} - button title
        */
-      let sortedResultsBy = (list, sortOn) => {
-        let results = _.assign([], list);
-        let sortedList = _.sortBy(results, sortOn).reverse(); //reverse it to make it a descending list
-
-        return sortedList;
-        // return (isSorted(results, sortedList, sortOn) ? results.reverse() : sortedList);
+      vm.getButtonTitle = () => {
+        if (
+          vm.activeTab === "search" ||
+          !vm[`${vm.currentState()}Set`].length
+        ) {
+          return "Add to query";
+        } else {
+          return "Remove from query";
+        }
       };
+
+      /**
+       * Adds selected results to query and filters out the newly added params from search results
+       * @param  {Array} selectedParams - selected search params to be added
+       */
+      function _clickedAddButton(selectedParams) {
+        const addedParams = vm.onParamSelect({ selectedParams });
+        vm.searchResults = _filteredSearchResults(
+          vm.searchResults,
+          addedParams
+        );
+      }
+
+      /**
+       * Removes selected params from query and refreshes search results
+       * @param  {Array} selectedParams - selected search params to be removed
+       */
+      function _clickedRemoveButton(selectedParams) {
+        const addedParams = vm.onParamRemove({ selectedParams });
+      }
+
+      /**
+       * Calls the remove/add query functions based on active tab
+       */
+      vm.clickedButton = () => {
+        const _params =
+          vm.activeTab === "search"
+            ? vm.searchResults
+            : vm[`${vm.currentState()}Set`];
+        const _selectedParams = _params.filter(param => param.isSelected);
+        if (vm.activeTab === "search") {
+          _clickedAddButton(_selectedParams);
+        } else {
+          _clickedRemoveButton(_selectedParams);
+        }
+      };
+
+      $scope.$on("REMOVED_PARAMS_FROM_QUERY", () => {
+        getSearchResults(vm.searchQuery);
+      });
     }
   ]
 };

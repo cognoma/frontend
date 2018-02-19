@@ -2,27 +2,58 @@
 	<h2>{{$ctrl.currentState()}} Selector</h2>
 	<button
 		class="button button--secondary"
-		ng-click="$ctrl.onParamSelect({queryParamData: $ctrl.searchResults});"
-		ng-disabled="$ctrl.isAddToQueryButtonDisabled()"
+		ng-click="$ctrl.clickedButton()"
+		ng-disabled="$ctrl.isButtonDisabled()"
 	>
-		Add to query
+		{{ $ctrl.getButtonTitle()}}
 	</button>
 </header>
 <div class="query-param-selector__search">
 	<input id="query-param-selector-input"
 		type="text"
 		class="textbox"
-		placeholder="Search {{$ctrl.currentState() === 'mutations' ? 'genes' : 'diseases'}} by name"
+		placeholder="Search {{$ctrl.currentState() === 'mutations' ? 'genes' : 'diseases'}}"
 		ng-change="$ctrl.onInputChange($ctrl.searchQuery)"
 		ng-model="$ctrl.searchQuery"
 		ng-model-options="{debounce: 300}"
 		autofocus="1"
 	/>
 </div>
-<cg-table
-	columns="$ctrl.columns"
-	data="$ctrl.searchResults"
-	search-query="$ctrl.searchQuery"
-	is-searching="$ctrl.isSearching"
-	is-filter-disabled="$ctrl.currentState() === 'mutations'"
-></cg-table>
+<div class="tabs">
+	<button
+		class="tabs__button"
+		ng-click="$ctrl.activeTab = 'search'"
+		ng-class="{'tabs__button--active': $ctrl.activeTab === 'search'}"
+	>Search Results</button>
+	<button
+		class="tabs__button"
+		ng-click="$ctrl.activeTab = 'added'"
+		ng-class="{'tabs__button--active': $ctrl.activeTab === 'added'}"
+	>Added to Query ({{$ctrl.getAddedSet().length}})</button>
+</div>
+<div
+	ng-if="$ctrl.activeTab === 'search'"
+	class="tabs__content"
+>
+	<cg-table
+		columns="$ctrl.columns"
+		data="$ctrl.searchResults"
+		search-query="$ctrl.searchQuery"
+		is-searching="$ctrl.isSearching"
+		is-filter-disabled="$ctrl.currentState() === 'mutations'"
+	></cg-table>
+	<p ng-if="!$ctrl.searchQuery.length && $ctrl.currentState() === 'mutations' && !$ctrl.isSearching">Begin searching to see results.</p>
+	<p ng-if="$ctrl.searchQuery.length && !$ctrl.searchResults.length && $ctrl.currentState() === 'mutations' && !$ctrl.isSearching">No results found.</p>
+</div>
+<div
+	ng-if="$ctrl.activeTab === 'added'"
+	class="tabs__content"
+>
+	<cg-table
+		columns="$ctrl.columns"
+		data="$ctrl.getAddedSet()"
+		search-query="$ctrl.searchQuery"
+		is-searching="$ctrl.isSearching"
+		is-filter-disabled="$ctrl.currentState() === 'mutations'"
+	></cg-table>
+</div>

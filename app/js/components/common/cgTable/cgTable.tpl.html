@@ -1,6 +1,6 @@
 <div
   class="cg-table__result-count"
-  ng-if="!$ctrl.isSearching && $ctrl.filteredSearchResults.length"
+  ng-if="!$ctrl.isSearching && $ctrl.data.length"
 >
   {{ $ctrl.filteredSearchResults.length }} result{{$ctrl.filteredSearchResults.length === 1 ? '' : 's'}}
 </div>
@@ -29,8 +29,7 @@
                         'cg-table__sort-icon--reverse': !$ctrl.sortReverse}"
               class="material-icons cg-table__sort-icon">
               arrow_drop_down
-            </span><!-- 
-            <span ng-class="{'cg-table__sort-icon--active': !$ctrl.sortReverse && column.id === $ctrl.sortType}" class="material-icons cg-table__sort-icon">arrow_drop_up</span> -->
+            </span>
           </span>
         </div>
       </th>
