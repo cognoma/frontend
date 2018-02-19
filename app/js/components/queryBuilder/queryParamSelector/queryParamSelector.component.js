@@ -4,6 +4,7 @@ const QueryParamSelectorComponent = {
   template,
   bindings: {
     onParamSelect: "&",
+    onParamRemove: "&",
     mutationsSet: "<",
     diseaseSet: "<"
   },
@@ -118,12 +119,10 @@ const QueryParamSelectorComponent = {
           .query(searchQuery, vm.mutationsSet)
           .then(response => {
             $scope.$apply(() => {
-              if (response.length) {
-                vm.searchResults = _filteredSearchResults(
-                  response,
-                  vm[`${vm.currentState()}Set`]
-                );
-              }
+              vm.searchResults = _filteredSearchResults(
+                response,
+                vm[`${vm.currentState()}Set`]
+              );
 
               vm.isSearching = false;
             });
@@ -209,46 +208,72 @@ const QueryParamSelectorComponent = {
       };
 
       /**
-       * @param  {Array} list- array of objects to sort
-       * @param  {String} sortOn - object key to sort on
-       *
-       * @return {Array}
+       * Checks to see if add to/remove from query button should be disabled
        */
-      vm.sortResultsBy = (list, sortOn) => {
-        vm.searchResults = sortedResultsBy(list, sortOn);
+      vm.isButtonDisabled = () => {
+        if (vm.activeTab === "search") {
+          return !vm.searchResults.some(result => result.isSelected);
+        } else {
+          return !vm[`${vm.currentState()}Set`].some(
+            result => result.isSelected
+          );
+        }
       };
 
       /**
-       * Checks to see if add to query button should be disabled
+       * Returns appropriate button title based on active tab
+       * @return {string} - button title
        */
-      vm.isAddToQueryButtonDisabled = () => {
-        return !vm.searchResults.some(result => result.isSelected);
+      vm.getButtonTitle = () => {
+        if (
+          vm.activeTab === "search" ||
+          !vm[`${vm.currentState()}Set`].length
+        ) {
+          return "Add to query";
+        } else {
+          return "Remove from query";
+        }
       };
 
       /**
        * Adds selected results to query and filters out the newly added params from search results
-       * @param  {Array} results - search results
+       * @param  {Array} selectedParams - selected search params to be added
        */
-      vm.clickedAddButton = results => {
-        const _selectedResults = results.filter(result => result.isSelected);
-        vm.onParamSelect({ queryParamData: results });
-        vm.searchResults = _filteredSearchResults(results, _selectedResults);
-      };
+      function _clickedAddButton(selectedParams) {
+        const addedParams = vm.onParamSelect({ selectedParams });
+        vm.searchResults = _filteredSearchResults(
+          vm.searchResults,
+          addedParams
+        );
+      }
 
       /**
-       * Sorts an Array in descending order based on teh given key
-       * @param  {Array} list- array of objects to sort
-       * @param  {String} sortOn - object key to sort on
-       *
-       * @return {Array}
+       * Removes selected params from query and refreshes search results
+       * @param  {Array} selectedParams - selected search params to be removed
        */
-      let sortedResultsBy = (list, sortOn) => {
-        let results = _.assign([], list);
-        let sortedList = _.sortBy(results, sortOn).reverse(); //reverse it to make it a descending list
+      function _clickedRemoveButton(selectedParams) {
+        const addedParams = vm.onParamRemove({ selectedParams });
+      }
 
-        return sortedList;
-        // return (isSorted(results, sortedList, sortOn) ? results.reverse() : sortedList);
+      /**
+       * Calls the remove/add query functions based on active tab
+       */
+      vm.clickedButton = () => {
+        const _params =
+          vm.activeTab === "search"
+            ? vm.searchResults
+            : vm[`${vm.currentState()}Set`];
+        const _selectedParams = _params.filter(param => param.isSelected);
+        if (vm.activeTab === "search") {
+          _clickedAddButton(_selectedParams);
+        } else {
+          _clickedRemoveButton(_selectedParams);
+        }
       };
+
+      $scope.$on("REMOVED_PARAMS_FROM_QUERY", () => {
+        getSearchResults(vm.searchQuery);
+      });
     }
   ]
 };

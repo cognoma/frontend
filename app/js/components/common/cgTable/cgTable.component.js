@@ -75,6 +75,13 @@ const cgTable = {
       $scope.$on("SEARCH_QUERY_CHANGED", () => {
         _deselectAllResults();
       });
+
+      /**
+       * Listens for REMOVED_PARAMS_FROM_QUERY event broadcast in queryParamSelector.component.js
+       */
+      $scope.$on("REMOVED_PARAMS_FROM_QUERY", () => {
+        _deselectAllResults();
+      });
     }
   ]
 };

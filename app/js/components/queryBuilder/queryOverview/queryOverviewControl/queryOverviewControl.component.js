@@ -1,34 +1,34 @@
-const template = require('./queryOverviewControl.tpl.html');
+const template = require("./queryOverviewControl.tpl.html");
 
 const QueryOverviewControlComponent = {
     template,
-    bindings: {   
-    	'title':       '@',
-        'setTitle':    '@',
-        'desc':        '@',
-        'listType':    '@',
-        'paramList':   '<',
-        'removeParam': '&'
+    bindings: {
+        title: "@",
+        setTitle: "@",
+        desc: "@",
+        listType: "@",
+        paramList: "<",
+        removeParam: "<"
     },
-    controller: ['$state','$log',function ($state, $log) {
-        'ngInject';
+    controller: [
+        "$state",
+        "$log",
+        function($state, $log) {
+            "ngInject";
 
-        $log = $log.getInstance('QueryOverviewControlComponent', false);
-        
-        
-        let vm = this;
+            $log = $log.getInstance("QueryOverviewControlComponent", false);
 
-        vm.$onInit = ()=>{
-            $log.log(vm.title);
-            vm.active = $state.current.name.includes(vm.listType);
+            let vm = this;
+
+            vm.$onInit = () => {
+                $log.log(vm.title);
+                vm.active = $state.current.name.includes(vm.listType);
+            };
         }
-
-
-
-    }]
-}
+    ]
+};
 
 export default {
-	name: 'queryOverviewControl',
-	obj: QueryOverviewControlComponent
+    name: "queryOverviewControl",
+    obj: QueryOverviewControlComponent
 };

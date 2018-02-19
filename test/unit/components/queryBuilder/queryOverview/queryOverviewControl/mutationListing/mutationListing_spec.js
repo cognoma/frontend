@@ -34,8 +34,7 @@ describe("UNIT::component: mutationListing:", () => {
               <mutation-listing
                 ng-if="listType == 'mutations' "
                 ng-repeat="gene in mutationsList"
-                symbol="gene.symbol"
-                entrezgene="gene.entrezgene"
+                gene=gene
                 on-remove-param="removeParam({id, paramRef,paramType})"
               ></mutation-listing>
             </div>
@@ -97,10 +96,6 @@ describe("UNIT::component: mutationListing:", () => {
     );
     removeParamButton.triggerHandler("click");
 
-    expect(parentScope.removeParam).toHaveBeenCalledWith({
-      id: 4331,
-      paramRef: "entrezgene",
-      paramType: "mutations"
-    });
+    expect(parentScope.removeParam).toHaveBeenCalled();
   });
 });
