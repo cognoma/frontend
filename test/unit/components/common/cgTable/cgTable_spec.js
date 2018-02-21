@@ -104,4 +104,11 @@ describe("UNIT::component: cgTable:", () => {
     );
     expect(columnCells.length).toEqual(parentScope.columns.length + 1);
   });
+
+  it("displays the correct amount of rows", () => {
+    let tableRows = angular.element(
+      element[0].querySelectorAll("tbody .cg-table__row")
+    );
+    expect(tableRows.length).toEqual(parentScope.data.length);
+  });
 });
