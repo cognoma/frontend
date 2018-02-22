@@ -1,5 +1,10 @@
 describe("UNIT::component: cgTable:", () => {
-  let $componentController, $sessionStorage, parentScope, element, $_rootScope;
+  let $componentController,
+    $sessionStorage,
+    parentScope,
+    element,
+    controller,
+    $_rootScope;
 
   function findIn(element, selector) {
     return angular.element(element[0].querySelector(selector));
@@ -26,7 +31,8 @@ describe("UNIT::component: cgTable:", () => {
           positives: 0,
           acronym: "ACC",
           name: "adrenocortical cancer",
-          isLoading: false
+          isLoading: false,
+          isSelected: false
         },
         {
           samples: 390,
@@ -34,7 +40,8 @@ describe("UNIT::component: cgTable:", () => {
           positives: 0,
           acronym: "BLCA",
           name: "bladder urothelial carcinoma",
-          isLoading: false
+          isLoading: false,
+          isSelected: false
         },
         {
           samples: 976,
@@ -42,7 +49,8 @@ describe("UNIT::component: cgTable:", () => {
           positives: 0,
           acronym: "BRCA",
           name: "breast invasive carcinoma",
-          isLoading: false
+          isLoading: false,
+          isSelected: false
         },
         {
           samples: 193,
@@ -50,7 +58,8 @@ describe("UNIT::component: cgTable:", () => {
           positives: 0,
           acronym: "CESC",
           name: "cervical & endocervical cancer",
-          isLoading: false
+          isLoading: false,
+          isSelected: false
         },
         {
           samples: 36,
@@ -58,7 +67,8 @@ describe("UNIT::component: cgTable:", () => {
           positives: 0,
           acronym: "CHOL",
           name: "cholangiocarcinoma",
-          isLoading: false
+          isLoading: false,
+          isSelected: true
         }
       ];
 
@@ -94,21 +104,45 @@ describe("UNIT::component: cgTable:", () => {
 
       $compile(element)(parentScope);
 
+      controller = element.controller("cgTable");
+
       parentScope.$digest();
     })
   );
 
   it("displays the correct amount of columns", () => {
-    let columnCells = angular.element(
-      element[0].querySelectorAll(".cg-table__thead-row th")
-    );
+    let columnCells = angular.element(element[0].querySelectorAll("th"));
     expect(columnCells.length).toEqual(parentScope.columns.length + 1);
   });
 
   it("displays the correct amount of rows", () => {
-    let tableRows = angular.element(
-      element[0].querySelectorAll("tbody .cg-table__row")
-    );
+    let tableRows = angular.element(element[0].querySelectorAll("tbody tr"));
     expect(tableRows.length).toEqual(parentScope.data.length);
+  });
+
+  it("detects if all results are selected", () => {
+    expect(controller.areAllResultsSelected()).toBe(false);
+  });
+
+  it("selects all results", () => {
+    controller.selectAllResults(true);
+    const areResultsAllSelected = parentScope.data.every(
+      result => result.isSelected === true
+    );
+    expect(areResultsAllSelected).toBe(true);
+  });
+
+  it("unselects all results", () => {
+    controller.selectAllResults(false);
+    const areResultsAllSelected = parentScope.data.every(
+      result => result.isSelected === true
+    );
+    expect(areResultsAllSelected).toBe(false);
+  });
+
+  it("sets sortType and sortReverse correctly when sorting", () => {
+    controller.sortColumn("Name");
+    expect(controller.sortType).toEqual("Name");
+    expect(controller.sortReverse).toBe(true);
   });
 });

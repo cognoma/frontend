@@ -57,6 +57,7 @@ const cgTable = {
           result => !result.isSelected
         );
         vm.isAllSelected = !notSelectedResults;
+        return vm.isAllSelected;
       };
 
       /**
