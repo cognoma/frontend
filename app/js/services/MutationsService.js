@@ -42,8 +42,8 @@ function MutationsService(
         );
         resolve(results.data.hits);
       });
-    }); //END promise wrapper
-  }; //END service.query
+    }); // END promise wrapper
+  }; // END service.query
 
   return service;
 }

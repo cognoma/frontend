@@ -1,4 +1,4 @@
-function NotificationService($window, $log, $rootScope) {
+function NotificationService($log, $rootScope) {
   "ngInject";
   $log = $log.getInstance("NotificationService", true);
   $log.log("");

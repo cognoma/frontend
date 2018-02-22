@@ -5,21 +5,27 @@ const AppComponent = {
   bindings: {},
   controller: [
     "$rootScope",
+    "$scope"
     "$log",
     "UserAuth",
     "NotificationService",
-    function($rootScope, $log, UserAuth, NotificationService) {
+    function($rootScope, $scope, $log, UserAuth, NotificationService) {
       "ngInject";
       $log = $log.getInstance("AppComponent", false);
       $log.log("");
 
       this.$onInit = () => {
         UserAuth.login().then(authenticatedUser => {
-          this.STATE.user = authenticatedUser;
+          $scope.$apply(() => {
+            this.STATE.user = authenticatedUser;
 
-          NotificationService.notify({
-            type: "success",
-            message: `Logged in as <strong>${authenticatedUser.name}</strong>`
+            NotificationService.notify({
+              type: "success",
+              message: `Logged in as <strong>${
+                authenticatedUser.name
+              }</strong>`,
+              isAutoDismiss: true
+            });
           });
         });
       };

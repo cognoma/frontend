@@ -99,7 +99,7 @@ const ciAdditions = {
 };
 
 module.exports = function(config) {
-  const isCI = process.env.CI && Boolean(process.env.CI_PULL_REQUEST);
+  const isCI = process.env.CI;
   karmaBaseConfig.logLevel = isCI ? config.LOG_DEBUG : config.LOG_ERROR;
 
   config.set(isCI ? Object.assign(karmaBaseConfig, ciAdditions) : karmaBaseConfig);
