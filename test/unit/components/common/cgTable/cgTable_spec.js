@@ -1,26 +1,17 @@
 describe("UNIT::component: cgTable:", () => {
-  let $componentController,
+  let $_componentController,
     $sessionStorage,
     parentScope,
     element,
     controller,
     $_rootScope;
 
-  function findIn(element, selector) {
-    return angular.element(element[0].querySelector(selector));
-  }
-
   beforeEach(angular.mock.module("app"));
   beforeEach(angular.mock.module("app.components"));
 
   beforeEach(
-    inject(function(_$componentController_) {
-      $componentController = _$componentController_;
-    })
-  );
-
-  beforeEach(
-    inject(($compile, $rootScope) => {
+    inject(($componentController, $compile, $rootScope) => {
+      $_componentController = $componentController;
       $_rootScope = $rootScope;
       parentScope = $rootScope.$new();
 
