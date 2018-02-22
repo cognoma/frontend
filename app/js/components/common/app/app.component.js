@@ -5,7 +5,7 @@ const AppComponent = {
   bindings: {},
   controller: [
     "$rootScope",
-    "$scope"
+    "$scope",
     "$log",
     "UserAuth",
     "NotificationService",

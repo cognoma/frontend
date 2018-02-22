@@ -29,12 +29,24 @@ describe("UNIT::component: notification:", () => {
     })
   );
 
-  it("shows notification when triggered by a 'TRIGGERED_NOTIFICATION' $emit event", () => {
+  it("sets correct notification params when triggered by a 'TRIGGERED_NOTIFICATION' $emit event", () => {
+    $_rootScope.$emit("TRIGGERED_NOTIFICATION", {
+      type: "success",
+      message: "This is a success message",
+      isAutoDismiss: true
+    });
+
+    expect(controller.type).toEqual("success");
+    expect(controller.message).toEqual("This is a success message");
+    expect(controller.isAutoDismiss).toBe(true);
+  });
+
+  it("auto dismisses notification if isAutoDismiss property is not set in $emit args", () => {
     $_rootScope.$emit("TRIGGERED_NOTIFICATION", {
       type: "success",
       message: "This is a success message"
     });
 
-    console.log(controller.message);
+    expect(controller.isAutoDismiss).toBe(false);
   });
 });

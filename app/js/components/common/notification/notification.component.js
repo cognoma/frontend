@@ -26,6 +26,7 @@ const NotificationComponent = {
 
         vm.message = message;
         vm.type = type;
+        vm.isAutoDismiss = isAutoDismiss;
 
         if (isAutoDismiss) {
           $timeout(() => {
