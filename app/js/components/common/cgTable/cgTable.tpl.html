@@ -2,7 +2,7 @@
   class="cg-table__result-count"
   ng-if="!$ctrl.isSearching && $ctrl.data.length"
 >
-  {{ $ctrl.filteredSearchResults.length }} results
+  {{ $ctrl.filteredSearchResults.length }} result{{$ctrl.filteredSearchResults.length === 1 ? '' : 's'}}
 </div>
 <table class="cg-table" ng-if="$ctrl.data.length && !$ctrl.isSearching">
   <thead>
