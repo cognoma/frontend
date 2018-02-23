@@ -75,10 +75,17 @@ const QueryBuilderComponent = {
         const addedParams = selectedParams[0].acronym
             ? vm["diseaseSet"]
             : vm["mutationsSet"],
-          comparator = addedParams === "mutationsSet" ? "_id" : "acronym";
+          comparator = selectedParams[0].acronym ? "acronym" : "_id";
 
         selectedParams.forEach(param => {
-          addedParams.splice(_.indexOf(addedParams, param), 1);
+          addedParams.splice(
+            _.indexOf(
+              addedParams,
+              _.findWhere(addedParams, { [comparator]: param[comparator] })
+            ),
+            1
+          );
+
           $log.log(`removeParamFromQuery: ${param.comparator}`);
         });
 

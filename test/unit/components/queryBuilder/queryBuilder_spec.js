@@ -120,6 +120,23 @@ describe("UNIT::component: queryBuilder:", () => {
       expect(ctrl.mutationsSet.length).toEqual(0);
     });
 
+    it("should remove a specified param from the set regardless of currentState", () => {
+      ctrl.currentState = () => "disease";
+      expect(ctrl.mutationsSet).toEqual(parentScope.STATE.query.mutations);
+
+      expect(
+        ctrl.removeParamsFromQuery([
+          {
+            paramType: "mutations",
+            id: 4331,
+            paramRef: "entrezgene"
+          }
+        ])
+      ).toEqual([]);
+
+      expect(ctrl.mutationsSet.length).toEqual(0);
+    });
+
     it("should add a specified param to the set", () => {
       expect(ctrl.mutationsSet).toEqual(parentScope.STATE.query.mutations);
 
@@ -147,6 +164,42 @@ describe("UNIT::component: queryBuilder:", () => {
     });
 
     it("should remove a specified param from the set", () => {
+      expect(ctrl.diseaseSet).toEqual(parentScope.STATE.query.diseases);
+      expect(
+        ctrl.removeParamsFromQuery([
+          {
+            acronym: "BLCA",
+            name: "bladder urothelial carcinoma",
+            positives: 11,
+            samples: [],
+            mutationsLoading: false,
+            isSelected: false
+          }
+        ])
+      ).toEqual([
+        {
+          acronym: "ACC",
+          name: "adrenocortical cancer",
+          positives: 20,
+          samples: [],
+          mutationsLoading: false,
+          isSelected: false
+        },
+        {
+          acronym: "CHOL",
+          name: "cholangiocarcinoma",
+          positives: 33,
+          samples: [],
+          mutationsLoading: false,
+          isSelected: false
+        }
+      ]);
+
+      expect(ctrl.diseaseSet.length).toEqual(2);
+    });
+
+    it("should remove a specified param from the set regardless of currentState", () => {
+      ctrl.currentState = () => "mutations";
       expect(ctrl.diseaseSet).toEqual(parentScope.STATE.query.diseases);
       expect(
         ctrl.removeParamsFromQuery([
