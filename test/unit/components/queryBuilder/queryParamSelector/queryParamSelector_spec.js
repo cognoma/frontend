@@ -7,6 +7,39 @@ describe("UNIT::component: queryParamSelector:", () => {
     $_rootScope,
     $_state;
 
+  const unselectedResults = [
+    {
+      samples: 78,
+      negatives: 78,
+      positives: 0,
+      acronym: "ACC",
+      name: "adrenocortical cancer",
+      isLoading: false,
+      isSelected: false
+    },
+    {
+      samples: 390,
+      negatives: 390,
+      positives: 0,
+      acronym: "BLCA",
+      name: "bladder urothelial carcinoma",
+      isLoading: false,
+      isSelected: false
+    },
+    {
+      samples: 976,
+      negatives: 976,
+      positives: 0,
+      acronym: "BRCA",
+      name: "breast invasive carcinoma",
+      isLoading: false,
+      isSelected: false
+    }
+  ];
+
+  const selectedResults = angular.copy(unselectedResults);
+  selectedResults[0].isSelected = true;
+
   beforeEach(angular.mock.module("app"));
   beforeEach(angular.mock.module("app.components"));
 
@@ -41,137 +74,25 @@ describe("UNIT::component: queryParamSelector:", () => {
   describe("add/remove from query button", () => {
     it("should be disabled when 'Search Results' tab is active and no results are selected", () => {
       controller.activeTab = "search";
-      controller.searchResults = [
-        {
-          samples: 78,
-          negatives: 78,
-          positives: 0,
-          acronym: "ACC",
-          name: "adrenocortical cancer",
-          isLoading: false,
-          isSelected: false
-        },
-        {
-          samples: 390,
-          negatives: 390,
-          positives: 0,
-          acronym: "BLCA",
-          name: "bladder urothelial carcinoma",
-          isLoading: false,
-          isSelected: false
-        },
-        {
-          samples: 976,
-          negatives: 976,
-          positives: 0,
-          acronym: "BRCA",
-          name: "breast invasive carcinoma",
-          isLoading: false,
-          isSelected: false
-        }
-      ];
+      controller.searchResults = unselectedResults;
       expect(controller.isButtonDisabled()).toBe(true);
     });
 
     it("should be enabled when 'Search Results' tab is active and some results are selected", () => {
       controller.activeTab = "search";
-      controller.searchResults = [
-        {
-          samples: 78,
-          negatives: 78,
-          positives: 0,
-          acronym: "ACC",
-          name: "adrenocortical cancer",
-          isLoading: false,
-          isSelected: true
-        },
-        {
-          samples: 390,
-          negatives: 390,
-          positives: 0,
-          acronym: "BLCA",
-          name: "bladder urothelial carcinoma",
-          isLoading: false,
-          isSelected: false
-        },
-        {
-          samples: 976,
-          negatives: 976,
-          positives: 0,
-          acronym: "BRCA",
-          name: "breast invasive carcinoma",
-          isLoading: false,
-          isSelected: false
-        }
-      ];
+      controller.searchResults = selectedResults;
       expect(controller.isButtonDisabled()).toBe(false);
     });
 
     it("should be disabled when 'Added to Query' tab is active and no results are selected", () => {
       controller.activeTab = "added";
-      controller.mutationsSet = [
-        {
-          samples: 78,
-          negatives: 78,
-          positives: 0,
-          acronym: "ACC",
-          name: "adrenocortical cancer",
-          isLoading: false,
-          isSelected: false
-        },
-        {
-          samples: 390,
-          negatives: 390,
-          positives: 0,
-          acronym: "BLCA",
-          name: "bladder urothelial carcinoma",
-          isLoading: false,
-          isSelected: false
-        },
-        {
-          samples: 976,
-          negatives: 976,
-          positives: 0,
-          acronym: "BRCA",
-          name: "breast invasive carcinoma",
-          isLoading: false,
-          isSelected: false
-        }
-      ];
+      controller.mutationsSet = unselectedResults;
       expect(controller.isButtonDisabled()).toBe(true);
     });
 
     it("should be enabled when 'Added to Query' tab is active and some results are selected", () => {
       controller.activeTab = "added";
-      controller.mutationsSet = [
-        {
-          samples: 78,
-          negatives: 78,
-          positives: 0,
-          acronym: "ACC",
-          name: "adrenocortical cancer",
-          isLoading: false,
-          isSelected: true
-        },
-        {
-          samples: 390,
-          negatives: 390,
-          positives: 0,
-          acronym: "BLCA",
-          name: "bladder urothelial carcinoma",
-          isLoading: false,
-          isSelected: false
-        },
-        {
-          samples: 976,
-          negatives: 976,
-          positives: 0,
-          acronym: "BRCA",
-          name: "breast invasive carcinoma",
-          isLoading: false,
-          isSelected: false
-        }
-      ];
+      controller.mutationsSet = selectedResults;
       expect(controller.isButtonDisabled()).toBe(false);
     });
   });
