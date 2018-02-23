@@ -191,41 +191,6 @@ const QueryParamSelectorComponent = {
       };
 
       /**
-       * @param  {Object} queryParam - mutation or DiseaseModel
-       * @return {Array} of objects
-       */
-      vm.removeParamFromSearchResults = queryParam => {
-        let selectedResult = _.assign({}, queryParam),
-          _searchResults = _.assign([], vm.searchResults),
-          resultsIndex = null;
-
-        switch (vm.currentState()) {
-          case "mutations":
-            resultsIndex = _.indexOf(
-              _.pluck(_searchResults, "_id"),
-              selectedResult._id
-            );
-            break;
-
-          case "disease":
-            resultsIndex = _.indexOf(
-              _.pluck(_searchResults, "acronym"),
-              selectedResult.acronym
-            );
-            break;
-        }
-
-        // remove item of search resutls
-        _searchResults = [
-          ..._searchResults.slice(0, resultsIndex),
-          ..._searchResults.slice(resultsIndex + 1)
-        ];
-
-        vm.searchResults = _searchResults;
-        return vm.searchResults;
-      };
-
-      /**
        * Checks to see if add to/remove from query button should be disabled
        */
       vm.isButtonDisabled = () => {
