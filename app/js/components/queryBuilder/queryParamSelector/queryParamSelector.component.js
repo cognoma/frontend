@@ -126,7 +126,6 @@ const QueryParamSelectorComponent = {
                 response,
                 vm[`${vm.currentState()}Set`]
               );
-              console.log(response.length, vm.searchResults.length);
 
               if (vm.currentState() === "disease") {
                 if (vm.searchResults.length) {
