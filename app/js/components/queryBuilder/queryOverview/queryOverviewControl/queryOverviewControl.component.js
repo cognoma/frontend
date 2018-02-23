@@ -8,7 +8,8 @@ const QueryOverviewControlComponent = {
         desc: "@",
         listType: "@",
         paramList: "<",
-        removeParam: "<"
+        removeParam: "<",
+        isCalculating: "<"
     },
     controller: [
         "$state",
