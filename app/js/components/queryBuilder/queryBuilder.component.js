@@ -72,18 +72,13 @@ const QueryBuilderComponent = {
        * @return {Array} - return array of added param objects
        */
       vm.removeParamsFromQuery = selectedParams => {
-        const addedParams = vm[`${vm.currentState()}Set`],
-          comparator = vm.currentState() == "mutations" ? "_id" : "acronym";
+        const addedParams = selectedParams[0].acronym
+            ? vm["diseaseSet"]
+            : vm["mutationsSet"],
+          comparator = addedParams === "mutationsSet" ? "_id" : "acronym";
 
         selectedParams.forEach(param => {
-          addedParams.splice(
-            _.indexOf(
-              addedParams,
-              _.findWhere(addedParams, { [comparator]: param[comparator] })
-            ),
-            1
-          );
-
+          addedParams.splice(_.indexOf(addedParams, param), 1);
           $log.log(`removeParamFromQuery: ${param.comparator}`);
         });
 
