@@ -18,7 +18,7 @@ function OnConfig(
 
   // used for github pages deployments
   $locationProvider.html5Mode({
-    enabled: location.hostname.includes("github.io") ? false : true,
+    enabled: false,
     requireBase: false
   });
 
