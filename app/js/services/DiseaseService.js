@@ -68,11 +68,11 @@ function DiseaseService(
           resolve(diseaseResponse);
         },
         error => {
-          return reject(error);
           NotificationService.notify({
             type: "error",
             message: `Failed to load diseases.`
           });
+          return reject(error);
         }
       );
     }); //end diseasePromise
