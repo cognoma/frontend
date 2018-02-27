@@ -23,6 +23,13 @@
       <div class="query-modal__error">
         <span ng-show="emailForm.email.$invalid && (emailForm.$submitted || emailForm.email.$touched)">This is not a valid email.</span>
       </div>
+      <label>
+        <input
+          type="checkbox"
+          ng-model="$ctrl.isSubscribed"
+        />
+        Subscribe to news and updates from the <a href="https://www.ccdatalab.org/" class="link" target="_blank">Childhood Cancer Data Lab</a>
+      </label>
     </form>
   </div>
   <button 
