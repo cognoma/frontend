@@ -45,15 +45,17 @@ function DiseaseService(
   service.query = (searchQuery, mutationsGenes) => {
     $log.log(`query:${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`);
 
-    let diseasePromise = new Promise((resolve, reject) => {
+    let diseasePromise = () => {
+      let defer = $q.defer();
       if ($localStorage.diseaseData && $localStorage.diseaseData.count) {
         if ($localStorage.diseaseData.count === 0)
-          return reject(`No Disease Types found matching: "${searchQuery}"`);
+          defer.reject(`No Disease Types found matching: "${searchQuery}"`);
         $log.log(
           "fetch disease data from localStorage",
           $localStorage.diseaseData
         );
-        resolve($localStorage.diseaseData);
+        defer.resolve($localStorage.diseaseData);
+        return defer.promise;
       }
 
       $log.log("fetch disease data from DB resource");
@@ -62,10 +64,10 @@ function DiseaseService(
         diseaseResponse => {
           $log.log(`found ${diseaseResponse.count} disease types in DB`);
           if (diseaseResponse.count === 0)
-            return reject(`No Disease Types found matching: "${searchQuery}"`);
+            defer.reject(`No Disease Types found matching: "${searchQuery}"`);
 
           $localStorage.diseaseData = _.assign({}, diseaseResponse);
-          resolve(diseaseResponse);
+          defer.resolve(diseaseResponse);
         },
         error => {
           console.log(error);
@@ -75,9 +77,10 @@ function DiseaseService(
           });
         }
       );
-    }); //end diseasePromise
+      return defer.promise;
+    }; //end diseasePromise
 
-    return diseasePromise
+    return diseasePromise()
       .then(diseaseResponse => {
         let filteredResults = filterFilter(
           diseaseResponse.results,
