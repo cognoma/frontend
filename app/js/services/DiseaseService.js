@@ -26,9 +26,9 @@ function DiseaseService(
 
   // converts raw server response to array Disease Model promises
   // all models will be populated when resolved
-  let _responseTransformer = (serverResponse, mutationsGenes) => {
+  let _responseTransformer = serverResponse => {
     return serverResponse.map(
-      diseaseResponse => new DiseaseModel(diseaseResponse, mutationsGenes)
+      diseaseResponse => new DiseaseModel(diseaseResponse)
     );
   };
 
