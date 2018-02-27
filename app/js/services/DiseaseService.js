@@ -34,7 +34,7 @@ function DiseaseService(
 
   /**
    * Gets all disease resources either from the server or a local storage method
-   * converts them to DiseaseModels which come back as promises in order to allow them to fetch aggregate data
+   * converts them to DiseaseModels
    *
    * @param { String } searchQuery  -  query string passed from user input in QueryBuilder::onInputChange
    * @param { Object } dataSource  -   where to retrieve results from
