@@ -6,7 +6,7 @@
   	<span class="query-overview--control-param-title js-test-name">{{$ctrl.disease.name}}</span>
 
   	<summary class="control-param-summary">
-  		<p class="sample-count">SAMPLES <strong class="js-test-sampleCount"> {{$ctrl.disease.samples.length}}</strong> </p>
+  		<p class="sample-count">SAMPLES <strong class="js-test-sampleCount">{{$ctrl.disease.samples}}</strong> </p>
 
   		<p class="sample-positives sample-count--item">
   			 <span class="material-icons">{{ !$ctrl.disease.isLoading ? 'add_circle_outline' : 'refresh'}}</span> 

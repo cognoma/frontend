@@ -80,17 +80,20 @@ const QueryParamSelectorComponent = {
           {
             name: "Samples",
             id: "samples",
-            isSortable: true
+            isSortable: true,
+            showLoading: true
           },
           {
             name: "Positives",
             id: "positives",
-            isSortable: true
+            isSortable: true,
+            showLoading: true
           },
           {
             name: "Negatives",
             id: "negatives",
-            isSortable: true
+            isSortable: true,
+            showLoading: true
           }
         ];
 
@@ -118,14 +121,24 @@ const QueryParamSelectorComponent = {
         searchServices[vm.currentState()]
           .query(searchQuery, vm.mutationsSet)
           .then(response => {
-            $scope.$apply(() => {
-              vm.searchResults = _filteredSearchResults(
-                response,
-                vm[`${vm.currentState()}Set`]
-              );
+            vm.searchResults = _filteredSearchResults(
+              response,
+              vm[`${vm.currentState()}Set`]
+            );
 
-              vm.isSearching = false;
-            });
+            if (vm.currentState() === "disease") {
+              if (vm.searchResults.length) {
+                vm.searchResults.map(diseaseModel => {
+                  diseaseModel.isLoading = true;
+
+                  diseaseModel.getAggregates(vm.mutationsSet).then(function() {
+                    diseaseModel.isLoading = false;
+                  });
+                });
+              }
+            }
+
+            vm.isSearching = false;
           });
       }
 

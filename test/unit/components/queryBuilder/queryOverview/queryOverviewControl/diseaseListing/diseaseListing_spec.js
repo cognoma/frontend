@@ -26,7 +26,7 @@ describe("UNIT::component: diseaseListing:", () => {
           positives: 16,
           negatives: -15,
           mutationsLoading: false,
-          samples: [{}]
+          samples: 1
         }
       ];
 
@@ -65,7 +65,7 @@ describe("UNIT::component: diseaseListing:", () => {
     let sampleCount_Val = findIn(element, ".js-test-sampleCount").text();
 
     expect(sampleCountEl).toBeDefined();
-    var sampleCount = parentScope.paramList[0].samples.length;
+    var sampleCount = parentScope.paramList[0].samples;
     expect(+sampleCount_Val).toEqual(sampleCount);
   });
 
@@ -74,8 +74,7 @@ describe("UNIT::component: diseaseListing:", () => {
     let negativesCount_Val = findIn(element, ".js-test-negatives").text();
 
     let negs =
-      parentScope.paramList[0].samples.length -
-      parentScope.paramList[0].positives;
+      parentScope.paramList[0].samples - parentScope.paramList[0].positives;
 
     expect(negativesCountEl).toBeDefined();
     expect(+negativesCount_Val).toEqual(negs);

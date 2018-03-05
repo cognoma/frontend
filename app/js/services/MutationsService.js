@@ -15,9 +15,9 @@ function MutationsService(
 
   let endpoint = (geneQuery = "") => {
     let _geneQuery = geneQuery.toUpperCase();
-    return `${
-      AppSettings.api.geneSearch.base
-    }${_geneQuery}&${$httpParamSerializer(AppSettings.api.geneSearch.params)}`;
+    return `${AppSettings.api.geneSearch.base}${
+      _geneQuery.length ? `%20AND%20${_geneQuery}` : ""
+    }&${$httpParamSerializer(AppSettings.api.geneSearch.params)}`;
   };
 
   /**

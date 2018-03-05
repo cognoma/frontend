@@ -107,10 +107,10 @@ const QueryBuilderComponent = {
 
         if (vm.diseaseSet.length) {
           vm.diseaseSet.map(diseaseModel => {
-            diseaseModel.mutationsLoading = true;
+            diseaseModel.isLoading = true;
 
             diseaseModel.getAggregates(vm.mutationsSet).then(function() {
-              diseaseModel.mutationsLoading = false;
+              diseaseModel.isLoading = false;
             });
           }); //END vm.diseaseSet.map
         } //end if
