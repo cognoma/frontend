@@ -4,7 +4,8 @@ describe("UNIT::component: queryOverview:", () => {
   let $state;
   let mutationListings;
   let diseaseListings;
-  var $componentController;
+  let $componentController;
+  let $httpBackend;
 
   function findIn(element, selector) {
     let el = element[0] ? element[0] : element;
@@ -21,7 +22,10 @@ describe("UNIT::component: queryOverview:", () => {
     })
   );
   beforeEach(
-    inject(($compile, $rootScope) => {
+    inject(($compile, $rootScope, _$httpBackend_) => {
+      $httpBackend = _$httpBackend_;
+      $httpBackend.whenGET("images/processing.svg").respond(200, "");
+
       parentScope = $rootScope.$new();
 
       parentScope.removeParamFromQuery = jasmine.createSpy("removeParam");

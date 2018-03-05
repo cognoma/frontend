@@ -4,11 +4,12 @@ const AppComponent = {
   template,
   bindings: {},
   controller: [
+    "$rootScope",
     "$scope",
     "$log",
     "UserAuth",
     "NotificationService",
-    function($scope, $log, UserAuth, NotificationService) {
+    function($rootScope, $scope, $log, UserAuth, NotificationService) {
       "ngInject";
       $log = $log.getInstance("AppComponent", false);
       $log.log("");
@@ -29,7 +30,7 @@ const AppComponent = {
         });
       };
 
-      this.STATE = {
+      const initialState = {
         query: {
           title: "",
           mutations: [],
@@ -37,6 +38,12 @@ const AppComponent = {
         },
         user: {}
       };
+
+      this.STATE = angular.copy(initialState);
+
+      $rootScope.$on("QUERY_SUBMITTED", () => {
+        this.STATE = angular.copy(initialState);
+      });
     }
   ]
 };

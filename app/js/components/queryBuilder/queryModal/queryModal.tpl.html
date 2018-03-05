@@ -1,0 +1,34 @@
+<div class="query-modal" ng-show="$ctrl.isShown">
+  <div class="query-modal__container">
+    <h1>Your query is ready to be processed!</h1>
+    <p>Processing usually takes 5 to 15 minutes. Enter your email and we will email you a Jupyter Notebook with the results when they're ready.</p>
+    <form name="emailForm" class="query-modal__form" novalidate>
+      <field class="query-modal__field">
+        <input
+          class="textbox"
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          ng-model="$ctrl.email"
+          required
+        />
+        <button
+          class="button query-modal__button"
+          ng-click="$ctrl.clickedSubmitEmail($event)"
+          ng-disabled="emailForm.$invalid"
+        >
+          Submit
+        </button>
+      </field>
+      <div class="query-modal__error">
+        <span ng-show="emailForm.email.$invalid && (emailForm.$submitted || emailForm.email.$touched)">This is not a valid email.</span>
+      </div>
+    </form>
+  </div>
+  <button 
+      class="material-icons query-modal__remove" 
+      aria-hidden="true"
+      ng-click="$ctrl.clickedClose($event)"
+  >close</button>
+  <ng-include class="query-modal__svg" src="'images/processing.svg'"></ng-include>
+</div>

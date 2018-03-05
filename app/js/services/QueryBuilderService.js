@@ -3,7 +3,7 @@ function QueryBuilderService(
   $http,
   AppSettings,
   NotificationService,
-  _
+  $rootScope
 ) {
   "ngInject";
 
@@ -15,7 +15,7 @@ function QueryBuilderService(
   const IGNORE_EXISTING_EMAIL = true;
 
   const service = {
-    submitQuery: function(diseases = [], genes = [], user) {
+    submitQuery: function(diseases = [], genes = [], user, email) {
       if (user === null || user === undefined) {
         NotificationService.notify({
           type: "error",
@@ -52,25 +52,6 @@ function QueryBuilderService(
         }
       );
 
-      // Helper function to get the total number of positive or negative samples in a query
-      let getTotalsFor = setParam =>
-        _.reduce(_.pluck(diseases, setParam), (a, b) => a + b);
-
-      function validateClassifier() {
-        let numberPositives = getTotalsFor("positives");
-        let numberNegatives = getTotalsFor("negatives");
-        // 20 positive samples and 20 negative samples
-        if (numberPositives >= 20 && numberNegatives >= 20) {
-          return true;
-        } else {
-          NotificationService.notify({
-            type: "error",
-            message:
-              "You must select at least 1 disease and 1 gene; and the query must have at least 20 positive and 20 negative samples"
-          });
-        }
-      }
-
       function submitClassifier() {
         // parse diseases for just their acronyms
         diseases = diseases.map(diseaseObj => diseaseObj["acronym"]);
@@ -84,14 +65,10 @@ function QueryBuilderService(
               type: "success",
               message: `<span class="material-icons" aria-hidden="true">check_circle</span> Classifier #${
                 res.id
-              } submitted!
-                <div class="btn-group" role="group" >
-                    <button type="button" class="button">Review Submission</button>
-                    <button type="button" class="button">View My Classifiers</button>
-                    <button type="button" class="button">Create New Classifier</button>
-                </div>`,
-              config: { ttl: -1 } // stay open until users closes
+              } submitted!`
             });
+            $rootScope.$emit('MODAL_CLOSED');
+            $rootScope.$emit('QUERY_SUBMITTED');
           },
           error => {
             console.log(error);
@@ -103,17 +80,17 @@ function QueryBuilderService(
         );
       }
 
-      function executeSubmission() {
+      function executeSubmission(email) {
         if (
           user.email === null ||
           user.email === undefined ||
           IGNORE_EXISTING_EMAIL
         ) {
           // update email
-          let email = prompt(
+          /*let email = prompt(
             "Enter your email address to receive your classifier:"
           );
-
+*/
           function validateEmail(email) {
             const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
@@ -132,11 +109,6 @@ function QueryBuilderService(
               }
             }).then(
               function successCallback() {
-                NotificationService.notify({
-                  type: "success",
-                  message: `<span class="material-icons" aria-hidden="true">check_circle</span> Email updated!`,
-                  config: { ttl: -1 } // stay open until users closes
-                });
                 submitClassifier();
               },
               function errorCallback(error) {
@@ -159,9 +131,7 @@ function QueryBuilderService(
         }
       }
 
-      if (validateClassifier()) {
-        executeSubmission();
-      }
+      executeSubmission(email);
     }
   };
 
