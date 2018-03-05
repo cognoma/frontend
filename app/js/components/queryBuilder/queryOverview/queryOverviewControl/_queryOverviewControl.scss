@@ -7,9 +7,11 @@
   font-size: 20px;
   text-align: left;
   border-left: 5px solid transparent;
+  transition: all 0.2s ease-in-out;
 
   &:hover {
     background: rgba($black, 0.15);
+    border-left: 5px solid rgba($green, 0.2);
   }
 
   &--active {
@@ -19,110 +21,40 @@
     .query-overview-control__title {
       color: $green;
     }
-  }
 
-  &__remove {
-    position: absolute;
-    top: 0;
-    right: -10px;
-    z-index: -1;
-    height: 100%;
-    padding-left: 3px;
-    font-size: 11px;
-    background: $white;
-    border: none;
-    border-left: 1px solid $black;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-    outline: none;
-    transition: all 0.25s ease;
-    opacity: 0;
-  }
-}
-
-&__title {
-  position: relative;
-  margin: 5px 0;
-  text-transform: uppercase;
-  &:hover {
-    cursor: pointer;
-  }
-}
-&__count {
-  display: inline-block;
-  color: $white;
-  transform: translateY(-2px);
-}
-
-&__param {
-  position: relative;
-  padding: 3px 5px;
-  margin: 5px 0;
-  color: $black;
-  text-align: center;
-  background: rgba($white, 0.75);
-
-  &:hover {
-    z-index: 100;
-    background: rgba($white, 1);
-    box-shadow: 0 0 5px 0 rgba($black, 0.5);
-    cursor: pointer;
-
-    .query-overview-control__remove {
-      right: -19px;
-      opacity: 1;
+    &:hover {
+      background: rgba($black, 0.25);
+      border-left: 5px solid $green;
     }
   }
-}
-&__param-title {
-  font-weight: bold;
-  text-transform: uppercase;
-}
 
+  &__title {
+    position: relative;
+    margin: 5px 0;
+    font-weight: 400;
 
-&__param-add {
-  height: 25px;
-  padding: 0;
-  margin: 5px 0 5px 15px;
-  color: $white;
-  font-size: 10px;
-  font-weight: normal;
-  text-align: center;
-  background: none;
-  border: 1px dashed $white;
-  outline: none;
-
-
-  &:hover {
-    color: $green;
-    background: none;
-    border: 1px solid $white;
-  }
-}
-
-
-
-.disease-listing {
-  transition: 1s all ease;
-
-  .query-overview-control-param-title {
-    font-size: 12px;
-  }
-  .control-param-summary {
-    font-size: 10px;
-    p {
-      display: inline-block;
-      margin-bottom: 0;
-    }
-    strong {
-      font-size: 12px;
+    &:hover {
+      cursor: pointer;
     }
   }
-}
 
-.sample-count {
-  padding: 0;
-}
-.sample-count--item {
-  padding: 0;
+  &__subhead {
+    margin-top: 0.5em;
+    color: $font-color--medium;
+    font-size: $font-size--xs;
+  }
+
+  &__count {
+    display: inline-block;
+    color: $white;
+  }
+
+  &__params {
+    margin-top: 15px;
+
+    &--mutations {
+      flex-wrap: wrap;
+      display: flex;
+    }
+  }
 }

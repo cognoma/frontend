@@ -128,10 +128,7 @@ describe("UNIT::component: diseaseListing:", () => {
   });
 
   it('should call "removeParam" method on parent component', () => {
-    const removeParamButton = findIn(
-      element,
-      ".query-overview--control__remove"
-    );
+    const removeParamButton = findIn(element, ".disease-listing__remove");
 
     removeParamButton.triggerHandler("click");
 

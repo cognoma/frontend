@@ -99,7 +99,7 @@ describe("UNIT::component: queryOverviewControl:", () => {
       .trim();
     let titleEl = findIn(element, ".js-test-title");
     expect(titleEl).toBeDefined();
-    expect(title_attrVal).toEqual("Add Genes (1)");
+    expect(title_attrVal).toEqual("Genes (1)");
   });
 
   // Attribute: param-list

@@ -10,6 +10,7 @@ body {
   color: $font-color--dark;
   font-family: 'Rubik', Helvetica, sans-serif;
   font-size: 14px;
+  -webkit-font-smoothing: antialiased;
 }
 
 * {

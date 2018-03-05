@@ -238,10 +238,7 @@ const QueryParamSelectorComponent = {
        * @return {string} - button title
        */
       vm.getButtonTitle = () => {
-        if (
-          vm.activeTab === "search" ||
-          !vm[`${vm.currentState()}Set`].length
-        ) {
+        if (vm.activeTab === "search") {
           return "Add to query";
         } else {
           return "Remove from query";

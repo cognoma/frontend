@@ -48,7 +48,7 @@ describe("UNIT::component: mutationListing:", () => {
 
   // Attribute: title
   it("title entrezgene: displays initial state value", () => {
-    let entrezgeneEl = findIn(element, ".query-overview--control-param-title");
+    let entrezgeneEl = findIn(element, ".mutation-listing__title");
     expect(entrezgeneEl).toBeDefined();
     expect(entrezgeneEl.text()).toEqual(parentScope.mutationsList[0].symbol);
   });
@@ -90,10 +90,7 @@ describe("UNIT::component: mutationListing:", () => {
   });
 
   it('should call "removeParam" method on parent component', () => {
-    const removeParamButton = findIn(
-      element,
-      ".query-overview--control__remove"
-    );
+    const removeParamButton = findIn(element, ".mutation-listing__remove");
     removeParamButton.triggerHandler("click");
 
     expect(parentScope.removeParam).toHaveBeenCalled();

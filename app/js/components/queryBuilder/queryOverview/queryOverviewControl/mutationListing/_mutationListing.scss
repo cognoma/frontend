@@ -1,0 +1,28 @@
+.mutation-listing {
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  padding: 0 10px;
+  margin: 5px;
+  background: rgba($white, 0.1);
+  cursor: auto;
+
+  &__title {
+    padding: 5px 0;
+    font-size: $font-size--xs;
+    font-weight: 400;
+    letter-spacing: 2px;
+  }
+
+  &__remove {
+    padding: 0;
+    margin-left: 5px;
+    color: rgba($black, 0.6);
+    font-size: $font-size--sm;
+
+    &:hover {
+      color: $green;
+    }
+  }
+}
