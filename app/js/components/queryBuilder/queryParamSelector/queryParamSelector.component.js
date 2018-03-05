@@ -126,22 +126,19 @@ const QueryParamSelectorComponent = {
               vm[`${vm.currentState()}Set`]
             );
 
-              if (vm.currentState() === "disease") {
-                if (vm.searchResults.length) {
-                  vm.searchResults.map(diseaseModel => {
-                    diseaseModel.isLoading = true;
+            if (vm.currentState() === "disease") {
+              if (vm.searchResults.length) {
+                vm.searchResults.map(diseaseModel => {
+                  diseaseModel.isLoading = true;
 
-                    diseaseModel
-                      .getAggregates(vm.mutationsSet)
-                      .then(function() {
-                        diseaseModel.isLoading = false;
-                      });
+                  diseaseModel.getAggregates(vm.mutationsSet).then(function() {
+                    diseaseModel.isLoading = false;
                   });
-                }
+                });
               }
+            }
 
-              vm.isSearching = false;
-            });
+            vm.isSearching = false;
           });
       }
 
