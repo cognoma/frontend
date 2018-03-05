@@ -121,11 +121,10 @@ const QueryParamSelectorComponent = {
         searchServices[vm.currentState()]
           .query(searchQuery, vm.mutationsSet)
           .then(response => {
-            $scope.$apply(() => {
-              vm.searchResults = _filteredSearchResults(
-                response,
-                vm[`${vm.currentState()}Set`]
-              );
+            vm.searchResults = _filteredSearchResults(
+              response,
+              vm[`${vm.currentState()}Set`]
+            );
 
               if (vm.currentState() === "disease") {
                 if (vm.searchResults.length) {

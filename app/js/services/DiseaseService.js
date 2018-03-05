@@ -26,15 +26,15 @@ function DiseaseService(
 
   // converts raw server response to array Disease Model promises
   // all models will be populated when resolved
-  let _responseTransformer = (serverResponse, mutationsGenes) => {
+  let _responseTransformer = serverResponse => {
     return serverResponse.map(
-      diseaseResponse => new DiseaseModel(diseaseResponse, mutationsGenes)
+      diseaseResponse => new DiseaseModel(diseaseResponse)
     );
   };
 
   /**
    * Gets all disease resources either from the server or a local storage method
-   * converts them to DiseaseModels which come back as promises in order to allow them to fetch aggregate data
+   * converts them to DiseaseModels
    *
    * @param { String } searchQuery  -  query string passed from user input in QueryBuilder::onInputChange
    * @param { Object } dataSource  -   where to retrieve results from
@@ -45,7 +45,7 @@ function DiseaseService(
   service.query = (searchQuery, mutationsGenes) => {
     $log.log(`query:${AppSettings.api.baseUrl}${AppSettings.api.diseases}/`);
 
-    let diseasePromise = new Promise((resolve, reject) => {
+    let diseasePromise = $q((resolve, reject) => {
       if ($localStorage.diseaseData && $localStorage.diseaseData.count) {
         if ($localStorage.diseaseData.count === 0)
           return reject(`No Disease Types found matching: "${searchQuery}"`);
@@ -68,11 +68,11 @@ function DiseaseService(
           resolve(diseaseResponse);
         },
         error => {
-          console.log(error);
           NotificationService.notify({
             type: "error",
             message: `Failed to load diseases.`
           });
+          return reject(error);
         }
       );
     }); //end diseasePromise

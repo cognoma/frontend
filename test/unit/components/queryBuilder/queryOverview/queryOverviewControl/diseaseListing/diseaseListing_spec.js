@@ -65,7 +65,6 @@ describe("UNIT::component: diseaseListing:", () => {
     let sampleCount_Val = findIn(element, ".js-test-sampleCount").text();
 
     expect(sampleCountEl).toBeDefined();
-    console.log(sampleCount_Val);
     var sampleCount = parentScope.paramList[0].samples;
     expect(+sampleCount_Val).toEqual(sampleCount);
   });
