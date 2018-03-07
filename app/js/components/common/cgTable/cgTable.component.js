@@ -44,8 +44,11 @@ const cgTable = {
        * @param  {string} columnId - column id
        */
       vm.sortColumn = columnId => {
-        vm.sortType = columnId;
-        vm.sortReverse = !vm.sortReverse;
+        if (vm.sortType === columnId) {
+          vm.sortReverse = !vm.sortReverse;
+        } else {
+          vm.sortType = columnId;
+        }
       };
 
       /**

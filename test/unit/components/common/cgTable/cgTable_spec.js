@@ -131,9 +131,15 @@ describe("UNIT::component: cgTable:", () => {
     expect(areResultsAllUnselected).toBe(true);
   });
 
-  it("sets sortType and sortReverse correctly when sorting", () => {
-    controller.sortColumn("Name");
-    expect(controller.sortType).toEqual("Name");
+  it("sets sortType and keeps current sort order when sorting by a new column", () => {
+    controller.sortColumn("name");
+    expect(controller.sortType).toEqual("name");
+    expect(controller.sortReverse).toBe(false);
+  });
+
+  it("reverses current sort order when sorting by the currently sorting column", () => {
+    controller.sortColumn("symbol");
+    expect(controller.sortType).toEqual("symbol");
     expect(controller.sortReverse).toBe(true);
   });
 });
