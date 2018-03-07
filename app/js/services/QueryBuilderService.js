@@ -15,7 +15,13 @@ function QueryBuilderService(
   const IGNORE_EXISTING_EMAIL = true;
 
   const service = {
-    submitQuery: function(diseases = [], genes = [], user, email) {
+    submitQuery: function(
+      diseases = [],
+      genes = [],
+      user,
+      email,
+      isMailchimpOptIn
+    ) {
       if (user === null || user === undefined) {
         NotificationService.notify({
           type: "error",
@@ -59,25 +65,27 @@ function QueryBuilderService(
         genes = genes.map(gene => gene["entrezgene"]);
 
         // Submit our query
-        queryResource.submit({ diseases, genes }).$promise.then(
-          res => {
-            NotificationService.notify({
-              type: "success",
-              message: `<span class="material-icons" aria-hidden="true">check_circle</span> Classifier #${
-                res.id
-              } submitted!`
-            });
-            $rootScope.$emit('MODAL_CLOSED');
-            $rootScope.$emit('QUERY_SUBMITTED');
-          },
-          error => {
-            console.log(error);
-            NotificationService.notify({
-              type: "error",
-              message: `Failed to submit classifier. Error: ${error}`
-            });
-          }
-        );
+        queryResource
+          .submit({ diseases, genes, subscribe: isMailchimpOptIn })
+          .$promise.then(
+            res => {
+              NotificationService.notify({
+                type: "success",
+                message: `<span class="material-icons" aria-hidden="true">check_circle</span> Classifier #${
+                  res.id
+                } submitted!`
+              });
+              $rootScope.$emit("MODAL_CLOSED");
+              $rootScope.$emit("QUERY_SUBMITTED");
+            },
+            error => {
+              console.log(error);
+              NotificationService.notify({
+                type: "error",
+                message: `Failed to submit classifier. Error: ${error}`
+              });
+            }
+          );
       }
 
       function executeSubmission(email) {

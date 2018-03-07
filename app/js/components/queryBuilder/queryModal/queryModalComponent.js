@@ -23,6 +23,7 @@ const QueryModalComponent = {
       const vm = this;
 
       vm.email = "";
+      vm.isSubscribed = true;
 
       function _closedModal() {
         vm.isShown = false;
@@ -40,7 +41,8 @@ const QueryModalComponent = {
           vm.diseaseSet,
           vm.mutationsSet,
           vm.user,
-          vm.email
+          vm.email,
+          vm.isSubscribed
         );
       };
 
