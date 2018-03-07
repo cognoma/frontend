@@ -101,12 +101,12 @@ describe("UNIT::component: cgTable:", () => {
     })
   );
 
-  it("displays the correct amount of columns", () => {
+  it("displays the correct number of columns", () => {
     let columnCells = angular.element(element[0].querySelectorAll("th"));
     expect(columnCells.length).toEqual(parentScope.columns.length + 1);
   });
 
-  it("displays the correct amount of rows", () => {
+  it("displays the correct number of rows", () => {
     let tableRows = angular.element(element[0].querySelectorAll("tbody tr"));
     expect(tableRows.length).toEqual(parentScope.data.length);
   });
@@ -125,10 +125,10 @@ describe("UNIT::component: cgTable:", () => {
 
   it("unselects all results", () => {
     controller.selectAllResults(false);
-    const areResultsAllSelected = parentScope.data.every(
-      result => result.isSelected === true
+    const areResultsAllUnselected = parentScope.data.every(
+      result => result.isSelected === false
     );
-    expect(areResultsAllSelected).toBe(false);
+    expect(areResultsAllUnselected).toBe(true);
   });
 
   it("sets sortType and sortReverse correctly when sorting", () => {
