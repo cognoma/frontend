@@ -121,28 +121,24 @@ const QueryParamSelectorComponent = {
         searchServices[vm.currentState()]
           .query(searchQuery, vm.mutationsSet)
           .then(response => {
-            $scope.$apply(() => {
-              vm.searchResults = _filteredSearchResults(
-                response,
-                vm[`${vm.currentState()}Set`]
-              );
+            vm.searchResults = _filteredSearchResults(
+              response,
+              vm[`${vm.currentState()}Set`]
+            );
 
-              if (vm.currentState() === "disease") {
-                if (vm.searchResults.length) {
-                  vm.searchResults.map(diseaseModel => {
-                    diseaseModel.isLoading = true;
+            if (vm.currentState() === "disease") {
+              if (vm.searchResults.length) {
+                vm.searchResults.map(diseaseModel => {
+                  diseaseModel.isLoading = true;
 
-                    diseaseModel
-                      .getAggregates(vm.mutationsSet)
-                      .then(function() {
-                        diseaseModel.isLoading = false;
-                      });
+                  diseaseModel.getAggregates(vm.mutationsSet).then(function() {
+                    diseaseModel.isLoading = false;
                   });
-                }
+                });
               }
+            }
 
-              vm.isSearching = false;
-            });
+            vm.isSearching = false;
           });
       }
 
@@ -187,41 +183,6 @@ const QueryParamSelectorComponent = {
         } else if (vm.currentState() === "mutations") {
           getSearchResults(searchQuery);
         }
-      };
-
-      /**
-       * @param  {Object} queryParam - mutation or DiseaseModel
-       * @return {Array} of objects
-       */
-      vm.removeParamFromSearchResults = queryParam => {
-        let selectedResult = _.assign({}, queryParam),
-          _searchResults = _.assign([], vm.searchResults),
-          resultsIndex = null;
-
-        switch (vm.currentState()) {
-          case "mutations":
-            resultsIndex = _.indexOf(
-              _.pluck(_searchResults, "_id"),
-              selectedResult._id
-            );
-            break;
-
-          case "disease":
-            resultsIndex = _.indexOf(
-              _.pluck(_searchResults, "acronym"),
-              selectedResult.acronym
-            );
-            break;
-        }
-
-        // remove item of search resutls
-        _searchResults = [
-          ..._searchResults.slice(0, resultsIndex),
-          ..._searchResults.slice(resultsIndex + 1)
-        ];
-
-        vm.searchResults = _searchResults;
-        return vm.searchResults;
       };
 
       /**

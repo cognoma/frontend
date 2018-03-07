@@ -10,6 +10,7 @@ function NotificationService($log, $rootScope) {
    * @param  {object} args - An object of notification properties
    *              | - {string} type - type of notification (i.e. "success")
    *              | - {string} message - message of notification, can contain HTML
+   *              | - {boolean} isAutoDismiss (default: false) - does this notification auto dismiss itself?
    */
   service.notify = args => {
     $rootScope.$emit("TRIGGERED_NOTIFICATION", args);

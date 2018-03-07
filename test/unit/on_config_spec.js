@@ -28,9 +28,9 @@ describe("UNIT: on_config", function() {
         angular.mock.inject();
     });
 
-    it("$locationProvider: should set html5 mode with no required <base>", function() {
+    it("$locationProvider: should set html5 mode to false with no required <base>", function() {
         expect($_locationProvider.html5Mode).toHaveBeenCalledWith({
-            enabled: true,
+            enabled: false,
             requireBase: false
         });
     });
@@ -58,8 +58,8 @@ describe("UNIT: on_config", function() {
         });
 
         describe("app", () => {
-            it('should respond to URL "/"', function() {
-                expect($_state.href(_state)).toEqual("/");
+            it('should respond to URL "#!/"', function() {
+                expect($_state.href(_state)).toEqual("#!/");
             });
 
             it("should activate the state", function() {
@@ -79,9 +79,9 @@ describe("UNIT: on_config", function() {
                 _state = "app.queryBuilder";
             });
 
-            it('should respond to URL "/query-builder"', function() {
+            it('should respond to URL "#!/query-builder"', function() {
                 goTo(_state);
-                expect($_state.href(_state)).toEqual("/query-builder");
+                expect($_state.href(_state)).toEqual("#!/query-builder");
             });
 
             it("should have a parent state", function() {
@@ -113,10 +113,10 @@ describe("UNIT: on_config", function() {
                 _state = "app.queryBuilder.mutations";
             });
 
-            it('should respond to URL "/query-builder/mutations"', function() {
+            it('should respond to URL "#!/query-builder/mutations"', function() {
                 goTo(_state);
                 expect($_state.href(_state)).toEqual(
-                    "/query-builder/mutations"
+                    "#!/query-builder/mutations"
                 );
             });
 
@@ -149,10 +149,10 @@ describe("UNIT: on_config", function() {
                 _state = "app.queryBuilder.disease";
             });
 
-            it('should respond to URL "/query-builder/disease-type"', function() {
+            it('should respond to URL "#!/query-builder/disease-type"', function() {
                 goTo(_state);
                 expect($_state.href(_state)).toEqual(
-                    "/query-builder/disease-type"
+                    "#!/query-builder/disease-type"
                 );
             });
 
