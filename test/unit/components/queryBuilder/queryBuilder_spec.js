@@ -120,7 +120,7 @@ describe("UNIT::component: queryBuilder:", () => {
       expect(ctrl.mutationsSet.length).toEqual(0);
     });
 
-    it("should remove a specified param from the set regardless of currentState", () => {
+    it("should remove a mutations param from the set while the currentState is 'disease'", () => {
       ctrl.currentState = () => "disease";
       expect(ctrl.mutationsSet).toEqual(parentScope.STATE.query.mutations);
 
