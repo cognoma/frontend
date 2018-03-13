@@ -39,7 +39,8 @@ describe("UNIT::component: queryBuilder:", () => {
               name: "MNAT1, CDK activating kinase assembly factor",
               symbol: "MNAT1",
               taxid: 9606,
-              isSelected: false
+              isSelected: false,
+              type: "mutations"
             }
           ],
           diseases: [
@@ -49,7 +50,8 @@ describe("UNIT::component: queryBuilder:", () => {
               positives: 20,
               samples: [],
               mutationsLoading: false,
-              isSelected: false
+              isSelected: false,
+              type: "disease"
             },
             {
               acronym: "BLCA",
@@ -57,7 +59,8 @@ describe("UNIT::component: queryBuilder:", () => {
               positives: 11,
               samples: [],
               mutationsLoading: false,
-              isSelected: false
+              isSelected: false,
+              type: "disease"
             },
             {
               acronym: "CHOL",
@@ -65,7 +68,8 @@ describe("UNIT::component: queryBuilder:", () => {
               positives: 33,
               samples: [],
               mutationsLoading: false,
-              isSelected: false
+              isSelected: false,
+              type: "disease"
             }
           ]
         }
@@ -75,11 +79,7 @@ describe("UNIT::component: queryBuilder:", () => {
         mutationsSet: parentScope.STATE.query.mutations,
         diseaseSet: parentScope.STATE.query.diseases,
         currentState: () => "mutations",
-        _updateDiseaseListingsCounts: () => {},
-        progressBar: {
-          advance: () => {},
-          goTo: () => {}
-        }
+        _updateDiseaseListingsCounts: () => {}
       };
 
       ctrl = $componentController(
@@ -105,6 +105,23 @@ describe("UNIT::component: queryBuilder:", () => {
 
   describe("mutationsSet", () => {
     it("should remove a specified param from the set", () => {
+      expect(ctrl.mutationsSet).toEqual(parentScope.STATE.query.mutations);
+
+      expect(
+        ctrl.removeParamsFromQuery([
+          {
+            paramType: "mutations",
+            id: 4331,
+            paramRef: "entrezgene"
+          }
+        ])
+      ).toEqual([]);
+
+      expect(ctrl.mutationsSet.length).toEqual(0);
+    });
+
+    it("should remove a mutations param from the set while the currentState is 'disease'", () => {
+      ctrl.currentState = () => "disease";
       expect(ctrl.mutationsSet).toEqual(parentScope.STATE.query.mutations);
 
       expect(
@@ -156,7 +173,8 @@ describe("UNIT::component: queryBuilder:", () => {
             positives: 11,
             samples: [],
             mutationsLoading: false,
-            isSelected: false
+            isSelected: false,
+            type: "disease"
           }
         ])
       ).toEqual([
@@ -166,7 +184,8 @@ describe("UNIT::component: queryBuilder:", () => {
           positives: 20,
           samples: [],
           mutationsLoading: false,
-          isSelected: false
+          isSelected: false,
+          type: "disease"
         },
         {
           acronym: "CHOL",
@@ -174,7 +193,47 @@ describe("UNIT::component: queryBuilder:", () => {
           positives: 33,
           samples: [],
           mutationsLoading: false,
-          isSelected: false
+          isSelected: false,
+          type: "disease"
+        }
+      ]);
+
+      expect(ctrl.diseaseSet.length).toEqual(2);
+    });
+
+    it("should remove a specified param from the set regardless of currentState", () => {
+      ctrl.currentState = () => "mutations";
+      expect(ctrl.diseaseSet).toEqual(parentScope.STATE.query.diseases);
+      expect(
+        ctrl.removeParamsFromQuery([
+          {
+            acronym: "BLCA",
+            name: "bladder urothelial carcinoma",
+            positives: 11,
+            samples: [],
+            mutationsLoading: false,
+            isSelected: false,
+            type: "disease"
+          }
+        ])
+      ).toEqual([
+        {
+          acronym: "ACC",
+          name: "adrenocortical cancer",
+          positives: 20,
+          samples: [],
+          mutationsLoading: false,
+          isSelected: false,
+          type: "disease"
+        },
+        {
+          acronym: "CHOL",
+          name: "cholangiocarcinoma",
+          positives: 33,
+          samples: [],
+          mutationsLoading: false,
+          isSelected: false,
+          type: "disease"
         }
       ]);
 
