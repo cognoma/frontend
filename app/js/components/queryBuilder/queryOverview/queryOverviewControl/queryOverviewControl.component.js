@@ -4,11 +4,10 @@ const QueryOverviewControlComponent = {
     template,
     bindings: {
         title: "@",
-        setTitle: "@",
-        desc: "@",
         listType: "@",
         paramList: "<",
-        removeParam: "<"
+        removeParam: "<",
+        isCalculating: "<"
     },
     controller: [
         "$state",

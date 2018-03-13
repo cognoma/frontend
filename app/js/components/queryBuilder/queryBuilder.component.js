@@ -72,11 +72,9 @@ const QueryBuilderComponent = {
        * @return {Array} - return array of added param objects
        */
       vm.removeParamsFromQuery = selectedParams => {
-        const addedParams =
-            selectedParams[0].type === "disease"
-              ? vm["diseaseSet"]
-              : vm["mutationsSet"],
-          comparator = selectedParams[0].type === "disease" ? "acronym" : "_id";
+        const paramType = selectedParams[0].type,
+          addedParams = vm[`${paramType}Set`],
+          comparator = paramType === "disease" ? "acronym" : "_id";
 
         selectedParams.forEach(param => {
           addedParams.splice(
@@ -90,7 +88,7 @@ const QueryBuilderComponent = {
           $log.log(`removeParamFromQuery: ${param.comparator}`);
         });
 
-        vm._updateDiseaseListingsCounts();
+        if (paramType === "mutations") vm._updateDiseaseListingsCounts();
 
         $scope.$broadcast("REMOVED_PARAMS_FROM_QUERY");
 

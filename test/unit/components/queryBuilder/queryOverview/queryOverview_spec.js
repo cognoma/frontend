@@ -1,11 +1,12 @@
 describe("UNIT::component: queryOverview:", () => {
-  let parentScope;
-  let element;
-  let $state;
-  let mutationListings;
-  let diseaseListings;
-  let $componentController;
-  let $httpBackend;
+  let parentScope,
+    element,
+    $state,
+    mutationListings,
+    diseaseListings,
+    $componentController,
+    $httpBackend,
+    ctrl;
 
   function findIn(element, selector) {
     let el = element[0] ? element[0] : element;
@@ -63,21 +64,21 @@ describe("UNIT::component: queryOverview:", () => {
           name: "adrenocortical cancer",
           positives: 20,
           samples: [],
-          mutationsLoading: false
+          isLoading: false
         },
         {
           acronym: "BLCA",
           name: "bladder urothelial carcinoma",
           positives: 11,
           samples: [],
-          mutationsLoading: false
+          isLoading: false
         },
         {
           acronym: "CHOL",
           name: "cholangiocarcinoma",
           positives: 33,
           samples: [],
-          mutationsLoading: false
+          isLoading: false
         }
       ];
       element = angular.element(`
@@ -88,6 +89,8 @@ describe("UNIT::component: queryOverview:", () => {
             />
         `);
       $compile(element)(parentScope);
+
+      ctrl = element.isolateScope().$ctrl;
       parentScope.$digest();
 
       mutationListings = angular.element(
@@ -108,8 +111,6 @@ describe("UNIT::component: queryOverview:", () => {
   });
 
   it('should call "removeParamFromQuery" on parent component with given param ', () => {
-    var ctrl = element.isolateScope().$ctrl;
-
     ctrl.removeParam({
       id: 388324,
       paramRef: "entrezgene",
@@ -120,5 +121,10 @@ describe("UNIT::component: queryOverview:", () => {
       paramRef: "entrezgene",
       paramType: "mutations"
     });
+  });
+
+  it("submit query button should be disabled if diseases are still loading mutation calculations", () => {
+    ctrl.diseaseSet[0].isLoading = true;
+    expect(ctrl.areSamplesLoading()).toBe(true);
   });
 });

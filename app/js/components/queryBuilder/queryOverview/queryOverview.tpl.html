@@ -1,8 +1,8 @@
 <div class="query-overview__header">
   <h2>Query Overview</h2>
   <button
-    class="button"
-    ng-disabled="!$ctrl.mutationsSet.length || !$ctrl.diseaseSet.length"
+    class="button js-submit-button"
+    ng-disabled="$ctrl.areSamplesLoading() || !$ctrl.mutationsSet.length || !$ctrl.diseaseSet.length"
     ng-click="$ctrl.clickedSubmitQuery($event)"
   >
     Submit Query
@@ -25,6 +25,7 @@
   list-type="disease"
   param-list="$ctrl.diseaseSet"
   remove-param="$ctrl.removeParam"
+  is-calculating="$ctrl.areSamplesLoading"
   >
 </query-overview-control >
 <query-modal

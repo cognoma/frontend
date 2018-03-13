@@ -35,6 +35,10 @@ const QueryOverviewComponent = {
         return numberPositives >= 20 && numberNegatives >= 20;
       }
 
+      vm.areSamplesLoading = () => {
+        return vm.diseaseSet.some(disease => disease.isLoading === true);
+      };
+
       vm.clickedSubmitQuery = evt => {
         evt.preventDefault();
         if (_validateClassifier()) {
