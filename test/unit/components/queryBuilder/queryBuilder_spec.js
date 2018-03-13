@@ -112,7 +112,8 @@ describe("UNIT::component: queryBuilder:", () => {
           {
             paramType: "mutations",
             id: 4331,
-            paramRef: "entrezgene"
+            paramRef: "entrezgene",
+            type: "mutations"
           }
         ])
       ).toEqual([]);
@@ -129,7 +130,8 @@ describe("UNIT::component: queryBuilder:", () => {
           {
             paramType: "mutations",
             id: 4331,
-            paramRef: "entrezgene"
+            paramRef: "entrezgene",
+            type: "mutations"
           }
         ])
       ).toEqual([]);
