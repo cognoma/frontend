@@ -16,6 +16,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings) {
     this.samples = 0;
     this.negatives = 0;
     this.positives = 0;
+    this.type = "disease";
     return this.build(diseaseResponse, mutationsGenes);
   }
 
