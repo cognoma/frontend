@@ -151,11 +151,11 @@ const QueryParamSelectorComponent = {
        */
       let _filteredSearchResults = (rawSearchResults, addedSet) => {
         let comparator = vm.currentState() == "mutations" ? "_id" : "acronym";
-        return $filter("notInArrayFilter")(
-          rawSearchResults,
-          addedSet,
-          comparator
-        );
+        return rawSearchResults.filter(result => {
+          return !addedSet.some(
+            addedParam => addedParam[comparator] === result[comparator]
+          );
+        });
       };
 
       /** @todo : make angular search service to abstract search functionality */
