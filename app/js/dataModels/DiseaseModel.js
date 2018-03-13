@@ -10,24 +10,23 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings) {
    * Model constructor and initialization
    * @api public
    * @param { Object } diseaseResponse  -  disease result object from server
-   * @param { Array } mutationsGenes  -   array of gene entrezid, queryBuilder user selected genes
    */
-  function DiseaseModel(diseaseResponse, mutationsGenes) {
+  function DiseaseModel(diseaseResponse) {
     this.samples = 0;
     this.negatives = 0;
     this.positives = 0;
-    return this.build(diseaseResponse, mutationsGenes);
+    this.type = "disease";
+    return this.build(diseaseResponse);
   }
 
   /**
-   * Populate model with aggregate data from api
+   * Initializes disease model
    * @api public
    * @param { Object } diseaseResponse  -  disease result object from server
-   * @param { Array } mutationsGenes  -   array of gene entrezid, queryBuilder user selected genes
    *
-   * @return Promise - resolved when all aggregate data has been received and processed
+   * @return initialized disease model object
    */
-  DiseaseModel.prototype.build = function(diseaseResponse, mutationsGenes) {
+  DiseaseModel.prototype.build = function(diseaseResponse) {
     $log.log(`build:${diseaseResponse.acronym}`);
 
     return angular.extend(this, diseaseResponse, {});

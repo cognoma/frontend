@@ -72,7 +72,7 @@ const QueryBuilderComponent = {
        * @return {Array} - return array of added param objects
        */
       vm.removeParamsFromQuery = selectedParams => {
-        const paramType = selectedParams[0].acronym ? "disease" : "mutations",
+        const paramType = selectedParams[0].type,
           addedParams = vm[`${paramType}Set`],
           comparator = paramType === "disease" ? "acronym" : "_id";
 

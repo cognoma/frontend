@@ -40,6 +40,9 @@ function MutationsService(
             results.data.total
           }`
         );
+        results.data.hits.forEach(hit => {
+          hit.type = "mutations";
+        });
         resolve(results.data.hits);
       });
     }); // END promise wrapper
