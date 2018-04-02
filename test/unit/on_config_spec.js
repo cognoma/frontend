@@ -58,6 +58,10 @@ describe('UNIT: on_config', function() {
         });
 
         describe('app', () => {
+            beforeEach(() => {
+                _state = 'app';
+            });
+
             it('should respond to URL "#!/"', function() {
                 expect($_state.href(_state)).toEqual('#!/');
             });
