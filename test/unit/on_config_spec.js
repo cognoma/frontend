@@ -57,7 +57,7 @@ describe('UNIT: on_config', function() {
             });
         });
 
-        describe('app', () => {
+        xdescribe('app', () => {
             beforeEach(() => {
                 _state = 'app';
             });
