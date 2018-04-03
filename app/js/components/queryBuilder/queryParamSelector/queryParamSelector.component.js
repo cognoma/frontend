@@ -241,6 +241,10 @@ const QueryParamSelectorComponent = {
         }
       };
 
+      vm.getSortId = () => {
+        return vm.currentState() == "mutations" ? "_score" : "name";
+      };
+
       $scope.$on("REMOVED_PARAMS_FROM_QUERY", () => {
         getSearchResults(vm.searchQuery);
       });
