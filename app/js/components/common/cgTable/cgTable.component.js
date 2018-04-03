@@ -24,7 +24,7 @@ const cgTable = {
 
       vm.$onInit = () => {
         vm.sortType = vm.sortId || vm.columns[0].id;
-        vm.sortReverse = vm.sortDirection;
+        vm.sortReverse = !!vm.sortDirection ? vm.sortDirection : false;
         vm.isAllSelected = false;
         vm.filteredSearchResults = [];
       };
