@@ -11,7 +11,7 @@ const AppSettings = {
   },
 
   api: {
-    baseUrl: apiEnv.dev,
+    baseUrl: apiEnv.production,
     diseases: "/diseases",
     samples: "/samples",
     users: "/users",
