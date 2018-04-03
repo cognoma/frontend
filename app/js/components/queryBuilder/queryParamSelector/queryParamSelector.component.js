@@ -52,22 +52,17 @@ const QueryParamSelectorComponent = {
           {
             name: "Symbol",
             id: "symbol",
-            isSortable: true
+            isSortable: false
           },
           {
             name: "Name",
             id: "name",
-            isSortable: true
+            isSortable: false
           },
           {
             name: "Entrez ID",
             id: "entrezgene",
-            isSortable: true
-          },
-          {
-            name: "Score",
-            id: "score",
-            isSortable: true
+            isSortable: false
           }
         ];
 
