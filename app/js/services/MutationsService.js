@@ -32,7 +32,7 @@ function MutationsService(
 
     // promise wrapper
     // @todo: handle reject condition
-    return new Promise(resolve => {
+    return $q(resolve => {
       // get all genes and transform then into Gene Models
       return $http.get(endpoint(geneQuery)).then(results => {
         $log.log(
