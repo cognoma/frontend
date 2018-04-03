@@ -42,7 +42,7 @@ const AppComponent = {
       this.STATE = angular.copy(initialState);
 
       $rootScope.$on("QUERY_SUBMITTED", () => {
-        this.STATE = angular.copy(initialState);
+        this.STATE.query = angular.copy(initialState.query);
       });
     }
   ]
