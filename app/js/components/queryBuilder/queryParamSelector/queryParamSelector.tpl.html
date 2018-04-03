@@ -42,6 +42,7 @@
 		is-searching="$ctrl.isSearching"
 		is-filter-disabled="$ctrl.currentState() === 'mutations'"
 		sort-id="$ctrl.getSortId()"
+		sort-direction="$ctrl.getSortDirection()"
 	></cg-table>
 	<p ng-if="!$ctrl.searchQuery.length && $ctrl.currentState() === 'mutations' && !$ctrl.isSearching">Begin searching to see results.</p>
 	<p ng-if="$ctrl.searchQuery.length && !$ctrl.searchResults.length && $ctrl.currentState() === 'mutations' && !$ctrl.isSearching">No results found.</p>

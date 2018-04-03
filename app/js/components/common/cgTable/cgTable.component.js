@@ -8,7 +8,8 @@ const cgTable = {
     isSearching: "=",
     searchQuery: "=",
     isFilterDisabled: "=",
-    sortId: "="
+    sortId: "=",
+    sortDirection: "="
   },
   controller: [
     "$scope",
@@ -23,7 +24,7 @@ const cgTable = {
 
       vm.$onInit = () => {
         vm.sortType = vm.sortId || vm.columns[0].id;
-        vm.sortReverse = false;
+        vm.sortReverse = vm.sortDirection;
         vm.isAllSelected = false;
         vm.filteredSearchResults = [];
       };
