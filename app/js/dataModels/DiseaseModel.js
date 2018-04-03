@@ -1,8 +1,8 @@
 function factoryWrapper($log, _, $q, $timeout, $http, AppSettings) {
-  "ngInject";
+  'ngInject';
 
-  $log = $log.getInstance("DiseaseModel", false);
-  $log.log("");
+  $log = $log.getInstance('DiseaseModel', false);
+  $log.log('');
 
   const API_BASE = `${AppSettings.api.baseUrl}`;
 
@@ -15,7 +15,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings) {
     this.samples = 0;
     this.negatives = 0;
     this.positives = 0;
-    this.type = "disease";
+    this.type = 'disease';
     return this.build(diseaseResponse);
   }
 
@@ -93,11 +93,11 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings) {
   // convenience method to build "&mutations__gene=<entrezID>&mutations__gene=<entrezID>"
   DiseaseModel.prototype._buildMutationsGenesParams = function(mutationsGenes) {
     $log.log(`_buildMutationsGenesParams:${mutationsGenes.length}`);
-    let mutationsGenesParams = "";
+    let mutationsGenesParams = [];
     mutationsGenes.map(gene => {
-      mutationsGenesParams += `&mutations__gene=${gene.entrezgene}`;
+      mutationsGenesParams.push(gene.entrezgene);
     });
-    return mutationsGenesParams;
+    return `&any_mutations=${mutationsGenesParams.join(',')}`;
   };
 
   /**
@@ -111,7 +111,7 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings) {
    * @return {Object} Promise - resolved with model that is fully populated with aggregate data
    */
   DiseaseModel.prototype.getAggregates = function(mutationsGenes) {
-    $log.log("getAggregates:");
+    $log.log('getAggregates:');
 
     let dfd = $q.defer();
 
@@ -132,6 +132,6 @@ function factoryWrapper($log, _, $q, $timeout, $http, AppSettings) {
 } ///END factoryWrapper
 
 export default {
-  name: "DiseaseModel",
+  name: 'DiseaseModel',
   fn: factoryWrapper
 };
