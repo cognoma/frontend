@@ -57,7 +57,7 @@ describe('UNIT: on_config', function() {
             });
         });
 
-        describe('app', () => {
+        xdescribe('app', () => {
             it('should respond to URL "#!/"', function() {
                 expect($_state.href(_state)).toEqual('#!/');
             });
