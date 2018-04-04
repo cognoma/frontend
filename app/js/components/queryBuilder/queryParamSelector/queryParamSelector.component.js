@@ -52,22 +52,17 @@ const QueryParamSelectorComponent = {
           {
             name: "Symbol",
             id: "symbol",
-            isSortable: true
+            isSortable: false
           },
           {
             name: "Name",
             id: "name",
-            isSortable: true
+            isSortable: false
           },
           {
             name: "Entrez ID",
             id: "entrezgene",
-            isSortable: true
-          },
-          {
-            name: "Score",
-            id: "score",
-            isSortable: true
+            isSortable: false
           }
         ];
 
@@ -244,6 +239,14 @@ const QueryParamSelectorComponent = {
         } else {
           _clickedRemoveButton(_selectedParams);
         }
+      };
+
+      vm.getSortId = () => {
+        return vm.currentState() == "mutations" ? "_score" : "name";
+      };
+
+      vm.getSortDirection = () => {
+        return vm.currentState() == "mutations";
       };
 
       $scope.$on("REMOVED_PARAMS_FROM_QUERY", () => {
