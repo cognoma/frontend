@@ -16,16 +16,12 @@ const AppComponent = {
 
       this.$onInit = () => {
         UserAuth.login().then(authenticatedUser => {
-          $scope.$apply(() => {
-            this.STATE.user = authenticatedUser;
+          this.STATE.user = authenticatedUser;
 
-            NotificationService.notify({
-              type: "success",
-              message: `Logged in as <strong>${
-                authenticatedUser.name
-              }</strong>`,
-              isAutoDismiss: true
-            });
+          NotificationService.notify({
+            type: "success",
+            message: `Logged in as <strong>${authenticatedUser.name}</strong>`,
+            isAutoDismiss: true
           });
         });
       };
