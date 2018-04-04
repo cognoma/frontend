@@ -9,7 +9,7 @@ body {
   margin: 0;
   color: $font-color--dark;
   font-family: 'Rubik', Helvetica, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -111,5 +111,13 @@ ui-view {
       width: 100%;
       height: auto;
     }
+  }
+}
+
+.terms {
+  &__container {
+    max-width: 800px;
+    width: 90%;
+    margin: 5rem auto;
   }
 }
