@@ -46,6 +46,11 @@ function OnConfig(
       template: `<terms class="terms" />`
     })
     .state({
+      name: "app.privacy",
+      url: "privacy",
+      template: `<privacy class="terms" />`
+    })
+    .state({
       name: "app.queryBuilder",
       title: "Query Builder:",
       url: "query-builder",
