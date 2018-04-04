@@ -1,8 +1,12 @@
 <ul class="cg-navbar__list">
   <li role="presentation" >
-  	<a class="cg-navbar__link" ui-sref="app" href="#">
+  	<a class="cg-navbar__logo-link" ui-sref="app" href="#">
   		<ng-include class="cg-navbar__logo" src="'images/cognoma-logo.svg'"></ng-include>
       <h1 class="cg-navbar__title">Cognoma</h1>
   	</a>
+  </li>
+  <li class="cg-navbar__links">
+    <a class="link cg-navbar__link" ui-sref="app.terms" href="#">Terms </a>|
+    <a class="link cg-navbar__link" ui-sref="app.privacy" href="#"> Privacy</a>
   </li>
 </ul>
