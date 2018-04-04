@@ -115,9 +115,43 @@ ui-view {
 }
 
 .terms {
+  &__title {
+    font-weight: 500;
+  }
+
   &__container {
-    max-width: 800px;
     width: 90%;
+    max-width: 700px;
     margin: 5rem auto;
+  }
+
+  &__list {
+    padding: 0;
+    margin: 1em 0 0 2rem;
+    font-weight: 400;
+
+    &--bold {
+      padding: 0;
+      margin-left: 1rem;
+      font-weight: 600;
+    }
+  }
+
+  &__caps {
+    text-transform: uppercase;
+  }
+
+  li {
+    margin-bottom: 1em;
+    line-height: 1.6;
+  }
+
+  em {
+    font-style: normal;
+    border-bottom: 1px solid currentColor;
+  }
+
+  p {
+    font-weight: 400;
   }
 }
