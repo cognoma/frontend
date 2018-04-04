@@ -14,7 +14,7 @@
     list-style: none;
   }
 
-  &__link {
+  &__logo-link {
     align-items: center;
     display: flex;
     text-decoration: none;
@@ -29,6 +29,18 @@
     font-weight: 400;
     letter-spacing: 2px;
     text-transform: uppercase;
+  }
+
+  &__link {
+    margin: 0 0.6em;
+    font-size: 0.8rem;
+    border-bottom: none;
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    color: rgba($green, 0.5);
   }
 
   &__subtitle {

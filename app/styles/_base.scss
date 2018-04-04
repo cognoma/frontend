@@ -104,6 +104,13 @@ ui-view {
     text-transform: uppercase;
   }
 
+  &__footer {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    margin: 0;
+  }
+
   &__svg {
     width: 50%;
 
@@ -115,6 +122,9 @@ ui-view {
 }
 
 .terms {
+  display: block;
+  background: $background--light;
+
   &__title {
     font-weight: 500;
   }
@@ -122,7 +132,8 @@ ui-view {
   &__container {
     width: 90%;
     max-width: 700px;
-    margin: 5rem auto;
+    margin: 0 auto;
+    padding: 5rem 0;
   }
 
   &__list {
